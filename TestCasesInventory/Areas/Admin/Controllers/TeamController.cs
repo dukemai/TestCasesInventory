@@ -12,7 +12,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
 
-        protected IPresenter<TeamViewModel> TeamPresenterObject;
+        protected ITeamPresenter TeamPresenterObject;
 
         #endregion
 

@@ -10,6 +10,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Controllers
 {
+    /*
     [Authorize]
     public class ManageController : Web.Common.Base.ControllerBase
     {
@@ -384,4 +385,5 @@ namespace TestCasesInventory.Controllers
 
 #endregion
     }
+     * */
 }

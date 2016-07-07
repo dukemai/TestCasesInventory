@@ -8,12 +8,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface IPresenter<T>
     {
-        #region Methods
-
-        T GetById(int id);
-
-        List<T> ListAll();
-        
-        #endregion
+      
     }
 }

@@ -9,5 +9,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITeamPresenter : IPresenter<TeamViewModel>
     {
+        List<TeamViewModel> ListAll();
     }
 }

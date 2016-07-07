@@ -7,19 +7,38 @@ using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Web.Common.Base;
 
 namespace TestCasesInventory.Controllers
 {
     [Authorize]
-    public class AccountController : Web.Common.Base.ControllerBase
+    public class AccountController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
-        protected IUserPresenter UserPresenter;
-        protected IRegisterPresenter RegisterPresenter;
+        #region Properties
+
+        private IUserPresenter userPresenter;
+
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
+        
+
+        #endregion
+
+        #region Methods
+
         public AccountController()
         {
-            UserPresenter = new UserPresenter();
-            RegisterPresenter = new RegisterUserPresenter(HttpContext);
-        }        
+            
+        }
 
         //
         // GET: /Account/Login
@@ -44,7 +63,7 @@ namespace TestCasesInventory.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await UserPresenter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -60,6 +79,56 @@ namespace TestCasesInventory.Controllers
             }
         }
 
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var result = await UserPresenter.CreateAsync(model);
+                if (result.Succeeded)
+                {
+                    await UserPresenter.PasswordSignInAsync(model.Email, model.Password, false, false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        #endregion
+
+        /*
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -103,43 +172,9 @@ namespace TestCasesInventory.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
+       
 
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+       
 
         //
         // GET: /Account/ConfirmEmail
@@ -404,13 +439,6 @@ namespace TestCasesInventory.Controllers
             }
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -450,5 +478,6 @@ namespace TestCasesInventory.Controllers
             }
         }
         #endregion
+         * */
     }
 }

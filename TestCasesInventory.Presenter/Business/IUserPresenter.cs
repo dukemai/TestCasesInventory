@@ -2,7 +2,7 @@
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public interface IUserPresenter : IPresenter<UserViewModel>
+    public interface IUserPresenter : IPresenter<UserViewModel>, ILoginPresenter, IRegisterPresenter
     {
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory", "TestCasesInventory\TestCasesInventory.csproj", "{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D}"
 EndProject
@@ -13,13 +13,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Presenter", "4.Presenter"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Web.Common", "TestCasesInventory.Web.Common\TestCasesInventory.Web.Common.csproj", "{C2A33D38-20BA-4620-AB8C-1635BEDC1D0D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Data", "4.Data", "{916407E3-9528-4A63-909B-43883172F65B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Data", "3.Data", "{916407E3-9528-4A63-909B-43883172F65B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Data", "TestCasesInventory.Data\TestCasesInventory.Data.csproj", "{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Config", "TestCasesInventory.Config\TestCasesInventory.Config.csproj", "{EE2B65DD-0FE9-41D1-9FB4-306D6969A805}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Data.Config", "TestCasesInventory.Data.Config\TestCasesInventory.Data.Config.csproj", "{555CC5C2-4373-49F3-9C8D-264E0918A818}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{32C17391-5907-48F0-AA33-784852FB4013}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +64,10 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
-		{BD422E42-732F-48BC-80C3-6F77C39A6C8F} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
 		{C2A33D38-20BA-4620-AB8C-1635BEDC1D0D} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
-		{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810} = {916407E3-9528-4A63-909B-43883172F65B}
 		{EE2B65DD-0FE9-41D1-9FB4-306D6969A805} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
+		{BD422E42-732F-48BC-80C3-6F77C39A6C8F} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
+		{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810} = {916407E3-9528-4A63-909B-43883172F65B}
 		{555CC5C2-4373-49F3-9C8D-264E0918A818} = {916407E3-9528-4A63-909B-43883172F65B}
 	EndGlobalSection
 EndGlobal
