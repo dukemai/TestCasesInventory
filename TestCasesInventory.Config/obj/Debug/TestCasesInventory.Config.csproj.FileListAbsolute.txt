@@ -1,0 +1,7 @@
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\bin\Debug\TestCasesInventory.Config.dll
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\bin\Debug\TestCasesInventory.Config.pdb
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\obj\Debug\TestCasesInventory.Config.csprojResolveAssemblyReference.cache
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\obj\Debug\TestCasesInventory.Config.dll
+D:\My\DOCUMENT\NYT\Source\TestCasesInventory\TestCasesInventory.Config\obj\Debug\TestCasesInventory.Config.pdb
