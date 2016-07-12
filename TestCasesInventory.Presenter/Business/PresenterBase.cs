@@ -10,7 +10,7 @@ namespace TestCasesInventory.Presenter.Business
     {
         #region Properties
 
-        protected DbContext DataContext;
+        protected ApplicationDbContext DataContext;
 
         #endregion
 

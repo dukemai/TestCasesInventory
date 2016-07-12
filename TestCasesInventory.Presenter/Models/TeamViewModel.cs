@@ -8,5 +8,7 @@ namespace TestCasesInventory.Presenter.Models
 {
     public class TeamViewModel : ViewModelBase
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }
