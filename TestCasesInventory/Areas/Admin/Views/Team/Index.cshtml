@@ -1,8 +1,16 @@
-﻿
+﻿@using TestCasesInventory.Presenter.Models
+@model List<TeamViewModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Team Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
-
+<h2>List of teams</h2>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Name
+        </li>
+    }
+</ul>
