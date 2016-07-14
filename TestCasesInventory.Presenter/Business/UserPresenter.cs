@@ -53,7 +53,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<IdentityResult> CreateAsync(RegisterViewModel model)
         {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName };
 
             return UserManager.CreateAsync(user, model.Password);
         }
