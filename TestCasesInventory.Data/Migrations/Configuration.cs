@@ -7,7 +7,7 @@ namespace TestCasesInventory.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(TestCasesInventory.Data.ApplicationDbContext context)
