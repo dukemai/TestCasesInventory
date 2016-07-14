@@ -1,9 +1,7 @@
 namespace TestCasesInventory.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using TestCasesInventory.Data.Repository;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TestCasesInventory.Data.ApplicationDbContext>
     {
@@ -16,16 +14,21 @@ namespace TestCasesInventory.Data.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Teams.Add(new DataModels.TeamDataModel { Name = "Team1" });
+            context.Teams.Add(new DataModels.TeamDataModel { Name = "Team2" });
+            context.Teams.Add(new DataModels.TeamDataModel { Name = "Team3" });
+            context.Users.Add(new DataModels.ApplicationUser
+            {
+                Email = "user1@email.com",
+                UserName = "user1@email.com",
+                PasswordHash = "25d55ad283aa400af464c76d713c07ad",//12345678
+            });
+            context.Users.Add(new DataModels.ApplicationUser
+            {
+                Email = "user2@email.com",
+                UserName = "user2@email.com",
+                PasswordHash = "25d55ad283aa400af464c76d713c07ad",//12345678
+            });
         }
     }
 }
