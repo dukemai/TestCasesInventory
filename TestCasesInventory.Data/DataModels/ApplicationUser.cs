@@ -14,5 +14,11 @@ namespace TestCasesInventory.Data.DataModels
             // Add custom user claims here
             return userIdentity;
         }
+
+        //add Team navigation property
+        //add Display Name property
+        public string DisplayName { get; set; }
+        public int? TeamID { get; set; }
+        public virtual TeamDataModel Team { get; set; }
     }
 }
