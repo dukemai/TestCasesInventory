@@ -9,6 +9,8 @@ using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.DataModels;
+using Microsoft.Owin.Security;
+using System.Web.Mvc;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -19,7 +21,13 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected ApplicationUserManager UserManager;
         protected ApplicationSignInManager SignInManager;
-
+        protected IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
         #endregion
 
         #region Methods
@@ -30,6 +38,7 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
         }
+            
 
         public UserViewModel Register(RegisterViewModel model)
         {
@@ -49,6 +58,11 @@ namespace TestCasesInventory.Presenter.Business
         public Task SignInAsync(Data.DataModels.ApplicationUser user, bool isPersistent, bool rememberBrowser)
         {
             return SignInManager.SignInAsync(user, isPersistent, rememberBrowser);
+        }
+
+        public void SignOut()
+        {
+            AuthenticationManager.SignOut();
         }
 
         public Task<IdentityResult> CreateAsync(RegisterViewModel model)
