@@ -41,6 +41,16 @@ namespace TestCasesInventory.Controllers
         }
 
         //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            UserPresenter.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
