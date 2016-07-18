@@ -47,11 +47,6 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)
         {
-            var user = UserManager.Find(email, passWord);
-            if (user != null)
-            {
-                SignInManager.SignInAsync(user, rememberMe, shouldLockOut);
-            }
             return SignInManager.PasswordSignInAsync(email, passWord, rememberMe, shouldLockOut);
         }
 
