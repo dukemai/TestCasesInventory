@@ -48,12 +48,6 @@ namespace TestCasesInventory.Data.Repository
 
 
         private bool disposed = false;
-        private ApplicationDbContext applicationDbContext;
-
-        public TeamRepository(ApplicationDbContext applicationDbContext)
-        {
-            this.applicationDbContext = applicationDbContext;
-        }
 
         protected virtual void Dispose(bool disposing)
         {
