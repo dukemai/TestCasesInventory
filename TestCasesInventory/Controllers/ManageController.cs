@@ -45,25 +45,20 @@ namespace TestCasesInventory.Controllers
         }
         //
         // GET: /Manage/Index
+
+            //
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
                 HasPassword = UserPresenter.HasPassword(),
-                PhoneNumber = await UserPresenter.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserPresenter.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserPresenter.GetLoginsAsync(userId),
-                BrowserRemembered = await UserPresenter.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
