@@ -141,6 +141,7 @@
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,6 +223,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_MainMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_UnAuthenticatedPartial.cshtml" />
+    <Content Include="Views\Shared\_AuthenticatedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +241,10 @@
     <ProjectReference Include="..\TestCasesInventory.Config\TestCasesInventory.Config.csproj">
       <Project>{ee2b65dd-0fe9-41d1-9fb4-306d6969a805}</Project>
       <Name>TestCasesInventory.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Data\TestCasesInventory.Data.csproj">
+      <Project>{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810}</Project>
+      <Name>TestCasesInventory.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Presenter\TestCasesInventory.Presenter.csproj">
       <Project>{bd422e42-732f-48bc-80c3-6f77c39a6c8f}</Project>

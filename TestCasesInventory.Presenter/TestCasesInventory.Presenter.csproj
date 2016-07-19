@@ -97,14 +97,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\ILoginPresenter.cs" />
+    <Compile Include="Business\ILoginStatusPresenter.cs" />
+    <Compile Include="Business\ILogoutPresenter.cs" />
     <Compile Include="Business\IPresenter.cs" />
     <Compile Include="Business\IRegisterPresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
+    <Compile Include="Business\LoginStatusPresenter.cs" />
     <Compile Include="Business\PresenterBase.cs" />
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\LoginStatusViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
