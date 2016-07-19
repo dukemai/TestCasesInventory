@@ -33,7 +33,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/Team/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             return View();
         }
