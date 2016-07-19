@@ -64,6 +64,12 @@ namespace TestCasesInventory.Presenter.Models
         public string Number { get; set; }
     }
 
+    public class UpdateDisplayNameViewModel : ViewModelBase
+    {
+        [Required]
+        public string DisplayName { get; set; }
+    }
+
     public class VerifyPhoneNumberViewModel : ViewModelBase
     {
         [Required]
