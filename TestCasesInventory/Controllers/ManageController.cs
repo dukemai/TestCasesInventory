@@ -60,6 +60,10 @@ namespace TestCasesInventory.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = UserPresenter.HasPassword(),
+                PhoneNumber = await UserPresenter.GetPhoneNumberAsync(userId),
+                TwoFactor = await UserPresenter.GetTwoFactorEnabledAsync(userId),
+                Logins = await UserPresenter.GetLoginsAsync(userId),
+                BrowserRemembered = await UserPresenter.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
