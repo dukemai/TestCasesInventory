@@ -99,7 +99,6 @@
     <Compile Include="Business\ILoginPresenter.cs" />
     <Compile Include="Business\ILoginStatusPresenter.cs" />
     <Compile Include="Business\ILogoutPresenter.cs" />
-    <Compile Include="Business\ILogoutPresenter.cs" />
     <Compile Include="Business\IPresenter.cs" />
     <Compile Include="Business\IRegisterPresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />

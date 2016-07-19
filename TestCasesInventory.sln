@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory", "TestCasesInventory\TestCasesInventory.csproj", "{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D}"
 EndProject
@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{32C173
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Common", "2.Common", "{D3373868-B3DB-412A-9401-6BB93CFA055F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Common", "TestCasesInventory.Common\TestCasesInventory.Common.csproj", "{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,16 +62,21 @@ Global
 		{555CC5C2-4373-49F3-9C8D-264E0918A818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{555CC5C2-4373-49F3-9C8D-264E0918A818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{555CC5C2-4373-49F3-9C8D-264E0918A818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
-		{C2A33D38-20BA-4620-AB8C-1635BEDC1D0D} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
-		{EE2B65DD-0FE9-41D1-9FB4-306D6969A805} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
 		{BD422E42-732F-48BC-80C3-6F77C39A6C8F} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
+		{C2A33D38-20BA-4620-AB8C-1635BEDC1D0D} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
 		{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810} = {916407E3-9528-4A63-909B-43883172F65B}
+		{EE2B65DD-0FE9-41D1-9FB4-306D6969A805} = {98BE82F1-19E6-40B1-AB96-400E918CCB6F}
 		{555CC5C2-4373-49F3-9C8D-264E0918A818} = {916407E3-9528-4A63-909B-43883172F65B}
+		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666} = {D3373868-B3DB-412A-9401-6BB93CFA055F}
 	EndGlobalSection
 EndGlobal
