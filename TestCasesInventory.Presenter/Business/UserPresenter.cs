@@ -103,6 +103,14 @@ namespace TestCasesInventory.Presenter.Business
             return AuthenticationManager.TwoFactorBrowserRememberedAsync(userId);
         }
 
+        //My Repo
+        public IndexViewModel FindUserByID(string UserId)
+        {
+            var currentUser = UserManager.FindById(UserId);
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword() };
+            return model;
+        }
+
         #endregion
 
     }

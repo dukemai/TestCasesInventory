@@ -56,10 +56,12 @@ namespace TestCasesInventory.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
-            {
-                HasPassword = UserPresenter.HasPassword(),
-            };
+            var model = UserPresenter.FindUserByID(userId);
+            //var model = UserPresenter
+            //var model = new IndexViewModel
+            //{
+            //    HasPassword = UserPresenter.HasPassword(),
+            //};
             return View(model);
         }
 
