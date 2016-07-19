@@ -1,0 +1,16 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model TestCasesInventory.Presenter.Models.LoginStatusViewModel
+@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+{
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+
+        </li>
+        <li>
+            @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+}
