@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -64,6 +65,8 @@ namespace TestCasesInventory.Presenter.Models
 
     public class RegisterViewModel : ViewModelBase
     {
+        //RegisterViewModelConfig Config = new RegisterViewModelConfig();
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -81,7 +84,7 @@ namespace TestCasesInventory.Presenter.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(RegisterViewModelConfig.maxlength, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [Display(Name = "Your DisplayName")]
         public string DisplayName { get; set; }
     }
