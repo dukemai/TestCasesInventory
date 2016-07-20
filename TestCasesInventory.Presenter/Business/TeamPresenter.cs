@@ -76,9 +76,26 @@ namespace TestCasesInventory.Presenter.Business
             return listTeamView;
         }
 
-        public void Save(TeamViewModel obj)
+        public void UpdateTeam(TeamDetailsViewModel team)
         {
-            throw new NotImplementedException();
+            var teamDataModel = new TeamDataModel
+            {
+                Name = team.Name
+            };
+            teamRepository.UpdateTeam(teamDataModel);
+            teamRepository.Save();
         }
+
+        public void DeleteTeam(int id)
+        {
+            teamRepository.DeleteTeam(id);
+            teamRepository.Save();
+        }
+
+        public void Save()
+        {
+            teamRepository.Save();
+        }
+
     }
 }

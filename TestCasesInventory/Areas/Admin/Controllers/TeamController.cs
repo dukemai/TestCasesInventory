@@ -29,8 +29,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team
         public ActionResult Index()
         {
-            var model = TeamPresenterObject.ListAll();
-            return View("Index", model);
+            var teams = TeamPresenterObject.ListAll();
+            return View("Index", teams);
         }
 
         // GET: Admin/Team/Details/5
@@ -38,8 +38,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var model = TeamPresenterObject.GetById(id);
-                return View("Details", model);
+                var team = TeamPresenterObject.GetById(id);
+                return View("Details", team);
             }
             catch(Exception e)
             {
@@ -74,17 +74,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = TeamPresenterObject.GetById(id);
+            return View("Edit", model);
         }
 
         // POST: Admin/Team/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                string teamName = Request.Form["teamName"];
+                var updatedTeam = new TeamDetailsViewModel { Name = teamName };
+                TeamPresenterObject.UpdateTeam(updatedTeam);
                 return RedirectToAction("Index");
             }
             catch
@@ -96,7 +99,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var team = TeamPresenterObject.GetById(id);
+            return View("Delete", team);
         }
 
         // POST: Admin/Team/Delete/5
@@ -105,8 +109,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                TeamPresenterObject.DeleteTeam(id);
                 return RedirectToAction("Index");
             }
             catch

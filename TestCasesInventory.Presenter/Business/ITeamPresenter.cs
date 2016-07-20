@@ -12,11 +12,12 @@ namespace TestCasesInventory.Presenter.Business
         List<TeamViewModel> ListAll();
         void InsertTeam(CreateTeamViewModel team);
 
-        bool Delete(TeamViewModel obj);        
-
         TeamDetailsViewModel GetById(int id);
 
-        void Save(TeamViewModel obj);
+        void UpdateTeam(TeamDetailsViewModel team);
+        void DeleteTeam(int id);
+
+        void Save();
         
     }
 }
