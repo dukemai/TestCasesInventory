@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCasesInventory.Data;
+using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repository;
 using TestCasesInventory.Presenter.Models;
 
@@ -15,6 +16,16 @@ namespace TestCasesInventory.Presenter.Business
         public TeamPresenter()
         {
             teamRepository = new TeamRepository();
+        }
+
+        public void InsertTeam(CreateTeamViewModel team)
+        {
+            var teamDataModel = new TeamDataModel
+            {
+                Name = team.Name
+            };
+            teamRepository.InsertTeam(teamDataModel);
+            teamRepository.Save();
         }
 
         public bool Delete(TeamViewModel obj)
@@ -32,18 +43,21 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public TeamViewModel GetById(int id)
+        public TeamDetailsViewModel GetById(int id)
         {
-            var team = teamRepository.GetTeamByID(id);
-            if (team == null)
+            try
             {
-                return null;
+                var team = teamRepository.GetTeamByID(id);
+                return new TeamDetailsViewModel
+                {
+                    ID = team.ID,
+                    Name = team.Name
+                };
             }
-            return new TeamViewModel
+            catch
             {
-                ID = team.ID,
-                Name = team.Name
-            };
+                throw new Exception();
+            }
         }
 
         public List<TeamViewModel> ListAll()

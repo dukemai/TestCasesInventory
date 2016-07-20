@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Business;
@@ -28,14 +29,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team
         public ActionResult Index()
         {
-            var data = TeamPresenterObject.ListAll();
-            return View("Index", data);
+            var model = TeamPresenterObject.ListAll();
+            return View("Index", model);
         }
 
         // GET: Admin/Team/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                var model = TeamPresenterObject.GetById(id);
+                return View("Details", model);
+            }
+            catch(Exception e)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: Admin/Team/Create
@@ -46,12 +55,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                string teamName = Request.Form["teamName"];
+                var team = new CreateTeamViewModel { Name = teamName};
+                TeamPresenterObject.InsertTeam(team);
                 return RedirectToAction("Index");
             }
             catch
