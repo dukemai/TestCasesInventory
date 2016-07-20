@@ -8,6 +8,6 @@ namespace TestCasesInventory.Presenter.Config
 {
     public class RegisterViewModelConfig
     {
-        public const int maxlength = 5;
+        public const int maxlength = 50;
     }
 }

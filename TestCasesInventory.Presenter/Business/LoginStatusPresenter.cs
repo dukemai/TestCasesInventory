@@ -23,9 +23,6 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-        //var currentUser = manager.FindById(User.Identity.GetUserId());
-
 
     }
 }
