@@ -22,7 +22,7 @@ namespace TestCasesInventory.Controllers
         }
         // GET: LoginStatus
         //[ChildActionOnly]
-        [HttpGet]
+        //[HttpGet]
         public ActionResult DisplayName()
         {
 

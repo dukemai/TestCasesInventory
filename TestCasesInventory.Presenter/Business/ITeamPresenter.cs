@@ -14,7 +14,7 @@ namespace TestCasesInventory.Presenter.Business
 
         TeamDetailsViewModel GetById(int id);
 
-        void UpdateTeam(TeamDetailsViewModel team);
+        void UpdateTeam(int id, TeamDetailsViewModel team);
         void DeleteTeam(int id);
 
         void Save();

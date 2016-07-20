@@ -28,20 +28,6 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository.Save();
         }
 
-        public bool Delete(TeamViewModel obj)
-        {
-            var teamObj = teamRepository.GetTeamByID(obj.ID);
-            if (teamObj == null)
-            {
-                return false;
-            }
-            else
-            {
-                teamRepository.DeleteTeam(obj.ID);
-                teamRepository.Save();
-                return true;
-            }
-        }
 
         public TeamDetailsViewModel GetById(int id)
         {
@@ -76,10 +62,11 @@ namespace TestCasesInventory.Presenter.Business
             return listTeamView;
         }
 
-        public void UpdateTeam(TeamDetailsViewModel team)
+        public void UpdateTeam(int id, TeamDetailsViewModel team)
         {
             var teamDataModel = new TeamDataModel
             {
+                ID = id,
                 Name = team.Name
             };
             teamRepository.UpdateTeam(teamDataModel);
