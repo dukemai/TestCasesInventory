@@ -8,13 +8,32 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Business;
+using TestCasesInventory.Data.DataModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
 
 namespace TestCasesInventory.Controllers
 {
     [Authorize]
     public class ManageController : Web.Common.Base.ControllerBase
     {
+        
+
         private IUserPresenter userPresenter;
+
+        private IUpdateDisplayNamePresenter updateDisplayName;
+
+        protected IUpdateDisplayNamePresenter UpdateDisplayName
+        {
+            get
+            {
+                if(updateDisplayName == null)
+                {
+                    updateDisplayName = new UpdateDisplayNamePresenter();
+                }
+                return updateDisplayName;
+            }
+        }
 
         protected IUserPresenter UserPresenter
         {
@@ -64,6 +83,32 @@ namespace TestCasesInventory.Controllers
             //};
             return View(model);
         }
+
+        // GET: /Manage/ChangePassword
+        [HttpGet]
+        public ActionResult EditDisplayName()
+        {
+            var model = UpdateDisplayName.GetCurrentUserByEmail(User.Identity.GetUserName());
+  
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDisplayName(UpdateDisplayNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UpdateDisplayName.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName);
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+                
+        }
+       
+
+
 
         /*
             //
