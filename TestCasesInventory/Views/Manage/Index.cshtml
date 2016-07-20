@@ -25,8 +25,12 @@
 
         <dd>
             @Html.DisplayFor(model => model.DisplayName)
+            [
+                @Html.ActionLink(" Edit Your Display Name", "EditDisplayName")
+            ]
         </dd>
 
+       
         <dt>Password:</dt>
         <dd>
             [
