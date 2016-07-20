@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IChangePassPresenter.cs" />
     <Compile Include="Business\ILoginPresenter.cs" />
     <Compile Include="Business\ILoginStatusPresenter.cs" />
     <Compile Include="Business\ILogoutPresenter.cs" />

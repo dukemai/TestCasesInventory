@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using System.Web.Mvc;
 using System.Security.Principal;
 
+
 namespace TestCasesInventory.Presenter.Business
 {
     public class UserPresenter : IUserPresenter
@@ -24,7 +25,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationSignInManager SignInManager;
         protected IAuthenticationManager AuthenticationManager;
         protected IPrincipal User;
-
+        protected ModelStateDictionary ModelState;
 
         #endregion
 
@@ -37,12 +38,29 @@ namespace TestCasesInventory.Presenter.Business
             SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
+            ModelState = new ModelStateDictionary();
         }
             
 
         public UserViewModel Register(RegisterViewModel model)
         {
             throw new NotImplementedException();
+        }
+        public Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword)
+        {
+            return UserManager.ChangePasswordAsync(userId, currentPassword, newPassword);
+        }
+        public Task<ApplicationUser> FindByIdAsync(string userId)
+        {
+            return UserManager.FindByIdAsync(userId);
+        }
+
+        public void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
 
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)

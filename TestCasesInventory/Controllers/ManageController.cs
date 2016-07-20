@@ -46,7 +46,7 @@ namespace TestCasesInventory.Controllers
         //
         // GET: /Manage/Index
 
-            //
+        //
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -65,10 +65,53 @@ namespace TestCasesInventory.Controllers
             return View(model);
         }
 
+        // GET: /Manage/ChangePassword
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //var UserManager = new UserManager<> ;
+            var result = await UserPresenter.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserPresenter.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            UserPresenter.AddErrors(result);
+            return View(model);
+        }
+
+        //private void AddErrors(IdentityResult result)
+        //{
+        //    foreach (var error in result.Errors)
+        //    {
+        //        ModelState.AddModelError("", error);
+        //    }
+        //}
+
         /*
-            //
-            // POST: /Manage/RemoveLogin
-            [HttpPost]
+
+        //
+        // POST: /Manage/RemoveLogin
+        [HttpPost]
             [ValidateAntiForgeryToken]
             public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
             {
@@ -203,14 +246,14 @@ namespace TestCasesInventory.Controllers
             }
 
             //
-            // GET: /Manage/ChangePassword
+             GET: /Manage/ChangePassword
             public ActionResult ChangePassword()
             {
                 return View();
             }
 
-            //
-            // POST: /Manage/ChangePassword
+            
+             POST: /Manage/ChangePassword
             [HttpPost]
             [ValidateAntiForgeryToken]
             public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
