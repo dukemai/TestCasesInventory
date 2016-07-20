@@ -15,6 +15,5 @@ namespace TestCasesInventory.Presenter.Business
     {
         Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
         Task<ApplicationUser> FindByIdAsync(string userId);
-        void AddErrors(IdentityResult result);
     }
 }

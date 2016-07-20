@@ -25,7 +25,6 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationSignInManager SignInManager;
         protected IAuthenticationManager AuthenticationManager;
         protected IPrincipal User;
-        protected ModelStateDictionary ModelState;
 
         #endregion
 
@@ -38,7 +37,6 @@ namespace TestCasesInventory.Presenter.Business
             SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
-            ModelState = new ModelStateDictionary();
         }
             
 
@@ -53,14 +51,6 @@ namespace TestCasesInventory.Presenter.Business
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
             return UserManager.FindByIdAsync(userId);
-        }
-
-        public void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
         }
 
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)
