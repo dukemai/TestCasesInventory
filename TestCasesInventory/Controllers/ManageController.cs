@@ -17,7 +17,7 @@ namespace TestCasesInventory.Controllers
     [Authorize]
     public class ManageController : Web.Common.Base.ControllerBase
     {
-        
+
 
         private IUserPresenter userPresenter;
 
@@ -27,7 +27,7 @@ namespace TestCasesInventory.Controllers
         {
             get
             {
-                if(updateDisplayName == null)
+                if (updateDisplayName == null)
                 {
                     updateDisplayName = new UpdateDisplayNamePresenter();
                 }
@@ -97,7 +97,9 @@ namespace TestCasesInventory.Controllers
             {
                 return View("Error");
             }
-            
+
+       
+
         }
 
         [HttpPost]
@@ -115,10 +117,14 @@ namespace TestCasesInventory.Controllers
                     return View("Error");
                 }
             }
+
             return View();
                 
+return View(model);
+
+
         }
-       
+
 
 
 
@@ -135,34 +141,41 @@ namespace TestCasesInventory.Controllers
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
 
         {
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            //var UserManager = new UserManager<> ;
-            var result = await UserPresenter.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserPresenter.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
+            try { var result = await UserPresenter.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
                 {
-                    await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = await UserPresenter.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-           // UserPresenter.AddErrors(result);
-            return View(model);
-        }
 
-        //private void AddErrors(IdentityResult result)
-        //{
-        //    foreach (var error in result.Errors)
-        //    {
-        //        ModelState.AddModelError("", error);
-        //    }
-        //}
+                AddErrors(result);
+            }
+
+           // UserPresenter.AddErrors(result);
+
+
+            catch
+            { return View("Error"); }
+       
+            return View(model);
+            }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
 
         /*
 
