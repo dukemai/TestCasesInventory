@@ -9,6 +9,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
         #region Properties
@@ -34,18 +35,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/Team/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             try
             {
-                var team = TeamPresenterObject.GetById(id);
+                var team = TeamPresenterObject.GetTeamById(id);
                 return View("Details", team);
             }
             catch (Exception e)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("ResultNotFoundError");
             }
         }
+
 
         // GET: Admin/Team/Create
         public ActionResult Create()
@@ -55,15 +57,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                string teamName = Request.Form["Name"];
-                var team = new CreateTeamViewModel { Name = teamName };
-                TeamPresenterObject.InsertTeam(team);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string teamName = Request.Form["Name"];
+                    var team = new CreateTeamViewModel { Name = teamName };
+                    TeamPresenterObject.InsertTeam(team);
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
             catch
             {
@@ -74,21 +80,25 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team/Edit/5
         public ActionResult Edit(int id)
         {
-            var model = TeamPresenterObject.GetById(id);
-            return View("Edit", model);
+            var updatedTeam = TeamPresenterObject.GetTeamById(id);
+            return View("Edit", updatedTeam);
         }
 
         // POST: Admin/Team/Edit/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                string teamName = Request.Form["Name"];
-                var updatedTeam = new TeamDetailsViewModel { Name = teamName };
-                TeamPresenterObject.UpdateTeam(id, updatedTeam);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string teamName = Request.Form["Name"];
+                    var updatedTeam = new EditTeamViewModel { Name = teamName };
+                    TeamPresenterObject.UpdateTeam(id, updatedTeam);
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
             catch
             {
@@ -99,12 +109,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/Team/Delete/5
         public ActionResult Delete(int id)
         {
-            var team = TeamPresenterObject.GetById(id);
-            return View("Delete", team);
+            var deletedTeam = TeamPresenterObject.GetTeamById(id);
+            return View("Delete", deletedTeam);
         }
 
         // POST: Admin/Team/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

@@ -18,29 +18,20 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository = new TeamRepository();
         }
 
-        public void InsertTeam(CreateTeamViewModel team)
+        public TeamViewModel GetTeamById(int? id)
         {
-            var teamDataModel = new TeamDataModel
+            int id_Valid;
+            if (id.HasValue)
             {
-                Name = team.Name
-            };
-            teamRepository.InsertTeam(teamDataModel);
-            teamRepository.Save();
-        }
-
-
-        public TeamDetailsViewModel GetById(int id)
-        {
-            try
-            {
-                var team = teamRepository.GetTeamByID(id);
-                return new TeamDetailsViewModel
+                id_Valid = (int)id; 
+                var team = teamRepository.GetTeamByID(id_Valid);
+                return new TeamViewModel
                 {
                     ID = team.ID,
                     Name = team.Name
                 };
             }
-            catch
+            else
             {
                 throw new Exception();
             }
@@ -61,8 +52,17 @@ namespace TestCasesInventory.Presenter.Business
             }
             return listTeamView;
         }
+        public void InsertTeam(CreateTeamViewModel team)
+        {
+            var teamDataModel = new TeamDataModel
+            {
+                Name = team.Name
+            };
+            teamRepository.InsertTeam(teamDataModel);
+            teamRepository.Save();
+        }
 
-        public void UpdateTeam(int id, TeamDetailsViewModel team)
+        public void UpdateTeam(int id, EditTeamViewModel team)
         {
             var teamDataModel = new TeamDataModel
             {

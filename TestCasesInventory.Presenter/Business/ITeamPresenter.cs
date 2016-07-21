@@ -11,7 +11,7 @@ namespace TestCasesInventory.Presenter.Business
     {
         List<TeamViewModel> ListAll();
 
-        TeamViewModel GetTeamById(int id);
+        TeamViewModel GetTeamById(int? id);
 
         void InsertTeam(CreateTeamViewModel team);
 
