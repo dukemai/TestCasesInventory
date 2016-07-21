@@ -58,15 +58,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "Name")] TeamViewModel team)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string teamName = Request.Form["Name"];
-                    var team = new CreateTeamViewModel { Name = teamName };
-                    TeamPresenterObject.InsertTeam(team);
+                    var createdTeam = new CreateTeamViewModel { Name = teamName };
+                    TeamPresenterObject.InsertTeam(createdTeam);
                     return RedirectToAction("Index");
                 }
                 return View();
@@ -94,7 +94,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name")] TeamViewModel team)
         {
             if (ModelState.IsValid)
             {
