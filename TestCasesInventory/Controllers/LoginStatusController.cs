@@ -13,7 +13,19 @@ namespace TestCasesInventory.Controllers
 
     public class LoginStatusController : Controller
     {
+        private IUserPresenter userPresenter;
 
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
         public ILoginStatusPresenter LoginStatusPresenter;
 
         public LoginStatusController()
@@ -21,20 +33,25 @@ namespace TestCasesInventory.Controllers
             LoginStatusPresenter = new LoginStatusPresenter();
         }
         // GET: LoginStatus
-        //[ChildActionOnly]
-        //[HttpGet]
         public ActionResult DisplayName()
         {
-
-            if (User.Identity.IsAuthenticated)
+            try
             {
                 var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserName());
-                return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
+                if (User.Identity.IsAuthenticated)
+                {
+                    return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
+                }
+                else
+                {
+                    throw new Exception();
+                }
             }
-            else
+            catch        
             {
                 return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
             }
+
         }
     }
 }
