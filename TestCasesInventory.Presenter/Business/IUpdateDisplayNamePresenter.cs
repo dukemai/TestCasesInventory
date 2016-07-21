@@ -12,7 +12,7 @@ namespace TestCasesInventory.Presenter.Business
     {
         UpdateDisplayNameViewModel GetCurrentUserByEmail(string email);
 
-        void UpdateDisplayNameInDB(string UserId, string OldDisplayName);
+        bool UpdateDisplayNameInDB(string UserId, string OldDisplayName);
     }
 }
 
