@@ -23,7 +23,7 @@ namespace TestCasesInventory.Presenter.Business
             int id_Valid;
             if (id.HasValue)
             {
-                id_Valid = (int)id; 
+                id_Valid = (int)id;
                 var team = teamRepository.GetTeamByID(id_Valid);
                 return new TeamViewModel
                 {

@@ -78,10 +78,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/Team/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var updatedTeam = TeamPresenterObject.GetTeamById(id);
-            return View("Edit", updatedTeam);
+            try
+            {
+                var updatedTeam = TeamPresenterObject.GetTeamById(id);
+                return View("Edit", updatedTeam);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // POST: Admin/Team/Edit/5
@@ -89,28 +96,28 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    string teamName = Request.Form["Name"];
-                    var updatedTeam = new EditTeamViewModel { Name = teamName };
-                    TeamPresenterObject.UpdateTeam(id, updatedTeam);
-                    return RedirectToAction("Index");
-                }
-                return View();
+                string teamName = Request.Form["Name"];
+                var updatedTeam = new EditTeamViewModel { Name = teamName };
+                TeamPresenterObject.UpdateTeam(id, updatedTeam);
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Admin/Team/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var deletedTeam = TeamPresenterObject.GetTeamById(id);
-            return View("Delete", deletedTeam);
+            try
+            {
+                var deletedTeam = TeamPresenterObject.GetTeamById(id);
+                return View("Delete", deletedTeam);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // POST: Admin/Team/Delete/5
