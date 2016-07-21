@@ -9,7 +9,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class TeamController : Controller
     {
         #region Properties
