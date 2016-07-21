@@ -7,13 +7,13 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Business;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Controllers
 {
 
     public class LoginStatusController : Controller
     {
-
         public ILoginStatusPresenter LoginStatusPresenter;
 
         public LoginStatusController()
@@ -21,20 +21,29 @@ namespace TestCasesInventory.Controllers
             LoginStatusPresenter = new LoginStatusPresenter();
         }
         // GET: LoginStatus
-        //[ChildActionOnly]
-        //[HttpGet]
         public ActionResult DisplayName()
         {
-
-            if (User.Identity.IsAuthenticated)
+            try
             {
                 var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserName());
-                return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
+                if (User.Identity.IsAuthenticated)
+                {
+                    return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
+                }
+                else
+                {
+                    return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
+                }
             }
-            else
+            catch (UserNotFoundException ex)
             {
                 return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

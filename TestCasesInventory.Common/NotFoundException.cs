@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestCasesInventory.Common
 {
-    public class Class1
+    public class NotFoundException : Exception
     {
     }
 }
