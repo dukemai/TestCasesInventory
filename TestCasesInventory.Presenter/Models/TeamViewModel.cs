@@ -26,4 +26,12 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
     }
+
+    public class EditTeamViewModel : ViewModelBase
+    {
+        [Required]
+        [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [Display(Name = "Team Name:")]
+        public string Name { get; set; }
+    }
 }
