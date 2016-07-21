@@ -96,9 +96,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IChangePassPresenter.cs" />
     <Compile Include="Business\ILoginPresenter.cs" />
     <Compile Include="Business\ILoginStatusPresenter.cs" />
     <Compile Include="Business\ILogoutPresenter.cs" />
+    <Compile Include="Business\IManagePresenter.cs" />
     <Compile Include="Business\IPresenter.cs" />
     <Compile Include="Business\IRegisterPresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Business\LoginStatusPresenter.cs" />
     <Compile Include="Business\PresenterBase.cs" />
     <Compile Include="Business\TeamPresenter.cs" />
+    <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
+    <Compile Include="Business\UpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Config\ViewModelConfig.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -121,6 +125,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
+      <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
+      <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Data.Common\TestCasesInventory.Data.Common.csproj">
+      <Project>{e02f6bf6-e978-41b4-9fe5-1a3f558d4a71}</Project>
+      <Name>TestCasesInventory.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Data\TestCasesInventory.Data.csproj">
       <Project>{fbbc24ac-8cc8-44ce-9a2b-a5db037b7810}</Project>
       <Name>TestCasesInventory.Data</Name>

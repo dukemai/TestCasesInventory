@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCasesInventory.Presenter.Config
+namespace TestCasesInventory.Common
 {
-    public class RegisterViewModelConfig
+    public class NotFoundException : Exception
     {
-        public const int maxlength = 50;
     }
 }

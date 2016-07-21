@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}</ProjectGuid>
+    <ProjectGuid>{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestCasesInventory.Common</RootNamespace>
-    <AssemblyName>TestCasesInventory.Common</AssemblyName>
+    <RootNamespace>TestCasesInventory.Data.Common</RootNamespace>
+    <AssemblyName>TestCasesInventory.Data.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NotFoundException.cs" />
+    <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
+      <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
+      <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
