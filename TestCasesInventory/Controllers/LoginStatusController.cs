@@ -7,25 +7,13 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Business;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Controllers
 {
 
     public class LoginStatusController : Controller
     {
-        private IUserPresenter userPresenter;
-
-        protected IUserPresenter UserPresenter
-        {
-            get
-            {
-                if (userPresenter == null)
-                {
-                    userPresenter = new UserPresenter(HttpContext);
-                }
-                return userPresenter;
-            }
-        }
         public ILoginStatusPresenter LoginStatusPresenter;
 
         public LoginStatusController()
@@ -44,12 +32,16 @@ namespace TestCasesInventory.Controllers
                 }
                 else
                 {
-                    throw new Exception();
+                    return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
                 }
             }
-            catch        
+            catch (UserNotFoundException ex)
             {
                 return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }

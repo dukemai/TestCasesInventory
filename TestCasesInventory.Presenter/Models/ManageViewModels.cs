@@ -67,6 +67,7 @@ namespace TestCasesInventory.Presenter.Models
     public class UpdateDisplayNameViewModel : ViewModelBase
     {
         [Required]
+        [Display(Name = "Display name")]
         public string DisplayName { get; set; }
     }
 

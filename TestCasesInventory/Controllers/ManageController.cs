@@ -84,13 +84,20 @@ namespace TestCasesInventory.Controllers
             return View(model);
         }
 
-        // GET: /Manage/ChangePassword
+        
         [HttpGet]
         public ActionResult EditDisplayName()
         {
-            var model = UpdateDisplayName.GetCurrentUserByEmail(User.Identity.GetUserName());
-  
-            return View(model);
+            try
+            {
+                var model = UpdateDisplayName.GetCurrentUserByEmail(User.Identity.GetUserName());
+                return View(model);
+            }
+            catch(Exception e)
+            {
+                return View("Error");
+            }
+            
         }
 
         [HttpPost]
@@ -99,11 +106,16 @@ namespace TestCasesInventory.Controllers
         {
             if (ModelState.IsValid)
             {
-                UpdateDisplayName.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName);
-
-                return RedirectToAction("Index");
+                if (UpdateDisplayName.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
-            return View(model);
+            return View();
                 
         }
        
@@ -140,17 +152,17 @@ namespace TestCasesInventory.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
-            AddErrors(result);
+           // UserPresenter.AddErrors(result);
             return View(model);
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
+        //private void AddErrors(IdentityResult result)
+        //{
+        //    foreach (var error in result.Errors)
+        //    {
+        //        ModelState.AddModelError("", error);
+        //    }
+        //}
 
         /*
 
