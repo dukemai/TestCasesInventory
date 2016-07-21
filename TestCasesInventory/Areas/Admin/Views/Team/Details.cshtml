@@ -1,5 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model TeamDetailsViewModel
+@model TeamViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -18,20 +18,6 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
-    
-    @*<dl class="dl-horizontal">
-        <dt>
-            <label>Member</label>
-        </dt>
-        <dd>
-            <ul style="list-style-type:none; margin-left:-40px">
-                @foreach (var mail in mails)
-                {
-                    <li>@mail</li>
-                }
-            </ul>
-        </dd>
-    </dl>*@
 
 </div>
 <br>
