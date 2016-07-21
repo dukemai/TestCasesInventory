@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -13,6 +9,7 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [Display(Name = "Team Name:")]
+        [Unique]
         public string Name { get; set; }
     }
 
@@ -27,6 +24,7 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [Display(Name = "Team Name:")]
+       
         public string Name { get; set; }
     }
 
