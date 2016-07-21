@@ -31,7 +31,7 @@ namespace TestCasesInventory.Presenter.Business
                 throw new UserNotFoundException();
             }
 
-            viewModel.DisplayName = manager.FindByEmail(email).DisplayName;
+            viewModel.DisplayName = model.DisplayName;
             return viewModel;
 
         }
