@@ -41,7 +41,7 @@ namespace TestCasesInventory.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
             }
 
         }

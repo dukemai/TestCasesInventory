@@ -28,10 +28,19 @@ namespace TestCasesInventory.Presenter.Business
             return viewModel;
         }
 
-        public void UpdateDisplayNameInDB(string UserId,  string NewDisplayName)
+        public bool UpdateDisplayNameInDB(string UserId,  string NewDisplayName)
         {
-            DataContext.Users.Find(UserId).DisplayName = NewDisplayName;
+            try
+            {
+                DataContext.Users.Find(UserId).DisplayName = NewDisplayName;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
             DataContext.SaveChanges();
+            return true;
         }
 
 
