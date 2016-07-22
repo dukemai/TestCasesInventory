@@ -75,10 +75,5 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository.Save();
         }
 
-        public void Save()
-        {
-            teamRepository.Save();
-        }
-
     }
 }

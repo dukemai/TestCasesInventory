@@ -5,7 +5,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Validations
 {
-    public class Unique : ValidationAttribute
+    public class TeamUniqueValidationAttribute : ValidationAttribute
     {
         ITeamRepository teamRepository = new TeamRepository();
         static string GetErrorMessage()
