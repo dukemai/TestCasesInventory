@@ -73,7 +73,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -84,7 +84,7 @@ namespace TestCasesInventory.Presenter.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(RegisterViewModelConfig.maxlength, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [Display(Name = "Your DisplayName")]
         public string DisplayName { get; set; }
     }
@@ -97,7 +97,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

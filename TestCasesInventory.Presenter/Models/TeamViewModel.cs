@@ -7,7 +7,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         public int ID { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [Display(Name = "Team Name:")]
         [TeamUniqueValidation]
         public string Name { get; set; }
@@ -22,7 +22,7 @@ namespace TestCasesInventory.Presenter.Models
     public class CreateTeamViewModel : ViewModelBase
     {
         [Required]
-        [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [Display(Name = "Team Name:")]
        
         public string Name { get; set; }
@@ -31,7 +31,7 @@ namespace TestCasesInventory.Presenter.Models
     public class EditTeamViewModel : ViewModelBase
     {
         [Required]
-        [StringLength(10, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
     }
