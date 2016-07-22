@@ -48,8 +48,7 @@ namespace TestCasesInventory.Data.Repositories
 
         public IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName)
         {
-            var teams = dataContext.Teams.Where(t => t.Name == teamName);
-            return teams;
+            return dataContext.Teams.Where(t => t.Name == teamName).ToList();
         }
 
 

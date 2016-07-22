@@ -14,7 +14,7 @@ namespace TestCasesInventory.Presenter.Validations
         {
             TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
             var existedTeam = teamRepository.GetExistedTeamByName(team.Name);
-            if (existedTeam != null)
+            if (existedTeam.Any())
             {
                 return new ValidationResult("Team already exist!");
             }
