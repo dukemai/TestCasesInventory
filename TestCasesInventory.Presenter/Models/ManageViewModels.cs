@@ -10,6 +10,8 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public bool HasPassword { get; set; }
+        [Display(Name = "Role")]
+        public string UserRoles { get; set; }
     }
 
     public class ManageLoginsViewModel : ViewModelBase
@@ -69,6 +71,13 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         [Display(Name = "Display name")]
         public string DisplayName { get; set; }
+    }
+
+    public class UpdateRolesViewModel : ViewModelBase
+    {
+        [Required]
+        [Display(Name = "UserRoles")]
+        public string UserRoles { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel : ViewModelBase

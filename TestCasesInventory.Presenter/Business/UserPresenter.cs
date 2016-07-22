@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using TestCasesInventory.Data.Repository;
@@ -10,13 +8,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.DataModels;
 using Microsoft.Owin.Security;
-using System.Web.Mvc;
 using System.Security.Principal;
-
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class UserPresenter : IUserPresenter
+    public class UserPresenter : PresenterBase, IUserPresenter
     {
         #region Properties
 
@@ -25,18 +22,22 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationSignInManager SignInManager;
         protected IAuthenticationManager AuthenticationManager;
         protected IPrincipal User;
+        protected RoleStore<IdentityRole> RoleStore;
+        protected RoleManager<IdentityRole> RoleManager;
 
         #endregion
 
         #region Methods
 
-        public UserPresenter(HttpContextBase context)
+        public UserPresenter(HttpContextBase context) : base()
         {
             HttpContext = context;
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
+            RoleStore = new RoleStore<IdentityRole>(DataContext);
+            RoleManager = new RoleManager<IdentityRole>(RoleStore);
         }
             
 
@@ -115,9 +116,31 @@ namespace TestCasesInventory.Presenter.Business
         public IndexViewModel FindUserByID(string UserId)
         {
             var currentUser = UserManager.FindById(UserId);
-            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword() };
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
             return model;
         }
+
+        public bool IsRoleExist(string role)
+        {
+            var model = RoleManager.FindByName(role);
+            if (model != null)
+                return true;
+            else
+                return false;
+        }
+
+        public IdentityResult AddRole(string UserId, string UserRole)
+        {
+            return UserManager.AddToRole(UserId, UserRole);
+        }
+
+        public Task<IdentityResult> CreateRole(string UserRole)
+        {
+            return RoleManager.CreateAsync(new IdentityRole { Name = UserRole });
+        }
+
+
+
 
         #endregion
 

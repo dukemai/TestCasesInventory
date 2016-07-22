@@ -44,6 +44,16 @@
             }
             ]
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRoles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRoles )
+            [
+            @Html.ActionLink(" Edit Your Role", "EditUserRole")
+            ]
+        </dd>
         @*<dt>External Logins:</dt>*@
         @*<dd>
             @Model.Logins.Count [
@@ -100,6 +110,5 @@
                         </text>
                     }
                 }*@
-        </dd>
     </dl>
 </div>

@@ -11,6 +11,7 @@ using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Data.DataModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
+using System.Collections;
 
 namespace TestCasesInventory.Controllers
 {
@@ -117,12 +118,7 @@ namespace TestCasesInventory.Controllers
                     return View("Error");
                 }
             }
-
             return View();
-                
-return View(model);
-
-
         }
 
 
@@ -175,6 +171,26 @@ return View(model);
             {
                 ModelState.AddModelError("", error);
             }
+        }
+
+        public ActionResult EditUserRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditUserRole(UpdateRolesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if(!UserPresenter.IsRoleExist(model.UserRoles))
+                {
+                    UserPresenter.CreateRole(model.UserRoles);
+                }
+                UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         /*
