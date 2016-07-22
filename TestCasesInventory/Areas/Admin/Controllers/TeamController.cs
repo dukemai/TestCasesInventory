@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 
@@ -42,7 +43,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var team = TeamPresenterObject.GetTeamById(id);
                 return View("Details", team);
             }
-            catch (Exception)
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
             {
                 return View("ResultNotFoundError");
             }
@@ -78,6 +83,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var updatedTeam = TeamPresenterObject.GetTeamById(id);
                 return View("Edit", updatedTeam);
             }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
             catch (Exception e)
             {
                 return View("ResultNotFoundError");
@@ -107,6 +116,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var deletedTeam = TeamPresenterObject.GetTeamById(id);
                 return View("Delete", deletedTeam);
             }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
             catch (Exception e)
             {
                 return View("ResultNotFoundError");
@@ -118,15 +131,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                TeamPresenterObject.DeleteTeam(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            TeamPresenterObject.DeleteTeam(id);
+            return RedirectToAction("Index");
         }
     }
 }

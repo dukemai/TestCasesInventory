@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Data.Common;
+
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -23,7 +25,7 @@ namespace TestCasesInventory.Presenter.Business
                 var team = teamRepository.GetTeamByID(idValid);
                 if (team == null)
                 {
-                    throw new Exception("No team was found");
+                    throw new TeamNotFoundException("Team was not found.");
                 }
                 return new TeamViewModel
                 {
@@ -33,7 +35,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                throw new Exception("Id was not valid");
+                throw new Exception("Id was not valid.");
             }
         }
 
