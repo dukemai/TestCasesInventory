@@ -10,6 +10,7 @@ using TestCasesInventory.Data.DataModels;
 using Microsoft.Owin.Security;
 using System.Security.Principal;
 using TestCasesInventory.Data.Common;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
