@@ -90,11 +90,11 @@
     <Compile Include="DataModels\TeamDataModel.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ApplicationSignInManager.cs" />
-    <Compile Include="Repository\ApplicationUserManager.cs" />
-    <Compile Include="Repository\ITeamRepository.cs" />
-    <Compile Include="Repository\RepositoryBase.cs" />
-    <Compile Include="Repository\TeamRepository.cs" />
+    <Compile Include="Repositories\ApplicationSignInManager.cs" />
+    <Compile Include="Repositories\ApplicationUserManager.cs" />
+    <Compile Include="Repositories\ITeamRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

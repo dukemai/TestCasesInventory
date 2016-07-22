@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
 
-namespace TestCasesInventory.Data.Repository
+namespace TestCasesInventory.Data.Repositories
 {
     public interface ITeamRepository
     {
@@ -15,5 +15,6 @@ namespace TestCasesInventory.Data.Repository
         void DeleteTeam(int teamID);
         void UpdateTeam(TeamDataModel team);
         void Save();
+        IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
     }
 }

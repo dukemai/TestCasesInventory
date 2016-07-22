@@ -1,28 +1,22 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using TestCasesInventory.Data;
-using TestCasesInventory.Data.DataModels;
-using TestCasesInventory.Data.Repository;
+using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Validations
 {
-    public class Unique : ValidationAttribute
+    public class TeamUniqueValidationAttribute : ValidationAttribute
     {
         ITeamRepository teamRepository = new TeamRepository();
-        static string GetErrorMessage()
-        {
-            return "Team already exist!";
-        }
+        
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            TeamViewModel team = (TeamViewModel)validationContext.ObjectInstance;
-            var existedTeam = teamRepository.ListAll().Where(t => t.Name == team.Name);
-            if (existedTeam.ToArray().Length > 0)
+            TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
+            var existedTeam = teamRepository.GetExistedTeamByName(team.Name);
+            if (existedTeam.Any())
             {
-                return new ValidationResult(GetErrorMessage());
+                return new ValidationResult("Team already exist!");
             }
             return ValidationResult.Success;
         }

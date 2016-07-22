@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
 
-namespace TestCasesInventory.Data.Repository
+namespace TestCasesInventory.Data.Repositories
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
 
-namespace TestCasesInventory.Data.Repository
+namespace TestCasesInventory.Data.Repositories
 {
     public class TeamRepository : RepositoryBase, ITeamRepository, IDisposable
     {
@@ -44,6 +44,11 @@ namespace TestCasesInventory.Data.Repository
         public void Save()
         {
             dataContext.SaveChanges();
+        }
+
+        public IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName)
+        {
+            return dataContext.Teams.Where(t => t.Name == teamName).ToList();
         }
 
 
