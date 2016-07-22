@@ -9,7 +9,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class TeamController : Controller
     {
         #region Properties
@@ -42,7 +42,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var team = TeamPresenterObject.GetTeamById(id);
                 return View("Details", team);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View("ResultNotFoundError");
             }
@@ -60,21 +60,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] TeamViewModel team)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    string teamName = Request.Form["Name"];
-                    var createdTeam = new CreateTeamViewModel { Name = teamName };
-                    TeamPresenterObject.InsertTeam(createdTeam);
-                    return RedirectToAction("Index");
-                }
-                return View();
+                string teamName = Request.Form["Name"];
+                var createdTeam = new CreateTeamViewModel { Name = teamName };
+                TeamPresenterObject.InsertTeam(createdTeam);
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Admin/Team/Edit/5

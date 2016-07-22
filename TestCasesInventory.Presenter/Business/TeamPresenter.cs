@@ -21,6 +21,10 @@ namespace TestCasesInventory.Presenter.Business
             {
                 idValid = (int)id;
                 var team = teamRepository.GetTeamByID(idValid);
+                if (team == null)
+                {
+                    throw new Exception("No team was found");
+                }
                 return new TeamViewModel
                 {
                     ID = team.ID,
@@ -29,7 +33,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                throw new Exception("Id was not valid or No result was found");
+                throw new Exception("Id was not valid");
             }
         }
 
