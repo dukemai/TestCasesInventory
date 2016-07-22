@@ -109,7 +109,6 @@
     <Compile Include="Business\PresenterBase.cs" />
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
-    <Compile Include="Business\UpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Config\ViewModelConfig.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

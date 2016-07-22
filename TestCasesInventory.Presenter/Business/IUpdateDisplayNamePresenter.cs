@@ -10,9 +10,9 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface IUpdateDisplayNamePresenter
     {
-        UpdateDisplayNameViewModel GetCurrentUserByEmail(string email);
+        UpdateDisplayNameViewModel GetCurrentUserById(string id);
 
-        bool UpdateDisplayNameInDB(string UserId, string OldDisplayName);
+        void UpdateDisplayNameInDB(string UserId, string NewDisplayName);
     }
 }
 
