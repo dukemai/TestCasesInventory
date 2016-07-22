@@ -60,11 +60,8 @@ namespace TestCasesInventory.Presenter.Business
 
         public void UpdateTeam(int id, EditTeamViewModel team)
         {
-            var teamDataModel = new TeamDataModel
-            {
-                ID = id,
-                Name = team.Name
-            };
+            var teamDataModel = teamRepository.GetTeamByID(id);
+            teamDataModel.Name = team.Name;
             teamRepository.UpdateTeam(teamDataModel);
             teamRepository.Save();
         }
