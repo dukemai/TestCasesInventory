@@ -5,7 +5,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
 using TestCasesInventory.Data.DataModels;
-using TestCasesInventory.Data.Repository;
+using TestCasesInventory.Data.Repositories;
 
 [assembly: OwinStartupAttribute(typeof(TestCasesInventory.Data.Startup))]
 namespace TestCasesInventory.Data

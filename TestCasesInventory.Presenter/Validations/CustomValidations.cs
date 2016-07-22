@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
-using TestCasesInventory.Data.Repository;
+using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Validations

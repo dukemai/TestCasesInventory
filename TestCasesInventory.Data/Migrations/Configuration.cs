@@ -1,7 +1,7 @@
 namespace TestCasesInventory.Data.Migrations
 {
     using System.Data.Entity.Migrations;
-    using TestCasesInventory.Data.Repository;
+    using TestCasesInventory.Data.Repositories;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TestCasesInventory.Data.ApplicationDbContext>
     {

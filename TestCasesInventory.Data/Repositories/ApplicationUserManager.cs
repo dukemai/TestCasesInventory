@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TestCasesInventory.Data.Config;
 using TestCasesInventory.Data.DataModels;
 
-namespace TestCasesInventory.Data.Repository
+namespace TestCasesInventory.Data.Repositories
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

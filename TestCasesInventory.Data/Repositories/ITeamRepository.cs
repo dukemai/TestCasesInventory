@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
 
-namespace TestCasesInventory.Data.Repository
+namespace TestCasesInventory.Data.Repositories
 {
     public interface ITeamRepository
     {

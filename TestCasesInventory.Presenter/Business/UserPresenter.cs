@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using TestCasesInventory.Data.Repository;
+using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
