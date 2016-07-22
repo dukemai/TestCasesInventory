@@ -17,5 +17,8 @@ namespace TestCasesInventory.Presenter.Business
         Task<bool> TwoFactorBrowserRememberedAsync(string userId);
         //Return a model
         IndexViewModel FindUserByID(string UserId);
+        bool IsRoleExist(string role);
+        IdentityResult AddRole(string UserId, string UserRole);
+        Task<IdentityResult> CreateRole(string UserRole);
     }
 }
