@@ -15,5 +15,6 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTeam(int teamID);
         void UpdateTeam(TeamDataModel team);
         void Save();
+        IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
     }
 }
