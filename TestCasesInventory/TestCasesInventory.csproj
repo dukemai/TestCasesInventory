@@ -226,6 +226,7 @@
     <Content Include="Views\Shared\_UnAuthenticatedPartial.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedPartial.cshtml" />
     <Content Include="Views\Manage\EditDisplayName.cshtml" />
+    <Content Include="Views\Shared\UserNotFoundError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
