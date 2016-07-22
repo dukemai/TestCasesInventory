@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using TestCasesInventory.Data;
-using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 
@@ -18,7 +15,7 @@ namespace TestCasesInventory.Presenter.Validations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            TeamViewModel team = (TeamViewModel)validationContext.ObjectInstance;
+            TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
             var existedTeam = teamRepository.ListAll().Where(t => t.Name == team.Name);
             if (existedTeam.ToArray().Length > 0)
             {

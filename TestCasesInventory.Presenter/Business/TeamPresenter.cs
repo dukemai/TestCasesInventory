@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
@@ -20,11 +16,11 @@ namespace TestCasesInventory.Presenter.Business
 
         public TeamViewModel GetTeamById(int? id)
         {
-            int id_Valid;
+            int idValid;
             if (id.HasValue)
             {
-                id_Valid = (int)id;
-                var team = teamRepository.GetTeamByID(id_Valid);
+                idValid = (int)id;
+                var team = teamRepository.GetTeamByID(idValid);
                 return new TeamViewModel
                 {
                     ID = team.ID,
@@ -33,7 +29,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Id was not valid or No result was found");
             }
         }
 
