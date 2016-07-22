@@ -232,6 +232,7 @@
     <Content Include="Views\Shared\_AuthenticatedPartial.cshtml" />
     <Content Include="Views\Manage\EditDisplayName.cshtml" />
     <Content Include="Views\Shared\ResultNotFoundError.cshtml" />
+    <Content Include="Views\Shared\UserNotFoundError.cshtml" />
     <Content Include="Views\Manage\EditUserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>

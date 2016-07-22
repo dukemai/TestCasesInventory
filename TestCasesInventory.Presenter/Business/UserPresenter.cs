@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.DataModels;
 using Microsoft.Owin.Security;
 using System.Security.Principal;
-using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -39,7 +39,7 @@ namespace TestCasesInventory.Presenter.Business
             RoleStore = new RoleStore<IdentityRole>(DataContext);
             RoleManager = new RoleManager<IdentityRole>(RoleStore);
         }
-            
+
 
         public UserViewModel Register(RegisterViewModel model)
         {
@@ -47,7 +47,13 @@ namespace TestCasesInventory.Presenter.Business
         }
         public Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword)
         {
+            var user = UserManager.FindById(userId);
+                if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
             return UserManager.ChangePasswordAsync(userId, currentPassword, newPassword);
+
         }
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
@@ -56,6 +62,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)
         {
+
             return SignInManager.PasswordSignInAsync(email, passWord, rememberMe, shouldLockOut);
         }
 
