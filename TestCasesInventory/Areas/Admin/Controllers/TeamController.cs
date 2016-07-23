@@ -7,8 +7,7 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [Authorize]
-    [AdminAuthorize]
+    [CustomAuthorize(Roles ="Admin")]
     public class TeamController : Controller
     {
         #region Properties
