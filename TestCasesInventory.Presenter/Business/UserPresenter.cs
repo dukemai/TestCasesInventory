@@ -40,7 +40,7 @@ namespace TestCasesInventory.Presenter.Business
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
         }
-            
+
 
         public UserViewModel Register(RegisterViewModel model)
         {
@@ -48,7 +48,13 @@ namespace TestCasesInventory.Presenter.Business
         }
         public Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword)
         {
+            var user = UserManager.FindById(userId);
+                if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
             return UserManager.ChangePasswordAsync(userId, currentPassword, newPassword);
+
         }
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
@@ -57,6 +63,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)
         {
+
             return SignInManager.PasswordSignInAsync(email, passWord, rememberMe, shouldLockOut);
         }
 

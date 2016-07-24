@@ -81,7 +81,7 @@ namespace TestCasesInventory.Controllers
             
         }
 
-        
+
         [HttpGet]
         public ActionResult EditDisplayName()
         {
@@ -99,7 +99,7 @@ namespace TestCasesInventory.Controllers
                 throw e;
             }
 
-       
+
 
         }
 
@@ -128,7 +128,6 @@ namespace TestCasesInventory.Controllers
 
             return View();
 
-
         }
 
 
@@ -152,28 +151,40 @@ namespace TestCasesInventory.Controllers
                 return View(model);
             }
 
-            try { var result = await UserPresenter.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            try
+            {
+                var userId = User.Identity.GetUserId();
+
+               
+                var result = await UserPresenter.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
+                
                 if (result.Succeeded)
                 {
-                    var user = await UserPresenter.FindByIdAsync(User.Identity.GetUserId());
+                    var user = await UserPresenter.FindByIdAsync(userId);
                     if (user != null)
                     {
                         await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
+
                     return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
 
+
                 AddErrors(result);
             }
-
-           // UserPresenter.AddErrors(result);
-
-
-            catch
-            { return View("Error"); }
-       
-            return View(model);
+            catch (UserNotFoundException ex)
+            {
+                return View("UserNotFoundError");
             }
+
+            catch (Exception ex)
+            {
+                return View("Error");
+
+            }
+
+            return View(model);
+        }
 
         private void AddErrors(IdentityResult result)
         {
