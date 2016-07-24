@@ -104,6 +104,7 @@ namespace TestCasesInventory.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult EditDisplayName(UpdateDisplayNameViewModel model)
         {
