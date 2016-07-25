@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class UserPresenter : PresenterBase, IUserPresenter
+    public class UserPresenter : IUserPresenter
     {
         #region Properties
 
@@ -26,7 +26,6 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationSignInManager SignInManager;
         protected IAuthenticationManager AuthenticationManager;
         protected IPrincipal User;
-        protected RoleStore<IdentityRole> RoleStore;
         protected RoleManager<IdentityRole> RoleManager;
 
         #endregion
@@ -40,8 +39,7 @@ namespace TestCasesInventory.Presenter.Business
             SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
-            RoleStore = new RoleStore<IdentityRole>(DataContext);
-            RoleManager = new RoleManager<IdentityRole>(RoleStore);
+            RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
 
 

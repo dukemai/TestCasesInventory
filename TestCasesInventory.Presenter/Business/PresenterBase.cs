@@ -19,7 +19,6 @@ namespace TestCasesInventory.Presenter.Business
 
         public PresenterBase()
         {
-            DataContext = new ApplicationDbContext();
         }
 
         #endregion
