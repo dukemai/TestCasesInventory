@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseNotFoundException.cs" />
     <Compile Include="TeamNotFoundException.cs" />
     <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,6 +50,10 @@
     <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
       <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
       <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Data\TestCasesInventory.Data.csproj">
+      <Project>{fbbc24ac-8cc8-44ce-9a2b-a5db037b7810}</Project>
+      <Name>TestCasesInventory.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

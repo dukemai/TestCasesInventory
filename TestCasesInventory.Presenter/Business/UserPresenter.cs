@@ -8,7 +8,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.DataModels;
 using Microsoft.Owin.Security;
+using System.Web.Mvc;
 using System.Security.Principal;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -124,6 +127,10 @@ namespace TestCasesInventory.Presenter.Business
         public IndexViewModel FindUserByID(string UserId)
         {
             var currentUser = UserManager.FindById(UserId);
+            if(currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
             IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
             return model;
         }
@@ -148,6 +155,29 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
+public UpdateDisplayNameViewModel GetCurrentUserById(string id)
+        {
+            var currentUser = UserManager.FindById(id);
+            if (currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            var viewModel = new UpdateDisplayNameViewModel { DisplayName = currentUser.DisplayName };
+            return viewModel;
+        }
+
+        public void UpdateDisplayNameInDB(string UserId, string NewDisplayName)
+        {
+         
+            var currentUser = UserManager.FindById(UserId);
+            if (currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            currentUser.DisplayName = NewDisplayName;
+            UserManager.Update(currentUser);
+            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        }
 
 
         #endregion

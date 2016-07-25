@@ -23,20 +23,7 @@ namespace TestCasesInventory.Controllers
 
         private IUserPresenter userPresenter;
 
-        private IUpdateDisplayNamePresenter updateDisplayName;
-
-        protected IUpdateDisplayNamePresenter UpdateDisplayName
-        {
-            get
-            {
-                if (updateDisplayName == null)
-                {
-                    updateDisplayName = new UpdateDisplayNamePresenter();
-                }
-                return updateDisplayName;
-            }
-        }
-
+     
         protected IUserPresenter UserPresenter
         {
             get
@@ -77,13 +64,22 @@ namespace TestCasesInventory.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = UserPresenter.FindUserByID(userId);
+            try
+            {
+                var model = UserPresenter.FindUserByID(userId);
+                return View(model);
+            }
+            catch(UserNotFoundException e)
+            {
+                return View("UserNotFoundError");
+            }
+            
             //var model = UserPresenter
             //var model = new IndexViewModel
             //{
             //    HasPassword = UserPresenter.HasPassword(),
             //};
-            return View(model);
+            
         }
 
 
@@ -92,12 +88,16 @@ namespace TestCasesInventory.Controllers
         {
             try
             {
-                var model = UpdateDisplayName.GetCurrentUserByEmail(User.Identity.GetUserName());
+                var model = UserPresenter.GetCurrentUserById(User.Identity.GetUserId());
                 return View(model);
+            }
+            catch(UserNotFoundException e)
+            {
+                return View("UserNotFoundError");
             }
             catch (Exception e)
             {
-                return View("Error");
+                throw e;
             }
 
 
@@ -105,19 +105,26 @@ namespace TestCasesInventory.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult EditDisplayName(UpdateDisplayNameViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (UpdateDisplayName.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName))
+                try
                 {
-                    return RedirectToAction("Index");
+                    UserPresenter.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName);
                 }
-                else
+                catch(UserNotFoundException e)
                 {
-                    return View("Error");
+                    return View("UserNotFoundError");
                 }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                
+                return RedirectToAction("Index");             
             }
             return View();
         }

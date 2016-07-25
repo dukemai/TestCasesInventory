@@ -82,7 +82,7 @@ namespace TestCasesInventory.Presenter.Models
 
     public class VerifyPhoneNumberViewModel : ViewModelBase
     {
-        [Required]
+        
         [Display(Name = "Code")]
         public string Code { get; set; }
 
