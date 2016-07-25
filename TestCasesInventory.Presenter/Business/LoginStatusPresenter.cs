@@ -14,11 +14,6 @@ namespace TestCasesInventory.Presenter.Business
         {
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            if (manager == null)
-            {
-                throw new NullReferenceException("Manager is null");
-            }
-
             var viewModel = new LoginStatusViewModel();
             var model = manager.FindByEmail(email);
             if (model == null)
