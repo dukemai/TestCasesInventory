@@ -64,7 +64,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string teamName = team.Name;
+                string teamName = team.Name.Trim();
                 var createdTeam = new CreateTeamViewModel { Name = teamName };
                 TeamPresenterObject.InsertTeam(createdTeam);
                 return RedirectToAction("Index");
