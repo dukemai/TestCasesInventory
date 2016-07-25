@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TestCasesInventory.Presenter.Config;
+using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -73,18 +73,18 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfPassword, ErrorMessage = ValidationMessages.ErrorMessageForPasswordProperty)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = ValidationMessages.ErrorMessageForConFirmPasswordProperty)]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfDisplayName, ErrorMessage = ValidationMessages.ErrorMessageForDisplayNameProperty)]
         [Display(Name = "Your DisplayName")]
         public string DisplayName { get; set; }
     }
@@ -97,14 +97,14 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfPassword, ErrorMessage = ValidationMessages.ErrorMessageForDisplayNameProperty)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = ValidationMessages.ErrorMessageForPasswordProperty)]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

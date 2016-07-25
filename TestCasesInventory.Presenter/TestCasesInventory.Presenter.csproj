@@ -110,7 +110,6 @@
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
-    <Compile Include="Config\ViewModelConfig.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\LoginStatusViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -120,6 +119,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validations\CustomAuthorizations.cs" />
     <Compile Include="Validations\CustomValidations.cs" />
+    <Compile Include="Validations\ValidationMagicNumbers.cs" />
+    <Compile Include="Validations\ValidationMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
