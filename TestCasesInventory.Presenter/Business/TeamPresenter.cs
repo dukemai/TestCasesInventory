@@ -18,11 +18,9 @@ namespace TestCasesInventory.Presenter.Business
 
         public TeamViewModel GetTeamById(int? id)
         {
-            int idValid;
             if (id.HasValue)
             {
-                idValid = (int)id;
-                var team = teamRepository.GetTeamByID(idValid);
+                var team = teamRepository.GetTeamByID(id.Value);
                 if (team == null)
                 {
                     throw new TeamNotFoundException("Team was not found.");
