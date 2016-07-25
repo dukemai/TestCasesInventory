@@ -95,14 +95,21 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name")] TeamViewModel team)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string teamName = Request.Form["Name"];
-                var updatedTeam = new EditTeamViewModel { Name = teamName };
-                TeamPresenterObject.UpdateTeam(id, updatedTeam);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string teamName = Request.Form["Name"];
+                    var updatedTeam = new EditTeamViewModel { Name = teamName };
+                    TeamPresenterObject.UpdateTeam(id, updatedTeam);
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            return View();
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // GET: Admin/Team/Delete/5
