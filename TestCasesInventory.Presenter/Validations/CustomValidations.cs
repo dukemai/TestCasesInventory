@@ -13,7 +13,7 @@ namespace TestCasesInventory.Presenter.Validations
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
-            var existedTeam = teamRepository.GetExistedTeamByName(team.Name);
+            var existedTeam = teamRepository.GetExistedTeamByName(team.Name.Trim());
             if (existedTeam.Any())
             {
                 return new ValidationResult("Team already exist!");
