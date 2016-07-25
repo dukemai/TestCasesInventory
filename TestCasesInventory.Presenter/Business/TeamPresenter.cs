@@ -79,8 +79,16 @@ namespace TestCasesInventory.Presenter.Business
 
         public void DeleteTeam(int id)
         {
-            teamRepository.DeleteTeam(id);
-            teamRepository.Save();
+            var teamDataModel = teamRepository.GetTeamByID(id);
+            if (teamDataModel == null)
+            {
+                throw new TeamNotFoundException("Team was not found.");
+            }
+            else
+            {
+                teamRepository.DeleteTeam(id);
+                teamRepository.Save();
+            }
         }
 
     }

@@ -135,8 +135,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            TeamPresenterObject.DeleteTeam(id);
-            return RedirectToAction("Index");
+            try
+            {
+                TeamPresenterObject.DeleteTeam(id);
+                return RedirectToAction("Index");
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
     }
 }
