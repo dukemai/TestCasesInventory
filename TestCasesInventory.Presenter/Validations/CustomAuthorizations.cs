@@ -18,7 +18,7 @@ namespace TestCasesInventory.Presenter.Validations
             else
             {
                 //logged and wihout the role to access it - redirect to the custom controller action
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errors", action = "AccessDenied" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errors", action = "AccessDenied", area = "" }));
             }
         }
     }

@@ -138,9 +138,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ErrorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -242,6 +242,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Errors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
