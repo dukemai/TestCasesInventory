@@ -160,7 +160,7 @@ public UpdateDisplayNameViewModel GetCurrentUserById(string id)
             {
                 throw new UserNotFoundException();
             }
-            var viewModel = new UpdateDisplayNameViewModel { DisplayName = currentUser.DisplayName };
+            var viewModel = new UpdateDisplayNameViewModel { DisplayName = currentUser.DisplayName.Trim() };
             return viewModel;
         }
 
