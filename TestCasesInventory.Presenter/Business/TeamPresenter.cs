@@ -65,9 +65,16 @@ namespace TestCasesInventory.Presenter.Business
         public void UpdateTeam(int id, EditTeamViewModel team)
         {
             var teamDataModel = teamRepository.GetTeamByID(id);
-            teamDataModel.Name = team.Name;
-            teamRepository.UpdateTeam(teamDataModel);
-            teamRepository.Save();
+            if (teamDataModel == null)
+            {
+                throw new TeamNotFoundException("Team was not found.");
+            }
+            else
+            {
+                teamDataModel.Name = team.Name;
+                teamRepository.UpdateTeam(teamDataModel);
+                teamRepository.Save();
+            }
         }
 
         public void DeleteTeam(int id)
