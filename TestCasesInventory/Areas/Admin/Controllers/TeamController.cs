@@ -64,7 +64,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string teamName = Request.Form["Name"];
+                string teamName = team.Name;
                 var createdTeam = new CreateTeamViewModel { Name = teamName };
                 TeamPresenterObject.InsertTeam(createdTeam);
                 return RedirectToAction("Index");
@@ -93,13 +93,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name")] TeamViewModel team)
+        public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name, ID")] TeamViewModel team)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    string teamName = Request.Form["Name"];
+                    string teamName = team.Name;
                     var updatedTeam = new EditTeamViewModel { Name = teamName };
                     TeamPresenterObject.UpdateTeam(id, updatedTeam);
                     return RedirectToAction("Index");
