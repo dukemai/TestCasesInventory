@@ -20,13 +20,15 @@
             @Html.LabelFor(model =>model.UserRoles , htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <p></p>
-                @Html.DropDownListFor(model => model.UserRoles, new SelectList(
+                @*@Html.DropDownListFor(model => model.UserRoles, new SelectList(
                   new List<Object>{
                        new { value = "Admin" , text = "Admin"  },
                     },
                   "value",
                   "text",
-                   2), " ")
+                   2), " ")*@
+                @Html.DropDownListFor(model => model.UserRoles, Model.RoleList, Model.UserRoles )
+                
 </div>
         </div>
 

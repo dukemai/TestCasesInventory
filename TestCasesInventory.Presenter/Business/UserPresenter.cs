@@ -2,6 +2,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
+using System.Linq;
+using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using TestCasesInventory.Data.DataModels;
+using Microsoft.Owin.Security;
+using System.Web.Mvc;
+using System.Security.Principal;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
+using TestCasesInventory.Data.Common;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity.Owin;
@@ -145,6 +161,21 @@ namespace TestCasesInventory.Presenter.Business
             }
             UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
             return model;
+        }
+
+        public List<SelectListItem> AddRoleToList()
+        {
+            var RoleNameList = RoleManager.Roles.Select(role=>role.Name).ToList();
+            List<SelectListItem> RoleList = new List<SelectListItem>();
+            for (int i = 0; i < RoleNameList.Count; i++)
+            {
+                RoleList.Add(new SelectListItem
+                 {
+                     Text = RoleNameList[i],
+                     Value = RoleNameList[i]
+                });
+            }
+            return RoleList;
         }
 
         public bool IsRoleExist(string role)
