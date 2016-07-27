@@ -7,27 +7,44 @@ namespace TestCasesInventory.Presenter.Validations
 {
     public class TeamUniqueValidationAttribute : ValidationAttribute
     {
-        ITeamRepository teamRepository = new TeamRepository();
+        #region Fields
 
+        private ITeamRepository teamRepository;
+
+        #endregion
+
+        public TeamUniqueValidationAttribute()
+        {
+            teamRepository = new TeamRepository();
+        }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
-            var livingTeam = teamRepository.GetExistedTeamByID(team.ID);
-            if (team.Name != null)
+            if (team == null)
             {
-                var existedTeam = teamRepository.GetExistedTeamByName(team.Name.Trim());
-                if (existedTeam.Any())
-                {
-                    if (!livingTeam.Any() || existedTeam.First().ID == livingTeam.First().ID)
-                    {
-                        if (team.ID != 0)
-                            return ValidationResult.Success;
-                    }
-                    return new ValidationResult("Team already exist!");
-                }
+                throw new System.Exception("Expected object is TeamViewmodel while its type is " + validationContext.ObjectInstance.GetType());
             }
-            return ValidationResult.Success;
+
+            if (string.IsNullOrEmpty(team.Name))
+            {
+                var livingTeam = teamRepository.GetExistedTeamByID(team.ID);
+            }
+
+            var existedTeamModel = teamRepository.GetExistedTeamByName(team.Name.Trim());
+            var existedTeamModelById = teamRepository.GetExistedTeamByID(team.ID);
+
+            if (!existedTeamModel.Any())
+            {
+                return ValidationResult.Success;
+            }
+
+            if (existedTeamModelById.Any() && existedTeamModelById.First().ID != existedTeamModel.First().ID)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult("Team already exist!");          
         }
 
     }
