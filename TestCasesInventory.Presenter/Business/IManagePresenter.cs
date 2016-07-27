@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -18,6 +20,7 @@ namespace TestCasesInventory.Presenter.Business
         //Return a model
         IndexViewModel FindUserByID(string UserId);
         UpdateRolesViewModel FindUserRoleById(string UserId);
+        List<SelectListItem> AddRoleToList();
         bool IsRoleExist(string role);
         IdentityResult AddRole(string UserId, string UserRole);
         Task<IdentityResult> CreateRole(string UserRole);
