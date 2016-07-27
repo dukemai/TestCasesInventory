@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 
@@ -34,6 +35,12 @@ namespace TestCasesInventory.Presenter.Validations
             var existedTeamModel = teamRepository.GetExistedTeamByName(team.Name.Trim());
             var existedTeamModelById = teamRepository.GetExistedTeamByID(team.ID);
 
+            //teamID != 0 --> we are editing a team
+            if (!existedTeamModelById.Any() && team.ID != 0)
+            {
+                throw new TeamNotFoundException();
+            }
+
             if (!existedTeamModel.Any())
             {
                 return ValidationResult.Success;
@@ -43,14 +50,7 @@ namespace TestCasesInventory.Presenter.Validations
             {
                 return ValidationResult.Success;
             }
-            if (!existedTeamModelById.Any())
-            {
-                if (existedTeamModel.Any() && team.ID == 0)
-                {
-                    return new ValidationResult("Team already exist!");
-                }
-                return ValidationResult.Success;
-            }
+
             return new ValidationResult("Team already exist!");
         }
 
