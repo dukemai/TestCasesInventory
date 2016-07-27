@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestCasesInventory.Presenter.Config
 {
-    public class Class1
+    public class ValidationMagicNumbers
     {
+        public const int MaximumLengthOfPassword = 50;
+        public const int MaximumLengthOfDisplayName = 50;
     }
 }
