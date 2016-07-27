@@ -13,9 +13,9 @@ namespace TestCasesInventory.Presenter.Validations
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
-            var livingTeam = teamRepository.GetExistedTeamByID(team.ID);
             if (team.Name != null)
             {
+                var livingTeam = teamRepository.GetExistedTeamByID(team.ID);
                 var existedTeam = teamRepository.GetExistedTeamByName(team.Name.Trim());
                 if (existedTeam.Any())
                 {
