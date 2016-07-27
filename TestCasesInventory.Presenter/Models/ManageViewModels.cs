@@ -80,11 +80,10 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "User Roles")]
         public string UserRoles { get; set; }
         public List<System.Web.Mvc.SelectListItem> RoleList { get; set; }
-        public void CreateRoleList()
+        public UpdateRolesViewModel()
         {
             RoleList = new List<System.Web.Mvc.SelectListItem>();
         }
-
     }
 
     public class VerifyPhoneNumberViewModel : ViewModelBase

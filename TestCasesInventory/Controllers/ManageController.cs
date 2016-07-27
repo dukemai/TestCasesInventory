@@ -24,7 +24,7 @@ namespace TestCasesInventory.Controllers
 
         private IUserPresenter userPresenter;
 
-     
+
         protected IUserPresenter UserPresenter
         {
             get
@@ -70,17 +70,17 @@ namespace TestCasesInventory.Controllers
                 var model = UserPresenter.FindUserByID(userId);
                 return View(model);
             }
-            catch(UserNotFoundException e)
+            catch (UserNotFoundException e)
             {
                 return View("UserNotFoundError");
             }
-            
+
             //var model = UserPresenter
             //var model = new IndexViewModel
             //{
             //    HasPassword = UserPresenter.HasPassword(),
             //};
-            
+
         }
 
 
@@ -92,7 +92,7 @@ namespace TestCasesInventory.Controllers
                 var model = UserPresenter.GetCurrentUserById(User.Identity.GetUserId());
                 return View(model);
             }
-            catch(UserNotFoundException e)
+            catch (UserNotFoundException e)
             {
                 return View("UserNotFoundError");
             }
@@ -116,16 +116,16 @@ namespace TestCasesInventory.Controllers
                 {
                     UserPresenter.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName);
                 }
-                catch(UserNotFoundException e)
+                catch (UserNotFoundException e)
                 {
                     return View("UserNotFoundError");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
-                
-                return RedirectToAction("Index");             
+
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -155,9 +155,9 @@ namespace TestCasesInventory.Controllers
             {
                 var userId = User.Identity.GetUserId();
 
-               
+
                 var result = await UserPresenter.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
-                
+
                 if (result.Succeeded)
                 {
                     var user = await UserPresenter.FindByIdAsync(userId);
@@ -198,38 +198,24 @@ namespace TestCasesInventory.Controllers
         {
             UpdateRolesViewModel model = new UpdateRolesViewModel();
             model = UserPresenter.FindUserRoleById(User.Identity.GetUserId());
-            model.CreateRoleList();
-            model.RoleList.Add(new SelectListItem
-            {
-                Text = "Admin",
-                Value = "Admin"
-            });
-            model.RoleList.Add(new SelectListItem
-            {
-                Text = "NormalUser",
-                Value = "NormalUser"
-            });
-            model.RoleList.Add(new SelectListItem
-            {
-                Text = "Role3",
-                Value = "Role3"
-            });
+            model.RoleList = UserPresenter.AddRoleToList();
             return View(model);
-            //return View();
-
-
-    }
+        }
 
         [HttpPost]
         public ActionResult EditUserRole(UpdateRolesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if(!UserPresenter.IsRoleExist(model.UserRoles))
+                if (!UserPresenter.IsRoleExist(model.UserRoles))
                 {
                     UserPresenter.CreateRole(model.UserRoles);
                 }
                 UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
+                return RedirectToAction("Index");
+            }
+            if (model.UserRoles == null)
+            {
                 return RedirectToAction("Index");
             }
             return View(model);
