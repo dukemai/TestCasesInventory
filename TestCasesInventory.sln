@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory", "TestCasesInventory\TestCasesInventory.csproj", "{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D}"
 EndProject
@@ -33,6 +33,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Common", "TestCasesInventory.Common\TestCasesInventory.Common.csproj", "{12FCED86-0B66-4CA5-AC88-BB71B0EBA666}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Data.Common", "TestCasesInventory.Data.Common\TestCasesInventory.Data.Common.csproj", "{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Presenter.Common", "TestCasesInventory.Presenter.Common\TestCasesInventory.Presenter.Common.csproj", "{670DE574-BC7B-4640-B5BB-F68660018CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Presenter.Config", "TestCasesInventory.Presenter.Config\TestCasesInventory.Presenter.Config.csproj", "{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +76,14 @@ Global
 		{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{670DE574-BC7B-4640-B5BB-F68660018CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670DE574-BC7B-4640-B5BB-F68660018CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670DE574-BC7B-4640-B5BB-F68660018CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670DE574-BC7B-4640-B5BB-F68660018CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +97,7 @@ Global
 		{555CC5C2-4373-49F3-9C8D-264E0918A818} = {916407E3-9528-4A63-909B-43883172F65B}
 		{12FCED86-0B66-4CA5-AC88-BB71B0EBA666} = {D3373868-B3DB-412A-9401-6BB93CFA055F}
 		{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71} = {916407E3-9528-4A63-909B-43883172F65B}
+		{670DE574-BC7B-4640-B5BB-F68660018CF7} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
+		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
 	EndGlobalSection
 EndGlobal
