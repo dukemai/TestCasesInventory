@@ -10,5 +10,6 @@ namespace TestCasesInventory.Presenter.Config
     {
         public const int MaximumLengthOfPassword = 50;
         public const int MaximumLengthOfDisplayName = 50;
+        public const int MaximumLengthOfTeamName = 50;
     }
 }
