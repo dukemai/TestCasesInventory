@@ -26,9 +26,9 @@ namespace TestCasesInventory.Presenter.Validations
                 throw new System.Exception("Expected object is TeamViewmodel while its type is " + validationContext.ObjectInstance.GetType());
             }
 
-            if (string.IsNullOrEmpty(team.Name))
+            if (string.IsNullOrEmpty(team.Name) || string.IsNullOrWhiteSpace(team.Name))
             {
-                var livingTeam = teamRepository.GetExistedTeamByID(team.ID);
+                return new ValidationResult("Team Name Is Required");
             }
 
             var existedTeamModel = teamRepository.GetExistedTeamByName(team.Name.Trim());
