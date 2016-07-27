@@ -71,13 +71,20 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         [Display(Name = "Display name")]
         public string DisplayName { get; set; }
+
     }
 
     public class UpdateRolesViewModel : ViewModelBase
     {
         [Required]
-        [Display(Name = "UserRoles")]
+        [Display(Name = "User Roles")]
         public string UserRoles { get; set; }
+        public List<System.Web.Mvc.SelectListItem> RoleList { get; set; }
+        public void RoleModel()
+        {
+            RoleList = new List<System.Web.Mvc.SelectListItem>();
+        }
+
     }
 
     public class VerifyPhoneNumberViewModel : ViewModelBase

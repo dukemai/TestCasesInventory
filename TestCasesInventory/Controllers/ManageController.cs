@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
 using System.Collections;
 using TestCasesInventory.Data.Common;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Controllers
 {
@@ -195,8 +196,28 @@ namespace TestCasesInventory.Controllers
 
         public ActionResult EditUserRole()
         {
-            return View();
-        }
+            UpdateRolesViewModel model = new UpdateRolesViewModel();
+            model.RoleModel();
+            model.RoleList.Add(new SelectListItem
+            {
+                Text = "Admin",
+                Value = "Admin"
+            });
+            model.RoleList.Add(new SelectListItem
+            {
+                Text = "NormalUser",
+                Value = "NormalUser"
+            });
+            model.RoleList.Add(new SelectListItem
+            {
+                Text = "Role3",
+                Value = "Role3"
+            });
+            return View(model);
+            //return View();
+
+
+    }
 
         [HttpPost]
         public ActionResult EditUserRole(UpdateRolesViewModel model)
