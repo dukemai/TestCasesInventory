@@ -197,7 +197,8 @@ namespace TestCasesInventory.Controllers
         public ActionResult EditUserRole()
         {
             UpdateRolesViewModel model = new UpdateRolesViewModel();
-            model.RoleModel();
+            model = UserPresenter.FindUserRoleById(User.Identity.GetUserId());
+            model.CreateRoleList();
             model.RoleList.Add(new SelectListItem
             {
                 Text = "Admin",

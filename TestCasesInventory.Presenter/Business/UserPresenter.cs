@@ -133,6 +133,17 @@ namespace TestCasesInventory.Presenter.Business
             return model;
         }
 
+        public UpdateRolesViewModel FindUserRoleById(string UserId)
+        {
+            var currentUserRole = UserManager.FindById(UserId);
+
+            if (currentUserRole == null)
+            {
+                throw new UserNotFoundException();
+            }
+            UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
+            return model;
+        }
         public bool IsRoleExist(string role)
         {
             var model = RoleManager.FindByName(role);

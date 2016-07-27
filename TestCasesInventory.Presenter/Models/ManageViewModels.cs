@@ -80,7 +80,7 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "User Roles")]
         public string UserRoles { get; set; }
         public List<System.Web.Mvc.SelectListItem> RoleList { get; set; }
-        public void RoleModel()
+        public void CreateRoleList()
         {
             RoleList = new List<System.Web.Mvc.SelectListItem>();
         }
