@@ -39,12 +39,19 @@ namespace TestCasesInventory.Presenter.Validations
                 return ValidationResult.Success;
             }
 
-            if (existedTeamModelById.Any() && existedTeamModelById.First().ID != existedTeamModel.First().ID)
+            if (existedTeamModelById.Any() && existedTeamModelById.First().ID == existedTeamModel.First().ID)
             {
                 return ValidationResult.Success;
             }
-
-            return new ValidationResult("Team already exist!");          
+            if (!existedTeamModelById.Any())
+            {
+                if (existedTeamModel.Any() && team.ID == 0)
+                {
+                    return new ValidationResult("Team already exist!");
+                }
+                return ValidationResult.Success;
+            }
+            return new ValidationResult("Team already exist!");
         }
 
     }
