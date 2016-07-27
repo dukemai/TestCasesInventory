@@ -51,6 +51,10 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name == teamName).ToList();
         }
 
+        public IEnumerable<TeamDataModel> GetExistedTeamByID(int id)
+        {
+            return dataContext.Teams.Where(t => t.ID == id).ToList();
+        }
 
         private bool disposed = false;
 

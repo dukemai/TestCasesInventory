@@ -21,5 +21,6 @@ namespace TestCasesInventory.Presenter.Business
         bool IsRoleExist(string role);
         IdentityResult AddRole(string UserId, string UserRole);
         Task<IdentityResult> CreateRole(string UserRole);
+       // Task<IdentityResult> DeleteRole(string UserId);
     }
 }

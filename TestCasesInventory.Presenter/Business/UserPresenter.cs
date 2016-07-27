@@ -13,7 +13,22 @@ using System.Security.Principal;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web;
+using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using TestCasesInventory.Data.DataModels;
+using Microsoft.Owin.Security;
+using System.Web.Mvc;
+using System.Security.Principal;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
+using TestCasesInventory.Data.Common;
+
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -28,6 +43,7 @@ namespace TestCasesInventory.Presenter.Business
         protected IPrincipal User;
         protected RoleManager<IdentityRole> RoleManager;
 
+
         #endregion
 
         #region Methods
@@ -40,6 +56,7 @@ namespace TestCasesInventory.Presenter.Business
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+
         }
 
 
@@ -50,7 +67,7 @@ namespace TestCasesInventory.Presenter.Business
         public Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword)
         {
             var user = UserManager.FindById(userId);
-                if (user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException();
             }
@@ -125,7 +142,7 @@ namespace TestCasesInventory.Presenter.Business
         public IndexViewModel FindUserByID(string UserId)
         {
             var currentUser = UserManager.FindById(UserId);
-            if(currentUser == null)
+            if (currentUser == null)
             {
                 throw new UserNotFoundException();
             }
@@ -144,6 +161,7 @@ namespace TestCasesInventory.Presenter.Business
             UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
             return model;
         }
+
         public bool IsRoleExist(string role)
         {
             var model = RoleManager.FindByName(role);
@@ -161,10 +179,18 @@ namespace TestCasesInventory.Presenter.Business
         public Task<IdentityResult> CreateRole(string UserRole)
         {
             return RoleManager.CreateAsync(new IdentityRole { Name = UserRole });
+
         }
 
 
-public UpdateDisplayNameViewModel GetCurrentUserById(string id)
+        //public Task<IdentityResult> DeleteRole(string UserId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+
+        public UpdateDisplayNameViewModel GetCurrentUserById(string id)
         {
             var currentUser = UserManager.FindById(id);
             if (currentUser == null)
@@ -177,7 +203,7 @@ public UpdateDisplayNameViewModel GetCurrentUserById(string id)
 
         public void UpdateDisplayNameInDB(string UserId, string NewDisplayName)
         {
-         
+
             var currentUser = UserManager.FindById(UserId);
             if (currentUser == null)
             {
@@ -187,6 +213,8 @@ public UpdateDisplayNameViewModel GetCurrentUserById(string id)
             UserManager.Update(currentUser);
             HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
         }
+
+
 
 
         #endregion
