@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TestCasesInventory.Presenter.Validations;
+using TestCasesInventory.Presenter.Common;
+using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Presenter.Models
 {

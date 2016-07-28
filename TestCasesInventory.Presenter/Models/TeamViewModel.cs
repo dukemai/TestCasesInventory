@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestCasesInventory.Presenter.Common;
+using TestCasesInventory.Presenter.Config;
 using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
@@ -7,7 +9,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         public int ID { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
         [TeamUniqueValidation]
         public string Name { get; set; }
@@ -22,7 +24,7 @@ namespace TestCasesInventory.Presenter.Models
     public class CreateTeamViewModel : ViewModelBase
     {
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
        
         public string Name { get; set; }
@@ -31,7 +33,7 @@ namespace TestCasesInventory.Presenter.Models
     public class EditTeamViewModel : ViewModelBase
     {
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
+        [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
     }
