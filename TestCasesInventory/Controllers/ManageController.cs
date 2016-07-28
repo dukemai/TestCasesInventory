@@ -142,6 +142,7 @@ namespace TestCasesInventory.Controllers
 
         // POST: /Manage/ChangePassword
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
 
