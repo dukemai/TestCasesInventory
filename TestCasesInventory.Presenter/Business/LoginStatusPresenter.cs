@@ -14,13 +14,15 @@ namespace TestCasesInventory.Presenter.Business
         {
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var viewModel = new LoginStatusViewModel();
+                //throw new DatabaseNotFoundException();
+           
             var model = manager.FindByEmail(email);
             if (model == null)
             {
                 throw new UserNotFoundException();
             }
 
+            var viewModel = new LoginStatusViewModel();
             viewModel.DisplayName = model.DisplayName;
             return viewModel;
 
