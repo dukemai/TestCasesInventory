@@ -33,10 +33,10 @@ namespace TestCasesInventory.Presenter.Validations
             }
 
             var existedTeamModel = teamRepository.GetExistedTeamByName(team.Name.Trim());
-            var existedTeamModelById = teamRepository.GetExistedTeamByID(team.ID);
+            var existedTeamModelById = teamRepository.GetTeamByID(team.ID);
 
             //teamID != 0 --> we are editing a team
-            if (!existedTeamModelById.Any() && team.ID != 0)
+            if (existedTeamModelById == null && team.ID != 0)
             {
                 throw new TeamNotFoundException();
             }
@@ -46,7 +46,7 @@ namespace TestCasesInventory.Presenter.Validations
                 return ValidationResult.Success;
             }
 
-            if (existedTeamModelById.Any() && existedTeamModelById.First().ID == existedTeamModel.First().ID)
+            if (existedTeamModelById != null && existedTeamModelById.ID == existedTeamModel.First().ID)
             {
                 return ValidationResult.Success;
             }

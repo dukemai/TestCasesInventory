@@ -213,6 +213,7 @@ namespace TestCasesInventory.Controllers
             //}
 
             return View();
+        }
 
         [HttpPost]
         public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
