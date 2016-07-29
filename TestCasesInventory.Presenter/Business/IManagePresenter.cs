@@ -19,11 +19,11 @@ namespace TestCasesInventory.Presenter.Business
         Task<bool> TwoFactorBrowserRememberedAsync(string userId);
         //Return a model
         IndexViewModel FindUserByID(string UserId);
-        UpdateRolesViewModel FindUserRoleById(string UserId);
+        UpdateRolesViewModel FindUserById(string UserId);
         List<SelectListItem> AddRoleToList();
         bool IsRoleExist(string role);
         IdentityResult AddRole(string UserId, string UserRole);
         Task<IdentityResult> CreateRole(string UserRole);
-       // Task<IdentityResult> DeleteRole(string UserId);
+        IdentityResult RemoveRole(string UserId, string UserRole);
     }
 }

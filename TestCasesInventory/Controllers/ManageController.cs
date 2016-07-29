@@ -197,31 +197,65 @@ namespace TestCasesInventory.Controllers
 
         public ActionResult EditUserRole()
         {
-            UpdateRolesViewModel model = new UpdateRolesViewModel();
-            model = UserPresenter.FindUserRoleById(User.Identity.GetUserId());
-            model.RoleList = UserPresenter.AddRoleToList();
-            return View(model);
+            //try
+            //{
+            //    var model = new UpdateRolesViewModel();
+            //    model = UserPresenter.FindUserRoleById(User.Identity.GetUserId());
+            //    return View(model);
+            //}
+            //catch (UserNotFoundException e)
+            //{
+            //    return View("UserNotFoundError");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return View("Error");
+            //}
+
+            return View();
         }
 
         [HttpPost]
-        public ActionResult EditUserRole(UpdateRolesViewModel model)
+        public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
         {
+           
+            if (command.Equals("Save Change"))
+            {
+                return RedirectToAction("Index");
+            } 
+
             if (ModelState.IsValid)
             {
-                if (!UserPresenter.IsRoleExist(model.UserRoles))
+                if (command.Equals("Add"))
                 {
-                    UserPresenter.CreateRole(model.UserRoles);
+                    if (!UserPresenter.IsRoleExist(model.UserRoles))
+                    {
+                        UserPresenter.CreateRole(model.UserRoles);
+                    }
+                    UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
+                    
                 }
-                UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
-                return RedirectToAction("Index");
+                if(command.Equals("Remove"))
+                {
+                    if (UserPresenter.IsRoleExist(model.UserRoles))
+                    {
+                        UserPresenter.RemoveRole(User.Identity.GetUserId(), model.UserRoles);
+                    }                  
+                }
+                    
+               
+                return View();
             }
-            if (model.UserRoles == null)
-            {
-                return RedirectToAction("Index");
-            }
-            return View(model);
+           
+            return View();
         }
 
+        public PartialViewResult ShowCurrentRole()
+        {
+            var viewModel = new UpdateRolesViewModel();
+            viewModel = UserPresenter.FindUserById(User.Identity.GetUserId());
+            return PartialView("CurrentRolePartialView", viewModel);
+        }
         /*
 
         //

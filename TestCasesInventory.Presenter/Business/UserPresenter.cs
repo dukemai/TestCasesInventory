@@ -151,7 +151,7 @@ namespace TestCasesInventory.Presenter.Business
             return model;
         }
 
-        public UpdateRolesViewModel FindUserRoleById(string UserId)
+        public UpdateRolesViewModel FindUserById(string UserId)
         {
             var currentUserRole = UserManager.FindById(UserId);
 
@@ -199,10 +199,10 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        //public Task<IdentityResult> DeleteRole(string UserId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public IdentityResult RemoveRole(string UserId, string UserRole)
+        {
+            return UserManager.RemoveFromRole(UserId, UserRole);
+        }
 
 
 
