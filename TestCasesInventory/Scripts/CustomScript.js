@@ -1,3 +1,11 @@
 ﻿//Our Scripts will be here
 
-//alert("Hello");
+$('#ListUserBelongToTheTeam a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+})
+
+$('#ListUserNOTBelongToTheTeam a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+})
