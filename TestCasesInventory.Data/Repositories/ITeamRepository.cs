@@ -14,7 +14,7 @@ namespace TestCasesInventory.Data.Repositories
         IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
         IEnumerable<ApplicationUser> ListUsersNotBelongTeam();
         IEnumerable<ApplicationUser> ListUsersBelongTeam(int id);
-        void AddUsersToTeam(ApplicationUser user);
-        void RemoveUsersFromTeam(ApplicationUser user);
+        void AssignUsersToTeam(ApplicationUser user);
+        ApplicationUser FindUserByID(string userID);
     }
 }

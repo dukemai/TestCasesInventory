@@ -59,14 +59,16 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.Users.Where(u => u.TeamID == id).ToList();
         }
-        public void AddUsersToTeam(ApplicationUser user)
+        public void AssignUsersToTeam(ApplicationUser user)
         {
-
+            dataContext.Entry(user).State = EntityState.Modified;
         }
-        public void RemoveUsersFromTeam(ApplicationUser user)
+
+        public ApplicationUser FindUserByID(string userID)
         {
-
+            return dataContext.Users.Find(userID);
         }
+
 
         private bool disposed = false;
 
