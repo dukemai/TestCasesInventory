@@ -24,8 +24,9 @@
                 <p>
                     @{Html.RenderAction("ShowCurrentRole");}
                 </p>
-                
-                
+
+
+                @Html.DropDownListFor(model => model.UserRoles, new SelectList(
                   new List<Object>{
                        new { value = "Admin" , text = "Admin"  },
                        new { value = "Normal" , text = "Normal"  },
@@ -35,17 +36,16 @@
                   "text",
                    2),
                    "Choose the role: ")
-                
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="command" value="Add" class="btn btn-default" formaction=""/>
+                <input type="submit" name="command" value="Add" class="btn btn-default" formaction="" />
                 <input type="submit" name="command" value="Remove" class="btn btn-default" formaction="" />
                 <hr />
                 <input type="submit" name="command" value="Save Change" class="btn btn-default" formaction="" />
             </div>
         </div>
     </div>
-}
+                        }
