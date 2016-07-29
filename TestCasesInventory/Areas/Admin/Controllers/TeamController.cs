@@ -7,13 +7,12 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles ="Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class TeamController : Controller
     {
         #region Properties
 
         protected ITeamPresenter TeamPresenterObject;
-
         #endregion
 
         #region Constructors
@@ -65,7 +64,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string teamName = team.Name.Trim();
-                var createdTeam = new CreateTeamViewModel { Name = teamName };
+                var createdTeam = new CreateTeamViewModel
+                {
+                    Name = teamName,
+                    Created = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    LastModified = User.Identity.Name,
+                    LastModifiedDate = DateTime.Now
+                };
                 TeamPresenterObject.InsertTeam(createdTeam);
                 return RedirectToAction("Index");
             }
@@ -100,7 +106,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     string teamName = team.Name;
-                    var updatedTeam = new EditTeamViewModel { Name = teamName };
+                    var updatedTeam = new EditTeamViewModel
+                    {
+                        Name = teamName,
+                        LastModified = User.Identity.Name,
+                        LastModifiedDate = DateTime.Now
+                    };
                     TeamPresenterObject.UpdateTeam(id, updatedTeam);
                     return RedirectToAction("Index");
                 }

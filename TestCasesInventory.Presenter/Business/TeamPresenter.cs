@@ -28,7 +28,11 @@ namespace TestCasesInventory.Presenter.Business
                 return new TeamViewModel
                 {
                     ID = team.ID,
-                    Name = team.Name
+                    Name = team.Name,
+                    Created = team.Created,
+                    CreatedDate = team.CreatedDate,
+                    LastModified = team.LastModified,
+                    LastModifiedDate = team.LastModifiedDate
                 };
             }
             else
@@ -46,7 +50,11 @@ namespace TestCasesInventory.Presenter.Business
                 var teamView = new TeamViewModel
                 {
                     ID = item.ID,
-                    Name = item.Name
+                    Name = item.Name,
+                    Created = item.Created,
+                    CreatedDate = item.CreatedDate,
+                    LastModified = item.LastModified,
+                    LastModifiedDate = item.LastModifiedDate
                 };
                 listTeamView.Add(teamView);
             }
@@ -56,7 +64,11 @@ namespace TestCasesInventory.Presenter.Business
         {
             var teamDataModel = new TeamDataModel
             {
-                Name = team.Name
+                Name = team.Name,
+                Created = team.Created,
+                CreatedDate = team.CreatedDate,
+                LastModified = team.LastModified,
+                LastModifiedDate = team.LastModifiedDate
             };
             teamRepository.InsertTeam(teamDataModel);
             teamRepository.Save();
@@ -72,6 +84,8 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 teamDataModel.Name = team.Name;
+                teamDataModel.LastModified = team.LastModified;
+                teamDataModel.LastModifiedDate = team.LastModifiedDate;
                 teamRepository.UpdateTeam(teamDataModel);
                 teamRepository.Save();
             }
