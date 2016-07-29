@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -14,19 +15,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #region Properties
 
         protected ITeamPresenter TeamPresenterObject;
-        //private IUserPresenter userPresenter;
 
-        //protected IUserPresenter UserPresenter
-        //{
-        //    get
-        //    {
-        //        if (userPresenter == null)
-        //        {
-        //            userPresenter = new UserPresenter(HttpContext);
-        //        }
-        //        return userPresenter;
-        //    }
-        //}
         #endregion
 
         #region Constructors
@@ -176,8 +165,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var usersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
-                return PartialView("UserBelongingToTheTeam", usersNotBelongTeam);
+                var team = TeamPresenterObject.GetTeamById(id);
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
+                return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)
             {
@@ -192,27 +182,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/AddUsersToTeam/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddUsersToTeam(int id, [Bind(Include = "Name, ID")] UsersNotBelongTeamViewModel team)
+        public ActionResult AddUsersToTeam(int id, string[] usersNotBelongTeam)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    string teamName = team.Email;
-                    var updatedTeam = new EditTeamViewModel
-                    {
-                        Name = teamName,
-                        LastModified = User.Identity.Name,
-                        LastModifiedDate = DateTime.Now
-                    };
-                    TeamPresenterObject.UpdateTeam(id, updatedTeam);
-                    return RedirectToAction("Index");
-                }
-                return View();
+                TeamPresenterObject.AddUsersToTeam(id, usersNotBelongTeam);
+                return RedirectToAction("AddUsersToTeam");
             }
-            catch (TeamNotFoundException e)
+            catch (UserNotFoundException e)
             {
                 return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("AddUsersToTeam");
             }
         }
 
