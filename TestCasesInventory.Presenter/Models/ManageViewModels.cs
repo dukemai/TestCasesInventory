@@ -7,7 +7,10 @@ namespace TestCasesInventory.Presenter.Models
 {
     public class IndexViewModel : ViewModelBase
     {
+
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Display(Name = "Name")]
         public string DisplayName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
