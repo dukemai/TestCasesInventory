@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -13,6 +14,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #region Properties
 
         protected ITeamPresenter TeamPresenterObject;
+        //private IUserPresenter userPresenter;
+
+        //protected IUserPresenter UserPresenter
+        //{
+        //    get
+        //    {
+        //        if (userPresenter == null)
+        //        {
+        //            userPresenter = new UserPresenter(HttpContext);
+        //        }
+        //        return userPresenter;
+        //    }
+        //}
         #endregion
 
         #region Constructors
@@ -99,7 +113,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name, ID")] TeamViewModel team)
+        public ActionResult Edit(int id, [Bind(Include = "Name, ID")] TeamViewModel team)
         {
             try
             {
@@ -144,7 +158,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -156,5 +170,51 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        // GET: Admin/Team/AddUsersToTeam/5
+        public ActionResult AddUsersToTeam(int? id)
+        {
+            try
+            {
+                var usersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
+                return PartialView("UserBelongingToTheTeam", usersNotBelongTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Team/AddUsersToTeam/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUsersToTeam(int id, [Bind(Include = "Name, ID")] UsersNotBelongTeamViewModel team)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string teamName = team.Email;
+                    var updatedTeam = new EditTeamViewModel
+                    {
+                        Name = teamName,
+                        LastModified = User.Identity.Name,
+                        LastModifiedDate = DateTime.Now
+                    };
+                    TeamPresenterObject.UpdateTeam(id, updatedTeam);
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
     }
 }

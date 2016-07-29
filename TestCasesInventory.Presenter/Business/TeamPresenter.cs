@@ -4,13 +4,14 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
-
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TeamPresenter : PresenterBase, ITeamPresenter
     {
         protected ITeamRepository teamRepository;
+
         public TeamPresenter()
         {
             teamRepository = new TeamRepository();
@@ -103,6 +104,21 @@ namespace TestCasesInventory.Presenter.Business
                 teamRepository.DeleteTeam(id);
                 teamRepository.Save();
             }
+        }
+
+        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam()
+        {
+            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam();
+            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
+            foreach (var item in usersNotBelongTeam)
+            {
+                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
+                {
+                    Email = item.Email
+                };
+                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
+            }
+            return listUsersNotBelongTeamView;
         }
 
     }

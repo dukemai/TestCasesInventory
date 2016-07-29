@@ -54,4 +54,15 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }
+
+    public class UsersBelongTeamViewModel : ViewModelBase
+    {
+        public string Email { get; set; }
+    }
+
+    public class UsersNotBelongTeamViewModel : ViewModelBase
+    {
+        public string Email { get; set; }
+    }
+
 }
