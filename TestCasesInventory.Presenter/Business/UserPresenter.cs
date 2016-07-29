@@ -192,9 +192,9 @@ namespace TestCasesInventory.Presenter.Business
             return UserManager.AddToRole(UserId, UserRole);
         }
 
-        public Task<IdentityResult> CreateRole(string UserRole)
+        public IdentityResult CreateRole(string UserRole)
         {
-            return RoleManager.CreateAsync(new IdentityRole { Name = UserRole });
+            return RoleManager.Create(new IdentityRole { Name = UserRole });
 
         }
 
