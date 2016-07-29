@@ -110,16 +110,42 @@ namespace TestCasesInventory.Presenter.Business
         {
             var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam();
             List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
-            foreach (var item in usersNotBelongTeam)
+            foreach (var user in usersNotBelongTeam)
             {
                 var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
                 {
-                    Email = item.Email
+                    ID = user.Id,
+                    Email = user.Email
                 };
                 listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
             }
             return listUsersNotBelongTeamView;
         }
 
+        public void AddUsersToTeam(int teamID, string[] usersNotBelongTeam)
+        {
+            if (usersNotBelongTeam.Length > 0)
+            {
+                foreach (var userID in usersNotBelongTeam)
+                {
+                    var user = teamRepository.FindUserByID(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("User was not found.");
+                    }
+                    else
+                    {
+                        user.TeamID = teamID;
+                        teamRepository.AssignUsersToTeam(user);
+                        teamRepository.Save();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
     }
 }

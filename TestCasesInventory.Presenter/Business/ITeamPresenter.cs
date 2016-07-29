@@ -18,5 +18,6 @@ namespace TestCasesInventory.Presenter.Business
 
         List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam();
 
+        void AddUsersToTeam(int teamID, string[] emailOfUsersNotBelongTeam);
     }
 }
