@@ -5,5 +5,18 @@
 }
 
 <h2>AssignUsersToTeam</h2>
-@Html.Partial("UsersBelongingToTheTeam")
-@Html.Partial("UsersNotBelongingToTheTeam")
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#UsersBelongingToTheTeam">List Users in Team</a></li>
+    <li><a data-toggle="tab" href="#UsersNotBelongingToTheTeam">List Users NOT belonging to the Team</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="UsersBelongingToTheTeam" class="tab-pane fade in active">
+        @Html.Partial("UsersBelongingToTheTeam")
+    </div>
+    <div id="UsersNotBelongingToTheTeam" class="tab-pane fade">
+        @Html.Partial("UsersNotBelongingToTheTeam")
+    </div>
+</div>
+
+
