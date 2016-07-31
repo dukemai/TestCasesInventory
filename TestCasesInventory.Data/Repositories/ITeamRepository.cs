@@ -13,7 +13,7 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
         IEnumerable<ApplicationUser> ListUsersNotBelongTeam();
-        IEnumerable<ApplicationUser> ListUsersBelongTeam(int id);
+        IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamId);
         void AssignUsersToTeam(ApplicationUser user);
         ApplicationUser FindUserByID(string userID);
     }

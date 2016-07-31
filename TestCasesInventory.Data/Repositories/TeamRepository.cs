@@ -55,9 +55,9 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.Users.Where(u => u.TeamID == null).ToList();
         }
-        public IEnumerable<ApplicationUser> ListUsersBelongTeam(int id)
+        public IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID)
         {
-            return dataContext.Users.Where(u => u.TeamID == id).ToList();
+            return dataContext.Users.Where(u => u.TeamID == teamID).ToList();
         }
         public void AssignUsersToTeam(ApplicationUser user)
         {

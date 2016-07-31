@@ -122,6 +122,29 @@ namespace TestCasesInventory.Presenter.Business
             return listUsersNotBelongTeamView;
         }
 
+        public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
+        {
+            if (teamID.HasValue)
+            {
+                var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
+                List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
+                foreach (var user in usersBelongTeam)
+                {
+                    var usersBelongTeamView = new UsersBelongTeamViewModel
+                    {
+                        ID = user.Id,
+                        Email = user.Email
+                    };
+                    listUsersBelongTeamView.Add(usersBelongTeamView);
+                }
+                return listUsersBelongTeamView;
+            }
+            else
+            {
+                throw new Exception("Id was not valid.");
+            }
+        }
+
         public void AddUsersToTeam(int teamID, string[] usersNotBelongTeam)
         {
             if (usersNotBelongTeam.Length > 0)
@@ -145,7 +168,31 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception();
             }
+        }
 
+        public void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam)
+        {
+            if (usersBelongTeam.Length > 0)
+            {
+                foreach (var userID in usersBelongTeam)
+                {
+                    var user = teamRepository.FindUserByID(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("User was not found.");
+                    }
+                    else
+                    {
+                        user.TeamID = null;
+                        teamRepository.AssignUsersToTeam(user);
+                        teamRepository.Save();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 }

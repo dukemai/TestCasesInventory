@@ -199,5 +199,44 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+
+        // GET: Admin/Team/RemoveUsersFromTeam/5
+        public ActionResult RemoveUsersFromTeam(int? id)
+        {
+            try
+            {
+                var team = TeamPresenterObject.GetTeamById(id);
+                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
+                return View("RemoveUsersFromTeam", listUsersBelongTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Team/RemoveUsersFromTeam/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveUsersFromTeam(int id, string[] usersBelongTeam)
+        {
+            try
+            {
+                TeamPresenterObject.RemoveUsersFromTeam(id, usersBelongTeam);
+                return RedirectToAction("RemoveUsersFromTeam");
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("RemoveUsersFromTeam");
+            }
+        }
     }
 }
