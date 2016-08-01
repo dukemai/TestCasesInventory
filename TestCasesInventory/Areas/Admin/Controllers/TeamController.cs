@@ -200,7 +200,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("AddUsersToTeam");
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
         }
 
@@ -240,7 +240,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("RemoveUsersFromTeam");
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
         }
     }
