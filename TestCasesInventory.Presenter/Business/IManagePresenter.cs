@@ -23,7 +23,7 @@ namespace TestCasesInventory.Presenter.Business
         List<SelectListItem> AddRoleToList();
         bool IsRoleExist(string role);
         IdentityResult AddRole(string UserId, string UserRole);
-        Task<IdentityResult> CreateRole(string UserRole);
+        IdentityResult CreateRole(string UserRole);
         IdentityResult RemoveRole(string UserId, string UserRole);
     }
 }

@@ -6,10 +6,30 @@ using System.Web.Mvc;
 
 namespace TestCasesInventory.Controllers
 {
+
+
     public class HomeController : Web.Common.Base.ControllerBase
     {
-        public ActionResult Index()
+       
+
+        public enum HomeMessageId
         {
+            LoginSuccess,
+            LogoutSucess,
+            ResigterSuccess
+        }
+
+
+
+
+        public ActionResult Index(HomeMessageId? message)
+        {
+            ViewBag.StatusMessage =
+            message == HomeMessageId.LoginSuccess ? "Congratulations! You has been loged in successful."
+            : message == HomeMessageId.LogoutSucess ? "Your accout has been loged off."
+            : message == HomeMessageId.ResigterSuccess ? "Congratulations! Register Successfully !You are logging in with email: " + User.Identity.Name
+            : "";
+
             return View();
         }
 
