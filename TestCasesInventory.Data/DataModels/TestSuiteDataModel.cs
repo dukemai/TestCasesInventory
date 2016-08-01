@@ -4,19 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TestCasesInventory.Data.DataModels
 {
-    public class TeamDataModel : DataModelBase
+    public class TestSuiteDataModel : DataModelBase
     {
         [Required]
-        public string Name { get; set; }
-
-        //add appication user navigation property
-
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int TeamID { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
-        public virtual ICollection<TestSuiteDataModel> TestSuites  { get; set; }
-
+        public virtual ICollection<TestCaseDataModel> TestCases { get; set; }
     }
 }
