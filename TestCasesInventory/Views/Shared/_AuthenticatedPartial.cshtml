@@ -10,6 +10,10 @@
         </li>
         <li>
             @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+        </li>
+        <li style="height: 40px;    line-height: 40px; text-align:center; ">
+            <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="20" align="middle" />
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>

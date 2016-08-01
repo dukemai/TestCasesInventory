@@ -62,6 +62,7 @@ namespace TestCasesInventory.Controllers
         //
         // POST: /Account/Login
         [HttpPost]
+        [ValidateInput(false)]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)

@@ -8,10 +8,14 @@ namespace TestCasesInventory.Presenter.Models
     public class IndexViewModel : ViewModelBase
     {
         public string Email { get; set; }
+        [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
         public string UserRoles { get; set; }
+        [Display(Name = "Profile Picture")]
+        public string ProfilePicture { get; set; }
+    
     }
 
     public class ManageLoginsViewModel : ViewModelBase
