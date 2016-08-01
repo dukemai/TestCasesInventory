@@ -50,7 +50,9 @@ namespace TestCasesInventory.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangeDisplayNameSuccess,
+            ChangeRoleSuccess
         }
         //
         // GET: /Manage/Index
@@ -62,6 +64,8 @@ namespace TestCasesInventory.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
+                : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -125,7 +129,7 @@ namespace TestCasesInventory.Controllers
                     throw ex;
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeDisplayNameSuccess });
             }
             return View();
         }
@@ -218,11 +222,11 @@ namespace TestCasesInventory.Controllers
         [HttpPost]
         public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
         {
-           
+
             if (command.Equals("Save Change"))
             {
-                return RedirectToAction("Index");
-            } 
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeRoleSuccess });
+            }
 
             if (ModelState.IsValid)
             {
@@ -233,20 +237,20 @@ namespace TestCasesInventory.Controllers
                         UserPresenter.CreateRole(model.UserRoles);
                     }
                     UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
-                    
+
                 }
-                if(command.Equals("Remove"))
+                if (command.Equals("Remove"))
                 {
                     if (UserPresenter.IsRoleExist(model.UserRoles))
                     {
                         UserPresenter.RemoveRole(User.Identity.GetUserId(), model.UserRoles);
-                    }                  
+                    }
                 }
-                    
-               
+
+
                 return View();
             }
-           
+
             return View();
         }
 

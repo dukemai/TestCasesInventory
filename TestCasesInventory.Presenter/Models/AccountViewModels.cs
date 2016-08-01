@@ -86,7 +86,7 @@ namespace TestCasesInventory.Presenter.Models
 
         [Required]
         [StringLength(ValidationMagicNumbers.MaximumLengthOfDisplayName, ErrorMessage = ValidationMessages.ErrorMessageForDisplayNameProperty)]
-        [Display(Name = "Your DisplayName")]
+        [Display(Name = "Name")]
         public string DisplayName { get; set; }
     }
 

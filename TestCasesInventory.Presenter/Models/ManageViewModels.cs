@@ -7,7 +7,10 @@ namespace TestCasesInventory.Presenter.Models
 {
     public class IndexViewModel : ViewModelBase
     {
+
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Display(Name = "Name")]
         public string DisplayName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
@@ -69,7 +72,7 @@ namespace TestCasesInventory.Presenter.Models
     public class UpdateDisplayNameViewModel : ViewModelBase
     {
         [Required]
-        [Display(Name = "Display name")]
+        [Display(Name = "Name")]
         public string DisplayName { get; set; }
 
     }
