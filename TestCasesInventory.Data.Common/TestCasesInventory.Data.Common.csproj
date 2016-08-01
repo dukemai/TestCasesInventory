@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseNotFoundException.cs" />
+    <Compile Include="RoleNotFoundException.cs" />
     <Compile Include="TeamNotFoundException.cs" />
     <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
