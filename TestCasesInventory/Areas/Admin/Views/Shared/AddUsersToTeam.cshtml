@@ -5,16 +5,13 @@
     <table class="table">
         <tr>
             <th>Email</th>
-            <th>Select</th>
         </tr>
         @foreach( var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email )
-                </td>
-                <td>
-                    <input type="checkbox" name="usersNotBelongTeam" value="@item.ID"/>
+                    <input type="checkbox" id=@item.ID name="usersNotBelongTeam" value="@item.ID" />
+                    <label for="@item.ID"> @item.Email</label>
                 </td>
             </tr>
         }
