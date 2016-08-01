@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 using TestCasesInventory.Presenter.Validations;
@@ -13,12 +14,20 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Team Name:")]
         [TeamUniqueValidation]
         public string Name { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 
     public class TeamDetailsViewModel : ViewModelBase
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 
     public class CreateTeamViewModel : ViewModelBase
@@ -28,6 +37,10 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Team Name:")]
        
         public string Name { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 
     public class EditTeamViewModel : ViewModelBase
@@ -36,5 +49,22 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
+
+    public class UsersBelongTeamViewModel : ViewModelBase
+    {
+        public string ID { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class UsersNotBelongTeamViewModel : ViewModelBase
+    {
+        public string ID { get; set; }
+        public string Email { get; set; }
+    }
+
 }

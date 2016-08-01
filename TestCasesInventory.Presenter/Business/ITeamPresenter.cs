@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -14,6 +15,11 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTeam(int id, EditTeamViewModel team);
 
         void DeleteTeam(int id);
-        
+
+        List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam();
+        List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID);
+        void AddUsersToTeam(int teamID, string[] usersNotBelongTeam);
+        void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam);
+
     }
 }

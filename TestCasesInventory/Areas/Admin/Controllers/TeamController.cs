@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -7,7 +9,7 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles ="Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class TeamController : Controller
     {
         #region Properties
@@ -65,7 +67,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string teamName = team.Name.Trim();
-                var createdTeam = new CreateTeamViewModel { Name = teamName };
+                var createdTeam = new CreateTeamViewModel
+                {
+                    Name = teamName,
+                    Created = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    LastModified = User.Identity.Name,
+                    LastModifiedDate = DateTime.Now
+                };
                 TeamPresenterObject.InsertTeam(createdTeam);
                 return RedirectToAction("Index");
             }
@@ -93,14 +102,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection, [Bind(Include = "Name, ID")] TeamViewModel team)
+        public ActionResult Edit(int id, [Bind(Include = "Name, ID")] TeamViewModel team)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string teamName = team.Name;
-                    var updatedTeam = new EditTeamViewModel { Name = teamName };
+                    var updatedTeam = new EditTeamViewModel
+                    {
+                        Name = teamName,
+                        LastModified = User.Identity.Name,
+                        LastModifiedDate = DateTime.Now
+                    };
                     TeamPresenterObject.UpdateTeam(id, updatedTeam);
                     return RedirectToAction("Index");
                 }
@@ -133,7 +147,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/Team/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -143,6 +157,85 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             catch (TeamNotFoundException e)
             {
                 return View("ResultNotFoundError");
+            }
+        }
+
+        // GET: Admin/Team/AddUsersToTeam/5
+        public ActionResult AddUsersToTeam(int? id)
+        {
+            try
+            {
+                var team = TeamPresenterObject.GetTeamById(id);
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
+                return View("AddUsersToTeam", listUsersNotBelongTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Team/AddUsersToTeam/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUsersToTeam(int id, string[] usersNotBelongTeam)
+        {
+            try
+            {
+                TeamPresenterObject.AddUsersToTeam(id, usersNotBelongTeam);
+                return RedirectToAction("AddUsersToTeam");
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("AddUsersToTeam");
+            }
+        }
+
+
+        // GET: Admin/Team/RemoveUsersFromTeam/5
+        public ActionResult RemoveUsersFromTeam(int? id)
+        {
+            try
+            {
+                var team = TeamPresenterObject.GetTeamById(id);
+                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
+                return View("RemoveUsersFromTeam", listUsersBelongTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Team/RemoveUsersFromTeam/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveUsersFromTeam(int id, string[] usersBelongTeam)
+        {
+            try
+            {
+                TeamPresenterObject.RemoveUsersFromTeam(id, usersBelongTeam);
+                return RedirectToAction("RemoveUsersFromTeam");
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("RemoveUsersFromTeam");
             }
         }
     }

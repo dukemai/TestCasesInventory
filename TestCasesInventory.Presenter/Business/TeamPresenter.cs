@@ -4,13 +4,14 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
-
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TeamPresenter : PresenterBase, ITeamPresenter
     {
         protected ITeamRepository teamRepository;
+
         public TeamPresenter()
         {
             teamRepository = new TeamRepository();
@@ -28,7 +29,11 @@ namespace TestCasesInventory.Presenter.Business
                 return new TeamViewModel
                 {
                     ID = team.ID,
-                    Name = team.Name
+                    Name = team.Name,
+                    Created = team.Created,
+                    CreatedDate = team.CreatedDate,
+                    LastModified = team.LastModified,
+                    LastModifiedDate = team.LastModifiedDate
                 };
             }
             else
@@ -46,7 +51,11 @@ namespace TestCasesInventory.Presenter.Business
                 var teamView = new TeamViewModel
                 {
                     ID = item.ID,
-                    Name = item.Name
+                    Name = item.Name,
+                    Created = item.Created,
+                    CreatedDate = item.CreatedDate,
+                    LastModified = item.LastModified,
+                    LastModifiedDate = item.LastModifiedDate
                 };
                 listTeamView.Add(teamView);
             }
@@ -56,7 +65,11 @@ namespace TestCasesInventory.Presenter.Business
         {
             var teamDataModel = new TeamDataModel
             {
-                Name = team.Name
+                Name = team.Name,
+                Created = team.Created,
+                CreatedDate = team.CreatedDate,
+                LastModified = team.LastModified,
+                LastModifiedDate = team.LastModifiedDate
             };
             teamRepository.InsertTeam(teamDataModel);
             teamRepository.Save();
@@ -72,6 +85,8 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 teamDataModel.Name = team.Name;
+                teamDataModel.LastModified = team.LastModified;
+                teamDataModel.LastModifiedDate = team.LastModifiedDate;
                 teamRepository.UpdateTeam(teamDataModel);
                 teamRepository.Save();
             }
@@ -91,5 +106,93 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
+        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam()
+        {
+            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam();
+            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
+            foreach (var user in usersNotBelongTeam)
+            {
+                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
+                {
+                    ID = user.Id,
+                    Email = user.Email
+                };
+                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
+            }
+            return listUsersNotBelongTeamView;
+        }
+
+        public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
+        {
+            if (teamID.HasValue)
+            {
+                var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
+                List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
+                foreach (var user in usersBelongTeam)
+                {
+                    var usersBelongTeamView = new UsersBelongTeamViewModel
+                    {
+                        ID = user.Id,
+                        Email = user.Email
+                    };
+                    listUsersBelongTeamView.Add(usersBelongTeamView);
+                }
+                return listUsersBelongTeamView;
+            }
+            else
+            {
+                throw new Exception("Id was not valid.");
+            }
+        }
+
+        public void AddUsersToTeam(int teamID, string[] usersNotBelongTeam)
+        {
+            if (usersNotBelongTeam.Length > 0)
+            {
+                foreach (var userID in usersNotBelongTeam)
+                {
+                    var user = teamRepository.FindUserByID(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("User was not found.");
+                    }
+                    else
+                    {
+                        user.TeamID = teamID;
+                        teamRepository.AssignUsersToTeam(user);
+                        teamRepository.Save();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        public void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam)
+        {
+            if (usersBelongTeam.Length > 0)
+            {
+                foreach (var userID in usersBelongTeam)
+                {
+                    var user = teamRepository.FindUserByID(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("User was not found.");
+                    }
+                    else
+                    {
+                        user.TeamID = null;
+                        teamRepository.AssignUsersToTeam(user);
+                        teamRepository.Save();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
     }
 }

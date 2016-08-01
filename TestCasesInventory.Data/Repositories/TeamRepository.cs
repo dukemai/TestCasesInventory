@@ -51,6 +51,24 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name == teamName).ToList();
         }
 
+        public IEnumerable<ApplicationUser> ListUsersNotBelongTeam()
+        {
+            return dataContext.Users.Where(u => u.TeamID == null).ToList();
+        }
+        public IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID)
+        {
+            return dataContext.Users.Where(u => u.TeamID == teamID).ToList();
+        }
+        public void AssignUsersToTeam(ApplicationUser user)
+        {
+            dataContext.Entry(user).State = EntityState.Modified;
+        }
+
+        public ApplicationUser FindUserByID(string userID)
+        {
+            return dataContext.Users.Find(userID);
+        }
+
 
         private bool disposed = false;
 
