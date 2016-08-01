@@ -177,8 +177,8 @@
     <Content Include="Areas\Admin\Views\Team\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Team\View.cshtml" />
     <Content Include="Areas\Admin\Views\Team\AssignUsersToTeam.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\UsersBelongingToTheTeam.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\UsersNotBelongingToTheTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -160,11 +160,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult AssignUsersToTeam(int? id)
+        {
+            return View();
+        }
+
         // GET: Admin/Team/AddUsersToTeam/5
         public ActionResult AddUsersToTeam(int? id)
         {
             try
             {
+                ViewBag.id = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
@@ -181,13 +187,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/AddUsersToTeam/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult AddUsersToTeam(int id, string[] usersNotBelongTeam)
         {
             try
             {
                 TeamPresenterObject.AddUsersToTeam(id, usersNotBelongTeam);
-                return RedirectToAction("AddUsersToTeam");
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
             catch (UserNotFoundException e)
             {
@@ -205,6 +210,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
+                ViewBag.id = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
@@ -221,13 +227,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/RemoveUsersFromTeam/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult RemoveUsersFromTeam(int id, string[] usersBelongTeam)
         {
             try
             {
                 TeamPresenterObject.RemoveUsersFromTeam(id, usersBelongTeam);
-                return RedirectToAction("RemoveUsersFromTeam");
+                return RedirectToAction("AssignUsersToTeam", new { id = id});
             }
             catch (UserNotFoundException e)
             {

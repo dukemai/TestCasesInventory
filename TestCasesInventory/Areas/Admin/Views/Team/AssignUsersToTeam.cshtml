@@ -12,10 +12,10 @@
 
 <div class="tab-content">
     <div id="UsersBelongingToTheTeam" class="tab-pane fade in active">
-        @Html.Partial("UsersBelongingToTheTeam")
+        @Html.Action("RemoveUsersFromTeam")
     </div>
     <div id="UsersNotBelongingToTheTeam" class="tab-pane fade">
-        @Html.Partial("UsersNotBelongingToTheTeam")
+        @Html.Action("AddUsersToTeam")
     </div>
 </div>
 
