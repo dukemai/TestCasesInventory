@@ -128,7 +128,6 @@ namespace TestCasesInventory.Presenter.Business
                 listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
             }
             return listUsersNotBelongTeamView;
-
         }
 
         public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
@@ -150,7 +149,6 @@ namespace TestCasesInventory.Presenter.Business
                 listUsersBelongTeamView.Add(usersBelongTeamView);
             }
             return listUsersBelongTeamView;
-
         }
 
         public void AddUsersToTeam(int teamID, string[] usersToAdd)

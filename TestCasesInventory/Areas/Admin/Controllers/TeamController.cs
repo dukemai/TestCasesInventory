@@ -160,6 +160,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         public ActionResult AssignUsersToTeam(int? id)
         {
+            ViewBag.TeamName = TeamPresenterObject.GetTeamById(id).Name;
             return View();
         }
 
