@@ -29,7 +29,9 @@ namespace TestCasesInventory.Controllers
                 return userPresenter;
             }
         }
-        
+
+       
+
 
         #endregion
 
@@ -47,7 +49,7 @@ namespace TestCasesInventory.Controllers
         public ActionResult LogOff()
         {
             UserPresenter.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LogoutSucess });
         }
 
         //
@@ -67,6 +69,7 @@ namespace TestCasesInventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -78,7 +81,7 @@ namespace TestCasesInventory.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LoginSuccess });
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -119,7 +122,7 @@ namespace TestCasesInventory.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.ResigterSuccess });
                 }
                 AddErrors(result);
             }

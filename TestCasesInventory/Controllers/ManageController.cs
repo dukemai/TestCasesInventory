@@ -51,7 +51,9 @@ namespace TestCasesInventory.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangeDisplayNameSuccess,
+            ChangeRoleSuccess
         }
         //
         // GET: /Manage/Index
@@ -63,6 +65,8 @@ namespace TestCasesInventory.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
+                : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -127,7 +131,7 @@ namespace TestCasesInventory.Controllers
                     throw ex;
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeDisplayNameSuccess });
             }
             return base.View();
         }
@@ -223,7 +227,7 @@ namespace TestCasesInventory.Controllers
 
             if (command.Equals("Save Change"))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeRoleSuccess });
             }
 
             if (ModelState.IsValid)

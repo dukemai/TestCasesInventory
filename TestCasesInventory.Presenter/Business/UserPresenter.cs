@@ -14,21 +14,6 @@ using System.Security.Principal;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Web;
-using TestCasesInventory.Data.Repositories;
-using TestCasesInventory.Presenter.Models;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
-using TestCasesInventory.Data.DataModels;
-using Microsoft.Owin.Security;
-using System.Web.Mvc;
-using System.Security.Principal;
-using Microsoft.AspNet.Identity.EntityFramework;
-using TestCasesInventory.Data;
-using TestCasesInventory.Data.Common;
 
 
 namespace TestCasesInventory.Presenter.Business
@@ -192,9 +177,9 @@ namespace TestCasesInventory.Presenter.Business
             return UserManager.AddToRole(UserId, UserRole);
         }
 
-        public Task<IdentityResult> CreateRole(string UserRole)
+        public IdentityResult CreateRole(string UserRole)
         {
-            return RoleManager.CreateAsync(new IdentityRole { Name = UserRole });
+            return RoleManager.Create(new IdentityRole { Name = UserRole });
 
         }
 
