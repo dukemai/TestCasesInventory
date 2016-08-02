@@ -23,23 +23,20 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception("Id was not valid.");
             }
-            else
+            var team = teamRepository.GetTeamByID(id.Value);
+            if (team == null)
             {
-                var team = teamRepository.GetTeamByID(id.Value);
-                if (team == null)
-                {
-                    throw new TeamNotFoundException("Team was not found.");
-                }
-                return new TeamViewModel
-                {
-                    ID = team.ID,
-                    Name = team.Name,
-                    Created = team.Created,
-                    CreatedDate = team.CreatedDate,
-                    LastModified = team.LastModified,
-                    LastModifiedDate = team.LastModifiedDate
-                };
-            }           
+                throw new TeamNotFoundException("Team was not found.");
+            }
+            return new TeamViewModel
+            {
+                ID = team.ID,
+                Name = team.Name,
+                Created = team.Created,
+                CreatedDate = team.CreatedDate,
+                LastModified = team.LastModified,
+                LastModifiedDate = team.LastModifiedDate
+            };
         }
 
         public List<TeamViewModel> ListAll()
@@ -112,27 +109,26 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception("Id was not valid.");
             }
+            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
+            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
+            foreach (var user in usersNotBelongTeam)
             {
-                var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
-                List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
-                foreach (var user in usersNotBelongTeam)
+                string nameOfTeamManageUser = null;
+                if (user.TeamID.HasValue)
                 {
-                    string nameOfTeamManageUser = null;
-                    if (user.TeamID.HasValue)
-                    {
-                        nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
-                    }
-                    var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
-                    {
-                        ID = user.Id,
-                        Email = user.Email,
-                        DisplayName = user.DisplayName,
-                        TeamName = nameOfTeamManageUser
-                    };
-                    listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
+                    nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
                 }
-                return listUsersNotBelongTeamView;
+                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
+                {
+                    ID = user.Id,
+                    Email = user.Email,
+                    DisplayName = user.DisplayName,
+                    TeamName = nameOfTeamManageUser
+                };
+                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
             }
+            return listUsersNotBelongTeamView;
+
         }
 
         public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
@@ -141,22 +137,20 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception("Id was not valid.");
             }
-            else
+            var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
+            List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
+            foreach (var user in usersBelongTeam)
             {
-                var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
-                List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
-                foreach (var user in usersBelongTeam)
+                var usersBelongTeamView = new UsersBelongTeamViewModel
                 {
-                    var usersBelongTeamView = new UsersBelongTeamViewModel
-                    {
-                        ID = user.Id,
-                        Email = user.Email,
-                        DisplayName = user.DisplayName
-                    };
-                    listUsersBelongTeamView.Add(usersBelongTeamView);
-                }
-                return listUsersBelongTeamView;
+                    ID = user.Id,
+                    Email = user.Email,
+                    DisplayName = user.DisplayName
+                };
+                listUsersBelongTeamView.Add(usersBelongTeamView);
             }
+            return listUsersBelongTeamView;
+
         }
 
         public void AddUsersToTeam(int teamID, string[] usersToAdd)
