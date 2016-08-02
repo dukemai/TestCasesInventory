@@ -62,7 +62,7 @@
             if (File.Exists(path))
             {
                 <dd>
-                    <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="100" />
+                    <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG?"+ DateTime.Now.Ticks.ToString())" alt="IMAGES" width="100" />
                 </dd>
                 <dd>
                     [

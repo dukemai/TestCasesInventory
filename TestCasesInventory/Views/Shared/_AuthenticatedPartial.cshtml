@@ -17,7 +17,7 @@
             {
                 <li style="height: 32px;    line-height: 32px; text-align:center; ">
                     <a href="@Url.Action("Index", "Manage")" class="links">
-                        <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="20" align="middle" />
+                        <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG?"+ DateTime.Now.Ticks.ToString())" alt="IMAGES" width="20" align="middle" />
                     </a>
                 </li>
             }
