@@ -168,7 +168,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                ViewBag.ID = id;
+                ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id);
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
@@ -204,7 +204,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                ViewBag.ID = id;
+                ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
