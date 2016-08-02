@@ -185,11 +185,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/AddUsersToTeam/5
         [HttpPost]
-        public ActionResult AddUsersToTeam(int id, string[] usersNotBelongTeam)
+        public ActionResult AddUsersToTeam(int id, string[] usersToAdd)
         {
             try
             {
-                TeamPresenterObject.AddUsersToTeam(id, usersNotBelongTeam);
+                TeamPresenterObject.AddUsersToTeam(id, usersToAdd);
                 return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
             catch (UserNotFoundException e)
@@ -221,11 +221,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/RemoveUsersFromTeam/5
         [HttpPost]
-        public ActionResult RemoveUsersFromTeam(int id, string[] usersBelongTeam)
+        public ActionResult RemoveUsersFromTeam(int id, string[] usersToRemove)
         {
             try
             {
-                TeamPresenterObject.RemoveUsersFromTeam(id, usersBelongTeam);
+                TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
                 return RedirectToAction("AssignUsersToTeam", new { id = id});
             }
             catch (UserNotFoundException e)

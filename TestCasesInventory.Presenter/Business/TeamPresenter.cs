@@ -19,7 +19,11 @@ namespace TestCasesInventory.Presenter.Business
 
         public TeamViewModel GetTeamById(int? id)
         {
-            if (id.HasValue)
+            if (!id.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            else
             {
                 var team = teamRepository.GetTeamByID(id.Value);
                 if (team == null)
@@ -35,11 +39,7 @@ namespace TestCasesInventory.Presenter.Business
                     LastModified = team.LastModified,
                     LastModifiedDate = team.LastModifiedDate
                 };
-            }
-            else
-            {
-                throw new Exception("Id was not valid.");
-            }
+            }           
         }
 
         public List<TeamViewModel> ListAll()
@@ -108,7 +108,10 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
         {
-            if (teamID.HasValue)
+            if (!teamID.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
             {
                 var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
                 List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
@@ -130,15 +133,15 @@ namespace TestCasesInventory.Presenter.Business
                 }
                 return listUsersNotBelongTeamView;
             }
-            else
-            {
-                throw new Exception("Id was not valid.");
-            }
         }
 
         public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
         {
-            if (teamID.HasValue)
+            if (!teamID.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            else
             {
                 var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
                 List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
@@ -154,18 +157,14 @@ namespace TestCasesInventory.Presenter.Business
                 }
                 return listUsersBelongTeamView;
             }
-            else
-            {
-                throw new Exception("Id was not valid.");
-            }
         }
 
-        public void AddUsersToTeam(int teamID, string[] usersNotBelongTeam)
+        public void AddUsersToTeam(int teamID, string[] usersToAdd)
         {
-            if (usersNotBelongTeam != null)
+            if (usersToAdd != null)
             {
                 List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
-                foreach (var userID in usersNotBelongTeam)
+                foreach (var userID in usersToAdd)
                 {
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
@@ -182,12 +181,12 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam)
+        public void RemoveUsersFromTeam(int teamID, string[] usersToRemove)
         {
-            if (usersBelongTeam != null)
+            if (usersToRemove != null)
             {
                 List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
-                foreach (var userID in usersBelongTeam)
+                foreach (var userID in usersToRemove)
                 {
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
