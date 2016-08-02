@@ -45,11 +45,13 @@ namespace TestCasesInventory.Presenter.Business
             List<TeamViewModel> listTeamView = new List<TeamViewModel>();
             foreach (var item in listTeam)
             {
+                var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
                 var teamView = new TeamViewModel
                 {
                     ID = item.ID,
                     Name = item.Name,
                     Created = item.Created,
+                    MembersNumber = membersNumber,
                     CreatedDate = item.CreatedDate,
                     LastModified = item.LastModified,
                     LastModifiedDate = item.LastModifiedDate
