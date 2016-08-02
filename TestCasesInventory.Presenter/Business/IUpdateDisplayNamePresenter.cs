@@ -12,6 +12,9 @@ namespace TestCasesInventory.Presenter.Business
     {
         UpdateDisplayNameViewModel GetCurrentUserById(string id);
 
+        IndexViewModel GetUserById(string id);
+
+
         void UpdateDisplayNameInDB(string UserId, string NewDisplayName);
     }
 }

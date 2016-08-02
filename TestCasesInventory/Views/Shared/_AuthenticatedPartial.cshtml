@@ -11,14 +11,17 @@
         <li>
             @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li style="height: 32px;    line-height: 32px; text-align:center; ">
-            <a href="@Url.Action("Index", "Manage")" class="links">
-                <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="25" align="middle" />
-            </a>
-        </li>
-        @*<li style="height: 40px;    line-height: 40px; text-align:center; ">
-            <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="20" align="middle" />
-        </li>*@
+        @{
+            string path = Path.Combine(Server.MapPath("~/uploads/photos"), Model.Email, "profile.JPG");
+            if (File.Exists(path))
+            {
+                <li style="height: 32px;    line-height: 32px; text-align:center; ">
+                    <a href="@Url.Action("Index", "Manage")" class="links">
+                        <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG")" alt="IMAGES" width="20" align="middle" />
+                    </a>
+                </li>
+            }
+        }
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
-}
+            }

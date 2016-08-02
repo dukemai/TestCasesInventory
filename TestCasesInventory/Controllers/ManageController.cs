@@ -14,6 +14,7 @@ using TestCasesInventory.Data;
 using System.Collections;
 using TestCasesInventory.Data.Common;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TestCasesInventory.Controllers
 {
@@ -84,6 +85,7 @@ namespace TestCasesInventory.Controllers
         }
 
 
+
         [HttpGet]
         public ActionResult EditDisplayName()
         {
@@ -127,7 +129,7 @@ namespace TestCasesInventory.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View();
+            return base.View();
         }
 
 
@@ -136,7 +138,7 @@ namespace TestCasesInventory.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            return base.View();
         }
 
 
@@ -212,17 +214,17 @@ namespace TestCasesInventory.Controllers
             //    return View("Error");
             //}
 
-            return View();
+            return base.View();
         }
 
         [HttpPost]
         public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
         {
-           
+
             if (command.Equals("Save Change"))
             {
                 return RedirectToAction("Index");
-            } 
+            }
 
             if (ModelState.IsValid)
             {
@@ -233,21 +235,21 @@ namespace TestCasesInventory.Controllers
                         UserPresenter.CreateRole(model.UserRoles);
                     }
                     UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
-                    
+
                 }
-                if(command.Equals("Remove"))
+                if (command.Equals("Remove"))
                 {
                     if (UserPresenter.IsRoleExist(model.UserRoles))
                     {
                         UserPresenter.RemoveRole(User.Identity.GetUserId(), model.UserRoles);
-                    }                  
+                    }
                 }
-                    
-               
-                return View();
+
+
+                return base.View();
             }
-           
-            return View();
+
+            return base.View();
         }
 
         public PartialViewResult ShowCurrentRole()
@@ -255,6 +257,38 @@ namespace TestCasesInventory.Controllers
             var viewModel = new UpdateRolesViewModel();
             viewModel = UserPresenter.FindUserById(User.Identity.GetUserId());
             return PartialView("CurrentRolePartialView", viewModel);
+        }
+        [HttpGet]
+        public ActionResult ChangeProfilePicture()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangeProfilePicture(HttpPostedFileBase file)
+        {
+            var model = UserPresenter.GetUserById(User.Identity.GetUserId());
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string folderPath = Path.Combine(Server.MapPath("~/uploads/photos"), model.Email);
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    string path = Path.Combine(Server.MapPath("~/uploads/photos"), model.Email, "profile.JPG");
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return RedirectToAction("Index");
         }
         /*
 

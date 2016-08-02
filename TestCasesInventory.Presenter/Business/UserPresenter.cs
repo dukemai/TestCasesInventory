@@ -217,6 +217,17 @@ namespace TestCasesInventory.Presenter.Business
             return viewModel;
         }
 
+        public IndexViewModel GetUserById(string id)
+        {
+            var currentUser = UserManager.FindById(id);
+            if (currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim() };
+            return viewModel;
+        }
+
         public void UpdateDisplayNameInDB(string UserId, string NewDisplayName)
         {
 
