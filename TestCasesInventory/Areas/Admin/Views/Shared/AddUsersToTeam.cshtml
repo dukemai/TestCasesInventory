@@ -1,0 +1,28 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model  List<UsersNotBelongTeamViewModel>
+
+<form action="~/Admin/Team/AddUsersToTeam/@ViewBag.TeamID" method="post">
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Display Name</th>
+            <th>Current Team</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" id=@item.ID name="usersToAdd" value="@item.ID" />
+                    <label for="@item.ID"> @item.Email</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="Add to Team" name="buttonSubmitIn" class="btn btn-default" />
+</form>

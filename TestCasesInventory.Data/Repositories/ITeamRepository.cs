@@ -12,9 +12,11 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTeam(TeamDataModel team);
         void Save();
         IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
-        IEnumerable<ApplicationUser> ListUsersNotBelongTeam();
-        IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamId);
-        void AssignUsersToTeam(ApplicationUser user);
+        IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID);
+        IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID);
+        void AssignUsersToTeam(IList<ApplicationUser> users, int teamID);
+        void RemoveUsersFromTeam(IList<ApplicationUser> users);
+
         ApplicationUser FindUserByID(string userID);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -160,13 +158,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult AssignUsersToTeam(int? id)
+        {
+            ViewBag.TeamName = TeamPresenterObject.GetTeamById(id).Name;
+            return View();
+        }
+
         // GET: Admin/Team/AddUsersToTeam/5
         public ActionResult AddUsersToTeam(int? id)
         {
             try
             {
+                ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
-                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id);
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)
@@ -181,21 +186,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/AddUsersToTeam/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddUsersToTeam(int id, string[] usersNotBelongTeam)
+        public ActionResult AddUsersToTeam(int id, string[] usersToAdd)
         {
             try
             {
-                TeamPresenterObject.AddUsersToTeam(id, usersNotBelongTeam);
-                return RedirectToAction("AddUsersToTeam");
+                TeamPresenterObject.AddUsersToTeam(id, usersToAdd);
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
             catch (UserNotFoundException e)
             {
                 return View("ResultNotFoundError");
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("AddUsersToTeam");
             }
         }
 
@@ -205,6 +205,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
+                ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
@@ -221,22 +222,18 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         // POST: Admin/Team/RemoveUsersFromTeam/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RemoveUsersFromTeam(int id, string[] usersBelongTeam)
+        public ActionResult RemoveUsersFromTeam(int id, string[] usersToRemove)
         {
             try
             {
-                TeamPresenterObject.RemoveUsersFromTeam(id, usersBelongTeam);
-                return RedirectToAction("RemoveUsersFromTeam");
+                TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
+                return RedirectToAction("AssignUsersToTeam", new { id = id});
             }
             catch (UserNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
-            catch (Exception e)
-            {
-                return RedirectToAction("RemoveUsersFromTeam");
-            }
+            
         }
     }
 }

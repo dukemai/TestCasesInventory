@@ -59,12 +59,15 @@ namespace TestCasesInventory.Presenter.Models
     {
         public string ID { get; set; }
         public string Email { get; set; }
+        public string DisplayName { get; set; }
     }
 
     public class UsersNotBelongTeamViewModel : ViewModelBase
     {
         public string ID { get; set; }
         public string Email { get; set; }
+        public string DisplayName { get; set; }
+        public string TeamName { get; set; }
     }
 
 }

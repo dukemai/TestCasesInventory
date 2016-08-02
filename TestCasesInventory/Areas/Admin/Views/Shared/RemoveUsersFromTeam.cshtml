@@ -1,0 +1,25 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model  List<UsersBelongTeamViewModel>
+
+<form action="~/Admin/Team/RemoveUsersFromTeam/@ViewBag.TeamID" method="post">
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Display Name</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" id=@item.ID name="usersToRemove" value="@item.ID" />
+                    <label for="@item.ID"> @item.Email</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayName )
+                </td>
+            </tr>
+        }
+    </table>
+
+    <input type="submit" value="Remove from Team" name="buttonSubmitIn" class="btn btn-default" />
+</form>

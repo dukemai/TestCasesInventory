@@ -175,6 +175,10 @@
     <Content Include="Areas\Admin\Views\Team\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Team\View.cshtml" />
+    <Content Include="Areas\Admin\Views\Team\AssignUsersToTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
