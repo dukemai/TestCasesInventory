@@ -53,7 +53,8 @@ namespace TestCasesInventory.Controllers
             RemovePhoneSuccess,
             Error,
             ChangeDisplayNameSuccess,
-            ChangeRoleSuccess
+            ChangeRoleSuccess, 
+            ChangeProfilePictureSuccess
         }
         //
         // GET: /Manage/Index
@@ -67,6 +68,7 @@ namespace TestCasesInventory.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
                 : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
+                : message == ManageMessageId.ChangeProfilePictureSuccess ? "Your profile picture has been updated"
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -292,7 +294,7 @@ namespace TestCasesInventory.Controllers
             {
                 ViewBag.Message = "You have not specified a file.";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
         }
         /*
 
