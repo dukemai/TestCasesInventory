@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -172,7 +170,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 ViewBag.id = id;
                 var team = TeamPresenterObject.GetTeamById(id);
-                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam();
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id);
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)

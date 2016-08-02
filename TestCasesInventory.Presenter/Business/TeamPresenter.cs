@@ -4,7 +4,6 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
-using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -106,20 +105,34 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam()
+        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
         {
-            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam();
-            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
-            foreach (var user in usersNotBelongTeam)
+            if (teamID.HasValue)
             {
-                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
+                var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
+                List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
+                foreach (var user in usersNotBelongTeam)
                 {
-                    ID = user.Id,
-                    Email = user.Email
-                };
-                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
+                    string nameOfTeamManageUser = null;
+                    if (user.TeamID.HasValue)
+                    {
+                        nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
+                    }
+                    var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
+                    {
+                        ID = user.Id,
+                        Email = user.Email,
+                        DisplayName = user.DisplayName,
+                        TeamName = nameOfTeamManageUser
+                    };
+                    listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
+                }
+                return listUsersNotBelongTeamView;
             }
-            return listUsersNotBelongTeamView;
+            else
+            {
+                throw new Exception("Id was not valid.");
+            }
         }
 
         public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
@@ -133,7 +146,8 @@ namespace TestCasesInventory.Presenter.Business
                     var usersBelongTeamView = new UsersBelongTeamViewModel
                     {
                         ID = user.Id,
-                        Email = user.Email
+                        Email = user.Email,
+                        DisplayName = user.DisplayName
                     };
                     listUsersBelongTeamView.Add(usersBelongTeamView);
                 }
@@ -149,6 +163,7 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (usersNotBelongTeam.Length > 0)
             {
+                List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
                 foreach (var userID in usersNotBelongTeam)
                 {
                     var user = teamRepository.FindUserByID(userID);
@@ -158,15 +173,11 @@ namespace TestCasesInventory.Presenter.Business
                     }
                     else
                     {
-                        user.TeamID = teamID;
-                        teamRepository.AssignUsersToTeam(user);
-                        teamRepository.Save();
+                        listUsersBeAddedToTeam.Add(user);
                     }
                 }
-            }
-            else
-            {
-                throw new Exception();
+                teamRepository.AssignUsersToTeam(listUsersBeAddedToTeam, teamID);
+                teamRepository.Save();
             }
         }
 
@@ -174,6 +185,7 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (usersBelongTeam.Length > 0)
             {
+                List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
                 foreach (var userID in usersBelongTeam)
                 {
                     var user = teamRepository.FindUserByID(userID);
@@ -183,15 +195,11 @@ namespace TestCasesInventory.Presenter.Business
                     }
                     else
                     {
-                        user.TeamID = null;
-                        teamRepository.AssignUsersToTeam(user);
-                        teamRepository.Save();
+                        listUsersBeRemovedFromTeam.Add(user);
                     }
                 }
-            }
-            else
-            {
-                throw new Exception();
+                teamRepository.RemoveUsersFromTeam(listUsersBeRemovedFromTeam);
+                teamRepository.Save();
             }
         }
     }
