@@ -1,0 +1,21 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model  List<UsersNotBelongRoleViewModel>
+
+<form action="~/Admin/Role/AddUsersToRole/@ViewBag.id" method="post">
+    <table class="table">
+        <tr>
+            <th>Email</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" id=@item.ID name="usersNotBelongRole" value="@item.ID" />
+                    <label for="@item.ID"> @item.Email (@item.DisplayName)</label>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <input type="submit" value="Add to Role" name="buttonSubmitIn" class="btn btn-default" />
+</form>

@@ -11,10 +11,11 @@ using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using TestCasesInventory.Data;
 using System.Linq;
+using System.Collections;
 
 namespace TestCasesInventory.Presenter.Business
 {
-   
+
 
     public class RolePresenter : PresenterBase, IRolePresenter
     {
@@ -22,7 +23,7 @@ namespace TestCasesInventory.Presenter.Business
         #region Properties
         protected HttpContextBase HttpContext;
         protected RoleManager<IdentityRole> RoleManager;
-
+        protected ApplicationUserManager UserManager;
 
         #endregion
 
@@ -33,14 +34,14 @@ namespace TestCasesInventory.Presenter.Business
         public RolePresenter(HttpContextBase context)
         {
             HttpContext = context;
-
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
 
-      
+
 
         public List<IdentityRole> ListRole()
-        {            
+        {
             return RoleManager.Roles.ToList();
         }
 
@@ -56,11 +57,11 @@ namespace TestCasesInventory.Presenter.Business
             return RoleManager.Create(new IdentityRole { Name = role });
         }
 
-        public IdentityResult DeleteRole(string role)
+        public IdentityResult DeleteRole(string id)
         {
-            var choosenRole = RoleManager.FindByName(role);
-            
-            if(choosenRole == null)
+            var choosenRole = RoleManager.FindById(id);
+
+            if (choosenRole == null)
             {
                 throw new RoleNotFoundException();
             }
@@ -100,6 +101,107 @@ namespace TestCasesInventory.Presenter.Business
             choosenRole.Name = newRole;
 
             return RoleManager.Update(choosenRole);
+        }
+
+        public List<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleID)
+        {
+
+            var role = RoleManager.FindById(roleID);
+            if (role == null)
+            {
+                throw new RoleNotFoundException();
+            }
+            var Result = new List<UsersNotBelongRoleViewModel>();
+            foreach (var user in UserManager.Users.ToList())
+            {
+               if(!UserManager.IsInRole(user.Id, role.Name))
+               {
+                    Result.Add(new UsersNotBelongRoleViewModel
+                    {
+                        ID = user.Id,
+                        Email = user.Email, 
+                        DisplayName = user.DisplayName               
+                    });
+               }
+                
+            }
+            return Result;
+
+        }
+
+        public List<UsersBelongRoleViewModel> ListUsersBelongRole(string roleID)
+        {
+
+            var role = RoleManager.FindById(roleID);
+            if (role == null)
+            {
+                throw new RoleNotFoundException();
+            }
+            var Result = new List<UsersBelongRoleViewModel>();
+            foreach (var user in UserManager.Users.ToList())
+            {
+               if(UserManager.IsInRole(user.Id, role.Name))
+               {
+                    Result.Add(new UsersBelongRoleViewModel
+                    {
+                        ID = user.Id,
+                        Email = user.Email,
+                        DisplayName = user.DisplayName
+                    });
+               }
+                
+            }
+            return Result;
+
+        }
+
+        public void AddUsersToRole(string RoleID, string[] usersToAddRole)
+        {
+            var role = RoleManager.FindById(RoleID);
+            if (role == null)
+            {
+                throw new RoleNotFoundException();
+            }
+            if (usersToAddRole != null)
+            {
+                foreach (var userID in usersToAddRole)
+                {
+                    var user = UserManager.FindById(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException();
+                    }
+                    else
+                    {
+                        UserManager.AddToRole(userID, role.Name);
+                    }
+                }             
+            }
+        }
+
+        public void RemoveUsersFromRole(string RoleID, string[] usersToRemoveRole)
+        {
+            var role = RoleManager.FindById(RoleID);
+            if(role == null)
+            {
+                throw new RoleNotFoundException();
+            }
+            if (usersToRemoveRole != null)
+            {
+                foreach (var userID in usersToRemoveRole)
+                {
+                    var user = UserManager.FindById(userID);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException();
+                    }
+                    else
+                    {
+                        UserManager.RemoveFromRole(userID, role.Name);
+                    }
+                }
+
+            }
         }
     }
 

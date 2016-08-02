@@ -1,0 +1,26 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model RoleViewModel
+@{
+    ViewBag.Title = "AssignUsersToRole";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Assign Users To Role: @Model.Name </h3>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#UsersBelongingToTheRole">List Users in Role</a></li>
+    <li><a data-toggle="tab" href="#UsersNotBelongingToTheRole">List Users NOT belonging to the Role</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="UsersBelongingToTheRole" class="tab-pane fade in active">
+        @Html.Action("RemoveUsersFromRole")
+    </div>
+    <div id="UsersNotBelongingToTheRole" class="tab-pane fade">
+        @Html.Action("AddUsersToRole")
+    </div>
+</div>
+<br />
+<hr />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

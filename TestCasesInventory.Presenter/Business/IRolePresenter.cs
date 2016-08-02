@@ -23,9 +23,15 @@ namespace TestCasesInventory.Presenter.Business
 
         IdentityResult UpdateRole(string id, string newRole);
 
-        IdentityResult DeleteRole(string role);
+        IdentityResult DeleteRole(string id);
 
+        List<UsersBelongRoleViewModel> ListUsersBelongRole(string roleID);
 
+        List<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleID);
+
+        void AddUsersToRole(string RoleID, string[] usersToAddRole);
+
+        void RemoveUsersFromRole(string RoleID, string[] usersToRemoveRole);
     }
 }
 

@@ -35,4 +35,18 @@ namespace TestCasesInventory.Presenter.Models
         public string Name { get; set; }
     }
 
+    public class UsersBelongRoleViewModel : ViewModelBase
+    {
+        public string ID { get; set; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
+    }
+
+    public class UsersNotBelongRoleViewModel : ViewModelBase
+    {
+        public string ID { get; set; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
+    }
+
 }

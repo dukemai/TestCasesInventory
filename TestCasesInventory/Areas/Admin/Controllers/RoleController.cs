@@ -143,8 +143,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var role = RolePresenter.GetRoleById(id);
-                RolePresenter.DeleteRole(role.Name);
+                RolePresenter.DeleteRole(id);
                 return RedirectToAction("Index");
             }
             catch (RoleNotFoundException e)
@@ -161,9 +160,127 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         //GET
         [HttpGet]
-        public ActionResult Details()
+        public ActionResult Details(string id)
         {
-            return View();
+            try
+            {
+                var Role = RolePresenter.GetRoleById(id);
+                ViewBag.Name = Role.Name;
+                var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id);
+                return View(listUsersBelongRole);
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+
+
+
+        public ActionResult AssignUsersToRole(string id)
+        {
+            try
+            {
+                var role = RolePresenter.GetRoleById(id);
+                return View(role);
+            }
+            catch(RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            
+        }
+
+        // GET: Admin/Role/AddUsersToRole/5
+        public ActionResult AddUsersToRole(string id)
+        {
+            try
+            {
+                ViewBag.id = id;
+                var Role = RolePresenter.GetRoleById(id);
+                var listUsersNotBelongRole = RolePresenter.ListUsersNotBelongRole(id);
+                return View("_AddUsersToRolePartialView", listUsersNotBelongRole);
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Role/AddUsersToRole/5
+        [HttpPost]
+        public ActionResult AddUsersToRole(string id, string[] usersNotBelongRole)
+        {
+            try
+            {
+                RolePresenter.AddUsersToRole(id, usersNotBelongRole);
+                return RedirectToAction("AssignUsersToRole", new { id = id });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("UserNotFoundError");
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("AssignUsersToRole", new { id = id });
+            }
+        }
+
+
+        // GET: Admin/Role/RemoveUsersFromRole/5
+        public ActionResult RemoveUsersFromRole(string id)
+        {
+            try
+            {
+                ViewBag.id = id;
+                var Role = RolePresenter.GetRoleById(id);
+                var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id);
+                return View("_RemoveUsersFromRolePartialView", listUsersBelongRole);
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        // POST: Admin/Role/RemoveUsersFromRole/5
+        [HttpPost]
+        public ActionResult RemoveUsersFromRole(string id, string[] usersBelongRole)
+        {
+            try
+            {
+                RolePresenter.RemoveUsersFromRole(id, usersBelongRole);
+                return RedirectToAction("AssignUsersToRole", new { id = id });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("AssignUsersToRole", new { id = id });
+            }
         }
 
     }
