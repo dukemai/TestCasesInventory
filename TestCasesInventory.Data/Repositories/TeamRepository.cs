@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -49,6 +47,31 @@ namespace TestCasesInventory.Data.Repositories
         public IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName)
         {
             return dataContext.Teams.Where(t => t.Name == teamName).ToList();
+        }
+
+        public IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID)
+        {
+            return dataContext.Users.Where(u => u.TeamID != teamID).ToList();
+        }
+
+        public IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID)
+        {
+            return dataContext.Users.Where(u => u.TeamID == teamID).ToList();
+        }
+
+        public void AssignUsersToTeam(IList<ApplicationUser> users, int teamID)
+        {
+            users.ToList().ForEach(u => u.TeamID = teamID);
+        }
+
+        public void RemoveUsersFromTeam(IList<ApplicationUser> users)
+        {
+            users.ToList().ForEach(u => u.TeamID = null);
+        }
+
+        public ApplicationUser FindUserByID(string userID)
+        {
+            return dataContext.Users.Find(userID);
         }
 
 
