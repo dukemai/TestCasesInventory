@@ -1,10 +1,11 @@
 ﻿@using TestCasesInventory.Presenter.Models
 @model  List<UsersBelongTeamViewModel>
 
-<form action="~/Admin/Team/RemoveUsersFromTeam/@ViewBag.id" method="post">
+<form action="~/Admin/Team/RemoveUsersFromTeam/@ViewBag.ID" method="post">
     <table class="table">
         <tr>
             <th>Email</th>
+            <th>Display Name</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -12,6 +13,9 @@
                 <td>
                     <input type="checkbox" id=@item.ID name="usersBelongTeam" value="@item.ID" />
                     <label for="@item.ID"> @item.Email</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayName )
                 </td>
             </tr>
         }
