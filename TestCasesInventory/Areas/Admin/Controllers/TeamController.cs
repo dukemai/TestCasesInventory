@@ -196,10 +196,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
-            catch (Exception e)
-            {
-                return RedirectToAction("AssignUsersToTeam", new { id = id });
-            }
         }
 
 
@@ -236,10 +232,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
-            catch (Exception e)
-            {
-                return RedirectToAction("AssignUsersToTeam", new { id = id });
-            }
+            
         }
     }
 }

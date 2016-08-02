@@ -4,6 +4,7 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -161,7 +162,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public void AddUsersToTeam(int teamID, string[] usersNotBelongTeam)
         {
-            if (usersNotBelongTeam.Length > 0)
+            if (usersNotBelongTeam != null)
             {
                 List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
                 foreach (var userID in usersNotBelongTeam)
@@ -183,7 +184,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam)
         {
-            if (usersBelongTeam.Length > 0)
+            if (usersBelongTeam != null)
             {
                 List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
                 foreach (var userID in usersBelongTeam)
