@@ -14,6 +14,7 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Team Name:")]
         [TeamUniqueValidation]
         public string Name { get; set; }
+        public int MembersNumber { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }

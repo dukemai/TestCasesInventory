@@ -138,9 +138,9 @@ namespace TestCasesInventory.Presenter.Business
 
         public UpdateRolesViewModel FindUserById(string UserId)
         {
-            var currentUserRole = UserManager.FindById(UserId);
+            var currentUser = UserManager.FindById(UserId);
 
-            if (currentUserRole == null)
+            if (currentUser == null)
             {
                 throw new UserNotFoundException();
             }

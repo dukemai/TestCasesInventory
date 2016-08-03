@@ -1,0 +1,25 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model  List<UsersBelongRoleViewModel>
+
+<form action="~/Admin/Role/RemoveUsersFromRole/@ViewBag.id" method="post">
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" id=@item.ID name="usersBelongRole" value="@item.ID" />
+                    <label for="@item.ID"> @item.Email</label>
+                </td>
+                <td>
+                    <label for="@item.ID"> @item.DisplayName</label>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <input type="submit" value="Remove from Role" name="buttonSubmitIn" class="btn btn-default" />
+</form>
