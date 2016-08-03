@@ -1,0 +1,32 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model List<UsersBelongRoleViewModel>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+<h4>Users in Role: @ViewBag.Name</h4>
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(Model => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => item.DisplayName)
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

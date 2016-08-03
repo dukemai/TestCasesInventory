@@ -138,6 +138,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
@@ -177,8 +178,16 @@
     <Content Include="Areas\Admin\Views\Team\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Team\View.cshtml" />
     <Content Include="Areas\Admin\Views\Team\AssignUsersToTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_RemoveUsersFromRolePartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AddUsersToRolePartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\AssignUsersToRole.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -241,6 +250,7 @@
     <Content Include="Views\Shared\DatabaseNotFoundError.cshtml" />
     <Content Include="Views\Manage\EditUserRole.cshtml" />
     <Content Include="Views\Shared\CurrentRolePartialView.cshtml" />
+    <Content Include="Views\Shared\RoleNotFoundError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +290,9 @@
       <Project>{c2a33d38-20ba-4620-ab8c-1635bedc1d0d}</Project>
       <Name>TestCasesInventory.Web.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
