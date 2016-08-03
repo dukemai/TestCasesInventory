@@ -15,6 +15,9 @@ namespace TestCasesInventory.Presenter.Models
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
         public string UserRoles { get; set; }
+        [Display(Name = "Profile Picture")]
+        public string ProfilePicture { get; set; }
+    
     }
 
     public class ManageLoginsViewModel : ViewModelBase

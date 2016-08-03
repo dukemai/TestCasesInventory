@@ -14,6 +14,9 @@ using TestCasesInventory.Data;
 using System.Collections;
 using TestCasesInventory.Data.Common;
 using System.Collections.Generic;
+using System.IO;
+using TestCasesInventory.Config;
+using TestCasesInventory.Web.Common.Base;
 
 namespace TestCasesInventory.Controllers
 {
@@ -51,8 +54,10 @@ namespace TestCasesInventory.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             Error,
+            NothingIsChosen,
             ChangeDisplayNameSuccess,
-            ChangeRoleSuccess
+            ChangeRoleSuccess, 
+            ChangeProfilePictureSuccess
         }
         //
         // GET: /Manage/Index
@@ -66,6 +71,8 @@ namespace TestCasesInventory.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
                 : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
+                : message == ManageMessageId.ChangeProfilePictureSuccess ? "Your profile picture has been updated"
+                : message == ManageMessageId.NothingIsChosen ? " You have not specified a file"
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -86,6 +93,7 @@ namespace TestCasesInventory.Controllers
             //};
 
         }
+
 
 
         [HttpGet]
@@ -131,7 +139,7 @@ namespace TestCasesInventory.Controllers
 
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangeDisplayNameSuccess });
             }
-            return View();
+            return base.View();
         }
 
 
@@ -140,7 +148,7 @@ namespace TestCasesInventory.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            return base.View();
         }
 
 
@@ -199,8 +207,8 @@ namespace TestCasesInventory.Controllers
             }
         }
 
-        public ActionResult EditUserRole()
-        {
+        //public ActionResult EditUserRole()
+        //{
             //try
             //{
             //    var model = new UpdateRolesViewModel();
@@ -216,50 +224,84 @@ namespace TestCasesInventory.Controllers
             //    return View("Error");
             //}
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
-        {
+        //[HttpPost]
+        //public ActionResult EditUserRole(UpdateRolesViewModel model, string command)
+        //{
 
-            if (command.Equals("Save Change"))
-            {
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeRoleSuccess });
-            }
+        //    if (command.Equals("Save Change"))
+        //    {
+        //        return RedirectToAction("Index", new { Message = ManageMessageId.ChangeRoleSuccess });
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                if (command.Equals("Add"))
-                {
-                    if (!UserPresenter.IsRoleExist(model.UserRoles))
-                    {
-                        UserPresenter.CreateRole(model.UserRoles);
-                    }
-                    UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (command.Equals("Add"))
+        //        {
+        //            if (!UserPresenter.IsRoleExist(model.UserRoles))
+        //            {
+        //                UserPresenter.CreateRole(model.UserRoles);
+        //            }
+        //            UserPresenter.AddRole(User.Identity.GetUserId(), model.UserRoles);
 
-                }
-                if (command.Equals("Remove"))
-                {
-                    if (UserPresenter.IsRoleExist(model.UserRoles))
-                    {
-                        UserPresenter.RemoveRole(User.Identity.GetUserId(), model.UserRoles);
-                    }
-                }
+        //        }
+        //        if (command.Equals("Remove"))
+        //        {
+        //            if (UserPresenter.IsRoleExist(model.UserRoles))
+        //            {
+        //                UserPresenter.RemoveRole(User.Identity.GetUserId(), model.UserRoles);
+        //            }
+        //        }
 
 
                 return View();
-            }
+        //    }
 
             return View();
-        }
+        //}
 
-        public PartialViewResult ShowCurrentRole()
-        {
-            var viewModel = new UpdateRolesViewModel();
-            viewModel = UserPresenter.FindUserById(User.Identity.GetUserId());
-            return PartialView("CurrentRolePartialView", viewModel);
+        //public PartialViewResult ShowCurrentRole()
+        //{
+        //    var viewModel = new UpdateRolesViewModel();
+        //    viewModel = UserPresenter.FindUserById(User.Identity.GetUserId());
+        //    return PartialView("CurrentRolePartialView", viewModel);
         }
+        [HttpGet]
+        public ActionResult ChangeProfilePicture()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangeProfilePicture(HttpPostedFileBase file)
+        {
+            var model = UserPresenter.GetUserById(User.Identity.GetUserId());
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string folderPath = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email);
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email, PathConfig.ProfileName);
+                    file.SaveAs(path);
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "Error:" + ex.Message.ToString();
+                    return View();
+                }
+            else
+            {
+                ViewBag.Message = CustomMessages.NothingIsChosen;
+                return View();
+            }
+            
+        //}
         /*
 
         //
