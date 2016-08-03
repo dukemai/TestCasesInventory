@@ -110,9 +110,9 @@ namespace TestCasesInventory.Presenter.Business
                 throw new RoleNotFoundException();
             }
 
-            var ListUserInRole = UserManager.Users.Where(user => user.Roles.All(r => r.RoleId != roleID)).ToList();
+            var ListUserNotInRole = UserManager.Users.Where(user => user.Roles.All(r => r.RoleId != roleID)).ToList();
             var Result = new List<UsersNotBelongRoleViewModel>();
-            foreach (var user in ListUserInRole)
+            foreach (var user in ListUserNotInRole)
             {
                 Result.Add(new UsersNotBelongRoleViewModel
                 {
