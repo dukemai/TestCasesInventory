@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -16,6 +12,11 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTeam(TeamDataModel team);
         void Save();
         IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
+        IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID);
+        IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID);
+        void AssignUsersToTeam(IList<ApplicationUser> users, int teamID);
+        void RemoveUsersFromTeam(IList<ApplicationUser> users);
 
+        ApplicationUser FindUserByID(string userID);
     }
 }

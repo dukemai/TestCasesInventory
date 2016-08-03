@@ -16,7 +16,6 @@ using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
 
 
-
 namespace TestCasesInventory.Presenter.Business
 {
     public class UserPresenter : IUserPresenter

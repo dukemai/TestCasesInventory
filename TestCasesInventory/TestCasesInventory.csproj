@@ -176,6 +176,8 @@
     <Content Include="Areas\Admin\Views\Team\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Team\View.cshtml" />
+    <Content Include="Areas\Admin\Views\Team\AssignUsersToTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
@@ -183,6 +185,8 @@
     <Content Include="Areas\Admin\Views\Role\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_RemoveUsersFromRolePartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AddUsersToRolePartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Role\AssignUsersToRole.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

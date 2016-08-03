@@ -15,6 +15,9 @@
         <th>
             <h3>Name</h3>
         </th>
+        <th>
+            <h3>Number of members</h3>
+        </th>
         <th></th>
     </tr>
 
@@ -25,10 +28,13 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.MembersNumber)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @Html.ActionLink("Add Users", "AddUsersToTeam", new { id = item.ID })
+                @Html.ActionLink("Add Users", "AssignUsersToTeam", new { id = item.ID })
             </td>
         </tr>
     }
