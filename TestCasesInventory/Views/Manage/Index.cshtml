@@ -1,4 +1,5 @@
 ﻿@model TestCasesInventory.Presenter.Models.IndexViewModel
+@using TestCasesInventory.Config
 @{
     ViewBag.Title = "Manage";
 }
@@ -9,7 +10,7 @@
 <div>
     <h4>Change your account settings</h4>
     <hr />
-    
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Email)
@@ -26,11 +27,11 @@
         <dd>
             @Html.DisplayFor(model => model.DisplayName)
             [
-                @Html.ActionLink(" Change your display name", "EditDisplayName")
+            @Html.ActionLink(" Change your display name", "EditDisplayName")
             ]
         </dd>
 
-       
+
         <dt>Password</dt>
         <dd>
             [
@@ -49,25 +50,48 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserRoles )
-            [
-            @Html.ActionLink(" Edit Your Role", "EditUserRole")
-            ]
+            @Html.DisplayFor(model => model.UserRoles)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePicture)
+        </dt>
+        @{
+            string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), Model.Email, PathConfig.ProfileName);
+            if (File.Exists(path))
+            {
+                <dd>
+                    <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + File.GetLastWriteTime(path)) " alt="IMAGES" width="100" />
+                </dd>
+                <dd>
+                    [
+                    @Html.ActionLink("Change Profile Picture", "ChangeProfilePicture")
+                    ]
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    [
+                    @Html.ActionLink("Add Profile Picture", "ChangeProfilePicture")
+                    ]
+                </dd>
+            }
+        }
+
         @*<dt>External Logins:</dt>*@
         @*<dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>*@
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
+
              See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
+
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
+        @*
             <dt>Phone Number:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None") [
@@ -85,30 +109,30 @@
             </dd>
         *@
         @*<dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>*@
-            @*@if (Model.TwoFactor)
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>*@
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
     </dl>
 </div>

@@ -9,5 +9,6 @@ namespace TestCasesInventory.Presenter.Models
     public class LoginStatusViewModel
     {
         public string DisplayName { get; set; }
+        public string Email { get; set; }
     }
 }
