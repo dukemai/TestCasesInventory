@@ -1,19 +1,27 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
+using System.Web;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TestSuitePresenter : PresenterBase, ITestSuitePresenter
     {
+        protected HttpContextBase HttpContext;
         protected ITestSuiteRepository testSuiteRepository;
+        protected ApplicationUserManager UserManager;
 
-        public TestSuitePresenter()
+
+        public TestSuitePresenter(HttpContextBase context)
         {
+            HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public TestSuiteViewModel GetTestSuiteById(int? testSuiteID)
@@ -63,10 +71,15 @@ namespace TestCasesInventory.Presenter.Business
         }
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
+            var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
+            if (!teamID.HasValue)
+            {
+                throw new Exception("User has not been assigned to any team.");
+            }
             var testSuiteDataModel = new TestSuiteDataModel
             {
                 Title = testSuite.Title,
-                TeamID = testSuite.TeamID,
+                TeamID = teamID.Value,
                 Description = testSuite.Description,
                 Created = testSuite.Created,
                 CreatedDate = testSuite.CreatedDate,
