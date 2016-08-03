@@ -24,7 +24,6 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected RoleManager<IdentityRole> RoleManager;
         protected ApplicationUserManager UserManager;
-
         #endregion
 
         #region Methods
@@ -105,51 +104,44 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleID)
         {
-
             var role = RoleManager.FindById(roleID);
             if (role == null)
             {
                 throw new RoleNotFoundException();
             }
+
+            var ListUserInRole = UserManager.Users.Where(user => user.Roles.All(r => r.RoleId != roleID)).ToList();
             var Result = new List<UsersNotBelongRoleViewModel>();
-            foreach (var user in UserManager.Users.ToList())
+            foreach (var user in ListUserInRole)
             {
-               if(!UserManager.IsInRole(user.Id, role.Name))
-               {
-                    Result.Add(new UsersNotBelongRoleViewModel
-                    {
-                        ID = user.Id,
-                        Email = user.Email, 
-                        DisplayName = user.DisplayName               
-                    });
-               }
-                
+                Result.Add(new UsersNotBelongRoleViewModel
+                {
+                    ID = user.Id,
+                    Email = user.Email,
+                    DisplayName = user.DisplayName
+                });
             }
             return Result;
-
         }
 
         public List<UsersBelongRoleViewModel> ListUsersBelongRole(string roleID)
         {
-
             var role = RoleManager.FindById(roleID);
             if (role == null)
             {
                 throw new RoleNotFoundException();
             }
+
+            var ListUserInRole = UserManager.Users.Where(user => user.Roles.Any(r => r.RoleId == roleID)).ToList();
             var Result = new List<UsersBelongRoleViewModel>();
-            foreach (var user in UserManager.Users.ToList())
+            foreach (var user in ListUserInRole)
             {
-               if(UserManager.IsInRole(user.Id, role.Name))
-               {
-                    Result.Add(new UsersBelongRoleViewModel
-                    {
-                        ID = user.Id,
-                        Email = user.Email,
-                        DisplayName = user.DisplayName
-                    });
-               }
-                
+                Result.Add(new UsersBelongRoleViewModel
+                {
+                    ID = user.Id,
+                    Email = user.Email,
+                    DisplayName = user.DisplayName
+                });
             }
             return Result;
 
@@ -175,14 +167,14 @@ namespace TestCasesInventory.Presenter.Business
                     {
                         UserManager.AddToRole(userID, role.Name);
                     }
-                }             
+                }
             }
         }
 
         public void RemoveUsersFromRole(string RoleID, string[] usersToRemoveRole)
         {
             var role = RoleManager.FindById(RoleID);
-            if(role == null)
+            if (role == null)
             {
                 throw new RoleNotFoundException();
             }
