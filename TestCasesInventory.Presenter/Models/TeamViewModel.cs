@@ -20,22 +20,11 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime LastModifiedDate { get; set; }
     }
 
-    public class TeamDetailsViewModel : ViewModelBase
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-    }
-
     public class CreateTeamViewModel : ViewModelBase
     {
         [Required]
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
-        [Display(Name = "Team Name:")]
-       
+        [Display(Name = "Team Name:")] 
         public string Name { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
