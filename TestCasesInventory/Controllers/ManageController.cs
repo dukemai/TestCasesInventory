@@ -15,6 +15,8 @@ using System.Collections;
 using TestCasesInventory.Data.Common;
 using System.Collections.Generic;
 using System.IO;
+using TestCasesInventory.Config;
+using TestCasesInventory.Web.Common.Base;
 
 namespace TestCasesInventory.Controllers
 {
@@ -52,6 +54,7 @@ namespace TestCasesInventory.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             Error,
+            NothingIsChosen,
             ChangeDisplayNameSuccess,
             ChangeRoleSuccess, 
             ChangeProfilePictureSuccess
@@ -69,6 +72,7 @@ namespace TestCasesInventory.Controllers
                 : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
                 : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
                 : message == ManageMessageId.ChangeProfilePictureSuccess ? "Your profile picture has been updated"
+                : message == ManageMessageId.NothingIsChosen ? " You have not specified a file"
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -277,24 +281,26 @@ namespace TestCasesInventory.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    string folderPath = Path.Combine(Server.MapPath("~/uploads/photos"), model.Email);
+                    string folderPath = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email);
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
                     }
-                    string path = Path.Combine(Server.MapPath("~/uploads/photos"), model.Email, "profile.JPG");
+                    string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email, PathConfig.ProfileName);
                     file.SaveAs(path);
-                    ViewBag.Message = "File uploaded successfully";
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    ViewBag.Message = "Error:" + ex.Message.ToString();
+                    return View();
                 }
             else
             {
-                ViewBag.Message = "You have not specified a file.";
+                ViewBag.Message = CustomMessages.NothingIsChosen;
+                return View();
             }
-            return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
+            
         }
         /*
 

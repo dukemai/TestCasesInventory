@@ -1,4 +1,5 @@
 ﻿@model TestCasesInventory.Presenter.Models.IndexViewModel
+@using TestCasesInventory.Config
 @{
     ViewBag.Title = "Manage";
 }
@@ -58,11 +59,11 @@
             @Html.DisplayNameFor(model => model.ProfilePicture)
         </dt>
         @{
-            string path = Path.Combine(Server.MapPath("~/uploads/photos"), Model.Email, "profile.JPG");
+            string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), Model.Email, PathConfig.ProfileName);
             if (File.Exists(path))
             {
                 <dd>
-                    <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG?_t=" + File.GetLastWriteTime(path)) " alt="IMAGES" width="100" />
+                    <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + File.GetLastWriteTime(path)) " alt="IMAGES" width="100" />
                 </dd>
                 <dd>
                     [

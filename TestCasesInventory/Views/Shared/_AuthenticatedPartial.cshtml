@@ -1,4 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Config
 @model TestCasesInventory.Presenter.Models.LoginStatusViewModel
 @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
 {
@@ -12,12 +13,12 @@
             @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         @{
-            string path = Path.Combine(Server.MapPath("~/uploads/photos"), Model.Email, "profile.JPG");
+            string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), Model.Email, PathConfig.ProfileName);
             if (File.Exists(path))
             {
                 <li style="height: 32px;    line-height: 32px; text-align:center; ">
                     <a href="@Url.Action("Index", "Manage")" class="links">
-                        <img src="@Url.Content("~/uploads/photos/" + Model.Email + "/profile.JPG?_t=" + File.GetLastWriteTime(path) )" alt="IMAGES" width="20" align="middle" />
+                        <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + File.GetLastWriteTime(path) )" alt="IMAGES" width="20" align="middle" />
                     </a>
                 </li>
             }
