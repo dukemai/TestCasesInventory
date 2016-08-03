@@ -8,10 +8,10 @@ namespace TestCasesInventory.Data.Repositories
         IEnumerable<TestSuiteDataModel> ListAll();
         TestSuiteDataModel GetTestSuiteByID(int testSuiteID);
         void InsertTestSuite(TestSuiteDataModel testSuite);
-        void DeleteTestSuite(int testSuiteID);
         void UpdateTestSuite(TestSuiteDataModel testSuite);
+        void DeleteTestSuite(int testSuiteID);
         void Save();
-        IEnumerable<TestSuiteDataModel> GetExistedTestSuiteByName(string testSuiteName);
+        //IEnumerable<TestSuiteDataModel> GetExistedTestSuiteByName(string testSuiteName);
         //IEnumerable<TestCaseDataModel> ListTestCasesNotBelongTestSuite(int testSuiteID);
         //IEnumerable<TestCaseDataModel> ListTestCasesBelongTestSuite(int testSuiteID);
         //void AssignUsersToTeam(IList<TestCaseDataModel> testCases, int testSuiteID);
