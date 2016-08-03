@@ -24,8 +24,8 @@ namespace TestCasesInventory.Presenter.Models
 
     public class CreateRoleViewModel: ViewModelBase
     {
-        [Required]
         [Display(Name = "Role Name:")]
+        [RoleValidation]
         public string Name { get; set; }
     }
 

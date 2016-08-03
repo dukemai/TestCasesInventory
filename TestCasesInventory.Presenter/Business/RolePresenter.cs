@@ -49,10 +49,6 @@ namespace TestCasesInventory.Presenter.Business
 
         public IdentityResult CreateRole(string role)
         {
-            if (IsRoleExist(role))
-            {
-                throw new DuplicateNameException("Role Name is exist.");
-            }
             return RoleManager.Create(new IdentityRole { Name = role });
         }
 
