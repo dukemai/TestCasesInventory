@@ -83,7 +83,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<IdentityResult> CreateAsync(RegisterViewModel model)
         {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName };
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName, LastModifiedDate = model.LastModifiedDate};
 
             return UserManager.CreateAsync(user, model.Password);
         }
@@ -132,7 +132,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new UserNotFoundException();
             }
-            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
             return model;
         }
 
@@ -209,7 +209,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new UserNotFoundException();
             }
-            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim() };
+            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim(),  LastModifiedDate = currentUser.LastModifiedDate };
             return viewModel;
         }
 
@@ -225,6 +225,20 @@ namespace TestCasesInventory.Presenter.Business
             UserManager.Update(currentUser);
             HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
         }
+        
+          public void UpdateLastModifiedDateInDB(string UserId, DateTime NewLastModifiedDate)
+        {
+
+            var currentUser = UserManager.FindById(UserId);
+            if (currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            currentUser.LastModifiedDate = NewLastModifiedDate;
+            UserManager.Update(currentUser);
+            HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+        }
+         
 
 
 

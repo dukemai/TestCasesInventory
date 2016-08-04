@@ -5,7 +5,6 @@
 }
 <h2>@ViewBag.Title.</h2>
 
-
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
@@ -63,7 +62,7 @@
             if (File.Exists(path))
             {
                 <dd>
-                    <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + File.GetLastWriteTime(path)) " alt="IMAGES" width="100" />
+                    <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="100" />
                 </dd>
                 <dd>
                     [

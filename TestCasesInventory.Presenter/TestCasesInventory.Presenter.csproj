@@ -105,6 +105,7 @@
     <Compile Include="Business\IRegisterPresenter.cs" />
     <Compile Include="Business\IRolePresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
+    <Compile Include="Business\IUpdateLastModifiedDatePresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
     <Compile Include="Business\LoginStatusPresenter.cs" />
     <Compile Include="Business\PresenterBase.cs" />

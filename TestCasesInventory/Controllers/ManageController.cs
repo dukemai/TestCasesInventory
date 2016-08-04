@@ -277,10 +277,13 @@ namespace TestCasesInventory.Controllers
         [HttpPost]
         public ActionResult ChangeProfilePicture(HttpPostedFileBase file)
         {
-            var model = UserPresenter.GetUserById(User.Identity.GetUserId());
+            
+
             if (file != null && file.ContentLength > 0)
                 try
                 {
+                    UserPresenter.UpdateLastModifiedDateInDB(User.Identity.GetUserId(), DateTime.Now);
+                    var model = UserPresenter.GetUserById(User.Identity.GetUserId());
                     string folderPath = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email);
                     if (!Directory.Exists(folderPath))
                     {
@@ -288,7 +291,8 @@ namespace TestCasesInventory.Controllers
                     }
                     string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), model.Email, PathConfig.ProfileName);
                     file.SaveAs(path);
-                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
+
+                     return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
                 }
                 catch (Exception ex)
                 {

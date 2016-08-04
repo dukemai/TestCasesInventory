@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -20,5 +21,6 @@ namespace TestCasesInventory.Data.DataModels
         public string DisplayName { get; set; }
         public int? TeamID { get; set; }
         public virtual TeamDataModel Team { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 }
