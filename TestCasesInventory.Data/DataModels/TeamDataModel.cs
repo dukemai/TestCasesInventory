@@ -16,5 +16,7 @@ namespace TestCasesInventory.Data.DataModels
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ICollection<TestSuiteDataModel> TestSuites  { get; set; }
+
     }
 }

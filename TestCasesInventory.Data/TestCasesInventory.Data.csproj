@@ -96,10 +96,10 @@
     <Compile Include="Repositories\ApplicationSignInManager.cs" />
     <Compile Include="Repositories\ApplicationUserManager.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
-    <Compile Include="Repositories\ITestCaseRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Repositories\TestCaseRepository.cs" />
+    <Compile Include="Repositories\TestSuiteRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
