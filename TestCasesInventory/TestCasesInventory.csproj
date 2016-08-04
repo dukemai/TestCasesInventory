@@ -255,6 +255,7 @@
     <Content Include="Views\Shared\DatabaseNotFoundError.cshtml" />
     <Content Include="Views\Manage\EditUserRole.cshtml" />
     <Content Include="Views\Shared\CurrentRolePartialView.cshtml" />
+    <Content Include="Views\Manage\ChangeProfilePicture.cshtml" />
     <Content Include="Views\Shared\RoleNotFoundError.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -136,58 +136,58 @@ namespace TestCasesInventory.Presenter.Business
             return model;
         }
 
-        public UpdateRolesViewModel FindUserById(string UserId)
-        {
-            var currentUser = UserManager.FindById(UserId);
+        //public UpdateRolesViewModel FindUserById(string UserId)
+        //{
+        //    var currentUser = UserManager.FindById(UserId);
 
-            if (currentUser == null)
-            {
-                throw new UserNotFoundException();
-            }
-            UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
-            return model;
-        }
+        //    if (currentUser == null)
+        //    {
+        //        throw new UserNotFoundException();
+        //    }
+        //    UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
+        //    return model;
+        //}
 
-        public List<SelectListItem> AddRoleToList()
-        {
-            var RoleNameList = RoleManager.Roles.Select(role=>role.Name).ToList();
-            List<SelectListItem> RoleList = new List<SelectListItem>();
-            for (int i = 0; i < RoleNameList.Count; i++)
-            {
-                RoleList.Add(new SelectListItem
-                 {
-                     Text = RoleNameList[i],
-                     Value = RoleNameList[i]
-                });
-            }
-            return RoleList;
-        }
+        //public List<SelectListItem> AddRoleToList()
+        //{
+        //    var RoleNameList = RoleManager.Roles.Select(role=>role.Name).ToList();
+        //    List<SelectListItem> RoleList = new List<SelectListItem>();
+        //    for (int i = 0; i < RoleNameList.Count; i++)
+        //    {
+        //        RoleList.Add(new SelectListItem
+        //         {
+        //             Text = RoleNameList[i],
+        //             Value = RoleNameList[i]
+        //        });
+        //    }
+        //    return RoleList;
+        //}
 
-        public bool IsRoleExist(string role)
-        {
-            var model = RoleManager.FindByName(role);
-            if (model != null)
-                return true;
-            else
-                return false;
-        }
+        //public bool IsRoleExist(string role)
+        //{
+        //    var model = RoleManager.FindByName(role);
+        //    if (model != null)
+        //        return true;
+        //    else
+        //        return false;
+        //}
 
-        public IdentityResult AddRole(string UserId, string UserRole)
-        {
-            return UserManager.AddToRole(UserId, UserRole);
-        }
+        //public IdentityResult AddRole(string UserId, string UserRole)
+        //{
+        //    return UserManager.AddToRole(UserId, UserRole);
+        //}
 
-        public IdentityResult CreateRole(string UserRole)
-        {
-            return RoleManager.Create(new IdentityRole { Name = UserRole });
+        //public IdentityResult CreateRole(string UserRole)
+        //{
+        //    return RoleManager.Create(new IdentityRole { Name = UserRole });
 
-        }
+        //}
 
 
-        public IdentityResult RemoveRole(string UserId, string UserRole)
-        {
-            return UserManager.RemoveFromRole(UserId, UserRole);
-        }
+        //public IdentityResult RemoveRole(string UserId, string UserRole)
+        //{
+        //    return UserManager.RemoveFromRole(UserId, UserRole);
+        //}
 
 
 
@@ -199,6 +199,17 @@ namespace TestCasesInventory.Presenter.Business
                 throw new UserNotFoundException();
             }
             var viewModel = new UpdateDisplayNameViewModel { DisplayName = currentUser.DisplayName.Trim() };
+            return viewModel;
+        }
+
+        public IndexViewModel GetUserById(string id)
+        {
+            var currentUser = UserManager.FindById(id);
+            if (currentUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim() };
             return viewModel;
         }
 

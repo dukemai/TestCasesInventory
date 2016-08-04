@@ -52,16 +52,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string role = model.Name.Trim();
-                try
-                {
-                    RolePresenter.CreateRole(model.Name);
-                    return RedirectToAction("Index");
-                }
-                catch (DuplicateNameException e)
-                {
-                    ViewBag.Message = e.Message;
-                }
-                
+                RolePresenter.CreateRole(model.Name);
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -189,11 +181,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var role = RolePresenter.GetRoleById(id);
                 return View(role);
             }
-            catch(RoleNotFoundException e)
+            catch (RoleNotFoundException e)
             {
                 return View("RoleNotFoundError");
             }
-            
+
         }
 
         // GET: Admin/Role/AddUsersToRole/5
