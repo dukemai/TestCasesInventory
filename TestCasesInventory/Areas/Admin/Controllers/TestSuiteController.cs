@@ -26,7 +26,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #endregion
 
 
-        // GET: Admin/Team
+        // GET: Admin/TestSuite
         public ActionResult Index()
         {
             var testSuites = TestSuitePresenterObject.ListAll();
@@ -58,15 +58,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Team/Create
+        // POST: Admin/TestSuite/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title, Description")] TestSuiteViewModel testSuite)
         {
             if (ModelState.IsValid)
             {
-                string testSuiteTitle = testSuite.Title.Trim();
-                string testSuiteDescription = testSuite.Description;
                 var createdTestSuite = new CreateTestSuiteViewModel
                 {
                     Title = testSuite.Title,
@@ -109,16 +107,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string testSuiteTitle = testSuite.Title;
-                    string testSuiteDescription = testSuite.Description;
-                    var updatedTeam = new EditTestSuiteViewModel
+                    var updatedTestSuite = new EditTestSuiteViewModel
                     {
                         Title = testSuite.Title,
                         Description = testSuite.Description,
                         LastModified = User.Identity.Name,
                         LastModifiedDate = DateTime.Now
                     };
-                    TestSuitePresenterObject.UpdateTestSuite(id, updatedTeam);
+                    TestSuitePresenterObject.UpdateTestSuite(id, updatedTestSuite);
                     return RedirectToAction("Index");
                 }
                 return View();
@@ -157,12 +153,29 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 TestSuitePresenterObject.DeleteTestSuite(id);
                 return RedirectToAction("Index");
             }
-            catch (TeamNotFoundException e)
+            catch (TestSuiteNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
         }
 
-        
+        [HttpGet]
+        public ActionResult AddTestCases(int id)
+        {
+            try
+            {
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                ViewBag.ID = id;
+                return RedirectToAction("Index", "TestCase", new { id = id});
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
     }
 }

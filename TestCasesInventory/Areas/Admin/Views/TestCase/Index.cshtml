@@ -1,22 +1,22 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<TestSuiteViewModel>
+@model List<TestCaseViewModel>
 @{
-    ViewBag.Title = "TestSuite Home Page";
+    ViewBag.Title = "TestCase Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>List of TestSuites</h3>
-
+<h3>List of TestCases</h3>
+@ViewBag.ID
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             <h4>Title</h4>
         </th>
         <th>
-            <h4>Team</h4>
+            <h4>TestSuite</h4>
         </th>
         <th>
             <h4>Created Date</h4>
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TeamName)
+                @Html.DisplayFor(modelItem => item.TestSuiteID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
@@ -46,10 +46,9 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @Html.ActionLink("Add TestCases", "AddTestCases", new { id = item.ID })
             </td>
         </tr>
     }
 
-</table>
+</table>*@
 
