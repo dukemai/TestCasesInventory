@@ -122,7 +122,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
-    <Compile Include="Models\TestCaseViewModel.cs" />
+    <Compile Include="Models\TestSuiteViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
