@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
-using System.Linq;
-using TestCasesInventory.Data.Repositories;
-using TestCasesInventory.Presenter.Models;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
-using TestCasesInventory.Data.DataModels;
-using Microsoft.Owin.Security;
-using System.Web.Mvc;
-using System.Security.Principal;
-using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
-
+using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Config;
+using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -83,7 +82,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<IdentityResult> CreateAsync(RegisterViewModel model)
         {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName, LastModifiedDate = model.LastModifiedDate};
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName, LastModifiedDate = model.LastModifiedDate };
 
             return UserManager.CreateAsync(user, model.Password);
         }
@@ -209,7 +208,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new UserNotFoundException();
             }
-            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim(),  LastModifiedDate = currentUser.LastModifiedDate };
+            var viewModel = new IndexViewModel { Email = currentUser.Email.Trim(), LastModifiedDate = currentUser.LastModifiedDate };
             return viewModel;
         }
 
@@ -225,8 +224,8 @@ namespace TestCasesInventory.Presenter.Business
             UserManager.Update(currentUser);
             HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
         }
-        
-          public void UpdateLastModifiedDateInDB(string UserId, DateTime NewLastModifiedDate)
+
+        public void UpdateLastModifiedDateInDB(string UserId, DateTime NewLastModifiedDate)
         {
 
             var currentUser = UserManager.FindById(UserId);
@@ -238,9 +237,13 @@ namespace TestCasesInventory.Presenter.Business
             UserManager.Update(currentUser);
             HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
         }
-         
 
-
+        public string GetUserProfilePictureUrl(string id)
+        {
+            var user = GetUserById(id);
+            var folderPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName);
+            return folderPath;
+        }
 
 
         #endregion
