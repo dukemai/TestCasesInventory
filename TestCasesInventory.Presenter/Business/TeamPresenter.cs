@@ -17,13 +17,13 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository = new TeamRepository();
         }
 
-        public TeamViewModel GetTeamById(int? id)
+        public TeamViewModel GetTeamById(int? teamID)
         {
-            if (!id.HasValue)
+            if (!teamID.HasValue)
             {
                 throw new Exception("Id was not valid.");
             }
-            var team = teamRepository.GetTeamByID(id.Value);
+            var team = teamRepository.GetTeamByID(teamID.Value);
             if (team == null)
             {
                 throw new TeamNotFoundException("Team was not found.");
@@ -74,9 +74,9 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository.Save();
         }
 
-        public void UpdateTeam(int id, EditTeamViewModel team)
+        public void UpdateTeam(int teamID, EditTeamViewModel team)
         {
-            var teamDataModel = teamRepository.GetTeamByID(id);
+            var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
                 throw new TeamNotFoundException("Team was not found.");
@@ -91,16 +91,16 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public void DeleteTeam(int id)
+        public void DeleteTeam(int teamID)
         {
-            var teamDataModel = teamRepository.GetTeamByID(id);
+            var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
                 throw new TeamNotFoundException("Team was not found.");
             }
             else
             {
-                teamRepository.DeleteTeam(id);
+                teamRepository.DeleteTeam(teamID);
                 teamRepository.Save();
             }
         }

@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
-using TestCasesInventory.Web.Common.Base;
 
 namespace TestCasesInventory.Controllers
 {

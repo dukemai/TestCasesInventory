@@ -1,5 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<TeamViewModel>
+@model List<TestSuiteViewModel>
 @{
     ViewBag.Title = "Team Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -13,10 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            <h4>Name</h4>
+            <h4>Title</h4>
         </th>
         <th>
-            <h4>Number of members</h4>
+            <h4>Team</h4>
+        </th>
+        <th>
+            <h4>Created Date</h4>
+        </th>
+        <th>
+            <h4>Last Modified Date</h4>
         </th>
         <th></th>
     </tr>
@@ -25,10 +31,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MembersNumber)
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
