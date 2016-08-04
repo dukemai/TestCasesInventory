@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TestCasesInventory.Data.DataModels;
+﻿using System.Collections.Generic;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
@@ -9,9 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
-using TestCasesInventory.Data;
 using System.Linq;
-using System.Collections;
 
 namespace TestCasesInventory.Presenter.Business
 {
