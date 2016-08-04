@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
@@ -88,6 +89,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfDisplayName, ErrorMessage = ValidationMessages.ErrorMessageForDisplayNameProperty)]
         [Display(Name = "Name")]
         public string DisplayName { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 
     public class ResetPasswordViewModel : ViewModelBase

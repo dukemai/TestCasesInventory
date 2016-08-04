@@ -25,6 +25,7 @@ namespace TestCasesInventory.Presenter.Business
             var viewModel = new LoginStatusViewModel();
             viewModel.DisplayName = model.DisplayName;
             viewModel.Email = model.Email;
+            viewModel.LastModifiedDate = model.LastModifiedDate;
             return viewModel;
 
         }

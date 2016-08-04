@@ -106,7 +106,7 @@ namespace TestCasesInventory.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                model.LastModifiedDate = DateTime.Now;
                 var result = await UserPresenter.CreateAsync(model);
                 if (result.Succeeded)
                 {

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -17,8 +18,9 @@ namespace TestCasesInventory.Presenter.Models
         public string UserRoles { get; set; }
         [Display(Name = "Profile Picture")]
         public string ProfilePicture { get; set; }
-    
-    }
+        public DateTime LastModifiedDate { get; set; }
+
+}
 
     public class ManageLoginsViewModel : ViewModelBase
     {
