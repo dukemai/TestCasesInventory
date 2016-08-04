@@ -10,9 +10,9 @@ namespace TestCasesInventory.Data.Repositories
     {
         public TestCaseRepository() : base(){ }
 
-        public IEnumerable<TestCaseDataModel> ListAll()
+        public IEnumerable<TestCaseDataModel> ListAll(int testSuiteID)
         {
-            return dataContext.TestCases.ToList();
+            return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).ToList();
         }
 
         public TestCaseDataModel GetTestCaseByID(int testCaseID)

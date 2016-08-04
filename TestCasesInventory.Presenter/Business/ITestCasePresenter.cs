@@ -6,7 +6,7 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITestCasePresenter : IPresenter<TestCaseViewModel>
     {
-        List<TestCaseViewModel> ListAll();
+        List<TestCaseViewModel> ListAll(int? testSuiteID);
 
         TestCaseViewModel GetTestCaseById(int? id);
 

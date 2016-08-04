@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    class TestCasePresenter : ITestCasePresenter
+    public class TestCasePresenter : ITestCasePresenter
     {
         protected ITestCaseRepository TestCaseRepository;
         public TestCasePresenter()
@@ -16,9 +16,13 @@ namespace TestCasesInventory.Presenter.Business
             TestCaseRepository = new TestCaseRepository();
         }
 
-        public List<TestCaseViewModel> ListAll()
+        public List<TestCaseViewModel> ListAll(int? testSuiteID)
         {
-            var ListTestCase = TestCaseRepository.ListAll();
+            if (!testSuiteID.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            var ListTestCase = TestCaseRepository.ListAll(testSuiteID.Value);
             List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
             foreach(var item in ListTestCase)
             {
@@ -26,6 +30,7 @@ namespace TestCasesInventory.Presenter.Business
                 {
                     ID = item.ID,
                     Title = item.Title,
+                    TestSuiteID = item.TestSuiteID,
                     Description = item.Description,
                     Precondition = item.Precondition,
                     Attachment = item.Attachment,

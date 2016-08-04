@@ -11,6 +11,7 @@ namespace TestCasesInventory.Presenter.Models
         public int ID { get; set; }
         [Required]
         public string Title { get; set; }
+        public int TestSuiteID { get; set; }
         public string Description { get; set; }
         public string Precondition { get; set; }
         public bool Attachment { get; set; }
@@ -21,22 +22,10 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime LastModifiedDate { get; set; }
     }
 
-    public class TestCaseDetailViewModel : ViewModelBase
-    {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Precondition { get; set; }
-        public bool Attachment { get; set; }
-        public string Expect { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-    }
 
     public class CreateTestCaseViewModel : ViewModelBase
     {
+        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
         public string Precondition { get; set; }
