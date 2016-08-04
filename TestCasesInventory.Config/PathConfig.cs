@@ -4,6 +4,6 @@ namespace TestCasesInventory.Config
 {
     public class PathConfig
     {
-        public readonly string PhotosFolderPath = UserConfigurations.PhotosFolderPath;
+        public static readonly string PhotosFolderPath = UserConfigurations.PhotosFolderPath;
     }
 }
