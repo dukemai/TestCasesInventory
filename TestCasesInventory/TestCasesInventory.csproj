@@ -177,7 +177,6 @@
     <Content Include="Areas\Admin\Views\Team\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Team\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Team\View.cshtml" />
     <Content Include="Areas\Admin\Views\Team\AssignUsersToTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
@@ -189,6 +188,11 @@
     <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Role\AssignUsersToRole.cshtml" />
+    <Content Include="Areas\Admin\Views\TestSuite\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TestSuite\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TestSuite\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TestSuite\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TestSuite\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -257,7 +261,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
-    <Folder Include="Areas\Admin\Views\TestSuite\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Errors\" />
   </ItemGroup>
