@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 
@@ -106,7 +107,7 @@ namespace TestCasesInventory.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                model.LastModifiedDate = DateTime.Now;
                 var result = await UserPresenter.CreateAsync(model);
                 if (result.Succeeded)
                 {

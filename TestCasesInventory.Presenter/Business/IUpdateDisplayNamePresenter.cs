@@ -14,8 +14,9 @@ namespace TestCasesInventory.Presenter.Business
 
         IndexViewModel GetUserById(string id);
 
-
         void UpdateDisplayNameInDB(string UserId, string NewDisplayName);
+
+        string GetUserProfilePictureUrl(string id);
     }
 }
 

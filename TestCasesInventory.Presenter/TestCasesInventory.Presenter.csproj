@@ -107,6 +107,7 @@
     <Compile Include="Business\ITeamPresenter.cs" />
     <Compile Include="Business\ITestCasePresenter.cs" />
     <Compile Include="Business\ITestSuitePresenter.cs" />
+    <Compile Include="Business\IUpdateLastModifiedDatePresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
     <Compile Include="Business\LoginStatusPresenter.cs" />
     <Compile Include="Business\PresenterBase.cs" />

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Config
 {
     public class PathConfig
     {
-        public const string PhotosFolderPath = "~/uploads/photos";
-        public const string ProfileName = "profile.JPG";
+        public static readonly string PhotosFolderPath = UserConfigurations.PhotosFolderPath;
     }
 }
