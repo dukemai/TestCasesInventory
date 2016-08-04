@@ -15,12 +15,14 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected ITestSuiteRepository testSuiteRepository;
         protected ApplicationUserManager UserManager;
+        protected ITeamRepository teamRepository;
 
 
         public TestSuitePresenter(HttpContextBase context):base()
         {
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
+            teamRepository = new TeamRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
@@ -35,11 +37,12 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
+            var teamName = teamRepository.GetTeamByID(testSuite.TeamID).Name;
             return new TestSuiteViewModel
             {
                 ID = testSuite.ID,
                 Title = testSuite.Title,
-                TeamID = testSuite.TeamID,
+                TeamName = teamName,
                 Description = testSuite.Description,
                 Created = testSuite.Created,
                 CreatedDate = testSuite.CreatedDate,
@@ -54,11 +57,12 @@ namespace TestCasesInventory.Presenter.Business
             List<TestSuiteViewModel> listTestSuiteView = new List<TestSuiteViewModel>();
             foreach (var item in listTestSuite)
             {
+                var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
                 var testSuiteView = new TestSuiteViewModel
                 {
                     ID = item.ID,
                     Title = item.Title,
-                    TeamID = item.TeamID,
+                    TeamName = teamName,
                     Description = item.Description,
                     Created = item.Created,
                     CreatedDate = item.CreatedDate,
