@@ -17,7 +17,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationUserManager UserManager;
 
 
-        public TestSuitePresenter(HttpContextBase context)
+        public TestSuitePresenter(HttpContextBase context):base()
         {
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();

@@ -11,19 +11,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     public class TestSuiteController : Controller
     {
         #region Properties
-        protected ITestSuitePresenter TestSuitePresenterObject;
-
-        #endregion
-
-        #region Constructors
-
-        public TestSuiteController()
+        private ITestSuitePresenter testSuitePresenterObject;
+        protected ITestSuitePresenter TestSuitePresenterObject
         {
-            TestSuitePresenterObject = new TestSuitePresenter(HttpContext);
-
+            get
+            {
+                if (testSuitePresenterObject == null)
+                {
+                    testSuitePresenterObject = new TestSuitePresenter(HttpContext);
+                }
+                return testSuitePresenterObject;
+            }
         }
-
         #endregion
+
 
         // GET: Admin/Team
         public ActionResult Index()
