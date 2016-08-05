@@ -7,6 +7,7 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Web.Common.Base;
+using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory.Controllers
 {
@@ -221,11 +222,13 @@ namespace TestCasesInventory.Controllers
         }
 
         #endregion
+        
 
         private void UploadUserProfileImage(HttpPostedFileBase file, string userId)
         {
             var profileImagePath = UserPresenter.GetUserProfilePictureUrl(userId);
-            string serverPath = Server.MapPath(profileImagePath);
+            var serverPath = Server.MapPath(profileImagePath);
+            PathHelper.EnsureDirectories(serverPath);
             file.SaveAs(serverPath);
         }
 
