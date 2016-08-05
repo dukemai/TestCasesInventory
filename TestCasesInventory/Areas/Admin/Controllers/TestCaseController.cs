@@ -88,7 +88,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     LastModifiedDate = DateTime.Now
                 };
                 TestCasePresenterObject.InsertTestCase(createdTestCase);
-                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             return View();
         }
@@ -130,7 +130,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                         LastModifiedDate = DateTime.Now
                     };
                     TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
-                    return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                    return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
                 }
                 return View();
             }
@@ -166,7 +166,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 TestCasePresenterObject.DeleteTestCase(id);
-                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             catch (TestCaseNotFoundException e)
             {
