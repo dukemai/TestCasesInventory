@@ -63,6 +63,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/TestCase/Create
         public ActionResult Create(int? testSuiteID)
         {
+            ViewBag.TestSuiteID = testSuiteID;
             return View();
         }
 
