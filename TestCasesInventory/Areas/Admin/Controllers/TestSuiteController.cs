@@ -166,7 +166,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
                 ViewBag.ID = id;
-                return RedirectToAction("Index", "TestCase", new { id = id});
+                return RedirectToAction("Index", "TestCase", new { testSuiteID = id});
             }
             catch (TestSuiteNotFoundException e)
             {

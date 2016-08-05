@@ -29,9 +29,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/TestCase
         public ActionResult Index(int? testSuiteID)
         {
-            ViewBag.ID = testSuiteID;
-            //var testCases = TestCasePresenterObject.ListAll(testSuiteID);
-            return View("Index");
+            try
+            {
+                var testCases = TestCasePresenterObject.ListAll(testSuiteID);
+                ViewBag.TestSuiteID = testSuiteID;
+                return View("Index", testCases);
+            }
+            catch(Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // GET: Admin/TestCase/Details/5
@@ -54,7 +61,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase/Create
-        public ActionResult Create()
+        public ActionResult Create(int? testSuiteID)
         {
             return View();
         }
@@ -62,13 +69,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title, Description, Precondition, Expect")] TestCaseViewModel testCase)
+        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] TestCaseViewModel testCase)
         {
             if (ModelState.IsValid)
             {
                 var createdTestCase = new CreateTestCaseViewModel
                 {
                     Title = testCase.Title,
+                    TestSuiteID = testSuiteID,
                     Description = testCase.Description,
                     Precondition = testCase.Precondition,
                     Expect = testCase.Expect,
@@ -78,7 +86,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     LastModifiedDate = DateTime.Now
                 };
                 TestCasePresenterObject.InsertTestCase(createdTestCase);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
             }
             return View();
         }
@@ -104,23 +112,23 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description")] TestCaseViewModel testCase)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    string testCaseTitle = testCase.Title;
-                    string testCaseDescription = testCase.Description;
                     var updatedTestCase = new EditTestCaseViewModel
                     {
                         Title = testCase.Title,
                         Description = testCase.Description,
+                        Precondition = testCase.Precondition,
+                        Expect = testCase.Expect,
                         LastModified = User.Identity.Name,
                         LastModifiedDate = DateTime.Now
                     };
                     TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { testSuiteID = testSuiteID });
                 }
                 return View();
             }
@@ -151,14 +159,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int testSuiteID)
         {
             try
             {
                 TestCasePresenterObject.DeleteTestCase(id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
             }
-            catch (TeamNotFoundException e)
+            catch (TestCaseNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
