@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+﻿@using TestCasesInventory.Presenter.Models
+@model List<RoleViewModel>
 @{
     ViewBag.Title = "Role Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -14,6 +15,9 @@
         <th>
             <h4>Name</h4>
         </th>
+        <th>
+            <h4>Number of accounts</h4>
+        </th>
         <th></th>
     </tr>
 
@@ -22,6 +26,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numberOfAccount)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

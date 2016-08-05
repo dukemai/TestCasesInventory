@@ -147,6 +147,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,6 +264,9 @@
     <Content Include="Views\Shared\CurrentRolePartialView.cshtml" />
     <Content Include="Views\Manage\ChangeProfilePicture.cshtml" />
     <Content Include="Views\Shared\RoleNotFoundError.cshtml" />
+    <Content Include="Views\Shared\_AdminPartial.cshtml" />
+    <Content Include="Views\Shared\_TesterPartial.cshtml" />
+    <Content Include="Views\Shared\_UnprivilegedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -270,6 +274,7 @@
     <Folder Include="Areas\Admin\Views\Errors\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Errors\" />
+    <Folder Include="Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

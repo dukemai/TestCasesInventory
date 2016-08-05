@@ -11,15 +11,12 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class RoleViewModel : ViewModelBase
+    public class RoleViewModel : IdentityRole
     {
-        public string Id { get; set; }
-        [Required]
-        //[StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
-        //[Display(Name = "Role Name:")]
-        //[TeamUniqueValidation]
-        
-        public string Name { get; set; }
+        [Required]        
+        [RoleValidation]      
+        public int numberOfAccount { get; set; }
+
     }
 
     public class CreateRoleViewModel: ViewModelBase
