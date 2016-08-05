@@ -8,7 +8,8 @@ using TestCasesInventory.Web.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles = PrivilegedUsersConfig.TesterRole)]
+    [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
+    
     public class TestSuiteController : Controller
     {
         #region Properties
