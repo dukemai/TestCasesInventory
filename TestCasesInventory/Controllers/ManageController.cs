@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TestCasesInventory.Config;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
@@ -11,20 +13,7 @@ using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory.Controllers
 {
-    public enum ManageMessageId
-    {
-        AddPhoneSuccess,
-        ChangePasswordSuccess,
-        SetTwoFactorSuccess,
-        SetPasswordSuccess,
-        RemoveLoginSuccess,
-        RemovePhoneSuccess,
-        Error,
-        NothingIsChosen,
-        ChangeDisplayNameSuccess,
-        ChangeRoleSuccess,
-        ChangeProfilePictureSuccess
-    }
+    
 
     [Authorize]
     public class ManageController : Web.Common.Base.ControllerBase
@@ -68,22 +57,15 @@ namespace TestCasesInventory.Controllers
         // GET: /Manage/Index
 
         //
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public async Task<ActionResult> Index(string Message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.ChangeDisplayNameSuccess ? "Your name has been changed."
-                : message == ManageMessageId.ChangeRoleSuccess ? "Your role has been changed."
-                : message == ManageMessageId.ChangeProfilePictureSuccess ? "Your profile picture has been updated"
-                : message == ManageMessageId.NothingIsChosen ? " You have not specified a file"
-                : "";
 
+            ViewBag.StatusMessage = Message;
             var userId = User.Identity.GetUserId();
             try
             {
                 var model = UserPresenter.FindUserByID(userId);
+                model.ProfilePictureURL = PathConfig.PhotosFolderPath + "/" + model.Email + "/" + PathConfig.ProfileName + "?_t=" + model.LastModifiedDate;
                 return View(model);
             }
             catch (UserNotFoundException e)
@@ -124,6 +106,7 @@ namespace TestCasesInventory.Controllers
                 try
                 {
                     UserPresenter.UpdateDisplayNameInDB(User.Identity.GetUserId(), model.DisplayName);
+                    UserPresenter.UpdateLastModifiedDateInDB(User.Identity.GetUserId(), DateTime.Now);
                 }
                 catch (UserNotFoundException e)
                 {
@@ -134,7 +117,7 @@ namespace TestCasesInventory.Controllers
                     throw ex;
                 }
 
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeDisplayNameSuccess });
+                return RedirectToAction("Index", new { Message = CustomMessages.ChangeDisplayNameSuccess });
             }
             return base.View();
         }
@@ -160,10 +143,8 @@ namespace TestCasesInventory.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
-
-
                 var result = await UserPresenter.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
-
+                UserPresenter.UpdateLastModifiedDateInDB(userId, DateTime.Now);
                 if (result.Succeeded)
                 {
                     var user = await UserPresenter.FindByIdAsync(userId);
@@ -172,7 +153,7 @@ namespace TestCasesInventory.Controllers
                         await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
 
-                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                    return RedirectToAction("Index", new { Message = CustomMessages.ChangePasswordSuccess });
                 }
 
 
@@ -212,7 +193,12 @@ namespace TestCasesInventory.Controllers
                 var userId = User.Identity.GetUserId();
                 UploadUserProfileImage(file, userId);
                 UserPresenter.UpdateLastModifiedDateInDB(userId, DateTime.Now);
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfilePictureSuccess });
+                return RedirectToAction("Index", new { Message = CustomMessages.ChangeProfilePictureSuccess });
+            }
+            catch (ImageTypeException ex)
+            {
+                ViewBag.Message = CustomMessages.ImageTypeError;
+                return View();
             }
             catch (Exception ex)
             {
@@ -229,6 +215,10 @@ namespace TestCasesInventory.Controllers
             var profileImagePath = UserPresenter.GetUserProfilePictureUrl(userId);
             var serverPath = Server.MapPath(profileImagePath);
             PathHelper.EnsureDirectories(serverPath);
+            if (Path.GetExtension(file.FileName) != ".jpg" && Path.GetExtension(file.FileName) != ".png")
+            {
+                throw new ImageTypeException();
+            }
             file.SaveAs(serverPath);
         }
 
