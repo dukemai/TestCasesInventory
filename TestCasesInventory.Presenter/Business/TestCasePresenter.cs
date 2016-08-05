@@ -39,6 +39,7 @@ namespace TestCasesInventory.Presenter.Business
                     ID = item.ID,
                     Title = item.Title,
                     TestSuiteID = item.TestSuiteID,
+                    TestSuiteTitle = testSuite.Title,
                     Description = item.Description,
                     Precondition = item.Precondition,
                     Attachment = item.Attachment,

@@ -19,6 +19,12 @@
             <h4>TestSuite</h4>
         </th>
         <th>
+            <h4>Created By</h4>
+        </th>
+        <th>
+            <h4>Last Modified By</h4>
+        </th>
+        <th>
             <h4>Created Date</h4>
         </th>
         <th>
@@ -34,7 +40,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TestSuiteID)
+                @Html.DisplayFor(modelItem => item.TestSuiteTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
