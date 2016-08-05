@@ -27,6 +27,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         [Required]
         public string Title { get; set; }
+        public int TestSuiteID { get; set; }
         public string Description { get; set; }
         public string Precondition { get; set; }
         public bool Attachment { get; set; }

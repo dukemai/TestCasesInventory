@@ -10,19 +10,27 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class TestCasePresenter : ITestCasePresenter
     {
-        protected ITestCaseRepository TestCaseRepository;
+        protected ITestCaseRepository testCaseRepository;
+        protected ITestSuiteRepository testSuiteRepository;
+
         public TestCasePresenter()
         {
-            TestCaseRepository = new TestCaseRepository();
+            testCaseRepository = new TestCaseRepository();
+            testSuiteRepository = new TestSuiteRepository();
         }
 
         public List<TestCaseViewModel> ListAll(int? testSuiteID)
         {
             if (!testSuiteID.HasValue)
             {
-                throw new Exception("Id was not valid.");
+                throw new Exception("TestSuite ID was not valid.");
             }
-            var ListTestCase = TestCaseRepository.ListAll(testSuiteID.Value);
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
+            if(testSuite == null)
+            {
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var ListTestCase = testCaseRepository.ListAll(testSuiteID.Value);
             List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
             foreach(var item in ListTestCase)
             {
@@ -49,17 +57,18 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!id.HasValue)
             {
-                throw new Exception("Id was not valid.");
+                throw new Exception("TestCase Id was not valid.");
             }
-            var testCase = TestCaseRepository.GetTestCaseByID(id.Value);
+            var testCase = testCaseRepository.GetTestCaseByID(id.Value);
             if (testCase == null)
             {
-                throw new TeamNotFoundException("Team was not found.");
+                throw new TestCaseNotFoundException("TestCase was not found.");
             }
             return new TestCaseViewModel
             {
                 ID = testCase.ID,
                 Title = testCase.Title,
+                TestSuiteID = testCase.TestSuiteID,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
                 Attachment = testCase.Attachment,
@@ -73,10 +82,12 @@ namespace TestCasesInventory.Presenter.Business
         
         public void InsertTestCase(CreateTestCaseViewModel testCase)
         {
+
             var testCaseDataModel = new TestCaseDataModel
             {
                 Title = testCase.Title,
                 Description = testCase.Description,
+                TestSuiteID = testCase.TestSuiteID,
                 Precondition = testCase.Precondition,
                 Attachment = testCase.Attachment,
                 Expect = testCase.Expect,
@@ -85,14 +96,14 @@ namespace TestCasesInventory.Presenter.Business
                 CreatedDate = testCase.CreatedDate,
                 LastModifiedDate = testCase.LastModifiedDate
             };
-            TestCaseRepository.InsertTestCase(testCaseDataModel);
-            TestCaseRepository.Save();
+            testCaseRepository.InsertTestCase(testCaseDataModel);
+            testCaseRepository.Save();
         }
 
         public void UpdateTestCase(int id, EditTestCaseViewModel testCase)
         {
 
-            var testCaseDataModel = TestCaseRepository.GetTestCaseByID(id);
+            var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
             if(testCaseDataModel == null)
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
@@ -102,28 +113,25 @@ namespace TestCasesInventory.Presenter.Business
                 testCaseDataModel.Title = testCase.Title;
                 testCaseDataModel.Description = testCase.Description;
                 testCaseDataModel.Precondition = testCase.Precondition;
-                testCaseDataModel.Attachment = testCase.Attachment;
                 testCaseDataModel.Expect = testCase.Expect;
-                testCaseDataModel.Created = testCase.Created;
                 testCaseDataModel.LastModified = testCase.LastModified;
-                testCaseDataModel.CreatedDate = testCase.CreatedDate;
                 testCaseDataModel.LastModifiedDate = testCase.LastModifiedDate;
             };
-            TestCaseRepository.UpdateTestCase(testCaseDataModel);
-            TestCaseRepository.Save();
+            testCaseRepository.UpdateTestCase(testCaseDataModel);
+            testCaseRepository.Save();
         }
 
         public void DeleteTestCase(int id)
         {
-            var testCaseDataModel = TestCaseRepository.GetTestCaseByID(id);
+            var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
             if(testCaseDataModel == null)
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
             else
             {
-                TestCaseRepository.DeleteTestCase(id);
-                TestCaseRepository.Save();
+                testCaseRepository.DeleteTestCase(id);
+                testCaseRepository.Save();
             }
         }
     }
