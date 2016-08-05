@@ -8,9 +8,9 @@
 <h3>List of TestCases</h3>
 @ViewBag.ID
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { testSuiteID = ViewBag.TestSuiteID})
 </p>
-@*<table class="table">
+<table class="table">
     <tr>
         <th>
             <h4>Title</h4>
@@ -45,10 +45,10 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }
 
-</table>*@
+</table>
 

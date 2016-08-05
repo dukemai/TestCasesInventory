@@ -194,9 +194,11 @@
     <Content Include="Areas\Admin\Views\TestSuite\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestSuite\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestSuite\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\TestSuite\AddTestCases.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TestCase\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TestCase\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TestCase\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
