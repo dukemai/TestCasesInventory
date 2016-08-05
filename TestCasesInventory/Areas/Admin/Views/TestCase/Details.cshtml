@@ -29,10 +29,10 @@
 
     <dl class="dl-horizontal">
         <dt>
-            TestSuitID
+            TestSuite
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TestSuiteID)
+            @Html.DisplayFor(model => model.TestSuiteTitle)
         </dd>
     </dl>
     <dl class="dl-horizontal">
@@ -97,5 +97,5 @@
 <br>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { testSuiteID = Model.TestSuiteID })
 </p>

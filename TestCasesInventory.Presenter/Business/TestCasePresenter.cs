@@ -65,11 +65,13 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
+            var testSuiteTitle = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID).Title;
             return new TestCaseViewModel
             {
                 ID = testCase.ID,
                 Title = testCase.Title,
                 TestSuiteID = testCase.TestSuiteID,
+                TestSuiteTitle = testSuiteTitle,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
                 Attachment = testCase.Attachment,
