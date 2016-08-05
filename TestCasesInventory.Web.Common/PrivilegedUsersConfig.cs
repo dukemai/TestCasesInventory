@@ -8,7 +8,7 @@ namespace TestCasesInventory.Web.Common
 {
     public class PrivilegedUsersConfig
     {
-        public string AdminRole = "Admin";
-        public string TesterRole = "Tester";
+        public const string AdminRole = "Admin";
+        public const string TesterRole = "Tester";
     }
 }
