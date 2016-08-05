@@ -13,7 +13,7 @@ namespace TestCasesInventory.Presenter.Business
     {
 
 
-        List<IdentityRole> ListRole();
+        List<RoleViewModel> ListRole();
 
         RoleViewModel GetRoleById(string id);
 
