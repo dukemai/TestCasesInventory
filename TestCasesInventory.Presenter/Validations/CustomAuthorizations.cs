@@ -3,9 +3,14 @@ using System.Web.Mvc.Filters;
 using System.Web.Routing;
 
 namespace TestCasesInventory.Presenter.Validations
-{      
+{
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
+        public CustomAuthorizeAttribute(params string[] roles) : base()
+        {
+            Roles = string.Join(",", roles);
+        }
+
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             var user = filterContext.HttpContext.User;
