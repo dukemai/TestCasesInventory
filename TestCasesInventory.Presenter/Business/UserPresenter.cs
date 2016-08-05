@@ -241,12 +241,7 @@ namespace TestCasesInventory.Presenter.Business
         public string GetUserProfilePictureUrl(string id)
         {
             var user = GetUserById(id);
-            var folderPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName);
-            //var physicalFolderPath = System.Web.HttpContext.Current.Server.MapPath(Path.Combine(UserConfigurations.PhotosFolderPath, user.Email));
-            //if (!Directory.Exists(physicalFolderPath))
-            //{
-            //    Directory.CreateDirectory(physicalFolderPath);
-            //}
+            var folderPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName);            
             return folderPath;
         }
 
