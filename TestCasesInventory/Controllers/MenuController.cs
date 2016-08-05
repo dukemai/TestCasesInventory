@@ -9,23 +9,21 @@ namespace TestCasesInventory.Controllers
 {
     public class MenuController : Controller
     {
-        protected PrivilegedUsersConfig privilegedUsers;
 
         public MenuController()
         {
-            privilegedUsers = new PrivilegedUsersConfig();
+            
         }
-
 
         // GET: Menu
         public ActionResult Index()
         {
-            if (User.IsInRole(privilegedUsers.AdminRole))
+            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
             {
                 return PartialView("~/Views/Shared/_AdminPartial.cshtml");
             }
 
-            if (User.IsInRole(privilegedUsers.TesterRole))
+            if (User.IsInRole(PrivilegedUsersConfig.TesterRole))
             {
                 return PartialView("~/Views/Shared/_TesterPartial.cshtml");
             }
