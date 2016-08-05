@@ -16,6 +16,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ApplicationUserManager UserManager;
         protected ITeamRepository teamRepository;
+        protected ITestCaseRepository testCaseRepository;
 
 
         public TestSuitePresenter(HttpContextBase context):base()
@@ -23,6 +24,7 @@ namespace TestCasesInventory.Presenter.Business
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
             teamRepository = new TeamRepository();
+            testCaseRepository = new TestCaseRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
@@ -121,6 +123,12 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
+                var testCasesForTestSuite = testCaseRepository.ListAll(testSuiteID);
+                foreach(var testCase in testCasesForTestSuite)
+                {
+                    testCaseRepository.DeleteTestCase(testCase.ID);
+                    testCaseRepository.Save();
+                }
                 testSuiteRepository.DeleteTestSuite(testSuiteID);
                 testSuiteRepository.Save();
             }
