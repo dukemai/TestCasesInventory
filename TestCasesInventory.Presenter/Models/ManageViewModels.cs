@@ -17,7 +17,7 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Role")]
         public string UserRoles { get; set; }
         [Display(Name = "Profile Picture")]
-        public string ProfilePicture { get; set; }
+        public string ProfilePictureURL { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
 }
