@@ -160,13 +160,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddTestCases(int id)
+        public ActionResult AddTestCase(int id)
         {
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                ViewBag.ID = id;
-                return RedirectToAction("Index", "TestCase", new { testSuiteID = id});
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title});
             }
             catch (TestSuiteNotFoundException e)
             {

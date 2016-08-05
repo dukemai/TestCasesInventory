@@ -60,10 +60,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
 
-        // GET: Admin/TestCase/Create
-        public ActionResult Create(int? testSuiteID)
+        // GET: Admin/TestCase/Create?
+        public ActionResult Create(int? testSuiteID, string testSuiteTitle)
         {
             ViewBag.TestSuiteID = testSuiteID;
+            ViewBag.TestSuiteTitle = testSuiteTitle;
             return View();
         }
 

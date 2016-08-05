@@ -18,6 +18,18 @@
         <th>
             <h4>Number of members</h4>
         </th>
+        <th>
+            <h4>Created By</h4>
+        </th>
+        <th>
+            <h4>Last Modified By</h4>
+        </th>
+        <th>
+            <h4>Created Date</h4>
+        </th>
+        <th>
+            <h4>Last Modified Date</h4>
+        </th>
         <th></th>
     </tr>
 
@@ -29,6 +41,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MembersNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
