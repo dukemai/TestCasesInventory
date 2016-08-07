@@ -1,5 +1,7 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<TestSuiteViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<TestSuiteViewModel>
 @{
     ViewBag.Title = "TestSuite Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -10,13 +12,23 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "TestSuite", FormMethod.Get))
+{
+    <b>Search by: </b>
+    @Html.RadioButton("searchBy", "Title", true) <text>Title</text>
+    @Html.RadioButton("searchBy", "TeamName") <text>Team</text>
+    <br>
+    @Html.TextBox("valueToSearch") <input type="submit" value="Search" class="btn btn-default">
+}
+
 <table class="table">
     <tr>
         <th>
-            <h4>Title</h4>
+            <h4>@Html.ActionLink("Title", "Index", new { sortBy = ViewBag.SortByTitle, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
         </th>
         <th>
-            <h4>Team</h4>
+            <h4>@Html.ActionLink("Team", "Index", new { sortBy = ViewBag.SortByTeamName, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
         </th>
         <th>
             <h4>Created By</h4>
@@ -64,4 +76,5 @@
     }
 
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, valueToSearch = Request.QueryString["valueToSearch"], sortBy = Request.QueryString["sortBy"], searchBy = Request.QueryString["searchBy"] }))
 

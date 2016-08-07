@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -28,10 +29,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index()
+        public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
         {
             var testSuites = TestSuitePresenterObject.ListAll();
-            return View("Index", testSuites);
+            if (!String.IsNullOrEmpty(valueToSearch))
+            {
+                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
+            }
+            SetViewBagToSort(sortBy);
+            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
+            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
         }
 
         // GET: Admin/TestSuite/Details/5
@@ -176,6 +183,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
+        }
+
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
+            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
         }
     }
 }

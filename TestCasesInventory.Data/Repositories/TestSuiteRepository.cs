@@ -44,10 +44,15 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        //public IEnumerable<TestSuiteDataModel> GetExistedTeamByName(string teamName)
-        //{
-        //    return dataContext.TestSuites.Where(t => t.Name == teamName).ToList();
-        //}
+        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch)
+        {
+            return dataContext.TestSuites.Where(t => t.Title.Contains(valueToSearch)).ToList();
+        }
+        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID)
+        {
+            return dataContext.TestSuites.Where(t => t.TeamID == teamID).ToList();
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
