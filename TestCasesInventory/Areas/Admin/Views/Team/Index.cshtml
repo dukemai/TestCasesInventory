@@ -1,22 +1,29 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<TeamViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<TeamViewModel>
 @{
     ViewBag.Title = "Team Home Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h3>List of teams</h3>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Team", FormMethod.Get))
+{
+    @Html.TextBox("searchByName") <input type="submit" value="Search by Name" class="btn btn-default">
+}
+
 <table class="table">
     <tr>
         <th>
-            <h4>Name</h4>
+            <h4>@Html.ActionLink("Name", "Index", new { sortBy = ViewBag.SortByName, searchByName = Request.QueryString["searchByName"] })</h4>
         </th>
         <th>
-            <h4>Number of members</h4>
+            <h4>@Html.ActionLink("Number of Members", "Index", new { sortBy = ViewBag.SortByMembersNumber, searchByName = Request.QueryString["searchByName"] })</h4>
         </th>
         <th>
             <h4>Created By</h4>
@@ -62,6 +69,6 @@
             </td>
         </tr>
     }
-
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchByName = Request.QueryString["searchByName"], sortBy = Request.QueryString["sortBy"] }))
 

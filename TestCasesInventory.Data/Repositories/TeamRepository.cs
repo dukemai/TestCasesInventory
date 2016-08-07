@@ -49,6 +49,11 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name == teamName).ToList();
         }
 
+        public IEnumerable<TeamDataModel> GetTeamsBeSearchedByName(string teamName)
+        {
+            return dataContext.Teams.Where(t => t.Name.StartsWith(teamName)).ToList();
+        }
+
         public IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID)
         {
             return dataContext.Users.Where(u => u.TeamID != teamID).ToList();

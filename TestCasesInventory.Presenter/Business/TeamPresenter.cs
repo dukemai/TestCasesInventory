@@ -105,6 +105,51 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
+        public List<TeamViewModel> GetTeamsBeSearchedByName(string searchByName)
+        {
+            var teamsDataModelBeSearched = teamRepository.GetTeamsBeSearchedByName(searchByName);
+            List<TeamViewModel> teamsViewBeSearched = new List<TeamViewModel>();
+            foreach (var item in teamsDataModelBeSearched)
+            {
+                var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
+                var teamView = new TeamViewModel
+                {
+                    ID = item.ID,
+                    Name = item.Name,
+                    Created = item.Created,
+                    MembersNumber = membersNumber,
+                    CreatedDate = item.CreatedDate,
+                    LastModified = item.LastModified,
+                    LastModifiedDate = item.LastModifiedDate
+                };
+                teamsViewBeSearched.Add(teamView);
+            }
+            return teamsViewBeSearched;
+
+        }
+
+        public List<TeamViewModel> GetTeamsBeSorted(List<TeamViewModel> teams, string sortBy)
+        {
+            List<TeamViewModel> teamsBeSorted = new List<TeamViewModel>();
+            switch (sortBy)
+            {
+                case "Name desc":
+                    teamsBeSorted = teams.OrderByDescending(t => t.Name).ToList();
+                    break;
+                case "MembersNumber desc":
+                    teamsBeSorted = teams.OrderByDescending(t => t.MembersNumber).ToList();
+                    break;
+                case "MembersNumber asc":
+                    teamsBeSorted = teams.OrderBy(t => t.MembersNumber).ToList();
+                    break;
+                default:
+                    teamsBeSorted = teams.OrderBy(t => t.Name).ToList();
+                    break;
+            }
+            return teamsBeSorted;
+        }
+
+
         public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
         {
             if (!teamID.HasValue)

@@ -12,6 +12,8 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTeam(TeamDataModel team);
         void Save();
         IEnumerable<TeamDataModel> GetExistedTeamByName(string teamName);
+        IEnumerable<TeamDataModel> GetTeamsBeSearchedByName(string teamName);
+
         IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID);
         IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID);
         void AssignUsersToTeam(IList<ApplicationUser> users, int teamID);
