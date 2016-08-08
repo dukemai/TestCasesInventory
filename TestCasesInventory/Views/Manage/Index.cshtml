@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Manage";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -30,7 +30,7 @@
             ]
         </dd>
         <dt>
-            Team Name
+            @Html.DisplayNameFor(model => model.TeamName)
         </dt>
 
         <dd>

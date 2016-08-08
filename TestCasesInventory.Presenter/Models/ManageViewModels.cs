@@ -13,6 +13,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
         [Display(Name = "Name")]
         public string DisplayName { get; set; }
+        [Display(Name = "Team")]
         public string TeamName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
