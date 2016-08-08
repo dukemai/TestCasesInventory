@@ -12,7 +12,7 @@
             @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "displayname" })
         </li>
         @{
-            if (File.Exists(Model.ProfilePicturePhysicalPath))
+            if (Model.IsProfilePictureExisted)
             {
                 <li  style="height: 32px;    line-height: 32px; text-align:center; ">
                     <a href="@Url.Action("Index", "Manage")" class="displaypic">
