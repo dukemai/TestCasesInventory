@@ -19,8 +19,11 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/CustomScript").Include(
-                        "~/Scripts/CustomScript.js"));
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                        "~/Scripts/tinymce/tinymce.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tinymceInit").Include(
+                        "~/Scripts/TinyMceInit.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
