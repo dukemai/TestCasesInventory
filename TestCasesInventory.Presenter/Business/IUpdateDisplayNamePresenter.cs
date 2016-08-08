@@ -16,7 +16,7 @@ namespace TestCasesInventory.Presenter.Business
 
         void UpdateDisplayNameInDB(string UserId, string NewDisplayName);
 
-        string GetUserProfilePictureUrl(string id);
+        string GetUserProfilePictureUrl(string id);        
     }
 }
 

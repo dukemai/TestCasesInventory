@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ControllerBase.cs" />
-    <Compile Include="Base\CustomMessages.cs" />
+    <Compile Include="Base\ActionConfirmMessages.cs" />
     <Compile Include="PagingConfig.cs" />
     <Compile Include="PrivilegedUsersConfig.cs" />
     <Compile Include="Base\ImageTypeException.cs" />

@@ -13,12 +13,14 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
         [Display(Name = "Name")]
         public string DisplayName { get; set; }
+        [Display(Name = "Team")]
         public string TeamName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]
         public string UserRoles { get; set; }
         [Display(Name = "Profile Picture")]
         public string ProfilePictureURL { get; set; }
+        public bool IsProfilePictureExisted { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
 }

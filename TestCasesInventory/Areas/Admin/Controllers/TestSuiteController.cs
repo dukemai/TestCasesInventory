@@ -9,7 +9,8 @@ using TestCasesInventory.Web.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(PrivilegedUsersConfig.AdminRole, PrivilegedUsersConfig.TesterRole)]
+    [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
+    
     public class TestSuiteController : Controller
     {
         #region Properties
@@ -38,7 +39,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             SetViewBagToSort(sortBy);
             testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
-            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
+            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
         }
 
         // GET: Admin/TestSuite/Details/5
