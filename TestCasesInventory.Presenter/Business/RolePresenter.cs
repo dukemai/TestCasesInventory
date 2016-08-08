@@ -8,6 +8,7 @@ using System.Data;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
+using System;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -35,11 +36,20 @@ namespace TestCasesInventory.Presenter.Business
 
 
 
-        public List<IdentityRole> ListRole()
+        public List<RoleViewModel> ListRole()
         {
-            return RoleManager.Roles.ToList();
+            var listRoleViewModel = new List<RoleViewModel>();
+            var roleManager = RoleManager.Roles.ToList();
+            foreach (var item in roleManager)
+            {
+                var Role = new RoleViewModel();
+                Role.Id = item.Id;
+                Role.Name = item.Name;
+                Role.numberOfAccount = RoleManager.FindById(item.Id).Users.ToList().Count;
+                listRoleViewModel.Add(Role);
+            }
+            return listRoleViewModel;
         }
-
 
 
 
@@ -187,6 +197,8 @@ namespace TestCasesInventory.Presenter.Business
 
             }
         }
+
+        
     }
 
     #endregion

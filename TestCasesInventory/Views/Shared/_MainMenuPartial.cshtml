@@ -1,15 +1,2 @@
-﻿<ul class="nav navbar-nav">
-    <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Tests <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("Manage TestSuites", "Index", "TestSuite", new { area = "Admin" }, null)</li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Admin <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("Manager Teams", "Index", "Team", new { area = "Admin" }, null)</li>
-            <li>@Html.ActionLink("Manage Roles", "Index", "Role", new { area = "Admin" }, null)</li>
-        </ul>
-    </li>
-</ul>
+﻿<!--Main Menu View Partial-->
+@Html.Action("Index", "Menu", new { area = "" })
