@@ -4,10 +4,14 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
+using TestCasesInventory.Web.Common;
+using PagedList;
+using PagedList.Mvc;
+using System.Linq;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = PrivilegedUsersConfig.AdminRole)]
     public class TeamController : Controller
     {
         #region Properties
@@ -26,10 +30,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #endregion
 
         // GET: Admin/Team
-        public ActionResult Index()
+        public ActionResult Index(string searchByName, int? page, string sortBy)
         {
             var teams = TeamPresenterObject.ListAll();
-            return View("Index", teams);
+            if (!String.IsNullOrEmpty(searchByName))
+            {
+                teams = TeamPresenterObject.GetTeamsBeSearchedByName(searchByName.Trim());
+            }
+            SetViewBagToSort(sortBy);
+            teams = TeamPresenterObject.GetTeamsBeSorted(teams, sortBy);
+            return View("Index", teams.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
         }
 
         // GET: Admin/Team/Details/5
@@ -227,13 +237,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
-                return RedirectToAction("AssignUsersToTeam", new { id = id});
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
             }
             catch (UserNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
-            
         }
+
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByName = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
+            ViewBag.SortByMembersNumber = sortBy == "MembersNumber asc" ? "MembersNumber desc" : "MembersNumber asc";
+        }
+
     }
 }

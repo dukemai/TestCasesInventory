@@ -29,7 +29,13 @@
             @Html.ActionLink(" Change your display name", "EditDisplayName")
             ]
         </dd>
+        <dt>
+            Team Name
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.TeamName)
+        </dd>
 
         <dt>Password</dt>
         <dd>
@@ -52,14 +58,15 @@
             @Html.DisplayFor(model => model.UserRoles)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ProfilePicture)
+            @Html.DisplayNameFor(model => model.ProfilePictureURL)
         </dt>
         @{
             string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), Model.Email, PathConfig.ProfileName);
             if (File.Exists(path))
             {
                 <dd>
-                    <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="100" />
+                    <img src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" width="100" />
+                    @*<img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="100" />*@
                 </dd>
                 <dd>
                     [

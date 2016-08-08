@@ -11,6 +11,10 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTestSuite(TestSuiteDataModel testSuite);
         void DeleteTestSuite(int testSuiteID);
         void Save();
+        IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch);
+        IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID);
+
+
         //IEnumerable<TestSuiteDataModel> GetExistedTestSuiteByName(string testSuiteName);
         //IEnumerable<TestCaseDataModel> ListTestCasesNotBelongTestSuite(int testSuiteID);
         //IEnumerable<TestCaseDataModel> ListTestCasesBelongTestSuite(int testSuiteID);

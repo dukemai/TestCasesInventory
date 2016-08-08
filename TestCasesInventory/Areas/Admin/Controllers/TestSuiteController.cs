@@ -1,13 +1,16 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
+using TestCasesInventory.Web.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
+    
     public class TestSuiteController : Controller
     {
         #region Properties
@@ -27,10 +30,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index()
+        public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
         {
             var testSuites = TestSuitePresenterObject.ListAll();
-            return View("Index", testSuites);
+            if (!String.IsNullOrEmpty(valueToSearch))
+            {
+                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
+            }
+            SetViewBagToSort(sortBy);
+            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
+            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
         }
 
         // GET: Admin/TestSuite/Details/5
@@ -165,7 +174,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title});
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title });
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -175,6 +184,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
+        }
+
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
+            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
         }
     }
 }

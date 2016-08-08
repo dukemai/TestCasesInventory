@@ -17,7 +17,8 @@
             {
                 <li style="height: 32px;    line-height: 32px; text-align:center; ">
                     <a href="@Url.Action("Index", "Manage")" class="links">
-                        <img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="20" align="middle" />
+                        @*<img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="20" align="middle" />*@
+                        <img src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" width="20" align="middle" />
                     </a>
                 </li>
             }

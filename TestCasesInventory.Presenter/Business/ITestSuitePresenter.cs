@@ -10,5 +10,8 @@ namespace TestCasesInventory.Presenter.Business
         void InsertTestSuite(CreateTestSuiteViewModel testSuite);
         void UpdateTestSuite(int testSuiteID, EditTestSuiteViewModel testSuite);
         void DeleteTestSuite(int testSuiteID);
+        List<TestSuiteViewModel> GetTestSuitesBeSearched(string valueToSearch, string searchBy);
+        List<TestSuiteViewModel> GetTestSuitesBeSorted(List<TestSuiteViewModel> testSuites, string sortBy);
+
     }
 }

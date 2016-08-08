@@ -8,6 +8,7 @@ using TestCasesInventory.Presenter.Business;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.Common;
+using TestCasesInventory.Config;
 
 namespace TestCasesInventory.Controllers
 {
@@ -26,6 +27,7 @@ namespace TestCasesInventory.Controllers
             try
             {
                 var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserName());
+                model.ProfilePictureURL = PathConfig.PhotosFolderPath + "/" + model.Email + "/" + PathConfig.ProfileName + "?_t=" + model.LastModifiedDate;
                 if (User.Identity.IsAuthenticated)
                 {
                     return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);

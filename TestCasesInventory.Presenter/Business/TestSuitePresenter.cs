@@ -7,6 +7,7 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -16,6 +17,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ApplicationUserManager UserManager;
         protected ITeamRepository teamRepository;
+        protected ITestCaseRepository testCaseRepository;
 
 
         public TestSuitePresenter(HttpContextBase context):base()
@@ -23,6 +25,7 @@ namespace TestCasesInventory.Presenter.Business
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
             teamRepository = new TeamRepository();
+            testCaseRepository = new TestCaseRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
@@ -121,11 +124,70 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
+                var testCasesForTestSuite = testCaseRepository.ListAll(testSuiteID);
+                foreach(var testCase in testCasesForTestSuite)
+                {
+                    testCaseRepository.DeleteTestCase(testCase.ID);
+                    testCaseRepository.Save();
+                }
                 testSuiteRepository.DeleteTestSuite(testSuiteID);
                 testSuiteRepository.Save();
             }
         }
 
-        
+        public List<TestSuiteViewModel> GetTestSuitesBeSearched(string valueToSearch, string searchBy)
+        {
+            IList<TestSuiteDataModel> testSuitesDataModelBeSearched = new List<TestSuiteDataModel>();
+            if (searchBy == "Title")
+                testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTitle(valueToSearch);
+            if(searchBy == "TeamName")
+            {
+                var team = teamRepository.GetExistedTeamByName(valueToSearch);
+                if (team.Any())
+                {
+                    testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTeam(team.First().ID);
+                }
+            }
+            List<TestSuiteViewModel> testSuitesViewBeSearched = new List<TestSuiteViewModel>();
+            foreach (var item in testSuitesDataModelBeSearched)
+            {
+                var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
+                var testSuiteView = new TestSuiteViewModel
+                {
+                    ID = item.ID,
+                    Title = item.Title,
+                    TeamName = teamName,
+                    Description = item.Description,
+                    Created = item.Created,
+                    CreatedDate = item.CreatedDate,
+                    LastModified = item.LastModified,
+                    LastModifiedDate = item.LastModifiedDate
+                };
+                testSuitesViewBeSearched.Add(testSuiteView);
+            }
+            return testSuitesViewBeSearched;
+
+        }
+
+        public List<TestSuiteViewModel> GetTestSuitesBeSorted(List<TestSuiteViewModel> testSuites, string sortBy)
+        {
+            List<TestSuiteViewModel> testSuitesBeSorted = new List<TestSuiteViewModel>();
+            switch (sortBy)
+            {
+                case "Name desc":
+                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.Title).ToList();
+                    break;
+                case "TeamName desc":
+                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.TeamName).ToList();
+                    break;
+                case "TeamName asc":
+                    testSuitesBeSorted = testSuites.OrderBy(t => t.TeamName).ToList();
+                    break;
+                default:
+                    testSuitesBeSorted = testSuites.OrderBy(t => t.Title).ToList();
+                    break;
+            }
+            return testSuitesBeSorted;
+        }
     }
 }

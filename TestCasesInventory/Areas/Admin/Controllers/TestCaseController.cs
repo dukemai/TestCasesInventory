@@ -4,10 +4,11 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
+using TestCasesInventory.Web.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(PrivilegedUsersConfig.AdminRole, PrivilegedUsersConfig.TesterRole)]
     public class TestCaseController : Controller
     {
         #region Properties
@@ -88,7 +89,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     LastModifiedDate = DateTime.Now
                 };
                 TestCasePresenterObject.InsertTestCase(createdTestCase);
-                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             return View();
         }
@@ -130,7 +131,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                         LastModifiedDate = DateTime.Now
                     };
                     TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
-                    return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                    return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
                 }
                 return View();
             }
@@ -166,7 +167,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 TestCasePresenterObject.DeleteTestCase(id);
-                return RedirectToAction("Index", new { testSuiteID = testSuiteID });
+                return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             catch (TestCaseNotFoundException e)
             {

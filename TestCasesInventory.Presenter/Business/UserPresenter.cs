@@ -27,6 +27,7 @@ namespace TestCasesInventory.Presenter.Business
         protected IAuthenticationManager AuthenticationManager;
         protected IPrincipal User;
         protected RoleManager<IdentityRole> RoleManager;
+        protected ITeamRepository TeamRepository;
 
 
         #endregion
@@ -41,7 +42,7 @@ namespace TestCasesInventory.Presenter.Business
             AuthenticationManager = HttpContext.GetOwinContext().Authentication;
             User = HttpContext.User;
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-
+            TeamRepository = new TeamRepository();
         }
 
 
@@ -131,7 +132,17 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new UserNotFoundException();
             }
-            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
+            string teamName = null;
+            if(currentUser.TeamID != null)
+            {
+                var team = TeamRepository.GetTeamByID(currentUser.TeamID.Value);
+                if(team == null)
+                {
+                    throw new TeamNotFoundException("Team was not found");
+                }
+                teamName = TeamRepository.GetTeamByID(currentUser.TeamID.Value).Name;
+            }
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName,TeamName = teamName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
             return model;
         }
 
