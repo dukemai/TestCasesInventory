@@ -23,7 +23,7 @@
             Description
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.Raw(@Model.Description)
         </dd>
     </dl>
 
@@ -40,7 +40,7 @@
             Precondition
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Precondition)
+            @Html.Raw(@Model.Precondition)
         </dd>
     </dl>
     <dl class="dl-horizontal">
@@ -48,7 +48,7 @@
             Expect
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Expect)
+            @Html.Raw(@Model.Expect)
         </dd>
     </dl>
     <dl class="dl-horizontal">

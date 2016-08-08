@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace TestCasesInventory.Data.DataModels
 {
@@ -8,6 +9,7 @@ namespace TestCasesInventory.Data.DataModels
     {
         [Required]
         public string Title { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
