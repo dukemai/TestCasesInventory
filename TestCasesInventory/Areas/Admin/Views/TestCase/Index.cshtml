@@ -17,6 +17,9 @@
             <h4>@Html.ActionLink("Title", "Details", "TestSuite", new { id = ViewBag.TestSuiteID, sortBy = ViewBag.SortByTitle, searchByTitle = Request.QueryString["searchByTitle"] }, "")</h4>
         </th>
         <th>
+            <h4>Priority</h4>
+        </th>
+        <th>
             <h4>Created By</h4>
         </th>
         <th>
@@ -36,6 +39,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
