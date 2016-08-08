@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Web.Mvc;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
@@ -10,7 +11,7 @@ using TestCasesInventory.Web.Common;
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestSuiteController : Controller
     {
         #region Properties
@@ -30,16 +31,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
+        public ActionResult Index(string keyword, int? page, string sortBy, string sortDirection, string filterBy)
         {
-            var testSuites = TestSuitePresenterObject.ListAll();
-            if (!String.IsNullOrEmpty(valueToSearch))
-            {
-                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
-            }
-            SetViewBagToSort(sortBy);
-            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
-            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
+            var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
+            var testSuites = TestSuitePresenterObject.GetTestSuites(searchOptions);
+            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
         }
 
         // GET: Admin/TestSuite/Details/5
@@ -189,10 +185,24 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        private void SetViewBagToSort(string sortBy)
+        private SearchOptions BuildFilterOptionsFromRequest(string keyword, string filterBy, int? page, string sortBy, string sortDirection)
         {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-            ViewBag.SortByTeamName = sortBy == "TeamName asc" ? "TeamName desc" : "TeamName asc";
+            return new FilterOptions
+            {
+                Keyword = keyword,
+                FilterField = filterBy,
+                PagingOptions = new PagingOptions
+                {
+                    CurrentPage = page.HasValue ? page.Value : 0,
+                    PageSize = PagingConfig.PageSize
+                },
+                SortOptions = new SortOptions
+                {
+                    Field = sortBy,
+                    Direction = string.Equals(sortDirection, "ASC", StringComparison.InvariantCultureIgnoreCase) ? SortDirections.Asc : SortDirections.Desc
+                }
+            };
         }
+
     }
 }

@@ -8,6 +8,7 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -169,25 +170,26 @@ namespace TestCasesInventory.Presenter.Business
 
         }
 
-        public List<TestSuiteViewModel> GetTestSuitesBeSorted(List<TestSuiteViewModel> testSuites, string sortBy)
+        public List<TestSuiteViewModel> GetSortedTestSuites(List<TestSuiteViewModel> testSuites, SortOptions sortOptions)
         {
-            List<TestSuiteViewModel> testSuitesBeSorted = new List<TestSuiteViewModel>();
-            switch (sortBy)
+            var testSuitesBeSorted = new List<TestSuiteViewModel>();           
+            switch (sortOptions.Field)
             {
-                case "Title desc":
+                case "Title":
                     testSuitesBeSorted = testSuites.OrderByDescending(t => t.Title).ToList();
                     break;
-                case "TeamName desc":
+                case "TeamName":
                     testSuitesBeSorted = testSuites.OrderByDescending(t => t.TeamName).ToList();
                     break;
-                case "TeamName asc":
-                    testSuitesBeSorted = testSuites.OrderBy(t => t.TeamName).ToList();
-                    break;
                 default:
-                    testSuitesBeSorted = testSuites.OrderBy(t => t.Title).ToList();
                     break;
             }
             return testSuitesBeSorted;
+        }
+
+        public List<TestSuiteViewModel> GetTestSuites(SearchOptions options)
+        {
+            throw new NotImplementedException();
         }
     }
 }

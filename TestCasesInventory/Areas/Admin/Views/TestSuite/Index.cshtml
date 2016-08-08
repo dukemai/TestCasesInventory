@@ -13,14 +13,7 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
 
-@using (Html.BeginForm("Index", "TestSuite", FormMethod.Get))
-{
-    <b>Search by: </b>
-    @Html.RadioButton("searchBy", "Title", true) <text>Title</text>
-    @Html.RadioButton("searchBy", "TeamName") <text>Team</text>
-    <br>
-    @Html.TextBox("valueToSearch") <input type="submit" value="Search" class="btn btn-default">
-}
+@Html.RenderAction("FilterForTestSuite", "Filter")
 
 <table class="table">
     <tr>

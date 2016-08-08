@@ -1,0 +1,9 @@
+﻿
+@using (Html.BeginForm("Index", "TestSuite", FormMethod.Get))
+{
+    <b>Search by: </b>
+    @Html.RadioButton("searchBy", "Title", true) <text>Title</text>
+    @Html.RadioButton("searchBy", "TeamName") <text>Team</text>
+    <br>
+    @Html.TextBox("valueToSearch") <input type="submit" value="Search" class="btn btn-default">
+}
