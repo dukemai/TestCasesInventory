@@ -33,7 +33,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
         {
             var testSuites = TestSuitePresenterObject.ListAll();
-            return View("Index", testSuites);
+            if (!String.IsNullOrEmpty(valueToSearch))
+            {
+                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
+            }
+            SetViewBagToSort(sortBy);
+            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
+            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
         }
 
         // GET: Admin/TestSuite/Details/5
@@ -110,9 +116,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string testSuiteTitle = testSuite.Title;
-                    string testSuiteDescription = testSuite.Description;
-                    var updatedTeam = new EditTestSuiteViewModel
+                    var updatedTestSuite = new EditTestSuiteViewModel
                     {
                         Title = testSuite.Title,
                         Description = testSuite.Description,
@@ -164,6 +168,28 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        
+        [HttpGet]
+        public ActionResult AddTestCase(int id)
+        {
+            try
+            {
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title });
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
+            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
+        }
     }
 }
