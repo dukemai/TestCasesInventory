@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 
@@ -12,6 +13,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTestSuiteTitle, ErrorMessage = ValidationMessages.ErrorMessageForTestSuiteTitleProperty)]
         public string Title { get; set; }
         public string TeamName { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
@@ -25,6 +27,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTestSuiteTitle, ErrorMessage = ValidationMessages.ErrorMessageForTestSuiteTitleProperty)]
         public string Title { get; set; }
         public int TeamID { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
@@ -38,6 +41,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTestSuiteTitle, ErrorMessage = ValidationMessages.ErrorMessageForTestSuiteTitleProperty)]
         public string Title { get; set; }
         public int TeamID { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
