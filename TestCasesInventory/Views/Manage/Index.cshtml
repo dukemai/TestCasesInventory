@@ -61,7 +61,7 @@
             @Html.DisplayNameFor(model => model.ProfilePictureURL)
         </dt>
         @{
-            if (File.Exists(Model.ProfilePicturePhysicalPath))
+            if (Model.IsProfilePictureExisted)
             {
                 <dd>
                     <img src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" width="100" />
