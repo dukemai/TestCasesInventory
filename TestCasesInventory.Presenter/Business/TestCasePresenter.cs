@@ -38,6 +38,7 @@ namespace TestCasesInventory.Presenter.Business
                 {
                     ID = item.ID,
                     Title = item.Title,
+                    Priority = item.Priority,
                     TestSuiteID = item.TestSuiteID,
                     TestSuiteTitle = testSuite.Title,
                     Description = item.Description,
@@ -69,6 +70,7 @@ namespace TestCasesInventory.Presenter.Business
             return new TestCaseViewModel
             {
                 ID = testCase.ID,
+                Priority = testCase.Priority,
                 Title = testCase.Title,
                 TestSuiteID = testCase.TestSuiteID,
                 TestSuiteTitle = testSuiteTitle,
@@ -89,6 +91,7 @@ namespace TestCasesInventory.Presenter.Business
             var testCaseDataModel = new TestCaseDataModel
             {
                 Title = testCase.Title,
+                Priority = testCase.Priority,
                 Description = testCase.Description,
                 TestSuiteID = testCase.TestSuiteID,
                 Precondition = testCase.Precondition,
@@ -114,6 +117,7 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 testCaseDataModel.Title = testCase.Title;
+                testCaseDataModel.Priority = testCase.Priority;
                 testCaseDataModel.Description = testCase.Description;
                 testCaseDataModel.Precondition = testCase.Precondition;
                 testCaseDataModel.Expect = testCase.Expect;

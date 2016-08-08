@@ -10,6 +10,9 @@
             <h4>Title</h4>
         </th>
         <th>
+            <h4>Priority</h4>
+        </th>
+        <th>
             <h4>Created By</h4>
         </th>
         <th>
@@ -29,6 +32,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)

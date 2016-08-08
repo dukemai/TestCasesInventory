@@ -72,13 +72,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] TestCaseViewModel testCase)
+        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect")] TestCaseViewModel testCase)
         {
             if (ModelState.IsValid)
             {
                 var createdTestCase = new CreateTestCaseViewModel
                 {
                     Title = testCase.Title,
+                    Priority = testCase.Priority,
                     TestSuiteID = testSuiteID,
                     Description = testCase.Description,
                     Precondition = testCase.Precondition,
@@ -115,7 +116,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
         {
             try
             {
@@ -124,6 +125,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     var updatedTestCase = new EditTestCaseViewModel
                     {
                         Title = testCase.Title,
+                        Priority = testCase.Priority,
                         Description = testCase.Description,
                         Precondition = testCase.Precondition,
                         Expect = testCase.Expect,
