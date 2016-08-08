@@ -75,9 +75,9 @@
 <br>
 <div>
     <p><b>TestCases for @Model.Title</b>
-          @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testSuiteID = Model.ID, testSuiteTitle = Model.Title}, new { @class = "btn btn-default" })
+          @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testSuiteID = Model.ID}, new { @class = "btn btn-default" })
     </p>
-    @Html.Action("Index", "TestCase", new { testSuiteID = Model.ID })
+    @Html.Action("Index", "TestCase", new { testSuiteID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
 </div>
 <br>
 <p>

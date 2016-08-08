@@ -5,6 +5,7 @@ using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
+using PagedList;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -13,6 +14,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
         private ITestCasePresenter testCasePresenterObject;
+        private ITestSuitePresenter testSuitePresenterObject;
         protected ITestCasePresenter TestCasePresenterObject
         {
             get
@@ -24,17 +26,34 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testCasePresenterObject;
             }
         }
+        protected ITestSuitePresenter TestSuitePresenterObject
+        {
+            get
+            {
+                if (testSuitePresenterObject == null)
+                {
+                    testSuitePresenterObject = new TestSuitePresenter(HttpContext);
+                }
+                return testSuitePresenterObject;
+            }
+        }
         #endregion
 
 
         // GET: Admin/TestCase
-        public ActionResult Index(int? testSuiteID)
+        public ActionResult Index(int? testSuiteID, string searchByTitle, int? page, string sortBy)
         {
             try
             {
                 var testCases = TestCasePresenterObject.ListAll(testSuiteID);
                 ViewBag.TestSuiteID = testSuiteID;
-                return View("Index", testCases);
+                if (!String.IsNullOrEmpty(searchByTitle))
+                {
+                    testCases = TestCasePresenterObject.GetTestCasesBeSearchedByName(testSuiteID, searchByTitle.Trim());
+                }
+                SetViewBagToSort(sortBy);
+                testCases = TestCasePresenterObject.GetTestCasesBeSorted(testCases, sortBy);
+                return View("Index", testCases.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
             }
             catch(Exception e)
             {
@@ -62,11 +81,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase/Create?
-        public ActionResult Create(int? testSuiteID, string testSuiteTitle)
+        public ActionResult Create(int? testSuiteID)
         {
-            ViewBag.TestSuiteID = testSuiteID;
-            ViewBag.TestSuiteTitle = testSuiteTitle;
-            return View();
+            try
+            {
+                ViewBag.TestSuiteID = testSuiteID;
+                ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
+                return View();
+            }
+            catch(TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // POST: Admin/TestCase/Create
@@ -175,5 +205,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
+        }
     }
 }

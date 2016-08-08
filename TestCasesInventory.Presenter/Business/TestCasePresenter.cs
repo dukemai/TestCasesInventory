@@ -137,5 +137,55 @@ namespace TestCasesInventory.Presenter.Business
                 testCaseRepository.Save();
             }
         }
+
+        public List<TestCaseViewModel> GetTestCasesBeSearchedByName(int? testSuiteID, string searchByTitle)
+        {
+            if (!testSuiteID.HasValue)
+            {
+                throw new Exception("TestSuite ID was not valid.");
+            }
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
+            if (testSuite == null)
+            {
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var testCasesDataModelBeSearched = testCaseRepository.GetTestCasesBeSearchedByName(testSuiteID.Value, searchByTitle);
+            List<TestCaseViewModel> testCasesViewBeSearched = new List<TestCaseViewModel>();
+            foreach (var item in testCasesDataModelBeSearched)
+            {
+                var testCaseView = new TestCaseViewModel
+                {
+                    ID = item.ID,
+                    Title = item.Title,
+                    TestSuiteID = item.TestSuiteID,
+                    TestSuiteTitle = testSuite.Title,
+                    Description = item.Description,
+                    Precondition = item.Precondition,
+                    Attachment = item.Attachment,
+                    Expect = item.Expect,
+                    Created = item.Created,
+                    LastModified = item.LastModified,
+                    CreatedDate = item.CreatedDate,
+                    LastModifiedDate = item.LastModifiedDate
+                };
+                testCasesViewBeSearched.Add(testCaseView);
+            }
+            return testCasesViewBeSearched;
+        }
+
+        public List<TestCaseViewModel> GetTestCasesBeSorted(List<TestCaseViewModel> testCases, string sortBy)
+        {
+            List<TestCaseViewModel> testCasesBeSorted = new List<TestCaseViewModel>();
+            switch (sortBy)
+            {
+                case "Title desc":
+                    testCasesBeSorted = testCases.OrderByDescending(t => t.Title).ToList();
+                    break;
+                default:
+                    testCasesBeSorted = testCases.OrderBy(t => t.Title).ToList();
+                    break;
+            }
+            return testCasesBeSorted;
+        }
     }
 }

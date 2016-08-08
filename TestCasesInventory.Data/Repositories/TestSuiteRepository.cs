@@ -44,9 +44,9 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch)
+        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string title)
         {
-            return dataContext.TestSuites.Where(t => t.Title.Contains(valueToSearch)).ToList();
+            return dataContext.TestSuites.Where(t => t.Title.Contains(title)).ToList();
         }
         public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID)
         {

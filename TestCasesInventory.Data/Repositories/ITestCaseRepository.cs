@@ -12,5 +12,7 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTestCase(int testCaseID);
         void UpdateTestCase(TestCaseDataModel testCase);
         void Save();
+        IEnumerable<TestCaseDataModel> GetTestCasesBeSearchedByName(int testSuiteID, string title);
+   
     }
 }

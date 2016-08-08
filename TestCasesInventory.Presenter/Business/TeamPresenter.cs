@@ -125,7 +125,6 @@ namespace TestCasesInventory.Presenter.Business
                 teamsViewBeSearched.Add(teamView);
             }
             return teamsViewBeSearched;
-
         }
 
         public List<TeamViewModel> GetTeamsBeSorted(List<TeamViewModel> teams, string sortBy)
