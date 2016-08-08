@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Web.Mvc;
-using TestCasesInventory.Presenter.Models;
-using TestCasesInventory.Presenter.Business;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
 using TestCasesInventory.Data.Common;
-using TestCasesInventory.Config;
+using TestCasesInventory.Presenter.Business;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Controllers
 {
@@ -42,8 +37,9 @@ namespace TestCasesInventory.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = User.Identity.GetUserId();
-                    model.ProfilePictureURL = UserPresenter.GetUserProfilePictureUrlWithLastModifiedDate(userId);
-                    model.ProfilePicturePhysicalPath = Server.MapPath(UserPresenter.GetUserProfilePictureUrl(userId));
+                    var profilePictureUrl = UserPresenter.GetUserProfilePictureUrl(userId);
+                    model.ProfilePictureURL = profilePictureUrl.AppendVersioningQueryString(model.LastModifiedDate.Ticks.ToString());
+                    model.IsProfilePictureExisted = Server.IsRelativePathExisted(profilePictureUrl);
                     return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
                 }
                 else

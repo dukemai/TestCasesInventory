@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TestCasesInventory.Common;
 using TestCasesInventory.Config;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -66,8 +67,9 @@ namespace TestCasesInventory.Controllers
             try
             {
                 var model = UserPresenter.FindUserByID(userId);
-                model.ProfilePictureURL = UserPresenter.GetUserProfilePictureUrlWithLastModifiedDate(userId);
-                model.ProfilePicturePhysicalPath = Server.MapPath(UserPresenter.GetUserProfilePictureUrl(userId));
+                var profilePictureUrl = UserPresenter.GetUserProfilePictureUrl(userId);
+                model.ProfilePictureURL = profilePictureUrl.AppendVersioningQueryString(model.LastModifiedDate.Ticks.ToString());
+                model.IsProfilePictureExisted = Server.IsRelativePathExisted(profilePictureUrl);
                 return View(model);
             }
             catch (UserNotFoundException e)

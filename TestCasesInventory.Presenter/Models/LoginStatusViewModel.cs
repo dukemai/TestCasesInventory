@@ -12,6 +12,6 @@ namespace TestCasesInventory.Presenter.Models
         public string Email { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string ProfilePictureURL { get; set; }
-        public string ProfilePicturePhysicalPath { get; set; }
+        public bool IsProfilePictureExisted { get; set; }
     }
 }
