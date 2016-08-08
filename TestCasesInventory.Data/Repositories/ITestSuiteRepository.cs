@@ -13,13 +13,6 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch);
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID);
-
-
-        //IEnumerable<TestSuiteDataModel> GetExistedTestSuiteByName(string testSuiteName);
-        //IEnumerable<TestCaseDataModel> ListTestCasesNotBelongTestSuite(int testSuiteID);
-        //IEnumerable<TestCaseDataModel> ListTestCasesBelongTestSuite(int testSuiteID);
-        //void AssignUsersToTeam(IList<TestCaseDataModel> testCases, int testSuiteID);
-        //void RemoveUsersFromTeam(IList<TestCaseDataModel> testCases);
-        //TestCaseDataModel FindTestCaseByID(string testCaseID);
+        IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID);
     }
 }

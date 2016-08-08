@@ -17,7 +17,7 @@
     @Html.TextBox("searchByName") <input type="submit" value="Search by Name" class="btn btn-default">
 }
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             <h4>@Html.ActionLink("Name", "Index", new { sortBy = ViewBag.SortByName, searchByName = Request.QueryString["searchByName"] })</h4>

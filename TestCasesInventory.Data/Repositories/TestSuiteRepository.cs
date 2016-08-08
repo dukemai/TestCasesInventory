@@ -53,6 +53,12 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestSuites.Where(t => t.TeamID == teamID).ToList();
         }
 
+        public IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID)
+        {
+            return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).ToList();
+        }
+
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

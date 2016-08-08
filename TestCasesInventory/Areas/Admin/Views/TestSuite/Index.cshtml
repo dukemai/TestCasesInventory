@@ -22,7 +22,7 @@
     @Html.TextBox("valueToSearch") <input type="submit" value="Search" class="btn btn-default">
 }
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             <h4>@Html.ActionLink("Title", "Index", new { sortBy = ViewBag.SortByTitle, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
