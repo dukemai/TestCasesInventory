@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestCasesInventory.Web.Common.Base
 {
-    public class CustomMessages
+    public class ActionConfirmMessages
     {
         public const string NothingIsChosen = " You have not specified a file";
         public const string ChangePasswordSuccess = "Your password has been changed.";

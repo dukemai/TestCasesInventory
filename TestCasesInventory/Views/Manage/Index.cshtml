@@ -61,12 +61,10 @@
             @Html.DisplayNameFor(model => model.ProfilePictureURL)
         </dt>
         @{
-            string path = Path.Combine(Server.MapPath(PathConfig.PhotosFolderPath), Model.Email, PathConfig.ProfileName);
-            if (File.Exists(path))
+            if (File.Exists(Model.ProfilePicturePhysicalPath))
             {
                 <dd>
                     <img src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" width="100" />
-                    @*<img src="@Url.Content(PathConfig.PhotosFolderPath + "/" + Model.Email + "/" + PathConfig.ProfileName + "?_t=" + Model.LastModifiedDate)" alt="IMAGES" width="100" />*@
                 </dd>
                 <dd>
                     [

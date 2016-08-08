@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TestCasesInventory.Common;
 using TestCasesInventory.Config;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -13,7 +15,7 @@ using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory.Controllers
 {
-    
+
 
     [Authorize]
     public class ManageController : Web.Common.Base.ControllerBase
@@ -65,7 +67,9 @@ namespace TestCasesInventory.Controllers
             try
             {
                 var model = UserPresenter.FindUserByID(userId);
-                model.ProfilePictureURL = PathConfig.PhotosFolderPath + "/" + model.Email + "/" + PathConfig.ProfileName + "?_t=" + model.LastModifiedDate;
+                var profilePictureUrl = UserPresenter.GetUserProfilePictureUrl(userId);
+                model.ProfilePictureURL = profilePictureUrl.AppendVersioningQueryString(model.LastModifiedDate.Ticks.ToString());
+                model.IsProfilePictureExisted = Server.IsRelativePathExisted(profilePictureUrl);
                 return View(model);
             }
             catch (UserNotFoundException e)
@@ -117,7 +121,7 @@ namespace TestCasesInventory.Controllers
                     throw ex;
                 }
 
-                return RedirectToAction("Index", new { Message = CustomMessages.ChangeDisplayNameSuccess });
+                return RedirectToAction("Index", new { Message = ActionConfirmMessages.ChangeDisplayNameSuccess });
             }
             return base.View();
         }
@@ -153,7 +157,7 @@ namespace TestCasesInventory.Controllers
                         await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
 
-                    return RedirectToAction("Index", new { Message = CustomMessages.ChangePasswordSuccess });
+                    return RedirectToAction("Index", new { Message = ActionConfirmMessages.ChangePasswordSuccess });
                 }
 
 
@@ -184,20 +188,20 @@ namespace TestCasesInventory.Controllers
         {
             if (file == null || file.ContentLength == 0)
             {
-                ViewBag.Message = CustomMessages.NothingIsChosen;
+                ViewBag.Message = ActionConfirmMessages.NothingIsChosen;
                 return View();
             }
 
             try
             {
                 var userId = User.Identity.GetUserId();
-                UploadUserProfileImage(file, userId);
                 UserPresenter.UpdateLastModifiedDateInDB(userId, DateTime.Now);
-                return RedirectToAction("Index", new { Message = CustomMessages.ChangeProfilePictureSuccess });
+                UploadUserProfileImage(file, userId);
+                return RedirectToAction("Index", new { Message = ActionConfirmMessages.ChangeProfilePictureSuccess });
             }
             catch (ImageTypeException ex)
             {
-                ViewBag.Message = CustomMessages.ImageTypeError;
+                ViewBag.Message = ActionConfirmMessages.ImageTypeError;
                 return View();
             }
             catch (Exception ex)
@@ -208,14 +212,14 @@ namespace TestCasesInventory.Controllers
         }
 
         #endregion
-        
+
 
         private void UploadUserProfileImage(HttpPostedFileBase file, string userId)
         {
             var profileImagePath = UserPresenter.GetUserProfilePictureUrl(userId);
             var serverPath = Server.MapPath(profileImagePath);
             PathHelper.EnsureDirectories(serverPath);
-            if (Path.GetExtension(file.FileName) != ".jpg" && Path.GetExtension(file.FileName) != ".png")
+            if (!ImageExtensionConfig.ImageExtensions.Contains(Path.GetExtension(file.FileName)))
             {
                 throw new ImageTypeException();
             }

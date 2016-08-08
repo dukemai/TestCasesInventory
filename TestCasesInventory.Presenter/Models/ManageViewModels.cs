@@ -20,6 +20,7 @@ namespace TestCasesInventory.Presenter.Models
         public string UserRoles { get; set; }
         [Display(Name = "Profile Picture")]
         public string ProfilePictureURL { get; set; }
+        public bool IsProfilePictureExisted { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
 }
