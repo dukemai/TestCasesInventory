@@ -174,7 +174,7 @@ namespace TestCasesInventory.Presenter.Business
             List<TestSuiteViewModel> testSuitesBeSorted = new List<TestSuiteViewModel>();
             switch (sortBy)
             {
-                case "Name desc":
+                case "Title desc":
                     testSuitesBeSorted = testSuites.OrderByDescending(t => t.Title).ToList();
                     break;
                 case "TeamName desc":

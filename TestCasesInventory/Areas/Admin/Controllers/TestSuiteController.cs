@@ -43,11 +43,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestSuite/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string sortBy, string searchByTitle, int? page)
         {
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                ViewBag.SortBy = sortBy;
+                ViewBag.SearchByTitle = searchByTitle;
+                ViewBag.Page = page;
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -174,7 +177,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title });
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id });
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -188,8 +191,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         private void SetViewBagToSort(string sortBy)
         {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
-            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
+            ViewBag.SortByTeamName = sortBy == "TeamName asc" ? "TeamName desc" : "TeamName asc";
         }
     }
 }
