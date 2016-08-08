@@ -11,6 +11,7 @@ namespace TestCasesInventory.Presenter.Validations
             Roles = string.Join(",", roles);
         }
 
+
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             var user = filterContext.HttpContext.User;
@@ -26,5 +27,7 @@ namespace TestCasesInventory.Presenter.Validations
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errors", action = "AccessDenied", area = "" }));
             }
         }
+
+        
     }
 }
