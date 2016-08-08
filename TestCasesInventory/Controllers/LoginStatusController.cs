@@ -16,6 +16,18 @@ namespace TestCasesInventory.Controllers
     public class LoginStatusController : Controller
     {
         public ILoginStatusPresenter LoginStatusPresenter;
+        private IUserPresenter userPresenter;
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
 
         public LoginStatusController()
         {
@@ -27,9 +39,11 @@ namespace TestCasesInventory.Controllers
             try
             {
                 var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserName());
-                model.ProfilePictureURL = PathConfig.PhotosFolderPath + "/" + model.Email + "/" + PathConfig.ProfileName + "?_t=" + model.LastModifiedDate;
                 if (User.Identity.IsAuthenticated)
                 {
+                    var userId = User.Identity.GetUserId();
+                    model.ProfilePictureURL = UserPresenter.GetUserProfilePictureUrlWithLastModifiedDate(userId);
+                    model.ProfilePicturePhysicalPath = Server.MapPath(UserPresenter.GetUserProfilePictureUrl(userId));
                     return PartialView("~/Views/Shared/_AuthenticatedPartial.cshtml", model);
                 }
                 else

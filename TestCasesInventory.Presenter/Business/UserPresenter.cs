@@ -242,15 +242,14 @@ namespace TestCasesInventory.Presenter.Business
         {
             var user = GetUserById(id);
             var folderPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName);
-            //var physicalFolderPath = System.Web.HttpContext.Current.Server.MapPath(Path.Combine(UserConfigurations.PhotosFolderPath, user.Email));
-            //if (!Directory.Exists(physicalFolderPath))
-            //{
-            //    Directory.CreateDirectory(physicalFolderPath);
-            //}
             return folderPath;
         }
-
-
+        public string GetUserProfilePictureUrlWithLastModifiedDate(string id)
+        {
+            var user = GetUserById(id);
+            var UrlPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName + "?" + user.LastModifiedDate);
+            return UrlPath;
+        }
         #endregion
 
     }
