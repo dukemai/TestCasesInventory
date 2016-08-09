@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -14,6 +15,7 @@ namespace TestCasesInventory.Data.Repositories
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch);
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID);
 
+        IList<TestSuiteDataModel> GetTestSuites(FilterOptions options);
 
         //IEnumerable<TestSuiteDataModel> GetExistedTestSuiteByName(string testSuiteName);
         //IEnumerable<TestCaseDataModel> ListTestCasesNotBelongTestSuite(int testSuiteID);

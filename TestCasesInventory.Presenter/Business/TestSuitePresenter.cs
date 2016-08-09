@@ -21,7 +21,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestCaseRepository testCaseRepository;
 
 
-        public TestSuitePresenter(HttpContextBase context):base()
+        public TestSuitePresenter(HttpContextBase context) : base()
         {
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
@@ -126,7 +126,7 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 var testCasesForTestSuite = testCaseRepository.ListAll(testSuiteID);
-                foreach(var testCase in testCasesForTestSuite)
+                foreach (var testCase in testCasesForTestSuite)
                 {
                     testCaseRepository.DeleteTestCase(testCase.ID);
                     testCaseRepository.Save();
@@ -141,7 +141,7 @@ namespace TestCasesInventory.Presenter.Business
             IList<TestSuiteDataModel> testSuitesDataModelBeSearched = new List<TestSuiteDataModel>();
             if (searchBy == "Title")
                 testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTitle(valueToSearch);
-            if(searchBy == "TeamName")
+            if (searchBy == "TeamName")
             {
                 var team = teamRepository.GetExistedTeamByName(valueToSearch);
                 if (team.Any())
@@ -170,26 +170,34 @@ namespace TestCasesInventory.Presenter.Business
 
         }
 
-        public List<TestSuiteViewModel> GetSortedTestSuites(List<TestSuiteViewModel> testSuites, SortOptions sortOptions)
+
+        public List<TestSuiteViewModel> GetTestSuites(FilterOptions options)
         {
-            var testSuitesBeSorted = new List<TestSuiteViewModel>();           
-            switch (sortOptions.Field)
+            var list = testSuiteRepository.GetTestSuites(options);
+            var output = new List<TestSuiteViewModel>();
+            foreach (var item in list)
             {
-                case "Title":
-                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.Title).ToList();
-                    break;
-                case "TeamName":
-                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.TeamName).ToList();
-                    break;
-                default:
-                    break;
+                output.Add(ConvertDataModelToViewModel(item));
             }
-            return testSuitesBeSorted;
+            return output;
         }
 
-        public List<TestSuiteViewModel> GetTestSuites(SearchOptions options)
+        private TestSuiteViewModel ConvertDataModelToViewModel(TestSuiteDataModel dataModel)
         {
-            return new List<TestSuiteViewModel>();
+            var team = teamRepository.GetTeamByID(dataModel.TeamID);
+
+            var testSuiteView = new TestSuiteViewModel
+            {
+                ID = dataModel.ID,
+                Title = dataModel.Title,
+                TeamName = team == null ? string.Empty : team.Name,
+                Description = dataModel.Description,
+                Created = dataModel.Created,
+                CreatedDate = dataModel.CreatedDate,
+                LastModified = dataModel.LastModified,
+                LastModifiedDate = dataModel.LastModifiedDate
+            };
+            return testSuiteView;
         }
     }
 }

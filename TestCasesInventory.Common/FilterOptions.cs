@@ -8,6 +8,6 @@ namespace TestCasesInventory.Common
 {
     public class FilterOptions : SearchOptions
     {
-        public string FilterField { get; set; }
+        public string[] FilterFields { get; set; }
     }
 }

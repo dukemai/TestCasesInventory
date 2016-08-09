@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -73,6 +74,50 @@ namespace TestCasesInventory.Data.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public IList<TestSuiteDataModel> GetTestSuites(FilterOptions options)
+        {
+            IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
+            if (options == null)
+            {
+                return query.ToList();
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "title":
+                            query = query.Where(t => t.Title.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "title":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
+                        break;
+                    default:
+                        query = query.OrderBy(t => t.ID);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                query = query.Skip(pagingOption.CurrentPage * pagingOption.PageSize).Take(pagingOption.PageSize);
+            }
+            return query.ToList();
         }
     }
 }

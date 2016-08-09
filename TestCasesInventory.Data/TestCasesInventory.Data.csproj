@@ -114,6 +114,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
+      <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
+      <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Data.Config\TestCasesInventory.Data.Config.csproj">
       <Project>{555cc5c2-4373-49f3-9c8d-264e0918a818}</Project>
       <Name>TestCasesInventory.Data.Config</Name>

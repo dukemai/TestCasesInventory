@@ -17,7 +17,7 @@ namespace TestCasesInventory.Bindings
             return new FilterOptions
             {
                 Keyword = filterKey,
-                FilterField = filterField,
+                FilterFields = filterField.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 PagingOptions = new PagingOptions
                 {
                     CurrentPage = page,
@@ -25,7 +25,7 @@ namespace TestCasesInventory.Bindings
                 },
                 SortOptions = new SortOptions
                 {
-
+                   
                 }
             };
         }

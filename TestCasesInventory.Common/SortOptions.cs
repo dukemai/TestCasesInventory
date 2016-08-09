@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestCasesInventory.Common
 {
-    public enum SortDirections 
+    public enum SortDirections
     {
         Asc,
         Desc
@@ -14,6 +14,11 @@ namespace TestCasesInventory.Common
 
     public class SortOptions
     {
+        public SortOptions()
+        {
+            Field = string.Empty;
+            Direction = SortDirections.Asc;
+        }
         public string Field { get; set; }
         public SortDirections Direction { get; set; }
     }

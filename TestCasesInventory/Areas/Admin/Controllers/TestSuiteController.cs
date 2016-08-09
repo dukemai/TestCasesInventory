@@ -186,24 +186,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        private SearchOptions BuildFilterOptionsFromRequest(string keyword, string filterBy, int? page, string sortBy, string sortDirection)
-        {
-            return new FilterOptions
-            {
-                Keyword = keyword,
-                FilterField = filterBy,
-                PagingOptions = new PagingOptions
-                {
-                    CurrentPage = page.HasValue ? page.Value : 0,
-                    PageSize = PagingConfig.PageSize
-                },
-                SortOptions = new SortOptions
-                {
-                    Field = sortBy,
-                    Direction = string.Equals(sortDirection, "ASC", StringComparison.InvariantCultureIgnoreCase) ? SortDirections.Asc : SortDirections.Desc
-                }
-            };
-        }
-
     }
 }
