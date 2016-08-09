@@ -38,8 +38,8 @@
                     },
                   "value",
                   "text",
-                   2).Where(item => item.Text != Model.Priority),
-                   Model.Priority)
+                   2)
+                   )
                 @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
             </div>
         </div>
