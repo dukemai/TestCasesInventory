@@ -5,6 +5,7 @@ using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
+using PagedList;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -13,28 +14,46 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
         private ITestCasePresenter testCasePresenterObject;
+        private ITestSuitePresenter testSuitePresenterObject;
         protected ITestCasePresenter TestCasePresenterObject
         {
             get
             {
                 if (testCasePresenterObject == null)
                 {
-                    testCasePresenterObject = new TestCasePresenter();
+                    testCasePresenterObject = new TestCasePresenter(HttpContext);
                 }
                 return testCasePresenterObject;
+            }
+        }
+        protected ITestSuitePresenter TestSuitePresenterObject
+        {
+            get
+            {
+                if (testSuitePresenterObject == null)
+                {
+                    testSuitePresenterObject = new TestSuitePresenter(HttpContext);
+                }
+                return testSuitePresenterObject;
             }
         }
         #endregion
 
 
         // GET: Admin/TestCase
-        public ActionResult Index(int? testSuiteID)
+        public ActionResult Index(int? testSuiteID, string searchByTitle, int? page, string sortBy)
         {
             try
             {
                 var testCases = TestCasePresenterObject.ListAll(testSuiteID);
                 ViewBag.TestSuiteID = testSuiteID;
-                return View("Index", testCases);
+                if (!String.IsNullOrEmpty(searchByTitle))
+                {
+                    testCases = TestCasePresenterObject.GetTestCasesBeSearchedByName(testSuiteID, searchByTitle.Trim());
+                }
+                SetViewBagToSort(sortBy);
+                testCases = TestCasePresenterObject.GetTestCasesBeSorted(testCases, sortBy);
+                return View("Index", testCases.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
             }
             catch(Exception e)
             {
@@ -62,23 +81,35 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase/Create?
-        public ActionResult Create(int? testSuiteID, string testSuiteTitle)
+        public ActionResult Create(int? testSuiteID)
         {
-            ViewBag.TestSuiteID = testSuiteID;
-            ViewBag.TestSuiteTitle = testSuiteTitle;
-            return View();
+            try
+            {
+                ViewBag.TestSuiteID = testSuiteID;
+                ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
+                return View();
+            }
+            catch(TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // POST: Admin/TestCase/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] TestCaseViewModel testCase)
+        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect")] TestCaseViewModel testCase)
         {
             if (ModelState.IsValid)
             {
                 var createdTestCase = new CreateTestCaseViewModel
                 {
                     Title = testCase.Title,
+                    Priority = testCase.Priority,
                     TestSuiteID = testSuiteID,
                     Description = testCase.Description,
                     Precondition = testCase.Precondition,
@@ -115,7 +146,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
         {
             try
             {
@@ -124,6 +155,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     var updatedTestCase = new EditTestCaseViewModel
                     {
                         Title = testCase.Title,
+                        Priority = testCase.Priority,
                         Description = testCase.Description,
                         Precondition = testCase.Precondition,
                         Expect = testCase.Expect,
@@ -175,5 +207,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
+        }
     }
 }

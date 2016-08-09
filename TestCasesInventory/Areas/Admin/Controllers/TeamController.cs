@@ -16,15 +16,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
 
-        protected ITeamPresenter TeamPresenterObject;
-
-        #endregion
-
-        #region Constructors
-
-        public TeamController()
+        private ITeamPresenter teamPresenterObject;
+        protected ITeamPresenter TeamPresenterObject
         {
-            TeamPresenterObject = new TeamPresenter();
+            get
+            {
+                if (teamPresenterObject == null)
+                {
+                    teamPresenterObject = new TeamPresenter(HttpContext);
+                }
+                return teamPresenterObject;
+            }
         }
 
         #endregion
@@ -238,6 +240,38 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
                 return RedirectToAction("AssignUsersToTeam", new { id = id });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ListMembersInTeam(int? teamID)
+        {
+            try
+            {
+                var team = TeamPresenterObject.GetTeamById(teamID);
+                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID);
+                return PartialView("ListMembersInTeamPartial", listMembersInTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult RemoveMembersFromTeam(int teamID, string[] memberBeRemoved)
+        {
+            try
+            {
+                TeamPresenterObject.RemoveUsersFromTeam(teamID, memberBeRemoved);
+                return RedirectToAction("Details", new { id = teamID });
             }
             catch (UserNotFoundException e)
             {

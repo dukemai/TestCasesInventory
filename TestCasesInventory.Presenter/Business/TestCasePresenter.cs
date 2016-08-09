@@ -5,18 +5,25 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
 using System.Linq;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TestCasePresenter : ITestCasePresenter
     {
+        protected HttpContextBase HttpContext;
         protected ITestCaseRepository testCaseRepository;
         protected ITestSuiteRepository testSuiteRepository;
+        protected ApplicationUserManager UserManager;
 
-        public TestCasePresenter()
+        public TestCasePresenter(HttpContextBase context)
         {
+            HttpContext = context;
             testCaseRepository = new TestCaseRepository();
             testSuiteRepository = new TestSuiteRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public List<TestCaseViewModel> ListAll(int? testSuiteID)
@@ -34,18 +41,20 @@ namespace TestCasesInventory.Presenter.Business
             List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
             foreach(var item in ListTestCase)
             {
+                var createdBy = UserManager.FindByEmail(item.Created);
                 var TestCase = new TestCaseViewModel
                 {
                     ID = item.ID,
                     Title = item.Title,
+                    Priority = item.Priority,
                     TestSuiteID = item.TestSuiteID,
                     TestSuiteTitle = testSuite.Title,
                     Description = item.Description,
                     Precondition = item.Precondition,
                     Attachment = item.Attachment,
                     Expect = item.Expect,
-                    Created = item.Created,
-                    LastModified = item.LastModified,
+                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
+                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                     CreatedDate = item.CreatedDate,
                     LastModifiedDate = item.LastModifiedDate
                 };
@@ -65,19 +74,25 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
-            var testSuiteTitle = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID).Title;
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID);
+            if (testSuite == null)
+            {
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var createdBy = UserManager.FindByEmail(testCase.Created);
             return new TestCaseViewModel
             {
                 ID = testCase.ID,
+                Priority = testCase.Priority,
                 Title = testCase.Title,
                 TestSuiteID = testCase.TestSuiteID,
-                TestSuiteTitle = testSuiteTitle,
+                TestSuiteTitle = testSuite.Title,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
                 Attachment = testCase.Attachment,
                 Expect = testCase.Expect,
-                Created = testCase.Created,
-                LastModified = testCase.LastModified,
+                Created = createdBy != null ? createdBy.DisplayName : string.Empty,
+                LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                 CreatedDate = testCase.CreatedDate,
                 LastModifiedDate = testCase.LastModifiedDate
             };
@@ -89,6 +104,7 @@ namespace TestCasesInventory.Presenter.Business
             var testCaseDataModel = new TestCaseDataModel
             {
                 Title = testCase.Title,
+                Priority = testCase.Priority,
                 Description = testCase.Description,
                 TestSuiteID = testCase.TestSuiteID,
                 Precondition = testCase.Precondition,
@@ -114,6 +130,7 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 testCaseDataModel.Title = testCase.Title;
+                testCaseDataModel.Priority = testCase.Priority;
                 testCaseDataModel.Description = testCase.Description;
                 testCaseDataModel.Precondition = testCase.Precondition;
                 testCaseDataModel.Expect = testCase.Expect;
@@ -136,6 +153,56 @@ namespace TestCasesInventory.Presenter.Business
                 testCaseRepository.DeleteTestCase(id);
                 testCaseRepository.Save();
             }
+        }
+
+        public List<TestCaseViewModel> GetTestCasesBeSearchedByName(int? testSuiteID, string searchByTitle)
+        {
+            if (!testSuiteID.HasValue)
+            {
+                throw new Exception("TestSuite ID was not valid.");
+            }
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
+            if (testSuite == null)
+            {
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var testCasesDataModelBeSearched = testCaseRepository.GetTestCasesBeSearchedByName(testSuiteID.Value, searchByTitle);
+            List<TestCaseViewModel> testCasesViewBeSearched = new List<TestCaseViewModel>();
+            foreach (var item in testCasesDataModelBeSearched)
+            {
+                var testCaseView = new TestCaseViewModel
+                {
+                    ID = item.ID,
+                    Title = item.Title,
+                    TestSuiteID = item.TestSuiteID,
+                    TestSuiteTitle = testSuite.Title,
+                    Description = item.Description,
+                    Precondition = item.Precondition,
+                    Attachment = item.Attachment,
+                    Expect = item.Expect,
+                    Created = item.Created,
+                    LastModified = item.LastModified,
+                    CreatedDate = item.CreatedDate,
+                    LastModifiedDate = item.LastModifiedDate
+                };
+                testCasesViewBeSearched.Add(testCaseView);
+            }
+            return testCasesViewBeSearched;
+        }
+
+        public List<TestCaseViewModel> GetTestCasesBeSorted(List<TestCaseViewModel> testCases, string sortBy)
+        {
+            List<TestCaseViewModel> testCasesBeSorted = new List<TestCaseViewModel>();
+            switch (sortBy)
+            {
+                case "Title desc":
+                    testCasesBeSorted = testCases.OrderByDescending(t => t.Title).ToList();
+                    break;
+                default:
+                    testCasesBeSorted = testCases.OrderBy(t => t.Title).ToList();
+                    break;
+            }
+            return testCasesBeSorted;
         }
     }
 }

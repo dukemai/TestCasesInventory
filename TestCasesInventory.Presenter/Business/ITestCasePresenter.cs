@@ -7,13 +7,12 @@ namespace TestCasesInventory.Presenter.Business
     public interface ITestCasePresenter : IPresenter<TestCaseViewModel>
     {
         List<TestCaseViewModel> ListAll(int? testSuiteID);
-
         TestCaseViewModel GetTestCaseById(int? id);
-
         void InsertTestCase( CreateTestCaseViewModel testCase);
-
         void UpdateTestCase(int id, EditTestCaseViewModel testCase);
-
         void DeleteTestCase(int id);
+
+        List<TestCaseViewModel> GetTestCasesBeSearchedByName(int? testSuiteID, string searchByTitle);
+        List<TestCaseViewModel> GetTestCasesBeSorted(List<TestCaseViewModel> testCases, string sortBy);
     }
 }

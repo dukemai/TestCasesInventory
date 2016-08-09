@@ -8,6 +8,9 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using TestCasesInventory.Common;
+using PagedList;
+using AutoMapper;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -20,7 +23,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestCaseRepository testCaseRepository;
 
 
-        public TestSuitePresenter(HttpContextBase context):base()
+        public TestSuitePresenter(HttpContextBase context) : base()
         {
             HttpContext = context;
             testSuiteRepository = new TestSuiteRepository();
@@ -41,11 +44,13 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             var teamName = teamRepository.GetTeamByID(testSuite.TeamID).Name;
+            var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(testSuiteID.Value).Count();
             return new TestSuiteViewModel
             {
                 ID = testSuite.ID,
                 Title = testSuite.Title,
                 TeamName = teamName,
+                TestCasesNumber = testCasesNumber,
                 Description = testSuite.Description,
                 Created = testSuite.Created,
                 CreatedDate = testSuite.CreatedDate,
@@ -61,11 +66,13 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var item in listTestSuite)
             {
                 var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
+                var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(item.ID).Count();
                 var testSuiteView = new TestSuiteViewModel
                 {
                     ID = item.ID,
                     Title = item.Title,
                     TeamName = teamName,
+                    TestCasesNumber = testCasesNumber,
                     Description = item.Description,
                     Created = item.Created,
                     CreatedDate = item.CreatedDate,
@@ -125,7 +132,7 @@ namespace TestCasesInventory.Presenter.Business
             else
             {
                 var testCasesForTestSuite = testCaseRepository.ListAll(testSuiteID);
-                foreach(var testCase in testCasesForTestSuite)
+                foreach (var testCase in testCasesForTestSuite)
                 {
                     testCaseRepository.DeleteTestCase(testCase.ID);
                     testCaseRepository.Save();
@@ -134,60 +141,12 @@ namespace TestCasesInventory.Presenter.Business
                 testSuiteRepository.Save();
             }
         }
-
-        public List<TestSuiteViewModel> GetTestSuitesBeSearched(string valueToSearch, string searchBy)
+        
+        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options)
         {
-            IList<TestSuiteDataModel> testSuitesDataModelBeSearched = new List<TestSuiteDataModel>();
-            if (searchBy == "Title")
-                testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTitle(valueToSearch);
-            if(searchBy == "TeamName")
-            {
-                var team = teamRepository.GetExistedTeamByName(valueToSearch);
-                if (team.Any())
-                {
-                    testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTeam(team.First().ID);
-                }
-            }
-            List<TestSuiteViewModel> testSuitesViewBeSearched = new List<TestSuiteViewModel>();
-            foreach (var item in testSuitesDataModelBeSearched)
-            {
-                var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
-                var testSuiteView = new TestSuiteViewModel
-                {
-                    ID = item.ID,
-                    Title = item.Title,
-                    TeamName = teamName,
-                    Description = item.Description,
-                    Created = item.Created,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = item.LastModified,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                testSuitesViewBeSearched.Add(testSuiteView);
-            }
-            return testSuitesViewBeSearched;
-
-        }
-
-        public List<TestSuiteViewModel> GetTestSuitesBeSorted(List<TestSuiteViewModel> testSuites, string sortBy)
-        {
-            List<TestSuiteViewModel> testSuitesBeSorted = new List<TestSuiteViewModel>();
-            switch (sortBy)
-            {
-                case "Name desc":
-                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.Title).ToList();
-                    break;
-                case "TeamName desc":
-                    testSuitesBeSorted = testSuites.OrderByDescending(t => t.TeamName).ToList();
-                    break;
-                case "TeamName asc":
-                    testSuitesBeSorted = testSuites.OrderBy(t => t.TeamName).ToList();
-                    break;
-                default:
-                    testSuitesBeSorted = testSuites.OrderBy(t => t.Title).ToList();
-                    break;
-            }
-            return testSuitesBeSorted;
-        }
+            var list = testSuiteRepository.GetTestSuites(options);
+            var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
+            return mappedList;
+        }        
     }
 }

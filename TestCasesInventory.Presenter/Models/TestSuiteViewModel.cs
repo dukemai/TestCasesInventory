@@ -13,6 +13,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTestSuiteTitle, ErrorMessage = ValidationMessages.ErrorMessageForTestSuiteTitleProperty)]
         public string Title { get; set; }
         public string TeamName { get; set; }
+        public int TestCasesNumber { get; set; }
         [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }

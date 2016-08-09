@@ -1,7 +1,10 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using TestCasesInventory.Common;
+using TestCasesInventory.Data.Config;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -44,14 +47,20 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch)
+        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string title)
         {
-            return dataContext.TestSuites.Where(t => t.Title.Contains(valueToSearch)).ToList();
+            return dataContext.TestSuites.Where(t => t.Title.Contains(title)).ToList();
         }
         public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID)
         {
             return dataContext.TestSuites.Where(t => t.TeamID == teamID).ToList();
         }
+
+        public IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID)
+        {
+            return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).ToList();
+        }
+
 
         private bool disposed = false;
 
@@ -73,6 +82,50 @@ namespace TestCasesInventory.Data.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options)
+        {
+            IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
+            if (options == null)
+            {
+                return query.ToCustomPagedList<TestSuiteDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "title":
+                            query = query.Where(t => t.Title.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "title":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
+                        break;
+                    default:
+                        query = query.OrderBy(t => t.ID);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
+            }
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
     }
 }

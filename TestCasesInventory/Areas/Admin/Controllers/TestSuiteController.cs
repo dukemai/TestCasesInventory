@@ -1,6 +1,8 @@
 ﻿using PagedList;
 using System;
 using System.Web.Mvc;
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
@@ -10,7 +12,7 @@ using TestCasesInventory.Web.Common;
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestSuiteController : Controller
     {
         #region Properties
@@ -30,24 +32,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
+        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            var testSuites = TestSuitePresenterObject.ListAll();
-            if (!String.IsNullOrEmpty(valueToSearch))
-            {
-                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
-            }
-            SetViewBagToSort(sortBy);
-            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
-            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
+            //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
+            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions);
+            return View("Index", testSuites);
         }
 
         // GET: Admin/TestSuite/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string sortBy, string searchByTitle, int? page)
         {
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                ViewBag.SortBy = sortBy;
+                ViewBag.SearchByTitle = searchByTitle;
+                ViewBag.Page = page;
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -174,7 +174,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title });
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id });
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -186,10 +186,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        private void SetViewBagToSort(string sortBy)
-        {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
-            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
-        }
     }
 }
