@@ -1,6 +1,8 @@
 ﻿@using TestCasesInventory.Presenter.Models
 @using PagedList;
 @using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
+
 @model PagedList.IPagedList<TestSuiteViewModel>
 @{
     ViewBag.Title = "TestSuite Home Page";
@@ -13,15 +15,18 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
 
-@Html.Action("FilterForTestSuite", "Filter",new { area = ""})
+@Html.Action("FilterForTestSuite", "Filter", new { area = "" })
 
 <table class="table">
     <tr>
         <th>
-            <h4>@Html.ActionLink("Title", "Index", new { sortBy = ViewBag.SortByTitle, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
+            <h4>
+                @Html.SortableLink(Request, "Title", "Title")
+
+            </h4>
         </th>
         <th>
-            <h4>@Html.ActionLink("Team", "Index", new { sortBy = ViewBag.SortByTeamName, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
+            <h4>@Html.SortableLink(Request, "Team", "Team")</h4>
         </th>
         <th>
             <h4>Created By</h4>

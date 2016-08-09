@@ -14,6 +14,8 @@ namespace TestCasesInventory.Bindings
             var page = request.QueryString[PagingConfig.PageQueryString].ToInt();
             var filterKey = request["filterKeyword"] ?? string.Empty;
             var filterField = request["filterField"] ?? string.Empty;
+            var sortField = request["sortField"] ?? string.Empty;
+            var sortDirection = request["sortDirection"] ?? string.Empty;
             return new FilterOptions
             {
                 Keyword = filterKey,
@@ -25,7 +27,9 @@ namespace TestCasesInventory.Bindings
                 },
                 SortOptions = new SortOptions
                 {
-                   
+                    Field = sortField,
+                    Direction = string.Equals(sortDirection, "Desc", StringComparison.InvariantCultureIgnoreCase) ?
+                    SortDirections.Desc : SortDirections.Asc
                 }
             };
         }
