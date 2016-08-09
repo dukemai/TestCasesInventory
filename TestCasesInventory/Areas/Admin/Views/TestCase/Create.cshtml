@@ -37,7 +37,7 @@
                   "value",
                   "text",
                    2),
-                   "Choose priority: ")
+                   "Choose priority", htmlAttributes : new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
             </div>
         </div>
