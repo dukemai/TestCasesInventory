@@ -17,7 +17,7 @@
                 @Html.DisplayFor(modelItem => item.DisplayName)
             </td>
             <td>
-                @Html.ActionLink("Remove", "RemoveMembersFromTeam", "Team", new { teamID =  item.TeamID, memberBeRemoved = item.ID}, new { @class = "btn btn-default" })
+                @Html.ActionLink("Remove", "RemoveMembersFromTeam", "Team", new { teamID = item.TeamID, memberBeRemoved = item.ID }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }

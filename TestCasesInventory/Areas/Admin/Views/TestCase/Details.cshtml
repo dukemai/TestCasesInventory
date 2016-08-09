@@ -69,16 +69,24 @@
     </dl>
     <dl class="dl-horizontal">
         <dt>
-            Created
+            Created by
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Created)
         </dd>
     </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            LastModified by
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastModified)
+        </dd>
+    </dl>
 
     <dl class="dl-horizontal">
         <dt>
-            CreatedDate
+            Created
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
@@ -88,15 +96,6 @@
     <dl class="dl-horizontal">
         <dt>
             LastModified
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastModified)
-        </dd>
-    </dl>
-
-    <dl class="dl-horizontal">
-        <dt>
-            LastModifiedDate
         </dt>
         <dd>
             @Html.DisplayFor(model => model.LastModifiedDate)
