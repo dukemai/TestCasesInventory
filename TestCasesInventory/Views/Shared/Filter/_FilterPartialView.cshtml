@@ -1,16 +1,18 @@
-﻿
-@using (Html.BeginForm("Index", "TestSuite", new { area = "Admin" }, FormMethod.Get))
+﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Web.Common.Utils
+@model FilterViewModel
+@using (Html.BeginForm(Model.Action, Model.Controller, new { area = Model.Area }, FormMethod.Get))
 {
     <div class="search-box">
         <div>
-            @Html.TextBox("filterKeyword") <input type="submit" value="Search" class="btn btn-default">
+            @Html.TextBox("filterKeyword", Model.FilterKeyword) <input type="submit" value="Search" class="btn btn-default">
         </div>
         <div>
             Filter By
-            <input type="checkbox" name="filterField" checked="checked" id="ckbTitle" value="Title" />
-            <label for="ckbTitle">Title</label>
-            <input type="checkbox" name="filterField" checked="checked"  id="ckbTeamName" value="TeamName" />
-            <label for="ckbTeamName">Team</label>
-        </div>        
-    </div>       
+            @foreach (var item in Model.FilterFields)
+                {
+                @Html.FilterOptions(item)
+            }
+        </div>
+    </div>
 }

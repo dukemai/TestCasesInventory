@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,6 +21,12 @@ namespace TestCasesInventory.Web.Common.Utils
             return new MvcHtmlString(link);
         }
 
-
+        public static MvcHtmlString FilterOptions(this HtmlHelper htmlHelper, KeyValuePair<string, string> filterOption)
+        {
+            var elementsTemplate = new StringBuilder(@"<input type=""checkbox"" name=""filterField"" checked=""checked"" id = ""{0}"" value = ""{1}"" />");
+            elementsTemplate.Append(@"<label for= ""{0}"" >{2}</label>");
+            var element = string.Format(elementsTemplate.ToString(), "ckb" + filterOption.Key, filterOption.Key, filterOption.Value);
+            return new MvcHtmlString(element);
+        }
     }
 }

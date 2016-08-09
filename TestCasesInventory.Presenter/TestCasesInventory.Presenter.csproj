@@ -118,6 +118,7 @@
     <Compile Include="Business\TestSuitePresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FilterViewModel.cs" />
     <Compile Include="Models\LoginStatusViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
