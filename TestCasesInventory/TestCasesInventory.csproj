@@ -298,6 +298,7 @@
     <Content Include="Views\Shared\_TesterPartial.cshtml" />
     <Content Include="Views\Shared\_UnprivilegedPartial.cshtml" />
     <Content Include="Views\Shared\Filter\_FilterPartialView.cshtml" />
+    <Content Include="Views\Shared\Filter\_FilterOptionPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

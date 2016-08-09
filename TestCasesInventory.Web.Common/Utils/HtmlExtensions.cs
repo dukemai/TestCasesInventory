@@ -22,14 +22,5 @@ namespace TestCasesInventory.Web.Common.Utils
             var link = string.Format("<a class=\"sort-field\" href=\"{0}\" title=\"{1}\">{1}</a>", baseUrl.ToString(), title);
             return new MvcHtmlString(link);
         }
-
-        public static MvcHtmlString FilterOptions(this HtmlHelper htmlHelper, KeyValuePair<string, string> filterDefintions, FilterOptions filterOptions)
-        {
-            var elementsTemplate = new StringBuilder(@"<input type=""checkbox"" name=""filterField"" {3} id = ""{0}"" value = ""{1}"" />");
-            elementsTemplate.Append(@"<label for= ""{0}"" >{2}</label>");
-            var isChecked = filterOptions.FilterFields.FirstOrDefault(f => f == filterDefintions.Key) != null ? "checked=\"checked\"" : string.Empty;
-            var element = string.Format(elementsTemplate.ToString(), "ckb" + filterDefintions.Key, filterDefintions.Key, filterDefintions.Value, isChecked);
-            return new MvcHtmlString(element);
-        }
     }
 }

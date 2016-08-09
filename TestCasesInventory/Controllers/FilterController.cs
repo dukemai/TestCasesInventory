@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Presenter.Models;
+using System.Linq;
+
 
 namespace TestCasesInventory.Controllers
 {
@@ -10,8 +12,13 @@ namespace TestCasesInventory.Controllers
     {
         public ActionResult FilterForTestSuite([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            var filterFields = new List<KeyValuePair<string, string>>();
-            filterFields.Add(new KeyValuePair<string, string>("Title", "Title"));
+            var filterFields = new List<FilterOptionViewModel>();
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Title",
+                DisplayName = "Title",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Title") != null : true
+            });
             //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
             var viewModel = new FilterViewModel
             {
