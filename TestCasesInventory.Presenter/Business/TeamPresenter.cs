@@ -189,6 +189,7 @@ namespace TestCasesInventory.Presenter.Business
                 var usersBelongTeamView = new UsersBelongTeamViewModel
                 {
                     ID = user.Id,
+                    TeamID = user.TeamID.Value,
                     Email = user.Email,
                     DisplayName = user.DisplayName
                 };

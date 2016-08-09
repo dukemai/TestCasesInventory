@@ -31,6 +31,9 @@
             <h4>@Html.ActionLink("Team", "Index", new { sortBy = ViewBag.SortByTeamName, valueToSearch = Request.QueryString["valueToSearch"], searchBy = Request.QueryString["searchBy"] })</h4>
         </th>
         <th>
+            <h4>Number of Test Cases</h4>
+        </th>
+        <th>
             <h4>Created By</h4>
         </th>
         <th>
@@ -53,6 +56,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestCasesNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)

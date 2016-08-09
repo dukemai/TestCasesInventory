@@ -63,11 +63,13 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var item in listTestSuite)
             {
                 var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
+                var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(item.ID).Count();
                 var testSuiteView = new TestSuiteViewModel
                 {
                     ID = item.ID,
                     Title = item.Title,
                     TeamName = teamName,
+                    TestCasesNumber = testCasesNumber,
                     Description = item.Description,
                     Created = item.Created,
                     CreatedDate = item.CreatedDate,
