@@ -1,9 +1,16 @@
 ﻿
-@using (Html.BeginForm("Index", "TestSuite", FormMethod.Get))
+@using (Html.BeginForm("Index", "TestSuite", new { area = "Admin" }, FormMethod.Get))
 {
-    <b>Search by: </b>
-    @Html.RadioButton("searchBy", "Title", true) <text>Title</text>
-    @Html.RadioButton("searchBy", "TeamName") <text>Team</text>
-    <br>
-    @Html.TextBox("valueToSearch") <input type="submit" value="Search" class="btn btn-default">
+    <div class="search-box">
+        <div>
+            @Html.TextBox("filterKeyword") <input type="submit" value="Search" class="btn btn-default">
+        </div>
+        <div>
+            Filter By
+            <input type="checkbox" name="filterField" checked="checked" id="ckbTitle" value="Title" />
+            <label for="ckbTitle">Title</label>
+            <input type="checkbox" name="filterField" checked="checked"  id="ckbTeamName" value="TeamName" />
+            <label for="ckbTeamName">Team</label>
+        </div>        
+    </div>       
 }

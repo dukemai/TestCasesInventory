@@ -10,7 +10,7 @@ namespace TestCasesInventory.Controllers
     {
         public ActionResult FilterForTestSuite()
         {
-            return PartialView("~/Shared/Filter/_FilterPartialView.cshtml");
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml");
         }
     }
 }

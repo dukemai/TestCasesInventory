@@ -13,7 +13,7 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
 
-@Html.RenderAction("FilterForTestSuite", "Filter")
+@Html.Action("FilterForTestSuite", "Filter",new { area = ""})
 
 <table class="table">
     <tr>

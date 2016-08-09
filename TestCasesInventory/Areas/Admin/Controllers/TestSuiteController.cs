@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Web.Mvc;
+using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
@@ -31,11 +32,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index(string keyword, int? page, string sortBy, string sortDirection, string filterBy)
+        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
-            var testSuites = TestSuitePresenterObject.GetTestSuites(searchOptions);
-            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
+            //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
+            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions);
+            return View("Index", testSuites.ToPagedList(1, PagingConfig.PageSize));
         }
 
         // GET: Admin/TestSuite/Details/5

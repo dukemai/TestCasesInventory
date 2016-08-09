@@ -53,6 +53,7 @@
     <Compile Include="SearchOptions.cs" />
     <Compile Include="SortOptions.cs" />
     <Compile Include="StaticResourceExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

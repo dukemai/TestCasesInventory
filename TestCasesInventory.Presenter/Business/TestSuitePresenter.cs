@@ -189,7 +189,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<TestSuiteViewModel> GetTestSuites(SearchOptions options)
         {
-            throw new NotImplementedException();
+            return new List<TestSuiteViewModel>();
         }
     }
 }
