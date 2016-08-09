@@ -9,6 +9,8 @@ using TestCasesInventory.Presenter.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using TestCasesInventory.Common;
+using PagedList;
+using AutoMapper;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -139,51 +141,13 @@ namespace TestCasesInventory.Presenter.Business
                 testSuiteRepository.Save();
             }
         }
-
-        public List<TestSuiteViewModel> GetTestSuitesBeSearched(string valueToSearch, string searchBy)
-        {
-            IList<TestSuiteDataModel> testSuitesDataModelBeSearched = new List<TestSuiteDataModel>();
-            if (searchBy == "Title")
-                testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTitle(valueToSearch);
-            if (searchBy == "TeamName")
-            {
-                var team = teamRepository.GetExistedTeamByName(valueToSearch);
-                if (team.Any())
-                {
-                    testSuitesDataModelBeSearched = testSuiteRepository.GetTestSuitesBeSearchedByTeam(team.First().ID);
-                }
-            }
-            List<TestSuiteViewModel> testSuitesViewBeSearched = new List<TestSuiteViewModel>();
-            foreach (var item in testSuitesDataModelBeSearched)
-            {
-                var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
-                var testSuiteView = new TestSuiteViewModel
-                {
-                    ID = item.ID,
-                    Title = item.Title,
-                    TeamName = teamName,
-                    Description = item.Description,
-                    Created = item.Created,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = item.LastModified,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                testSuitesViewBeSearched.Add(testSuiteView);
-            }
-            return testSuitesViewBeSearched;
-
-        }
-
-
-        public List<TestSuiteViewModel> GetTestSuites(FilterOptions options)
+        
+        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options)
         {
             var list = testSuiteRepository.GetTestSuites(options);
-            var output = new List<TestSuiteViewModel>();
-            foreach (var item in list)
-            {
-                output.Add(ConvertDataModelToViewModel(item));
-            }
-            return output;
+            var item = Mapper.Map<TestSuiteViewModel>(list.First());
+            var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
+            return mappedList;
         }
 
         private TestSuiteViewModel ConvertDataModelToViewModel(TestSuiteDataModel dataModel)

@@ -3,6 +3,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
+using TestCasesInventory.Presenter;
 
 namespace TestCasesInventory
 {
@@ -15,6 +16,7 @@ namespace TestCasesInventory
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
+            StartUp.Start();
         }
     }
 }

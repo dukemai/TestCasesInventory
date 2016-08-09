@@ -36,7 +36,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
             var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions);
-            return View("Index", testSuites.ToPagedList(1, PagingConfig.PageSize));
+            return View("Index", testSuites);
         }
 
         // GET: Admin/TestSuite/Details/5

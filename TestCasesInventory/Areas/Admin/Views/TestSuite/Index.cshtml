@@ -80,5 +80,5 @@
     }
 
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, valueToSearch = Request.QueryString["valueToSearch"], sortBy = Request.QueryString["sortBy"], searchBy = Request.QueryString["searchBy"] }))
+@Html.PagedListPager(Model, page => Url.Action("Index"))
 

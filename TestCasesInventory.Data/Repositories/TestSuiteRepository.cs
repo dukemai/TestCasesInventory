@@ -1,8 +1,10 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TestCasesInventory.Common;
+using TestCasesInventory.Data.Config;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -82,12 +84,12 @@ namespace TestCasesInventory.Data.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public IList<TestSuiteDataModel> GetTestSuites(FilterOptions options)
+        public IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options)
         {
             IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
             if (options == null)
             {
-                return query.ToList();
+                return query.ToCustomPagedList<TestSuiteDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
             }
             if (!string.IsNullOrEmpty(options.Keyword))
             {
@@ -121,9 +123,9 @@ namespace TestCasesInventory.Data.Repositories
             if (options.PagingOptions != null)
             {
                 var pagingOption = options.PagingOptions;
-                query = query.Skip(pagingOption.CurrentPage * pagingOption.PageSize).Take(pagingOption.PageSize);
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
             }
-            return query.ToList();
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
     }
 }

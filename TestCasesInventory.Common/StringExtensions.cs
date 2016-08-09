@@ -8,18 +8,19 @@ namespace TestCasesInventory.Common
 {
     public static class StringExtensions
     {
-        public static int ToInt(this string input)
+        public static int ToInt(this string input, int defaultValue)
         {
-            var output = 0;
+            int output;
             if (string.IsNullOrEmpty(input))
             {
-                return 0;
+                return defaultValue;
+                
             }
             if (int.TryParse(input, out output))
             {
                 return output;
             }
-            return 0;
+            return defaultValue;
         }
     }
 }

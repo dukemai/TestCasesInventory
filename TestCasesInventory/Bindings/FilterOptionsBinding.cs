@@ -11,7 +11,7 @@ namespace TestCasesInventory.Bindings
         public object BindModel(ControllerContext controllerContext, System.Web.Mvc.ModelBindingContext bindingContext)
         {
             var request = controllerContext.HttpContext.Request;
-            var page = request.QueryString[PagingConfig.PageQueryString].ToInt();
+            var page = request.QueryString[PagingConfig.PageQueryString].ToInt(1);
             var filterKey = request["filterKeyword"] ?? string.Empty;
             var filterField = request["filterField"] ?? string.Empty;
             var sortField = request["sortField"] ?? string.Empty;
