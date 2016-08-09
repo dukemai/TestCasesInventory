@@ -245,6 +245,38 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ListMembersInTeam(int? teamID)
+        {
+            try
+            {
+                var team = TeamPresenterObject.GetTeamById(teamID);
+                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID);
+                return PartialView("ListMembersInTeamPartial", listMembersInTeam);
+            }
+            catch (TeamNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult RemoveMembersFromTeam(int teamID, string[] memberBeRemoved)
+        {
+            try
+            {
+                TeamPresenterObject.RemoveUsersFromTeam(teamID, memberBeRemoved);
+                return RedirectToAction("Details", new { id = teamID });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
         private void SetViewBagToSort(string sortBy)
         {
             ViewBag.SortByName = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";

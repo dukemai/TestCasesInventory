@@ -35,10 +35,18 @@
             @Html.DisplayFor(model => model.TeamName)
         </dd>
     </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            Number of Test Cases
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TestCasesNumber)
+        </dd>
+    </dl>
 
     <dl class="dl-horizontal">
         <dt>
-            Created
+            Created by
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Created)
@@ -47,7 +55,16 @@
 
     <dl class="dl-horizontal">
         <dt>
-            CreatedDate
+            LastModified by
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastModified)
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            Created
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
@@ -57,15 +74,6 @@
     <dl class="dl-horizontal">
         <dt>
             LastModified
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastModified)
-        </dd>
-    </dl>
-
-    <dl class="dl-horizontal">
-        <dt>
-            LastModifiedDate
         </dt>
         <dd>
             @Html.DisplayFor(model => model.LastModifiedDate)

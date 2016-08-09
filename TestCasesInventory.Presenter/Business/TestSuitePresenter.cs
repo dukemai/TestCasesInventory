@@ -42,11 +42,13 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             var teamName = teamRepository.GetTeamByID(testSuite.TeamID).Name;
+            var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(testSuiteID.Value).Count();
             return new TestSuiteViewModel
             {
                 ID = testSuite.ID,
                 Title = testSuite.Title,
                 TeamName = teamName,
+                TestCasesNumber = testCasesNumber,
                 Description = testSuite.Description,
                 Created = testSuite.Created,
                 CreatedDate = testSuite.CreatedDate,
@@ -62,11 +64,13 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var item in listTestSuite)
             {
                 var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
+                var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(item.ID).Count();
                 var testSuiteView = new TestSuiteViewModel
                 {
                     ID = item.ID,
                     Title = item.Title,
                     TeamName = teamName,
+                    TestCasesNumber = testCasesNumber,
                     Description = item.Description,
                     Created = item.Created,
                     CreatedDate = item.CreatedDate,

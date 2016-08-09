@@ -20,7 +20,7 @@
     </dl>
     <dl class="dl-horizontal">
         <dt>
-            Created
+            Created by
         </dt>
 
         <dd>
@@ -29,16 +29,7 @@
     </dl>
     <dl class="dl-horizontal">
         <dt>
-            CreatedDate
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>
-            LastModified
+            LastModified by
         </dt>
 
         <dd>
@@ -47,13 +38,41 @@
     </dl>
     <dl class="dl-horizontal">
         <dt>
-            LastModifiedDate
+            Created
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+    </dl>
 
+    <dl class="dl-horizontal">
+        <dt>
+            LastModified
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.LastModifiedDate)
         </dd>
     </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            Members
+        </dt>
+        <dd>
+            @Html.ActionLink("Add new member", "AssignUsersToTeam", "Team", new { id = Model.ID}, new { @class = "btn btn-default" })
+        </dd>
+        <dd>
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+        </dt>
+        <dd>
+            @Html.Action("ListMembersInTeam", "Team", new { teamID = Model.ID })
+        </dd>
+    </dl>
+
 </div>
 <br>
 <p>
