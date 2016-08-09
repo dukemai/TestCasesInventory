@@ -145,27 +145,8 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options)
         {
             var list = testSuiteRepository.GetTestSuites(options);
-            var item = Mapper.Map<TestSuiteViewModel>(list.First());
             var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
             return mappedList;
-        }
-
-        private TestSuiteViewModel ConvertDataModelToViewModel(TestSuiteDataModel dataModel)
-        {
-            var team = teamRepository.GetTeamByID(dataModel.TeamID);
-
-            var testSuiteView = new TestSuiteViewModel
-            {
-                ID = dataModel.ID,
-                Title = dataModel.Title,
-                TeamName = team == null ? string.Empty : team.Name,
-                Description = dataModel.Description,
-                Created = dataModel.Created,
-                CreatedDate = dataModel.CreatedDate,
-                LastModified = dataModel.LastModified,
-                LastModifiedDate = dataModel.LastModifiedDate
-            };
-            return testSuiteView;
-        }
+        }        
     }
 }

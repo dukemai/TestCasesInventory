@@ -80,5 +80,5 @@
     }
 
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index"))
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 

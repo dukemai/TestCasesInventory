@@ -12,14 +12,10 @@ namespace TestCasesInventory.Web.Common.Utils
     {
         public static MvcHtmlString SortableLink(this HtmlHelper htmlHelper, HttpRequestBase request, string sortFieldName, string title)
         {
-            var baseUrl = new UriBuilder(request.Url.AbsoluteUri);
-            var queryStrings = HttpUtility.ParseQueryString(baseUrl.Query.ToString());
-            //add SortField
-            queryStrings["sortField"] = sortFieldName;
-            //default value. will fix later
-            queryStrings["sortDirection"] = "Asc";
-            baseUrl.Query = queryStrings.ToString();
-            var link = string.Format("<a class=\"sort-field\" href=\"{0}\" title=\"{1}\">{1}</a>", baseUrl.ToString(), title);
+            var url = request.AddQueryString(new KeyValuePair<string, string>("sortField", sortFieldName),
+                new KeyValuePair<string, string>("sortDirection", "Asc"));
+
+            var link = string.Format("<a class=\"sort-field\" href=\"{0}\" title=\"{1}\">{1}</a>", url, title);
             return new MvcHtmlString(link);
         }
     }

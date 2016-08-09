@@ -19,6 +19,13 @@ namespace TestCasesInventory.Controllers
                 DisplayName = "Title",
                 IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Title") != null : true
             });
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Team",
+                DisplayName = "Team",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Team") != null : true
+            });
             //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
             var viewModel = new FilterViewModel
             {

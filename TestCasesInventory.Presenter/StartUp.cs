@@ -10,10 +10,7 @@ namespace TestCasesInventory.Presenter
     {
         public static void Start()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile(new TestSuiteMappingProfile("TestSuiteMapping")));
-            //Mapper.Initialize(cfg => cfg.CreateMap<IPagedList<TestSuiteDataModel>, IPagedList<TestSuiteViewModel>>()
-            //                        .ConvertUsing<Mappings.PagedListConverter<TestSuiteDataModel, TestSuiteViewModel>>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<IPagedList<TestSuiteViewModel>, IPagedList<TestSuiteDataModel>>());
+            Mapper.Initialize(cfg => cfg.AddProfile(new TestSuiteMappingProfile("TestSuiteMapping")));            
         }
     }
 }
