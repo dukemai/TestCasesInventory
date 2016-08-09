@@ -13,6 +13,6 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTestCase(TestCaseDataModel testCase);
         void Save();
         IEnumerable<TestCaseDataModel> GetTestCasesBeSearchedByName(int testSuiteID, string title);
-   
+        int TotalTestCasesForTestSuite(int testSuiteID);
     }
 }

@@ -8,7 +8,7 @@ namespace TestCasesInventory.Data.Repositories
 {
     public class TestCaseRepository : RepositoryBase, ITestCaseRepository
     {
-        public TestCaseRepository() : base(){ }
+        public TestCaseRepository() : base() { }
 
         public IEnumerable<TestCaseDataModel> ListAll(int testSuiteID)
         {
@@ -46,6 +46,11 @@ namespace TestCasesInventory.Data.Repositories
         {
             var testCasesForTestSuite = dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID);
             return testCasesForTestSuite.Where(t => t.Title.Contains(title)).ToList();
+        }
+
+        public int TotalTestCasesForTestSuite(int testSuiteID)
+        {
+            return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).Count();
         }
     }
 }

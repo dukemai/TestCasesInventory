@@ -12,10 +12,10 @@ namespace TestCasesInventory.Bindings
         {
             var request = controllerContext.HttpContext.Request;
             var page = request.QueryString[PagingConfig.PageQueryString].ToInt(1);
-            var filterKey = request["filterKeyword"] ?? string.Empty;
-            var filterField = request["filterField"] ?? string.Empty;
-            var sortField = request["sortField"] ?? string.Empty;
-            var sortDirection = request["sortDirection"] ?? string.Empty;
+            var filterKey = request[PagingConfig.FilterKeywordQueryString] ?? string.Empty;
+            var filterField = request[PagingConfig.FilterFieldQueryString] ?? string.Empty;
+            var sortField = request[PagingConfig.SortFieldQueryString] ?? string.Empty;
+            var sortDirection = request[PagingConfig.SortDirectionQueryString] ?? string.Empty;
             return new FilterOptions
             {
                 Keyword = filterKey,
