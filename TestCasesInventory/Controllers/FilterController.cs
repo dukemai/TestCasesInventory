@@ -19,7 +19,7 @@ namespace TestCasesInventory.Controllers
                 Action = "Index",
                 Area = "Admin",
                 FilterFields = filterFields,
-                FilterKeyword = filterOptions.Keyword
+                FilterOptions = filterOptions
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }

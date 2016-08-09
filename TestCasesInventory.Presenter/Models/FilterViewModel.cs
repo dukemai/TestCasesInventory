@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Presenter.Models
 {
     public class FilterViewModel : ViewModelBase
     {
-        public string FilterKeyword { get; set; }
+        public FilterOptions FilterOptions { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }
 

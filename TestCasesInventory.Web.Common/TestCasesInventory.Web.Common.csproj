@@ -56,6 +56,10 @@
     <Compile Include="Utils\PathHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
+      <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
+      <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Presenter\TestCasesInventory.Presenter.csproj">
       <Project>{bd422e42-732f-48bc-80c3-6f77c39a6c8f}</Project>
       <Name>TestCasesInventory.Presenter</Name>

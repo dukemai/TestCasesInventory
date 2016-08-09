@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using TestCasesInventory.Common;
+using System.Linq;
 
 namespace TestCasesInventory.Web.Common.Utils
 {
@@ -21,11 +23,12 @@ namespace TestCasesInventory.Web.Common.Utils
             return new MvcHtmlString(link);
         }
 
-        public static MvcHtmlString FilterOptions(this HtmlHelper htmlHelper, KeyValuePair<string, string> filterOption)
+        public static MvcHtmlString FilterOptions(this HtmlHelper htmlHelper, KeyValuePair<string, string> filterDefintions, FilterOptions filterOptions)
         {
-            var elementsTemplate = new StringBuilder(@"<input type=""checkbox"" name=""filterField"" checked=""checked"" id = ""{0}"" value = ""{1}"" />");
+            var elementsTemplate = new StringBuilder(@"<input type=""checkbox"" name=""filterField"" {3} id = ""{0}"" value = ""{1}"" />");
             elementsTemplate.Append(@"<label for= ""{0}"" >{2}</label>");
-            var element = string.Format(elementsTemplate.ToString(), "ckb" + filterOption.Key, filterOption.Key, filterOption.Value);
+            var isChecked = filterOptions.FilterFields.FirstOrDefault(f => f == filterDefintions.Key) != null ? "checked=\"checked\"" : string.Empty;
+            var element = string.Format(elementsTemplate.ToString(), "ckb" + filterDefintions.Key, filterDefintions.Key, filterDefintions.Value, isChecked);
             return new MvcHtmlString(element);
         }
     }

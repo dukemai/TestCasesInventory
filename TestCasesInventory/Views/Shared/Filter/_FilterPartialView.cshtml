@@ -5,13 +5,13 @@
 {
     <div class="search-box">
         <div>
-            @Html.TextBox("filterKeyword", Model.FilterKeyword) <input type="submit" value="Search" class="btn btn-default">
+            @Html.TextBox("filterKeyword", Model.FilterOptions.Keyword) <input type="submit" value="Search" class="btn btn-default">
         </div>
         <div>
             Filter By
             @foreach (var item in Model.FilterFields)
                 {
-                @Html.FilterOptions(item)
+                @Html.FilterOptions(item, Model.FilterOptions)
             }
         </div>
     </div>
