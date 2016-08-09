@@ -11,6 +11,14 @@ namespace TestCasesInventory.Presenter.Models
 
         public string Area { get; set; }
 
-        public List<KeyValuePair<string, string>> FilterFields { get; set; }
+        public List<FilterOptionViewModel> FilterFields { get; set; }
+    }
+
+    public class FilterOptionViewModel
+    {
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }

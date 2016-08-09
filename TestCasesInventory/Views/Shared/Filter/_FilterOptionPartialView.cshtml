@@ -1,0 +1,9 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model FilterOptionViewModel
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="filterField" id="ckb@Model.Name" value="@Model.Name">
+            @Model.DisplayName
+        </label>
+    </div>
+
