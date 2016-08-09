@@ -16,15 +16,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
 
-        protected ITeamPresenter TeamPresenterObject;
-
-        #endregion
-
-        #region Constructors
-
-        public TeamController()
+        private ITeamPresenter teamPresenterObject;
+        protected ITeamPresenter TeamPresenterObject
         {
-            TeamPresenterObject = new TeamPresenter();
+            get
+            {
+                if (teamPresenterObject == null)
+                {
+                    teamPresenterObject = new TeamPresenter(HttpContext);
+                }
+                return teamPresenterObject;
+            }
         }
 
         #endregion

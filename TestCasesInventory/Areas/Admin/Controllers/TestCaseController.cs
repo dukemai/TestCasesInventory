@@ -21,7 +21,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (testCasePresenterObject == null)
                 {
-                    testCasePresenterObject = new TestCasePresenter();
+                    testCasePresenterObject = new TestCasePresenter(HttpContext);
                 }
                 return testCasePresenterObject;
             }

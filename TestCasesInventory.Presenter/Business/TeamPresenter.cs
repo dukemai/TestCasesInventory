@@ -5,16 +5,25 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
 using System.Linq;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TeamPresenter : PresenterBase, ITeamPresenter
     {
+        protected HttpContextBase HttpContext;
         protected ITeamRepository teamRepository;
+        protected ApplicationUserManager UserManager;
 
-        public TeamPresenter()
+
+        public TeamPresenter(HttpContextBase context)
         {
+            HttpContext = context;
             teamRepository = new TeamRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public TeamViewModel GetTeamById(int? teamID)
@@ -28,13 +37,14 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TeamNotFoundException("Team was not found.");
             }
+            var createdBy = UserManager.FindByEmail(team.Created);
             return new TeamViewModel
             {
                 ID = team.ID,
                 Name = team.Name,
-                Created = team.Created,
+                Created = createdBy != null ? createdBy.DisplayName : string.Empty,
                 CreatedDate = team.CreatedDate,
-                LastModified = team.LastModified,
+                LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                 LastModifiedDate = team.LastModifiedDate
             };
         }
@@ -46,14 +56,15 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var item in listTeam)
             {
                 var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
+                var createdBy = UserManager.FindByEmail(item.Created);
                 var teamView = new TeamViewModel
                 {
                     ID = item.ID,
                     Name = item.Name,
-                    Created = item.Created,
+                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
                     MembersNumber = membersNumber,
                     CreatedDate = item.CreatedDate,
-                    LastModified = item.LastModified,
+                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                     LastModifiedDate = item.LastModifiedDate
                 };
                 listTeamView.Add(teamView);

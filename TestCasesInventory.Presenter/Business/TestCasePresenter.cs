@@ -5,18 +5,25 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
 using System.Linq;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class TestCasePresenter : ITestCasePresenter
     {
+        protected HttpContextBase HttpContext;
         protected ITestCaseRepository testCaseRepository;
         protected ITestSuiteRepository testSuiteRepository;
+        protected ApplicationUserManager UserManager;
 
-        public TestCasePresenter()
+        public TestCasePresenter(HttpContextBase context)
         {
+            HttpContext = context;
             testCaseRepository = new TestCaseRepository();
             testSuiteRepository = new TestSuiteRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public List<TestCaseViewModel> ListAll(int? testSuiteID)
@@ -34,6 +41,7 @@ namespace TestCasesInventory.Presenter.Business
             List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
             foreach(var item in ListTestCase)
             {
+                var createdBy = UserManager.FindByEmail(item.Created);
                 var TestCase = new TestCaseViewModel
                 {
                     ID = item.ID,
@@ -45,8 +53,8 @@ namespace TestCasesInventory.Presenter.Business
                     Precondition = item.Precondition,
                     Attachment = item.Attachment,
                     Expect = item.Expect,
-                    Created = item.Created,
-                    LastModified = item.LastModified,
+                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
+                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                     CreatedDate = item.CreatedDate,
                     LastModifiedDate = item.LastModifiedDate
                 };
@@ -66,20 +74,25 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
-            var testSuiteTitle = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID).Title;
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID);
+            if (testSuite == null)
+            {
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var createdBy = UserManager.FindByEmail(testCase.Created);
             return new TestCaseViewModel
             {
                 ID = testCase.ID,
                 Priority = testCase.Priority,
                 Title = testCase.Title,
                 TestSuiteID = testCase.TestSuiteID,
-                TestSuiteTitle = testSuiteTitle,
+                TestSuiteTitle = testSuite.Title,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
                 Attachment = testCase.Attachment,
                 Expect = testCase.Expect,
-                Created = testCase.Created,
-                LastModified = testCase.LastModified,
+                Created = createdBy != null ? createdBy.DisplayName : string.Empty,
+                LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
                 CreatedDate = testCase.CreatedDate,
                 LastModifiedDate = testCase.LastModifiedDate
             };
