@@ -7,7 +7,6 @@
 @{
     ViewBag.Title = "TestCase Home Page";
 }
-
 @Html.Action("FilterForTestCase", "Filter", new { area = "" })
 
 <table class="table table-bordered">
@@ -35,12 +34,12 @@
 
     @foreach (var item in Model)
     {
-        <tr class="@item.PriorityStyleClass">
+        <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Priority)
+                <span class="label @item.PriorityStyleClass" >@Html.DisplayFor(modelItem => item.Priority)</span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
