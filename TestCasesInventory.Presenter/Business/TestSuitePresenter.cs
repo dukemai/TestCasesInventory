@@ -142,9 +142,9 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
         
-        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options)
+        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string[] roles, int? teamID)
         {
-            var list = testSuiteRepository.GetTestSuites(options);
+            var list = testSuiteRepository.GetTestSuites(options, roles, teamID);
             var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
             return mappedList;
         }        

@@ -33,8 +33,7 @@ namespace TestCasesInventory.Controllers
         {
             try
             {
-                var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserId());
-                model.ProfilePictureURL = PathConfig.PhotosFolderPath + "/" + model.Email + "/" + PathConfig.ProfileName + "?_t=" + model.LastModifiedDate;
+                var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserId());                
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = User.Identity.GetUserId();

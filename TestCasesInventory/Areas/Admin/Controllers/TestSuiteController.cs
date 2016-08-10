@@ -8,6 +8,8 @@ using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
+using Microsoft.AspNet.Identity;
+
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -16,7 +18,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     public class TestSuiteController : Controller
     {
         #region Properties
+        private IUserPresenter userPresenter;
         private ITestSuitePresenter testSuitePresenterObject;
+        private IRolePresenter rolePresenter;
         protected ITestSuitePresenter TestSuitePresenterObject
         {
             get
@@ -28,6 +32,28 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testSuitePresenterObject;
             }
         }
+        protected IRolePresenter RolePresenter
+        {
+            get
+            {
+                if (rolePresenter == null)
+                {
+                    rolePresenter = new RolePresenter(HttpContext);
+                }
+                return rolePresenter;
+            }
+        }
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
         #endregion
 
 
@@ -35,19 +61,18 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
-            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions);
+            var roles = UserPresenter.GetRolesForUser(User.Identity.GetUserId());
+            var teamID = UserPresenter.FindUserByID(User.Identity.GetUserId()).TeamID;
+            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, roles, teamID);
             return View("Index", testSuites);
         }
 
         // GET: Admin/TestSuite/Details/5
-        public ActionResult Details(int? id, string sortBy, string searchByTitle, int? page)
+        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             try
             {
-                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                ViewBag.SortBy = sortBy;
-                ViewBag.SearchByTitle = searchByTitle;
-                ViewBag.Page = page;
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);               
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
