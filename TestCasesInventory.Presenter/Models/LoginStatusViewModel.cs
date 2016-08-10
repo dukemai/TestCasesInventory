@@ -10,6 +10,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         public string DisplayName { get; set; }
         public string Email { get; set; }
+        public string UserName { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string ProfilePictureURL { get; set; }
         public bool IsProfilePictureExisted { get; set; }

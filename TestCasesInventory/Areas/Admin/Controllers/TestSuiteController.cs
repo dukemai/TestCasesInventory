@@ -69,14 +69,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestSuite/Details/5
-        public ActionResult Details(int? id, string sortBy, string searchByTitle, int? page)
+        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             try
             {
-                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                ViewBag.SortBy = sortBy;
-                ViewBag.SearchByTitle = searchByTitle;
-                ViewBag.Page = page;
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);               
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)

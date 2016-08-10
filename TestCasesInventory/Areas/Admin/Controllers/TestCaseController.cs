@@ -6,6 +6,8 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using PagedList;
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -41,21 +43,21 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase
-        public ActionResult Index(int? testSuiteID, string searchByTitle, int? page, string sortBy)
+        public ActionResult Index(int? testSuiteID, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             try
             {
-                var testCases = TestCasePresenterObject.ListAll(testSuiteID);
-                ViewBag.TestSuiteID = testSuiteID;
-                if (!String.IsNullOrEmpty(searchByTitle))
+                if (testSuiteID.HasValue)
                 {
-                    testCases = TestCasePresenterObject.GetTestCasesBeSearchedByName(testSuiteID, searchByTitle.Trim());
+                    var testCases = TestCasePresenterObject.GetTestCasesForTestSuite(testSuiteID.Value, filterOptions);
+                    return View("Index", testCases);
                 }
-                SetViewBagToSort(sortBy);
-                testCases = TestCasePresenterObject.GetTestCasesBeSorted(testCases, sortBy);
-                return View("Index", testCases.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
+                else
+                {
+                    return View("Index");
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View("ResultNotFoundError");
             }
@@ -89,7 +91,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
                 return View();
             }
-            catch(TestSuiteNotFoundException e)
+            catch (TestSuiteNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }

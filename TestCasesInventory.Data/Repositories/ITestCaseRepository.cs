@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
 
@@ -14,5 +16,6 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IEnumerable<TestCaseDataModel> GetTestCasesBeSearchedByName(int testSuiteID, string title);
         int TotalTestCasesForTestSuite(int testSuiteID);
+        IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions);
     }
 }

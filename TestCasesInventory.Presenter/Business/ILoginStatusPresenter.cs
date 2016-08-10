@@ -9,6 +9,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ILoginStatusPresenter
     {
-         LoginStatusViewModel GetCurrentUser(string email);
+         LoginStatusViewModel GetCurrentUser(string id);
     }
 }

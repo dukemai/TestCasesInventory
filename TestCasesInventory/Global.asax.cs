@@ -1,6 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TestCasesInventory.Data;
+using TestCasesInventory.Data.Migrations;
+
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Presenter;
@@ -15,6 +18,7 @@ namespace TestCasesInventory
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            DataDefault.DataSetup();
             ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
             StartUp.Start();
         }

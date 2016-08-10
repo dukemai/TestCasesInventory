@@ -10,13 +10,13 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class LoginStatusPresenter : ILoginStatusPresenter
     {
-        public LoginStatusViewModel GetCurrentUser(string email)
+        public LoginStatusViewModel GetCurrentUser(string id)
         {
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                 //throw new DatabaseNotFoundException();
            
-            var model = manager.FindByEmail(email);
+            var model = manager.FindById(id);
             if (model == null)
             {
                 throw new UserNotFoundException();
@@ -25,6 +25,7 @@ namespace TestCasesInventory.Presenter.Business
             var viewModel = new LoginStatusViewModel();
             viewModel.DisplayName = model.DisplayName;
             viewModel.Email = model.Email;
+            viewModel.UserName = model.UserName;
             viewModel.LastModifiedDate = model.LastModifiedDate;
             return viewModel;
 
