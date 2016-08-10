@@ -19,6 +19,14 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Precondition { get; set; }
         public string Priority { get; set; }
+
+        public string PriorityStyleClass
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Priority) ? "default" : Priority.ToLowerInvariant();
+            }
+        }
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }

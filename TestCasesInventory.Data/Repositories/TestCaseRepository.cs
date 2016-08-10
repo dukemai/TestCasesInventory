@@ -58,7 +58,7 @@ namespace TestCasesInventory.Data.Repositories
 
         public IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions)
         {
-            IQueryable<TestCaseDataModel> query = dataContext.TestCases.Where(t => t.ID == testSuiteId).Select(t => t);
+            IQueryable<TestCaseDataModel> query = dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteId).Select(t => t);
             if (filterOptions == null)
             {
                 return query.ToCustomPagedList<TestCaseDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
