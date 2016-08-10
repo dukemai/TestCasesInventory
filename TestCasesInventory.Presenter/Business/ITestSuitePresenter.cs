@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System.Collections.Generic;
 using TestCasesInventory.Common;
+using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -12,6 +13,6 @@ namespace TestCasesInventory.Presenter.Business
         void InsertTestSuite(CreateTestSuiteViewModel testSuite);
         void UpdateTestSuite(int testSuiteID, EditTestSuiteViewModel testSuite);
         void DeleteTestSuite(int testSuiteID);
-        IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string[] roles, int? teamID);
+        IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string userId);
     }
 }

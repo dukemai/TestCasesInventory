@@ -61,9 +61,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
-            var roles = UserPresenter.GetRolesForUser(User.Identity.GetUserId());
-            var teamID = UserPresenter.FindUserByID(User.Identity.GetUserId()).TeamID;
-            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, roles, teamID);
+            var userId = User.Identity.GetUserId();          
+            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, userId);
             return View("Index", testSuites);
         }
 

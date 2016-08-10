@@ -84,18 +84,15 @@ namespace TestCasesInventory.Data.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options,string[] roles, int? teamID)
+        public IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options, int? teamID, bool getAll)
         {
-           
+
             IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
-            if (!teamID.HasValue && !roles.Contains("Admin"))
-            {
-                query = query.Where(t => t.TeamID < 0);
-            }
-            if (teamID.HasValue && !roles.Contains("Admin"))
+            if (!getAll && teamID.HasValue)
             {
                 query = query.Where(t => t.TeamID == teamID.Value);
             }
+
             if (options == null)
             {
                 return query.ToCustomPagedList<TestSuiteDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);

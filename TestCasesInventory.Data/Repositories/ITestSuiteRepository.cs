@@ -15,7 +15,7 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch);
         IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID);
-        IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options, string[] roles, int? teamID);
+        IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options, int? teamID, bool getAll);
         IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID);
     }
 }

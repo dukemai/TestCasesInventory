@@ -11,6 +11,7 @@ using System.Linq;
 using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -21,6 +22,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationUserManager UserManager;
         protected ITeamRepository teamRepository;
         protected ITestCaseRepository testCaseRepository;
+        protected RoleManager<IdentityRole> RoleManager;
 
 
         public TestSuitePresenter(HttpContextBase context) : base()
@@ -30,6 +32,7 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository = new TeamRepository();
             testCaseRepository = new TestCaseRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
 
         public TestSuiteViewModel GetTestSuiteById(int? testSuiteID)
@@ -141,12 +144,14 @@ namespace TestCasesInventory.Presenter.Business
                 testSuiteRepository.Save();
             }
         }
-        
-        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string[] roles, int? teamID)
+
+        public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string userId)
         {
-            var list = testSuiteRepository.GetTestSuites(options, roles, teamID);
+            var user = UserManager.FindById(userId);
+            var getAll = UserManager.IsInRole(user.Id, "Admin");
+            var list = testSuiteRepository.GetTestSuites(options, user.TeamID, getAll);
             var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
             return mappedList;
-        }        
+        }
     }
 }
