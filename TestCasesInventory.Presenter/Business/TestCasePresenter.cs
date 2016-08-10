@@ -1,13 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
+using System;
 using System.Collections.Generic;
+using System.Web;
+using TestCasesInventory.Common;
+using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
-using TestCasesInventory.Data.Common;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -33,13 +35,13 @@ namespace TestCasesInventory.Presenter.Business
                 throw new Exception("TestSuite ID was not valid.");
             }
             var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
-            if(testSuite == null)
+            if (testSuite == null)
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             var ListTestCase = testCaseRepository.ListAll(testSuiteID.Value);
             List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
-            foreach(var item in ListTestCase)
+            foreach (var item in ListTestCase)
             {
                 var createdBy = UserManager.FindByEmail(item.Created);
                 var TestCase = new TestCaseViewModel
@@ -97,7 +99,7 @@ namespace TestCasesInventory.Presenter.Business
                 LastModifiedDate = testCase.LastModifiedDate
             };
         }
-        
+
         public void InsertTestCase(CreateTestCaseViewModel testCase)
         {
 
@@ -123,7 +125,7 @@ namespace TestCasesInventory.Presenter.Business
         {
 
             var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
-            if(testCaseDataModel == null)
+            if (testCaseDataModel == null)
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
@@ -144,7 +146,7 @@ namespace TestCasesInventory.Presenter.Business
         public void DeleteTestCase(int id)
         {
             var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
-            if(testCaseDataModel == null)
+            if (testCaseDataModel == null)
             {
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
@@ -155,54 +157,11 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public List<TestCaseViewModel> GetTestCasesBeSearchedByName(int? testSuiteID, string searchByTitle)
+        public IPagedList<TestCaseViewModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions)
         {
-            if (!testSuiteID.HasValue)
-            {
-                throw new Exception("TestSuite ID was not valid.");
-            }
-            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
-            if (testSuite == null)
-            {
-                throw new TestSuiteNotFoundException("Test Suite was not found.");
-            }
-            var testCasesDataModelBeSearched = testCaseRepository.GetTestCasesBeSearchedByName(testSuiteID.Value, searchByTitle);
-            List<TestCaseViewModel> testCasesViewBeSearched = new List<TestCaseViewModel>();
-            foreach (var item in testCasesDataModelBeSearched)
-            {
-                var testCaseView = new TestCaseViewModel
-                {
-                    ID = item.ID,
-                    Title = item.Title,
-                    TestSuiteID = item.TestSuiteID,
-                    TestSuiteTitle = testSuite.Title,
-                    Description = item.Description,
-                    Precondition = item.Precondition,
-                    Attachment = item.Attachment,
-                    Expect = item.Expect,
-                    Created = item.Created,
-                    LastModified = item.LastModified,
-                    CreatedDate = item.CreatedDate,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                testCasesViewBeSearched.Add(testCaseView);
-            }
-            return testCasesViewBeSearched;
-        }
-
-        public List<TestCaseViewModel> GetTestCasesBeSorted(List<TestCaseViewModel> testCases, string sortBy)
-        {
-            List<TestCaseViewModel> testCasesBeSorted = new List<TestCaseViewModel>();
-            switch (sortBy)
-            {
-                case "Title desc":
-                    testCasesBeSorted = testCases.OrderByDescending(t => t.Title).ToList();
-                    break;
-                default:
-                    testCasesBeSorted = testCases.OrderBy(t => t.Title).ToList();
-                    break;
-            }
-            return testCasesBeSorted;
+            var list = testCaseRepository.GetTestCasesForTestSuite(testSuiteId, filterOptions);
+            var mappedList = Mapper.Map<IPagedList<TestCaseViewModel>>(list);
+            return mappedList;
         }
     }
 }

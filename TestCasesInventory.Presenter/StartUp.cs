@@ -10,7 +10,11 @@ namespace TestCasesInventory.Presenter
     {
         public static void Start()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile(new TestSuiteMappingProfile("TestSuiteMapping")));            
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile(new TestSuiteMappingProfile("TestSuiteMapping"));
+                cfg.AddProfile(new TestCaseMappingProfile("TestCaseMapping"));
+            });
         }
     }
 }

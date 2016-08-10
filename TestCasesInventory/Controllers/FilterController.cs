@@ -37,5 +37,33 @@ namespace TestCasesInventory.Controllers
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
+
+        public ActionResult FilterForTestCase([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Title",
+                DisplayName = "Title",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Title") != null : true
+            });
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "CreatedBy",
+                DisplayName = "Created By",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "CreatedBy") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "TestSuite",
+                Action = "Detail",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
     }
 }
