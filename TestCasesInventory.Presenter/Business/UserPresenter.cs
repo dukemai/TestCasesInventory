@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
@@ -142,7 +143,7 @@ namespace TestCasesInventory.Presenter.Business
                 }
                 teamName = TeamRepository.GetTeamByID(currentUser.TeamID.Value).Name;
             }
-            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName,TeamName = teamName, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName,TeamName = teamName,TeamID = currentUser.TeamID, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
             return model;
         }
 
@@ -258,8 +259,16 @@ namespace TestCasesInventory.Presenter.Business
         public string GetUserProfilePictureUrlWithLastModifiedDate(string id)
         {
             var user = GetUserById(id);
+            var u = UserManager.GetRoles(id);
             var UrlPath = Path.Combine(UserConfigurations.PhotosFolderPath, user.Email, UserConfigurations.ProfileImageFileName + "?" + user.LastModifiedDate);
             return UrlPath;
+        }
+
+        public string[] GetRolesForUser(string userID)
+        {
+            var rolesList = UserManager.GetRoles(userID) ;
+            var roles = rolesList.ToArray();
+            return roles;
         }
         #endregion
 

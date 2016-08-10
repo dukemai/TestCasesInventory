@@ -14,7 +14,7 @@ namespace TestCasesInventory.Presenter.Models
     public class RoleViewModel : IdentityRole
     {
         [Required]        
-        [RoleValidation]      
+        [RoleValidation]
         public int numberOfAccount { get; set; }
 
     }
