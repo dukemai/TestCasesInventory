@@ -62,7 +62,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
             var roles = UserPresenter.GetRolesForUser(User.Identity.GetUserId());
-            var ro1 = roles[0].ToString();
             var teamID = UserPresenter.FindUserByID(User.Identity.GetUserId()).TeamID;
             var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, roles, teamID);
             return View("Index", testSuites);
