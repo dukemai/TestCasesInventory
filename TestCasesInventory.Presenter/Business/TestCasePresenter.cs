@@ -105,7 +105,6 @@ namespace TestCasesInventory.Presenter.Business
             testCaseRepository.InsertTestCase(testCaseDataModel);
             testCaseRepository.Save();
             testCase.ID = testCaseDataModel.ID;
-           
         }
 
         public void UpdateTestCase(int id, EditTestCaseViewModel testCase)
@@ -148,6 +147,5 @@ namespace TestCasesInventory.Presenter.Business
             var UrlPath = Path.Combine(UserConfigurations.TestCasesFolderPath, id);
             return UrlPath;
         }
-
     }
 }

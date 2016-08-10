@@ -1,12 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
+using System.IO;
+using System.Web;
 using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
@@ -27,20 +27,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testCasePresenterObject;
             }
         }
+        
         #endregion
 
-        private ITestCasePresenter testCasePresenter;
-        protected ITestCasePresenter TestCasePresenter
-        {
-            get
-            {
-                if (testCasePresenter == null)
-                {
-                    testCasePresenter = new TestCasePresenter();
-                }
-                return testCasePresenter;
-            }
-        }
+
         // GET: Admin/TestCase
         public ActionResult Index(int? testSuiteID)
         {
@@ -103,25 +93,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     LastModifiedDate = DateTime.Now
                 };
                 TestCasePresenterObject.InsertTestCase(createdTestCase);
-
                 if (!(file == null || file.ContentLength == 0))
                 {
                     var testCaseId = createdTestCase.ID.ToString();
                     UploadFile(file, testCaseId);
                 }
-                
                 return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             return View();
         }
         private void UploadFile(HttpPostedFileBase file, string id)
         {
-            var filePath = TestCasePresenter.GetFileUrl(id);
+            var filePath = TestCasePresenterObject.GetFileUrl(id);
             var serverPath = Path.Combine(Server.MapPath(filePath), Path.GetFileName(file.FileName));
             PathHelper.EnsureDirectories(serverPath);
             file.SaveAs(serverPath);
         }
-
         // GET: Admin/TestCase/Edit/5
         public ActionResult Edit(int? id)
         {
