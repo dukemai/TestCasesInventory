@@ -2,27 +2,23 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using TestCasesInventory.Data.DataModels;
 
-
-namespace TestCasesInventory.Data.Migrations
+namespace TestCasesInventory.Data
 {
-    public class DataDefault 
+    public class DataSeed : DropCreateDatabaseAlways<ApplicationDbContext>
     {
-
-        public static void DataSetup()
+        protected override void Seed(ApplicationDbContext context)
         {
-            var dataContext = new ApplicationDbContext();
-             
-            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dataContext));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dataContext));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             var roleAdmin = RoleManager.FindByName("Admin");
-            if(roleAdmin == null)
+            if (roleAdmin == null)
             {
                 roleAdmin = new IdentityRole() { Name = "Admin" };
                 RoleManager.Create(roleAdmin);
@@ -36,7 +32,7 @@ namespace TestCasesInventory.Data.Migrations
             }
 
             var userAdmin = UserManager.FindByName("admin@gmail.com");
-            if(userAdmin == null)
+            if (userAdmin == null)
             {
                 userAdmin = new ApplicationUser()
                 {
@@ -51,11 +47,9 @@ namespace TestCasesInventory.Data.Migrations
                     LastModifiedDate = DateTime.Now
                 };
 
-                UserManager.Create(userAdmin, "12345678");
-                //UserManager.AddToRole(userAdmin.Id, roleAdmin.Name);
+                UserManager.Create(userAdmin, "12345678");//
             }
             UserManager.AddToRole(userAdmin.Id, roleAdmin.Name);
         }
-
     }
 }

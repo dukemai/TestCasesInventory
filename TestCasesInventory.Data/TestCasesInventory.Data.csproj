@@ -98,8 +98,8 @@
     <Compile Include="DataModels\TeamDataModel.cs" />
     <Compile Include="DataModels\TestCaseDataModel.cs" />
     <Compile Include="DataModels\TestSuiteDataModel.cs" />
+    <Compile Include="DataSeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\DataDefault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRoleManager.cs" />
     <Compile Include="Repositories\ApplicationSignInManager.cs" />

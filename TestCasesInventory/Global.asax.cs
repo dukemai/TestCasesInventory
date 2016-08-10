@@ -18,7 +18,6 @@ namespace TestCasesInventory
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            DataDefault.DataSetup();
             ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
             StartUp.Start();
         }
