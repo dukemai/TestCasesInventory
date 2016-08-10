@@ -6,8 +6,8 @@
 }
 
 <h3>Create</h3>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data" }
+))
 {
     @Html.AntiForgeryToken()
 
@@ -46,7 +46,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                @*<label class="btn btn-default btn-file">
+                    Add attachment <input type="file", name="file" />
+                </label>*@
+                <input type="file" name="file" id="file" class="btn btn-default" /><br><br>
             </div>
         </div>
 

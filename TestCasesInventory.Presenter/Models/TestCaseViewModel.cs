@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
@@ -25,11 +26,13 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+       
     }
 
 
     public class CreateTestCaseViewModel : ViewModelBase
     {
+        public int ID { get; set; }
         [Required]
         public string Title { get; set; }
         public int TestSuiteID { get; set; }

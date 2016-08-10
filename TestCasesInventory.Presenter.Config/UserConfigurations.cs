@@ -10,5 +10,6 @@ namespace TestCasesInventory.Presenter.Config
     {
         public const string ProfileImageFileName = "profile.jpg";
         public const string PhotosFolderPath = "~/uploads/photos";
+        public const string TestCasesFolderPath = "~/uploads/TestCases";
     }
 }

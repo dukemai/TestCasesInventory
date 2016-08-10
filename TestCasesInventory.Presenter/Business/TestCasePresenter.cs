@@ -5,6 +5,9 @@ using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
 using System.Linq;
+using TestCasesInventory.Presenter.Config;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -101,6 +104,8 @@ namespace TestCasesInventory.Presenter.Business
             };
             testCaseRepository.InsertTestCase(testCaseDataModel);
             testCaseRepository.Save();
+            testCase.ID = testCaseDataModel.ID;
+           
         }
 
         public void UpdateTestCase(int id, EditTestCaseViewModel testCase)
@@ -137,5 +142,12 @@ namespace TestCasesInventory.Presenter.Business
                 testCaseRepository.Save();
             }
         }
+
+        public string GetFileUrl(string id)
+        {
+            var UrlPath = Path.Combine(UserConfigurations.TestCasesFolderPath, id);
+            return UrlPath;
+        }
+
     }
 }
