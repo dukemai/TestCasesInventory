@@ -225,6 +225,7 @@ namespace TestCasesInventory.Presenter.Business
                     }
                     else
                     {
+                        UserManager.AddToRoles(user.Id, PrivilegedUsersConfig.TesterRole);
                         listUsersBeAddedToTeam.Add(user);
                     }
                 }
@@ -247,6 +248,7 @@ namespace TestCasesInventory.Presenter.Business
                     }
                     else
                     {
+                        UserManager.RemoveFromRole(user.Id, PrivilegedUsersConfig.TesterRole);
                         listUsersBeRemovedFromTeam.Add(user);
                     }
                 }
