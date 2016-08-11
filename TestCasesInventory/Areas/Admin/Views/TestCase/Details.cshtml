@@ -55,13 +55,11 @@
         <dt>
             Attachment
         </dt>
-        
+
 
         <dd>
-            @*@Html.ActionLink("Download this file", "Download", "TestCase", new { fileName = Model.AttachmentUrl }, new { @target = "_blank" })*@
             <a href=@Model.AttachmentUrl download> Download this file </a>
-
-            <a href=@Model.AttachmentUrl > Download this file </a>
+            <a href="@Url.Content(Model.AttachmentUrl)" download> Download this file please </a>
         </dd>
     </dl>
     <dl class="dl-horizontal">

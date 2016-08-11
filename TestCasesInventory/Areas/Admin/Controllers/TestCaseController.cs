@@ -8,6 +8,7 @@ using TestCasesInventory.Web.Common;
 using System.IO;
 using System.Web;
 using TestCasesInventory.Web.Common.Utils;
+using System.Linq;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -27,6 +28,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testCasePresenterObject;
             }
         }
+        private IFileControlPresenter fileControlPresenteObject;
+        protected IFileControlPresenter FileControlPresenterObject
+        {
+            get
+            {
+                if (fileControlPresenteObject == null)
+                {
+                    fileControlPresenteObject = new FileControlPresenter();
+                }
+                return fileControlPresenteObject;
+            }
+        }
+
 
         #endregion
 
@@ -52,9 +66,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testCase = TestCasePresenterObject.GetTestCaseById(id);
-                var attachmentFolder = Server.MapPath(TestCasePresenterObject.GetFileUrl(id.ToString()));
-                var fileName = Directory.GetFiles(attachmentFolder);
-                testCase.AttachmentUrl = Path.Combine(attachmentFolder, fileName[0]);
+                var attachmentFolder = TestCasePresenterObject.GetFileUrl(id.ToString());
+                var filePath = Directory.GetFiles(Server.MapPath(attachmentFolder));
+                var fileName = Path.GetFileName(filePath[0]);
+                testCase.AttachmentUrl = Path.Combine(attachmentFolder, fileName);
                 return View("Details", testCase);
             }
             catch (TestCaseNotFoundException e)
@@ -193,12 +208,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-
-
-        [HttpGet]
-        public ActionResult Download(string fileName)
-        {
-            return File(fileName, "image/jpeg");
-        }
     }
 }
