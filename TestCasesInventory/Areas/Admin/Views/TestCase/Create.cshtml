@@ -25,18 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Priority, new SelectList(
-                  new List<Object>{
-                       new { value = "Highest" , text = "Highest"  },
-                       new { value = "High" , text = "High"  },
-                       new { value = "Medium" , text = "Medium"  },
-                       new { value = "Low" , text = "Low"  },
-                       new { value = "Lowest" , text = "Lowest"  },
-                    },
-                  "value",
-                  "text",
-                   2),
-                   "Choose priority", htmlAttributes : new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Priority, (List<SelectListItem>)ViewBag.PriorityList, htmlAttributes : new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
             </div>
         </div>
