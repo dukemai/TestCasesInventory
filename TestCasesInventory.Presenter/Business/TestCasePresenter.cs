@@ -28,43 +28,6 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
-        public List<TestCaseViewModel> ListAll(int? testSuiteID)
-        {
-            if (!testSuiteID.HasValue)
-            {
-                throw new Exception("TestSuite ID was not valid.");
-            }
-            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
-            if (testSuite == null)
-            {
-                throw new TestSuiteNotFoundException("Test Suite was not found.");
-            }
-            var ListTestCase = testCaseRepository.ListAll(testSuiteID.Value);
-            List<TestCaseViewModel> ListAllTestCase = new List<TestCaseViewModel>();
-            foreach (var item in ListTestCase)
-            {
-                var createdBy = UserManager.FindByEmail(item.Created);
-                var TestCase = new TestCaseViewModel
-                {
-                    ID = item.ID,
-                    Title = item.Title,
-                    Priority = item.Priority,
-                    TestSuiteID = item.TestSuiteID,
-                    TestSuiteTitle = testSuite.Title,
-                    Description = item.Description,
-                    Precondition = item.Precondition,
-                    Attachment = item.Attachment,
-                    Expect = item.Expect,
-                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    CreatedDate = item.CreatedDate,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                ListAllTestCase.Add(TestCase);
-            }
-            return ListAllTestCase;
-        }
-
         public TestCaseViewModel GetTestCaseById(int? id)
         {
             if (!id.HasValue)

@@ -45,12 +45,6 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IEnumerable<TestCaseDataModel> GetTestCasesBeSearchedByName(int testSuiteID, string title)
-        {
-            var testCasesForTestSuite = dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID);
-            return testCasesForTestSuite.Where(t => t.Title.Contains(title)).ToList();
-        }
-
         public int TotalTestCasesForTestSuite(int testSuiteID)
         {
             return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).Count();

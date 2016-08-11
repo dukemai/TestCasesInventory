@@ -47,15 +47,6 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string title)
-        {
-            return dataContext.TestSuites.Where(t => t.Title.Contains(title)).ToList();
-        }
-        public IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID)
-        {
-            return dataContext.TestSuites.Where(t => t.TeamID == teamID).ToList();
-        }
-
         public IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID)
         {
             return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).ToList();
@@ -88,9 +79,12 @@ namespace TestCasesInventory.Data.Repositories
         {
 
             IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
-            if (!getAll && teamID.HasValue)
+            if (!getAll)
             {
-                query = query.Where(t => t.TeamID == teamID.Value);
+                if(teamID.HasValue)
+                    query = query.Where(t => t.TeamID == teamID.Value);
+                else
+                    query = query.Where(t => t.TeamID < 0);
             }
 
             if (options == null)

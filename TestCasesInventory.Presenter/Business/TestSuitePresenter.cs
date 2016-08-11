@@ -62,30 +62,6 @@ namespace TestCasesInventory.Presenter.Business
             };
         }
 
-        public List<TestSuiteViewModel> ListAll()
-        {
-            var listTestSuite = testSuiteRepository.ListAll();
-            List<TestSuiteViewModel> listTestSuiteView = new List<TestSuiteViewModel>();
-            foreach (var item in listTestSuite)
-            {
-                var teamName = teamRepository.GetTeamByID(item.TeamID).Name;
-                var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(item.ID).Count();
-                var testSuiteView = new TestSuiteViewModel
-                {
-                    ID = item.ID,
-                    Title = item.Title,
-                    TeamName = teamName,
-                    TestCasesNumber = testCasesNumber,
-                    Description = item.Description,
-                    Created = item.Created,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = item.LastModified,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                listTestSuiteView.Add(testSuiteView);
-            }
-            return listTestSuiteView;
-        }
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
             var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
