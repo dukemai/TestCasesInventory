@@ -1,6 +1,6 @@
 ﻿tinymce.init({
     selector: 'textarea',
-    height: '100',
+    height: 150,
     width: '85%',
     theme: 'modern',
     plugins: [
