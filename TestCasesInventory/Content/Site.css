@@ -15,7 +15,7 @@
         }
 
 td {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /*Color for Priority*/
@@ -43,22 +43,22 @@ td {
     border-top: none;
 }
 
-.graybackground {
+.bg-gray {
     background-color: #dddddd;
     border-radius: 5px;
 }
 
-.InformationTestCaseArea {
+.information-test-case-area {
     margin-bottom: 20px;
     padding: 5px 0 5px 0;
 }
 
-.InformationTestSuiteArea {
+.information-test-suite-area {
     margin-bottom: 20px;
     padding: 5px 0 5px 0;
 }
 
-.TestCasesArea {
+.test-cases-area {
     padding: 11px 14px 1px 6px;
     margin-bottom: 15px;
 }
