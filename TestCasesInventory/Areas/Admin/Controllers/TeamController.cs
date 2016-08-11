@@ -8,6 +8,8 @@ using TestCasesInventory.Web.Common;
 using PagedList;
 using PagedList.Mvc;
 using System.Linq;
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -32,16 +34,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #endregion
 
         // GET: Admin/Team
-        public ActionResult Index(string searchByName, int? page, string sortBy)
+        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            var teams = TeamPresenterObject.ListAll();
-            if (!String.IsNullOrEmpty(searchByName))
-            {
-                teams = TeamPresenterObject.GetTeamsBeSearchedByName(searchByName.Trim());
-            }
-            SetViewBagToSort(sortBy);
-            teams = TeamPresenterObject.GetTeamsBeSorted(teams, sortBy);
-            return View("Index", teams.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));
+            var Teams = TeamPresenterObject.GetTeams(filterOptions);
+            return View("Index", Teams);
         }
 
         // GET: Admin/Team/Details/5

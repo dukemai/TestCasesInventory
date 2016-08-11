@@ -8,7 +8,9 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
-
+using TestCasesInventory.Common;
+using PagedList;
+using AutoMapper;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -251,6 +253,13 @@ namespace TestCasesInventory.Presenter.Business
                 teamRepository.RemoveUsersFromTeam(listUsersBeRemovedFromTeam);
                 teamRepository.Save();
             }
+        }
+
+        public IPagedList<TeamViewModel> GetTeams(FilterOptions options)
+        {
+            var list = teamRepository.GetTeams(options);
+            var mappedList = Mapper.Map<IPagedList<TeamViewModel>>(list);
+            return mappedList;
         }
     }
 }

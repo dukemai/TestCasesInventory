@@ -1,6 +1,7 @@
 ﻿@using TestCasesInventory.Presenter.Models
 @using PagedList;
 @using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 @model PagedList.IPagedList<TeamViewModel>
 @{
     ViewBag.Title = "Team Home Page";
@@ -12,10 +13,7 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
 
-@using (Html.BeginForm("Index", "Team", FormMethod.Get))
-{
-    @Html.TextBox("searchByName") <input type="submit" value="Search by Name" class="btn btn-default">
-}
+@Html.Action("FilterForTeam", "Filter", new { area = "" })
 
 <table class="table table-bordered">
     <tr>
@@ -70,5 +68,5 @@
         </tr>
     }
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchByName = Request.QueryString["searchByName"], sortBy = Request.QueryString["sortBy"] }))
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 

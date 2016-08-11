@@ -10,6 +10,28 @@ namespace TestCasesInventory.Controllers
 {
     public class FilterController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
+        public ActionResult FilterForTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Team name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Team",
+                Action = "Index",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
         public ActionResult FilterForTestSuite([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             var filterFields = new List<FilterOptionViewModel>();
