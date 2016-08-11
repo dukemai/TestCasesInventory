@@ -8,7 +8,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITestCasePresenter : IPresenter<TestCaseViewModel>
     {
-        List<TestCaseViewModel> ListAll(int? testSuiteID);
         TestCaseViewModel GetTestCaseById(int? id);
         void InsertTestCase(CreateTestCaseViewModel testCase);
         void UpdateTestCase(int id, EditTestCaseViewModel testCase);
