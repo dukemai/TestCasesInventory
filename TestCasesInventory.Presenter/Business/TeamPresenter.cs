@@ -56,7 +56,7 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var item in listTeam)
             {
                 var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
-                var createdBy = UserManager.FindByEmail(item.Created);
+                var createdBy = UserManager.FindByEmail(item.Created ?? string.Empty);
                 var teamView = new TeamViewModel
                 {
                     ID = item.ID,
