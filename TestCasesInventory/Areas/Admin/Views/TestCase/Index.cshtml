@@ -12,7 +12,7 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>@Html.ActionLink("Title", "Details", "TestSuite", new { id = ViewBag.TestSuiteID, sortBy = ViewBag.SortByTitle, searchByTitle = Request.QueryString["searchByTitle"] }, "")</h4>
+            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
         </th>
         <th>
             <h4>Priority</h4>
