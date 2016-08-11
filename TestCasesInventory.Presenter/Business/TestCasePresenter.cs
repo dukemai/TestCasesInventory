@@ -45,7 +45,6 @@ namespace TestCasesInventory.Presenter.Business
                     TestSuiteTitle = testSuite.Title,
                     Description = item.Description,
                     Precondition = item.Precondition,
-                    Attachment = item.Attachment,
                     Expect = item.Expect,
                     Created = item.Created,
                     LastModified = item.LastModified,
@@ -77,7 +76,6 @@ namespace TestCasesInventory.Presenter.Business
                 TestSuiteTitle = testSuiteTitle,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
-                Attachment = testCase.Attachment,
                 Expect = testCase.Expect,
                 Created = testCase.Created,
                 LastModified = testCase.LastModified,
@@ -144,7 +142,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public string GetFileUrl(string id)
         {
-            var UrlPath = Path.Combine(UserConfigurations.TestCasesFolderPath, id);
+            var UrlPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
             return UrlPath;
         }
     }

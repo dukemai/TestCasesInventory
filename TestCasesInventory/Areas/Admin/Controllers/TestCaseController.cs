@@ -27,7 +27,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testCasePresenterObject;
             }
         }
-        
+
         #endregion
 
 
@@ -40,7 +40,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.TestSuiteID = testSuiteID;
                 return View("Index", testCases);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View("ResultNotFoundError");
             }
@@ -52,6 +52,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testCase = TestCasePresenterObject.GetTestCaseById(id);
+                var attachmentFolder = Server.MapPath(TestCasePresenterObject.GetFileUrl(id.ToString()));
+                var fileName = Directory.GetFiles(attachmentFolder);
+                testCase.AttachmentUrl = Path.Combine(attachmentFolder, fileName[0]);
                 return View("Details", testCase);
             }
             catch (TestCaseNotFoundException e)
@@ -190,5 +193,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+
+
+        [HttpGet]
+        public ActionResult Download(string fileName)
+        {
+            return File(fileName, "image/jpeg");
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
@@ -19,14 +18,14 @@ namespace TestCasesInventory.Presenter.Models
         public string Description { get; set; }
         [AllowHtml]
         public string Precondition { get; set; }
-        public bool Attachment { get; set; }
+        [Display(Name = "Attachment")]
+        public string AttachmentUrl { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-       
     }
 
 

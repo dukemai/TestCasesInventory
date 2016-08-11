@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestCasesInventory.Presenter.Config
 {
-    public class UserConfigurations
+    public class TestCaseConfigurations
     {
-        public const string ProfileImageFileName = "profile.jpg";
-        public const string PhotosFolderPath = "~/uploads/photos";
+        public const string TestCasesFolderPath = "~/uploads/TestCases";
     }
 }
