@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Common;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Data
 {
@@ -17,37 +19,37 @@ namespace TestCasesInventory.Data
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            var roleAdmin = RoleManager.FindByName("Admin");
+            var roleAdmin = RoleManager.FindByName(PrivilegedUsersConfig.AdminRole);
             if (roleAdmin == null)
             {
-                roleAdmin = new IdentityRole() { Name = "Admin" };
+                roleAdmin = new IdentityRole() { Name = PrivilegedUsersConfig.AdminRole };
                 RoleManager.Create(roleAdmin);
             }
 
-            var roleTester = RoleManager.FindByName("Tester");
+            var roleTester = RoleManager.FindByName(PrivilegedUsersConfig.TesterRole);
             if (roleTester == null)
             {
-                roleTester = new IdentityRole() { Name = "Tester" };
+                roleTester = new IdentityRole() { Name = PrivilegedUsersConfig.TesterRole };
                 RoleManager.Create(roleTester);
             }
 
-            var userAdmin = UserManager.FindByName("admin@gmail.com");
+            var userAdmin = UserManager.FindByName(FirstAdminUserDefault.UserName);
             if (userAdmin == null)
             {
                 userAdmin = new ApplicationUser()
                 {
-                    UserName = "admin@gmail.com",
-                    DisplayName = "admin",
-                    Email = "admin@gmail.com",
-                    EmailConfirmed = false,
-                    PhoneNumberConfirmed = false,
-                    LockoutEnabled = true,
-                    AccessFailedCount = 0,
-                    TwoFactorEnabled = false,
+                    UserName = FirstAdminUserDefault.UserName,
+                    DisplayName = FirstAdminUserDefault.DisplayName,
+                    Email = FirstAdminUserDefault.Email,
+                    EmailConfirmed = FirstAdminUserDefault.EmailConfirmed,
+                    PhoneNumberConfirmed = FirstAdminUserDefault.PhoneNumberConfirmed,
+                    LockoutEnabled = FirstAdminUserDefault.LockoutEnabled,
+                    AccessFailedCount = FirstAdminUserDefault.AccessFailedCount,
+                    TwoFactorEnabled = FirstAdminUserDefault.TwoFactorEnabled,
                     LastModifiedDate = DateTime.Now
                 };
 
-                UserManager.Create(userAdmin, "12345678");//
+                UserManager.Create(userAdmin, FirstAdminUserDefault.Password);
             }
             UserManager.AddToRole(userAdmin.Id, roleAdmin.Name);
         }

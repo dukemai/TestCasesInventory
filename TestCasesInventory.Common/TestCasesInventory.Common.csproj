@@ -59,6 +59,7 @@
     <Compile Include="FilterOptions.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="PagingOptions.cs" />
+    <Compile Include="PrivilegedUsersConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchOptions.cs" />
     <Compile Include="SortOptions.cs" />

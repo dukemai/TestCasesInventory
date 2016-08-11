@@ -124,7 +124,7 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string userId)
         {
             var user = UserManager.FindById(userId);
-            var getAll = UserManager.IsInRole(user.Id, "Admin");
+            var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
             var list = testSuiteRepository.GetTestSuites(options, user.TeamID, getAll);
             var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
             return mappedList;
