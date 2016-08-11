@@ -8,6 +8,7 @@ using TestCasesInventory.Web.Common;
 using PagedList;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -87,6 +88,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
+                List<SelectListItem> items = new List<SelectListItem>();
+
+                items.Add(new SelectListItem { Text = "Highest", Value = "Highest" });
+                items.Add(new SelectListItem { Text = "High", Value = "High" });
+                items.Add(new SelectListItem { Text = "Medium", Value = "Medium", Selected = true });
+                items.Add(new SelectListItem { Text = "Low", Value = "Low" });
+                items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
+                ViewBag.PriorityList = items;
+
                 ViewBag.TestSuiteID = testSuiteID;
                 ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
                 return View();
