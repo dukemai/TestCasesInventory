@@ -1,4 +1,24 @@
-﻿/*Color for Priority*/
+﻿th h4 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+    th h4 a {
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+    }
+
+        th h4 a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+td {
+    font-size: 12px;
+}
+
+/*Color for Priority*/
 .highest {
     background-color: #d9534f;
 }
