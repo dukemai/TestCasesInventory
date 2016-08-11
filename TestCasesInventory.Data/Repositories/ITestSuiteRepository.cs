@@ -13,8 +13,6 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTestSuite(TestSuiteDataModel testSuite);
         void DeleteTestSuite(int testSuiteID);
         void Save();
-        IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTitle(string valueToSearch);
-        IList<TestSuiteDataModel> GetTestSuitesBeSearchedByTeam(int teamID);
         IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options, int? teamID, bool getAll);
         IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID);
     }
