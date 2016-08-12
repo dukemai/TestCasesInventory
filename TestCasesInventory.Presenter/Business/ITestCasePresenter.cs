@@ -15,6 +15,6 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTestCase(int id, EditTestCaseViewModel testCase);
 
         void DeleteTestCase(int id);
-        string GetFileUrl(string id);
+        
     }
 }

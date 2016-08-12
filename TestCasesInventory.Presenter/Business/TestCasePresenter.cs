@@ -140,10 +140,6 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public string GetFileUrl(string id)
-        {
-            var UrlPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
-            return UrlPath;
-        }
+      
     }
 }

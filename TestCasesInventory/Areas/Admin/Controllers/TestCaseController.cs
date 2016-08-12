@@ -28,16 +28,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testCasePresenterObject;
             }
         }
-        private IFileControlPresenter fileControlPresenteObject;
+        private IFileControlPresenter fileControlPresenterObject;
         protected IFileControlPresenter FileControlPresenterObject
         {
             get
             {
-                if (fileControlPresenteObject == null)
+                if (fileControlPresenterObject == null)
                 {
-                    fileControlPresenteObject = new FileControlPresenter();
+                    fileControlPresenterObject = new FileControlPresenter();
                 }
-                return fileControlPresenteObject;
+                return fileControlPresenterObject;
             }
         }
 
@@ -61,15 +61,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestCase/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             try
             {
                 var testCase = TestCasePresenterObject.GetTestCaseById(id);
-                var attachmentFolder = TestCasePresenterObject.GetFileUrl(id.ToString());
-                var filePath = Directory.GetFiles(Server.MapPath(attachmentFolder));
-                var fileName = Path.GetFileName(filePath[0]);
-                testCase.AttachmentUrl = Path.Combine(attachmentFolder, fileName);
+                testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
                 return View("Details", testCase);
             }
             catch (TestCaseNotFoundException e)
@@ -114,19 +111,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 if (!(file == null || file.ContentLength == 0))
                 {
                     var testCaseId = createdTestCase.ID.ToString();
-                    UploadFile(file, testCaseId);
+                    FileControlPresenterObject.UploadFile(file, testCaseId);
                 }
                 return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
             return View();
         }
-        private void UploadFile(HttpPostedFileBase file, string id)
-        {
-            var filePath = TestCasePresenterObject.GetFileUrl(id);
-            var serverPath = Path.Combine(Server.MapPath(filePath), Path.GetFileName(file.FileName));
-            PathHelper.EnsureDirectories(serverPath);
-            file.SaveAs(serverPath);
-        }
+       
         // GET: Admin/TestCase/Edit/5
         public ActionResult Edit(int? id)
         {
