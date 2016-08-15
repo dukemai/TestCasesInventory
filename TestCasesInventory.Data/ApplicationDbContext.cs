@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Data;
 
 namespace TestCasesInventory.Data
 {
@@ -12,6 +13,8 @@ namespace TestCasesInventory.Data
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            if(!Database.Exists())
+            Database.SetInitializer(new DataSeed());
         }
 
         public static ApplicationDbContext Create()

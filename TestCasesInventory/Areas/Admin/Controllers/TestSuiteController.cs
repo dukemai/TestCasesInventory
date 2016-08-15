@@ -1,20 +1,26 @@
 ﻿using PagedList;
 using System;
 using System.Web.Mvc;
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
+using Microsoft.AspNet.Identity;
+
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestSuiteController : Controller
     {
         #region Properties
+        private IUserPresenter userPresenter;
         private ITestSuitePresenter testSuitePresenterObject;
+        private IRolePresenter rolePresenter;
         protected ITestSuitePresenter TestSuitePresenterObject
         {
             get
@@ -26,28 +32,46 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testSuitePresenterObject;
             }
         }
+        protected IRolePresenter RolePresenter
+        {
+            get
+            {
+                if (rolePresenter == null)
+                {
+                    rolePresenter = new RolePresenter(HttpContext);
+                }
+                return rolePresenter;
+            }
+        }
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
         #endregion
 
 
         // GET: Admin/TestSuite
-        public ActionResult Index(string valueToSearch, string searchBy, int? page, string sortBy)
+        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            var testSuites = TestSuitePresenterObject.ListAll();
-            if (!String.IsNullOrEmpty(valueToSearch))
-            {
-                testSuites = TestSuitePresenterObject.GetTestSuitesBeSearched(valueToSearch.Trim(), searchBy.Trim());
-            }
-            SetViewBagToSort(sortBy);
-            testSuites = TestSuitePresenterObject.GetTestSuitesBeSorted(testSuites, sortBy);
-            return View("Index", testSuites.ToPagedList(page ?? PagingConfig.PageNumber, PagingConfig.PageSize));            
+            //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
+            var userId = User.Identity.GetUserId();          
+            var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, userId);
+            return View("Index", testSuites);
         }
 
         // GET: Admin/TestSuite/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             try
             {
-                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);               
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -174,7 +198,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
-                return RedirectToAction("Create", "TestCase", new { testSuiteID = id, testSuiteTitle = testSuite.Title });
+                return RedirectToAction("Create", "TestCase", new { testSuiteID = id });
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -186,10 +210,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        private void SetViewBagToSort(string sortBy)
-        {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
-            ViewBag.SortByTeamName = sortBy == "TeanName asc" ? "TeanName desc" : "TeanName asc";
-        }
     }
 }

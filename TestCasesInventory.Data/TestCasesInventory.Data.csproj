@@ -73,9 +73,14 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
       <HintPath>..\Libaries\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -93,6 +98,7 @@
     <Compile Include="DataModels\TeamDataModel.cs" />
     <Compile Include="DataModels\TestCaseDataModel.cs" />
     <Compile Include="DataModels\TestSuiteDataModel.cs" />
+    <Compile Include="DataSeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRoleManager.cs" />
@@ -114,6 +120,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
+      <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
+      <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Data.Common\TestCasesInventory.Data.Common.csproj">
+      <Project>{e02f6bf6-e978-41b4-9fe5-1a3f558d4a71}</Project>
+      <Name>TestCasesInventory.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Data.Config\TestCasesInventory.Data.Config.csproj">
       <Project>{555cc5c2-4373-49f3-9c8d-264e0918a818}</Project>
       <Name>TestCasesInventory.Data.Config</Name>

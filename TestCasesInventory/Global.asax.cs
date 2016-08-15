@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TestCasesInventory.Data;
+using TestCasesInventory.Data.Migrations;
+
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
+using TestCasesInventory.Presenter;
 
 namespace TestCasesInventory
 {
@@ -16,6 +18,8 @@ namespace TestCasesInventory
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
+            StartUp.Start();
         }
     }
 }

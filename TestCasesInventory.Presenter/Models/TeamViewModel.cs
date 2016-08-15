@@ -48,6 +48,7 @@ namespace TestCasesInventory.Presenter.Models
     public class UsersBelongTeamViewModel : ViewModelBase
     {
         public string ID { get; set; }
+        public int TeamID { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
     }
