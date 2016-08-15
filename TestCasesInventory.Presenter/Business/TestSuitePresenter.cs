@@ -48,20 +48,6 @@ namespace TestCasesInventory.Presenter.Business
             }
             var testSuiteViewModel = Mapper.Map<TestSuiteViewModel>(testSuite);
             return testSuiteViewModel;
-            //var teamName = teamRepository.GetTeamByID(testSuite.TeamID).Name;
-            //var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(testSuiteID.Value).Count();
-            //return new TestSuiteViewModel
-            //{
-            //    ID = testSuite.ID,
-            //    Title = testSuite.Title,
-            //    TeamName = teamName,
-            //    TestCasesNumber = testCasesNumber,
-            //    Description = testSuite.Description,
-            //    Created = testSuite.Created,
-            //    CreatedDate = testSuite.CreatedDate,
-            //    LastModified = testSuite.LastModified,
-            //    LastModifiedDate = testSuite.LastModifiedDate
-            //};
         }
 
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
