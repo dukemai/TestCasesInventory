@@ -51,8 +51,7 @@ namespace TestCasesInventory.Presenter.Business
             return new TestSuiteViewModel
             {
                 ID = testSuite.ID,
-                Title = testSuite.Title,
-                TeamName = teamName,
+                Title = testSuite.Title,                
                 TestCasesNumber = testCasesNumber,
                 Description = testSuite.Description,
                 Created = testSuite.Created,

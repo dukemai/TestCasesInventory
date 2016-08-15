@@ -81,7 +81,7 @@ namespace TestCasesInventory.Data.Repositories
             IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
             if (!getAll)
             {
-                if(teamID.HasValue)
+                if (teamID.HasValue)
                     query = query.Where(t => t.TeamID == teamID.Value);
                 else
                     query = query.Where(t => t.TeamID < 0);
@@ -126,6 +126,16 @@ namespace TestCasesInventory.Data.Repositories
                 return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
             }
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+        }
+
+        public IList<TestSuiteDataModel> GetTestSuitesForTeam(int teamID)
+        {
+            return dataContext.TestSuites.Where(t => t.TeamID == teamID).ToList();
+        }
+
+        public IList<TestSuiteDataModel> GetTestSuitesForUser(string userID)
+        {
+            return dataContext.TestSuites.Where(t => t.Created == userID || t.LastModified == userID).ToList();
         }
     }
 }

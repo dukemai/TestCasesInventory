@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
@@ -20,6 +21,12 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class UserPresenter : IUserPresenter
     {
+        #region Fields
+
+        protected List<IObserver<ApplicationUser>> observers;
+
+        #endregion
+
         #region Properties
 
         protected HttpContextBase HttpContext;
@@ -44,8 +51,8 @@ namespace TestCasesInventory.Presenter.Business
             User = HttpContext.User;
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
             TeamRepository = new TeamRepository();
+            observers = new List<IObserver<ApplicationUser>>();            
         }
-
 
         public UserViewModel Register(RegisterViewModel model)
         {
@@ -147,61 +154,6 @@ namespace TestCasesInventory.Presenter.Business
             return model;
         }
 
-        //public UpdateRolesViewModel FindUserById(string UserId)
-        //{
-        //    var currentUser = UserManager.FindById(UserId);
-
-        //    if (currentUser == null)
-        //    {
-        //        throw new UserNotFoundException();
-        //    }
-        //    UpdateRolesViewModel model = new UpdateRolesViewModel { UserRoles = String.Join(", ", UserManager.GetRoles(UserId)) };
-        //    return model;
-        //}
-
-        //public List<SelectListItem> AddRoleToList()
-        //{
-        //    var RoleNameList = RoleManager.Roles.Select(role=>role.Name).ToList();
-        //    List<SelectListItem> RoleList = new List<SelectListItem>();
-        //    for (int i = 0; i < RoleNameList.Count; i++)
-        //    {
-        //        RoleList.Add(new SelectListItem
-        //         {
-        //             Text = RoleNameList[i],
-        //             Value = RoleNameList[i]
-        //        });
-        //    }
-        //    return RoleList;
-        //}
-
-        //public bool IsRoleExist(string role)
-        //{
-        //    var model = RoleManager.FindByName(role);
-        //    if (model != null)
-        //        return true;
-        //    else
-        //        return false;
-        //}
-
-        //public IdentityResult AddRole(string UserId, string UserRole)
-        //{
-        //    return UserManager.AddToRole(UserId, UserRole);
-        //}
-
-        //public IdentityResult CreateRole(string UserRole)
-        //{
-        //    return RoleManager.Create(new IdentityRole { Name = UserRole });
-
-        //}
-
-
-        //public IdentityResult RemoveRole(string UserId, string UserRole)
-        //{
-        //    return UserManager.RemoveFromRole(UserId, UserRole);
-        //}
-
-
-
         public UpdateDisplayNameViewModel GetCurrentUserById(string id)
         {
             var currentUser = UserManager.FindById(id);
@@ -235,6 +187,7 @@ namespace TestCasesInventory.Presenter.Business
             currentUser.DisplayName = NewDisplayName;
             UserManager.Update(currentUser);
             HttpContext.GetOwinContext().Get<ApplicationDbContext>().SaveChanges();
+            FeedObservers(currentUser);
         }
 
         public void UpdateLastModifiedDateInDB(string UserId, DateTime NewLastModifiedDate)
@@ -270,6 +223,22 @@ namespace TestCasesInventory.Presenter.Business
             var roles = rolesList.ToArray();
             return roles;
         }
+
+        public IDisposable Subscribe(IObserver<ApplicationUser> observer)
+        {
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);                             
+            }
+            return new Unsubscriber<ApplicationUser>(observers, observer);
+        }
+
+        protected void FeedObservers(ApplicationUser user)
+        {
+            foreach (var observer in observers)
+                observer.OnNext(user);
+        }
+
         #endregion
 
     }

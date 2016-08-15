@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Presenter.Synchroniser;
 
 namespace TestCasesInventory.Controllers
 {
@@ -22,6 +23,7 @@ namespace TestCasesInventory.Controllers
                 if (userPresenter == null)
                 {
                     userPresenter = new UserPresenter(HttpContext);
+                    userPresenter.Subscribe(new UsersObserver());
                 }
                 return userPresenter;
             }
