@@ -43,38 +43,10 @@ namespace TestCasesInventory.Presenter.Business
             return teamViewModel;
         }
 
-        public List<TeamViewModel> ListAll()
-        {
-            var listTeam = teamRepository.ListAll();
-            List<TeamViewModel> listTeamView = new List<TeamViewModel>();
-            foreach (var item in listTeam)
-            {
-                var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
-                var createdBy = UserManager.FindByEmail(item.Created ?? string.Empty);
-                var teamView = new TeamViewModel
-                {
-                    ID = item.ID,
-                    Name = item.Name,
-                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    MembersNumber = membersNumber,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                listTeamView.Add(teamView);
-            }
-            return listTeamView;
-        }
         public void InsertTeam(CreateTeamViewModel team)
         {
-            var teamDataModel = new TeamDataModel
-            {
-                Name = team.Name,
-                Created = team.Created,
-                CreatedDate = team.CreatedDate,
-                LastModified = team.LastModified,
-                LastModifiedDate = team.LastModifiedDate
-            };
+            var teamDataModel = new TeamDataModel();
+            teamDataModel = Mapper.Map(team, teamDataModel);
             teamRepository.InsertTeam(teamDataModel);
             teamRepository.Save();
         }
@@ -88,9 +60,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                teamDataModel.Name = team.Name;
-                teamDataModel.LastModified = team.LastModified;
-                teamDataModel.LastModifiedDate = team.LastModifiedDate;
+                teamDataModel = Mapper.Map(team, teamDataModel);
                 teamRepository.UpdateTeam(teamDataModel);
                 teamRepository.Save();
             }

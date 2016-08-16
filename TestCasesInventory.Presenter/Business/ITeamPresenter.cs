@@ -7,7 +7,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITeamPresenter : IPresenter<TeamViewModel>
     {
-        List<TeamViewModel> ListAll();
         TeamViewModel GetTeamById(int? teamID);
         void InsertTeam(CreateTeamViewModel team);
         void UpdateTeam(int teamID, EditTeamViewModel team);

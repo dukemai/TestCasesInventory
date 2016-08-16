@@ -39,9 +39,7 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
-        public string Created { get; set; }
         public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }
 

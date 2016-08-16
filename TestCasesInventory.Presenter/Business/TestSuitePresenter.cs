@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Web;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
-using Microsoft.AspNet.Identity;
-using System.Linq;
-using TestCasesInventory.Common;
-using PagedList;
-using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -114,7 +113,7 @@ namespace TestCasesInventory.Presenter.Business
             var user = UserManager.FindById(userId);
             var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
             var list = testSuiteRepository.GetTestSuites(options, user.TeamID, getAll);
-            var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TestSuiteDataModel>, IPagedList<TestSuiteViewModel>>();
             return mappedList;
         }
     }
