@@ -181,7 +181,7 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TeamViewModel> GetTeams(FilterOptions options)
         {
             var list = teamRepository.GetTeams(options);
-            var mappedList = Mapper.Map<IPagedList<TeamViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>();
             return mappedList;
         }
     }

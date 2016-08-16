@@ -45,7 +45,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
-            var testSuiteViewModel = Mapper.Map<TestSuiteViewModel>(testSuite);
+            var testSuiteViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
             return testSuiteViewModel;
         }
 
@@ -56,16 +56,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception("User has not been assigned to any team.");
             }
-            var testSuiteDataModel = new TestSuiteDataModel
-            {
-                Title = testSuite.Title,
-                TeamID = teamID.Value,
-                Description = testSuite.Description,
-                Created = testSuite.Created,
-                CreatedDate = testSuite.CreatedDate,
-                LastModified = testSuite.LastModified,
-                LastModifiedDate = testSuite.LastModifiedDate
-            };
+            var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
             testSuiteRepository.InsertTestSuite(testSuiteDataModel);
             testSuiteRepository.Save();
         }
@@ -79,10 +70,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                testSuiteDataModel.Title = testSuite.Title;
-                testSuiteDataModel.Description = testSuite.Description;
-                testSuiteDataModel.LastModified = testSuite.LastModified;
-                testSuiteDataModel.LastModifiedDate = testSuite.LastModifiedDate;
+                testSuiteDataModel = testSuite.MapTo<EditTestSuiteViewModel, TestSuiteDataModel>(testSuiteDataModel);
                 testSuiteRepository.UpdateTestSuite(testSuiteDataModel);
                 testSuiteRepository.Save();
             }
