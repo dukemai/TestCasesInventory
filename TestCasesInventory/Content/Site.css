@@ -1,6 +1,68 @@
-﻿.table tr:first-child th{
-    border-top : none;
+﻿th h4 {
+    font-size: 14px;
+    font-weight: bold;
 }
+
+    th h4 a {
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+    }
+
+        th h4 a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+td {
+    font-size: 14px;
+}
+
+/*Color for Priority*/
+.highest {
+    background-color: #d9534f;
+}
+
+.high {
+    background-color: #f0ad4e;
+}
+
+.medium {
+    background-color: #5bc0de;
+}
+
+.low {
+    background-color: #5cb85c;
+}
+
+.lowest {
+    background-color: #337ab7;
+}
+
+.table tr:first-child th {
+    border-top: none;
+}
+
+.bg-gray {
+    background-color: #dddddd;
+    border-radius: 5px;
+}
+
+.information-test-case-area {
+    margin-bottom: 20px;
+    padding: 5px 0 5px 0;
+}
+
+.information-test-suite-area {
+    margin-bottom: 20px;
+    padding: 5px 0 5px 0;
+}
+
+.test-cases-area {
+    padding: 11px 14px 1px 6px;
+    margin-bottom: 15px;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -27,13 +89,19 @@ textarea {
 }
 
 .nav > li .displaypic {
-padding-left: 5px;
+    padding-left: 5px;
 }
+
 .nav > li .displayname {
     padding-right: 5px;
 }
+
 .image {
-   width: 21px;
+    width: 21px;
+}
+
+.search-bar {
+    padding: 0;
 }
 
 

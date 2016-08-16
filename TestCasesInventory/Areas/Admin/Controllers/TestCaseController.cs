@@ -18,13 +18,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
         private ITestCasePresenter testCasePresenterObject;
+        private ITestSuitePresenter testSuitePresenterObject;
         protected ITestCasePresenter TestCasePresenterObject
         {
             get
             {
                 if (testCasePresenterObject == null)
                 {
-                    testCasePresenterObject = new TestCasePresenter();
+                    testCasePresenterObject = new TestCasePresenter(HttpContext);
                 }
                 return testCasePresenterObject;
             }
@@ -47,13 +48,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase
-        public ActionResult Index(int? testSuiteID)
+        public ActionResult Index(int? testSuiteID, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             try
             {
-                var testCases = TestCasePresenterObject.ListAll(testSuiteID);
-                ViewBag.TestSuiteID = testSuiteID;
-                return View("Index", testCases);
+                if (testSuiteID.HasValue)
+                {
+                    var testCases = TestCasePresenterObject.GetTestCasesForTestSuite(testSuiteID.Value, filterOptions);
+                    return View("Index", testCases);
+                }
+                else
+                {
+                    return View("Index");
+                }
             }
             catch (Exception e)
             {
@@ -87,12 +94,31 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/TestCase/Create?
-        public ActionResult Create(int? testSuiteID, string testSuiteTitle)
+        public ActionResult Create(int? testSuiteID)
         {
+            try
+            {
+                List<SelectListItem> items = new List<SelectListItem>();
 
-            ViewBag.TestSuiteID = testSuiteID;
-            ViewBag.TestSuiteTitle = testSuiteTitle;
-            return View();
+                items.Add(new SelectListItem { Text = "Highest", Value = "Highest" });
+                items.Add(new SelectListItem { Text = "High", Value = "High" });
+                items.Add(new SelectListItem { Text = "Medium", Value = "Medium", Selected = true });
+                items.Add(new SelectListItem { Text = "Low", Value = "Low" });
+                items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
+                ViewBag.PriorityList = items;
+
+                ViewBag.TestSuiteID = testSuiteID;
+                ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
+                return View();
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         // POST: Admin/TestCase/Create
@@ -105,6 +131,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var createdTestCase = new CreateTestCaseViewModel
                 {
                     Title = testCase.Title,
+                    Priority = testCase.Priority,
                     TestSuiteID = testSuiteID,
                     Description = testCase.Description,
                     Precondition = testCase.Precondition,
@@ -151,7 +178,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase, HttpPostedFileBase file)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
         {
             try
             {
@@ -160,6 +187,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     var updatedTestCase = new EditTestCaseViewModel
                     {
                         Title = testCase.Title,
+                        Priority = testCase.Priority,
                         Description = testCase.Description,
                         Precondition = testCase.Precondition,
                         Expect = testCase.Expect,
@@ -221,5 +249,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 
+        private void SetViewBagToSort(string sortBy)
+        {
+            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
+        }
     }
 }

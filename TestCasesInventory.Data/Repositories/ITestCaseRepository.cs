@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
 
@@ -12,5 +14,7 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTestCase(int testCaseID);
         void UpdateTestCase(TestCaseDataModel testCase);
         void Save();
+        int TotalTestCasesForTestSuite(int testSuiteID);
+        IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions);
     }
 }

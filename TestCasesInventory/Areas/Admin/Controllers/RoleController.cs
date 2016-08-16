@@ -11,7 +11,7 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
-using TestCasesInventory.Web.Common;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {

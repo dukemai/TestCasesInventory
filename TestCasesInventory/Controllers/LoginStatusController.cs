@@ -33,7 +33,7 @@ namespace TestCasesInventory.Controllers
         {
             try
             {
-                var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserName());
+                var model = LoginStatusPresenter.GetCurrentUser(User.Identity.GetUserId());                
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = User.Identity.GetUserId();

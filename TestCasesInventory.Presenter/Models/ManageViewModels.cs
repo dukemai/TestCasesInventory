@@ -14,6 +14,7 @@ namespace TestCasesInventory.Presenter.Models
         [Display(Name = "Name")]
         public string DisplayName { get; set; }
         [Display(Name = "Team")]
+        public int? TeamID { get; set; }
         public string TeamName { get; set; }
         public bool HasPassword { get; set; }
         [Display(Name = "Role")]

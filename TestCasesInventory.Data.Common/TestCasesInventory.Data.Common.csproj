@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseNotFoundException.cs" />
+    <Compile Include="FirstAdminUserDefault.cs" />
     <Compile Include="RoleNotFoundException.cs" />
     <Compile Include="TeamNotFoundException.cs" />
     <Compile Include="TestCaseNotFoundException.cs" />
@@ -54,10 +55,9 @@
       <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
       <Name>TestCasesInventory.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestCasesInventory.Data\TestCasesInventory.Data.csproj">
-      <Project>{fbbc24ac-8cc8-44ce-9a2b-a5db037b7810}</Project>
-      <Name>TestCasesInventory.Data</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,8 +19,16 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]
-        public string AttachmentUrl { get; set; }
+		public string AttachmentUrl { get; set; }
         public bool IsAttachmentUrlExisted { get; set; }
+		public string PriorityStyleClass
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Priority) ? "default" : Priority.ToLowerInvariant();
+            }
+        }
+        
         [AllowHtml]
         public string Expect { get; set; }
         public string Created { get; set; }
@@ -40,6 +48,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Description { get; set; }
         [AllowHtml]
         public string Precondition { get; set; }
+        public string Priority { get; set; }
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
@@ -56,6 +65,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Description { get; set; }
         [AllowHtml]
         public string Precondition { get; set; }
+        public string Priority { get; set; }
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }

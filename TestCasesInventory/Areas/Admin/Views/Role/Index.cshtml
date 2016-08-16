@@ -5,12 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>List of roles</h3>
+<h3>Roles</h3>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             <h4>Name</h4>
@@ -18,7 +18,9 @@
         <th>
             <h4>Number of accounts</h4>
         </th>
-        <th></th>
+        <th>
+            <h4>Actions</h4>
+        </th>
     </tr>
 
     @foreach (var item in Model)

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
@@ -18,6 +20,6 @@ namespace TestCasesInventory.Presenter.Business
         List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID);
         void AddUsersToTeam(int teamID, string[] usersNotBelongTeam);
         void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam);
-
+        IPagedList<TeamViewModel> GetTeams(FilterOptions options);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
@@ -20,5 +22,7 @@ namespace TestCasesInventory.Data.Repositories
         void RemoveUsersFromTeam(IList<ApplicationUser> users);
 
         ApplicationUser FindUserByID(string userID);
+        IPagedList<TeamDataModel> GetTeams(FilterOptions options);
+
     }
 }

@@ -1,13 +1,21 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<TestCaseViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
+
+@model PagedList.IPagedList<TestCaseViewModel>
 @{
     ViewBag.Title = "TestCase Home Page";
 }
+@Html.Action("FilterForTestCase", "Filter", new { area = "" })
 
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>Title</h4>
+            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
+        </th>
+        <th>
+            <h4>Priority</h4>
         </th>
         <th>
             <h4>Created By</h4>
@@ -16,12 +24,14 @@
             <h4>Last Modified By</h4>
         </th>
         <th>
-            <h4>Created Date</h4>
+            <h4>Created</h4>
         </th>
         <th>
-            <h4>Last Modified Date</h4>
+            <h4>Last Modified</h4>
         </th>
-        <th></th>
+        <th>
+            <h4>Actions</h4>
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -29,6 +39,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                <span class="label @item.PriorityStyleClass" >@Html.DisplayFor(modelItem => item.Priority)</span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
@@ -49,6 +62,6 @@
             </td>
         </tr>
     }
-
 </table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 

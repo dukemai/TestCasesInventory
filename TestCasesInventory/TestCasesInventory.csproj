@@ -70,9 +70,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -150,8 +150,10 @@
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestCaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestSuiteController.cs" />
+    <Compile Include="Bindings\FilterOptionsBinding.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\FilterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -209,6 +211,7 @@
     <Content Include="Areas\Admin\Views\TestCase\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ListMembersInTeamPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -294,6 +297,8 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Shared\_TesterPartial.cshtml" />
     <Content Include="Views\Shared\_UnprivilegedPartial.cshtml" />
+    <Content Include="Views\Shared\Filter\_FilterPartialView.cshtml" />
+    <Content Include="Views\Shared\Filter\_FilterOptionPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
