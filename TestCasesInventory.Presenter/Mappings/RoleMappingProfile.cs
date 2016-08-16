@@ -27,6 +27,8 @@ namespace TestCasesInventory.Presenter.Mappings
                  .ForMember(dest => dest.numberOfAccount, opt => opt.MapFrom(src => RoleManager.FindById(src.Id).Users.ToList().Count));
             this.CreateMap<IPagedList<IdentityRole>, IPagedList<RoleViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<IdentityRole, RoleViewModel>>();
+            this.CreateMap<ApplicationUser, UsersNotBelongRoleViewModel>();
+            this.CreateMap<ApplicationUser, UsersBelongRoleViewModel>();
         }
     }
 }
