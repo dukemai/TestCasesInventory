@@ -22,8 +22,8 @@ namespace TestCasesInventory.Presenter.Business
 
         public string GetFileFolder(string id)
         {
-            var FolderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
-            return FolderPath;
+            var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
+            return folderPath;
         }
         public string GetFileUrl(int id)
         {
@@ -31,6 +31,35 @@ namespace TestCasesInventory.Presenter.Business
             var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
             var fileName = Path.GetFileName(filePath[0]);
             return Path.Combine(attachmentFolder, fileName);
+
+        }
+        public void DeleteFile(int id)
+        {
+            var attachmentFolder = GetFileFolder(id.ToString());
+            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
+            File.Delete(filePath[0]);
+        }
+        public bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
+        }
+        public bool IsAttachmentExisted(int id)
+        {
+            var attachmentFolder = HttpContext.Current.Server.MapPath(GetFileFolder(id.ToString()));
+            if (!Directory.Exists(attachmentFolder))
+            {
+                return false;
+            }
+            else
+            {
+                var isAttachmentUrlExisted = !IsDirectoryEmpty(attachmentFolder);
+                if (isAttachmentUrlExisted)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
     }
 }

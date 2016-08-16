@@ -11,7 +11,10 @@ namespace TestCasesInventory.Presenter.Business
 
     {
         void UploadFile(HttpPostedFileBase file, string id);
+        void DeleteFile(int id);
         string GetFileFolder(string id);
         string GetFileUrl(int id);
+        bool IsDirectoryEmpty(string path);
+        bool IsAttachmentExisted(int id);
     }
 }
