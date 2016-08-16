@@ -20,6 +20,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]
         public string AttachmentUrl { get; set; }
+        public bool IsAttachmentUrlExisted { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
         public string Created { get; set; }

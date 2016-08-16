@@ -9,6 +9,7 @@ using System.IO;
 using System.Web;
 using TestCasesInventory.Web.Common.Utils;
 using System.Linq;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -66,7 +67,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testCase = TestCasePresenterObject.GetTestCaseById(id);
-                testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
+                if (FileControlPresenterObject.IsAttachmentExisted(id))
+                {
+                    testCase.IsAttachmentUrlExisted = true;
+                    testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
+                }
+
                 return View("Details", testCase);
             }
             catch (TestCaseNotFoundException e)
@@ -83,6 +89,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/TestCase/Create?
         public ActionResult Create(int? testSuiteID, string testSuiteTitle)
         {
+
             ViewBag.TestSuiteID = testSuiteID;
             ViewBag.TestSuiteTitle = testSuiteTitle;
             return View();
@@ -117,13 +124,18 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             return View();
         }
-       
+
         // GET: Admin/TestCase/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             try
             {
                 var updatedTestCase = TestCasePresenterObject.GetTestCaseById(id);
+                if (FileControlPresenterObject.IsAttachmentExisted(id))
+                {
+                    updatedTestCase.IsAttachmentUrlExisted = true;
+                    updatedTestCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
+                }
                 return View("Edit", updatedTestCase);
             }
             catch (TestCaseNotFoundException e)
@@ -139,7 +151,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase, HttpPostedFileBase file)
         {
             try
             {
@@ -155,6 +167,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                         LastModifiedDate = DateTime.Now
                     };
                     TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
+                    if (!(file == null || file.ContentLength == 0))
+                    {
+                        FileControlPresenterObject.UploadFile(file, id.ToString());
+                    }
                     return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
                 }
                 return View();
@@ -197,6 +213,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
+        }
+
+        public ActionResult DeleteFile(int id)
+        {
+            FileControlPresenterObject.DeleteFile(id);
+            return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 
     }
