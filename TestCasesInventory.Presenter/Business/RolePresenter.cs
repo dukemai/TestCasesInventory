@@ -9,6 +9,9 @@ using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
 using System;
+using PagedList;
+using TestCasesInventory.Common;
+using AutoMapper;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -42,10 +45,11 @@ namespace TestCasesInventory.Presenter.Business
             var roleManager = RoleManager.Roles.ToList();
             foreach (var item in roleManager)
             {
-                var Role = new RoleViewModel();
-                Role.Id = item.Id;
-                Role.Name = item.Name;
-                Role.numberOfAccount = RoleManager.FindById(item.Id).Users.ToList().Count;
+                var Role = Mapper.Map<RoleViewModel>(item);
+                //var Role = new RoleViewModel();
+                //Role.Id = item.Id;
+                //Role.Name = item.Name;
+                //Role.numberOfAccount = RoleManager.FindById(item.Id).Users.ToList().Count;
                 listRoleViewModel.Add(Role);
             }
             return listRoleViewModel;
@@ -77,14 +81,14 @@ namespace TestCasesInventory.Presenter.Business
 
         public RoleViewModel GetRoleById(string id)
         {
-            var choosenRole = new RoleViewModel();
+            //var choosenRole = new RoleViewModel();
             var currentRole = RoleManager.FindById(id);
             if (currentRole == null)
             {
                 throw new RoleNotFoundException();
             }
 
-            choosenRole.Name = currentRole.Name;
+            var choosenRole = Mapper.Map<RoleViewModel>(currentRole);
 
 
             return choosenRole;
@@ -198,7 +202,6 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        
     }
 
     #endregion
