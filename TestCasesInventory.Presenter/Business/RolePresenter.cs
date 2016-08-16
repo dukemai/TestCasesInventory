@@ -12,6 +12,8 @@ using System;
 using PagedList;
 using TestCasesInventory.Common;
 using AutoMapper;
+using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -112,7 +114,7 @@ namespace TestCasesInventory.Presenter.Business
             var Result = new List<UsersNotBelongRoleViewModel>();
             foreach (var user in ListUserNotInRole)
             {
-                Result.Add(Mapper.Map<UsersNotBelongRoleViewModel>(user));
+                Result.Add(user.MapTo<ApplicationUser, UsersNotBelongRoleViewModel>());
             }
             return Result;
         }
@@ -129,7 +131,7 @@ namespace TestCasesInventory.Presenter.Business
             var Result = new List<UsersBelongRoleViewModel>();
             foreach (var user in ListUserInRole)
             {
-                Result.Add(Mapper.Map<UsersBelongRoleViewModel>(user));
+                Result.Add(user.MapTo<ApplicationUser, UsersBelongRoleViewModel>());
             }
             return Result;
 
