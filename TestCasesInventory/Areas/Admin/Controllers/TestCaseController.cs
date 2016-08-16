@@ -10,6 +10,8 @@ using System.Web;
 using TestCasesInventory.Web.Common.Utils;
 using System.Linq;
 using TestCasesInventory.Common;
+using TestCasesInventory.Bindings;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -28,6 +30,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testCasePresenterObject = new TestCasePresenter(HttpContext);
                 }
                 return testCasePresenterObject;
+            }
+        }
+        protected ITestSuitePresenter TestSuitePresenterObject
+        {
+            get
+            {
+                if (testSuitePresenterObject == null)
+                {
+                    testSuitePresenterObject = new TestSuitePresenter(HttpContext);
+                }
+                return testSuitePresenterObject;
             }
         }
         private IFileControlPresenter fileControlPresenterObject;
@@ -178,7 +191,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase, HttpPostedFileBase file)
         {
             try
             {
@@ -199,7 +212,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     {
                         FileControlPresenterObject.UploadFile(file, id.ToString());
                     }
-                    return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
+                    return RedirectToAction("Edit", "TestCase", new { id = id });
                 }
                 return View();
             }

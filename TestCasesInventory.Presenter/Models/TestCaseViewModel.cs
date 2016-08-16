@@ -10,12 +10,14 @@ namespace TestCasesInventory.Presenter.Models
     public class TestCaseViewModel : ViewModelBase
     {
         public int ID { get; set; }
+        
         [Required]
         public string Title { get; set; }
         public int TestSuiteID { get; set; }
         public string TestSuiteTitle { get; set; }
         [AllowHtml]
         public string Description { get; set; }
+        public string Priority { get; set; }
         [AllowHtml]
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]

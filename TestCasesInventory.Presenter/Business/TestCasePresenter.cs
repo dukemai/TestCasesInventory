@@ -57,7 +57,6 @@ namespace TestCasesInventory.Presenter.Business
                 TestSuiteTitle = testSuite.Title,
                 Description = testCase.Description,
                 Precondition = testCase.Precondition,
-                Attachment = testCase.Attachment,
                 Expect = testCase.Expect,
                 Created = createdBy != null ? createdBy.DisplayName : string.Empty,
                 LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
