@@ -55,12 +55,23 @@
         <dt>
             Attachment
         </dt>
+        @{
+            if (Model.IsAttachmentUrlExisted)
+            {
 
+                <dd>
+                    @*<a href=@Model.AttachmentUrl download> Download this file </a>*@
+                    <a href="@Url.Content(Model.AttachmentUrl)" download> [attachment] </a>
+                </dd>
+            }
+            else
+            {
+                <dd>
+                There is no attachment
+                </dd>
+            }
+        }
 
-        <dd>
-            @*<a href=@Model.AttachmentUrl download> Download this file </a>*@
-            <a href="@Url.Content(Model.AttachmentUrl)" download> Download this attachment </a>
-        </dd>
     </dl>
     <dl class="dl-horizontal">
         <dt>
