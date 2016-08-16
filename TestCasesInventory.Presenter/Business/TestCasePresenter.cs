@@ -9,6 +9,7 @@ using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -44,27 +45,14 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
-            var testCaseViewModel = Mapper.Map<TestCaseViewModel>(testCase);
+            var testCaseViewModel = testCase.MapTo<TestCaseDataModel, TestCaseViewModel>();
             return testCaseViewModel;
         }
 
         public void InsertTestCase(CreateTestCaseViewModel testCase)
         {
 
-            var testCaseDataModel = new TestCaseDataModel
-            {
-                Title = testCase.Title,
-                Priority = testCase.Priority,
-                Description = testCase.Description,
-                TestSuiteID = testCase.TestSuiteID,
-                Precondition = testCase.Precondition,
-                Attachment = testCase.Attachment,
-                Expect = testCase.Expect,
-                Created = testCase.Created,
-                LastModified = testCase.LastModified,
-                CreatedDate = testCase.CreatedDate,
-                LastModifiedDate = testCase.LastModifiedDate
-            };
+            var testCaseDataModel = testCase.MapTo<CreateTestCaseViewModel, TestCaseDataModel>();
             testCaseRepository.InsertTestCase(testCaseDataModel);
             testCaseRepository.Save();
         }
@@ -79,13 +67,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                testCaseDataModel.Title = testCase.Title;
-                testCaseDataModel.Priority = testCase.Priority;
-                testCaseDataModel.Description = testCase.Description;
-                testCaseDataModel.Precondition = testCase.Precondition;
-                testCaseDataModel.Expect = testCase.Expect;
-                testCaseDataModel.LastModified = testCase.LastModified;
-                testCaseDataModel.LastModifiedDate = testCase.LastModifiedDate;
+                testCaseDataModel = testCase.MapTo<EditTestCaseViewModel, TestCaseDataModel>(testCaseDataModel);
             };
             testCaseRepository.UpdateTestCase(testCaseDataModel);
             testCaseRepository.Save();
@@ -108,7 +90,7 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TestCaseViewModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions)
         {
             var list = testCaseRepository.GetTestCasesForTestSuite(testSuiteId, filterOptions);
-            var mappedList = Mapper.Map<IPagedList<TestCaseViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TestCaseDataModel>, IPagedList<TestCaseViewModel>>();
             return mappedList;
         }
     }
