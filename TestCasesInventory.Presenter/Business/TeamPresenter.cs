@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity;
 using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -137,7 +139,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToAdd)
                 {
-                    var user = UserManager.FindById(userID);
+                    var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");
@@ -160,7 +162,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToRemove)
                 {
-                    var user = UserManager.FindById(userID);
+                    var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");
