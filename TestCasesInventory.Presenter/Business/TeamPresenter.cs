@@ -39,16 +39,8 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TeamNotFoundException("Team was not found.");
             }
-            var createdBy = UserManager.FindByEmail(team.Created);
-            return new TeamViewModel
-            {
-                ID = team.ID,
-                Name = team.Name,
-                Created = createdBy != null ? createdBy.DisplayName : string.Empty,
-                CreatedDate = team.CreatedDate,
-                LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
-                LastModifiedDate = team.LastModifiedDate
-            };
+            var teamViewModel = Mapper.Map<TeamViewModel>(team);
+            return teamViewModel;
         }
 
         public List<TeamViewModel> ListAll()
@@ -118,49 +110,6 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public List<TeamViewModel> GetTeamsBeSearchedByName(string searchByName)
-        {
-            var teamsDataModelBeSearched = teamRepository.GetTeamsBeSearchedByName(searchByName);
-            List<TeamViewModel> teamsViewBeSearched = new List<TeamViewModel>();
-            foreach (var item in teamsDataModelBeSearched)
-            {
-                var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
-                var teamView = new TeamViewModel
-                {
-                    ID = item.ID,
-                    Name = item.Name,
-                    Created = item.Created,
-                    MembersNumber = membersNumber,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = item.LastModified,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                teamsViewBeSearched.Add(teamView);
-            }
-            return teamsViewBeSearched;
-        }
-
-        public List<TeamViewModel> GetTeamsBeSorted(List<TeamViewModel> teams, string sortBy)
-        {
-            List<TeamViewModel> teamsBeSorted = new List<TeamViewModel>();
-            switch (sortBy)
-            {
-                case "Name desc":
-                    teamsBeSorted = teams.OrderByDescending(t => t.Name).ToList();
-                    break;
-                case "MembersNumber desc":
-                    teamsBeSorted = teams.OrderByDescending(t => t.MembersNumber).ToList();
-                    break;
-                case "MembersNumber asc":
-                    teamsBeSorted = teams.OrderBy(t => t.MembersNumber).ToList();
-                    break;
-                default:
-                    teamsBeSorted = teams.OrderBy(t => t.Name).ToList();
-                    break;
-            }
-            return teamsBeSorted;
-        }
-
 
         public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
         {
@@ -218,7 +167,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToAdd)
                 {
-                    var user = teamRepository.FindUserByID(userID);
+                    var user = UserManager.FindById(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");
@@ -241,7 +190,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToRemove)
                 {
-                    var user = teamRepository.FindUserByID(userID);
+                    var user = UserManager.FindById(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");

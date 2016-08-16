@@ -1,7 +1,6 @@
 ﻿using PagedList;
 using System.Collections.Generic;
 using TestCasesInventory.Common;
-using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -14,8 +13,6 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTeam(int teamID, EditTeamViewModel team);
         void DeleteTeam(int teamID);
 
-        List<TeamViewModel> GetTeamsBeSorted(List<TeamViewModel> teams, string sortBy);
-        List<TeamViewModel> GetTeamsBeSearchedByName(string searchByName);
         List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID);
         List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID);
         void AddUsersToTeam(int teamID, string[] usersNotBelongTeam);

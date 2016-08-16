@@ -219,9 +219,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        private void SetViewBagToSort(string sortBy)
-        {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-        }
     }
 }

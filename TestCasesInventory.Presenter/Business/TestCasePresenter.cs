@@ -44,23 +44,8 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
-            var createdBy = UserManager.FindByEmail(testCase.Created);
-            return new TestCaseViewModel
-            {
-                ID = testCase.ID,
-                Priority = testCase.Priority,
-                Title = testCase.Title,
-                TestSuiteID = testCase.TestSuiteID,
-                TestSuiteTitle = testSuite.Title,
-                Description = testCase.Description,
-                Precondition = testCase.Precondition,
-                Attachment = testCase.Attachment,
-                Expect = testCase.Expect,
-                Created = createdBy != null ? createdBy.DisplayName : string.Empty,
-                LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
-                CreatedDate = testCase.CreatedDate,
-                LastModifiedDate = testCase.LastModifiedDate
-            };
+            var testCaseViewModel = Mapper.Map<TestCaseViewModel>(testCase);
+            return testCaseViewModel;
         }
 
         public void InsertTestCase(CreateTestCaseViewModel testCase)
