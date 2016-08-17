@@ -47,7 +47,7 @@ namespace TestCasesInventory.Presenter.Business
             var roleManager = RoleManager.Roles.ToList();
             foreach (var item in roleManager)
             {
-                var Role = Mapper.Map<RoleViewModel>(item);
+                var Role = item.MapTo<IdentityRole, RoleViewModel>();
                 listRoleViewModel.Add(Role);
             }
             return listRoleViewModel;

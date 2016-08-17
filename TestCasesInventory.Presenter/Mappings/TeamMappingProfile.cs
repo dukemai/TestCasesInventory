@@ -28,6 +28,8 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ConvertUsing<Mappings.PagedListConverter<TeamDataModel, TeamViewModel>>();
             this.CreateMap<EditTeamViewModel, TeamDataModel>();
             this.CreateMap<CreateTeamViewModel, TeamDataModel>();
+            this.CreateMap<ApplicationUser, UsersBelongTeamViewModel>();
+            this.CreateMap<ApplicationUser, UsersNotBelongTeamViewModel>();
         }
     }
 }

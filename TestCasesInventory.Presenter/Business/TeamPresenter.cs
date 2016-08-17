@@ -13,6 +13,7 @@ using PagedList;
 using AutoMapper;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
+using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -41,14 +42,13 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TeamNotFoundException("Team was not found.");
             }
-            var teamViewModel = Mapper.Map<TeamViewModel>(team);
+            var teamViewModel = team.MapTo<TeamDataModel, TeamViewModel>();
             return teamViewModel;
         }
 
         public void InsertTeam(CreateTeamViewModel team)
         {
-            var teamDataModel = new TeamDataModel();
-            teamDataModel = Mapper.Map(team, teamDataModel);
+            var teamDataModel = team.MapTo<CreateTeamViewModel, TeamDataModel>();
             teamRepository.InsertTeam(teamDataModel);
             teamRepository.Save();
         }
@@ -62,7 +62,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                teamDataModel = Mapper.Map(team, teamDataModel);
+                teamDataModel = team.MapTo<EditTeamViewModel, TeamDataModel>(teamDataModel);
                 teamRepository.UpdateTeam(teamDataModel);
                 teamRepository.Save();
             }
@@ -156,7 +156,7 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TeamViewModel> GetTeams(FilterOptions options)
         {
             var list = teamRepository.GetTeams(options);
-            var mappedList = Mapper.Map<IPagedList<TeamViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>();
             return mappedList;
         }
     }
