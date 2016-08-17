@@ -93,18 +93,7 @@ namespace TestCasesInventory.Presenter.Business
             List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
             foreach (var user in usersNotBelongTeam)
             {
-                string nameOfTeamManageUser = null;
-                if (user.TeamID.HasValue)
-                {
-                    nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
-                }
-                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName,
-                    TeamName = nameOfTeamManageUser
-                };
+                var usersNotBelongTeamView = user.MapTo<ApplicationUser, UsersNotBelongTeamViewModel>();
                 listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
             }
             return listUsersNotBelongTeamView;
@@ -120,13 +109,7 @@ namespace TestCasesInventory.Presenter.Business
             List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
             foreach (var user in usersBelongTeam)
             {
-                var usersBelongTeamView = new UsersBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    TeamID = user.TeamID.Value,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName
-                };
+                var usersBelongTeamView = user.MapTo<ApplicationUser, UsersBelongTeamViewModel>();
                 listUsersBelongTeamView.Add(usersBelongTeamView);
             }
             return listUsersBelongTeamView;
