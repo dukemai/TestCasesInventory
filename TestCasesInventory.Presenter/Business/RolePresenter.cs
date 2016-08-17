@@ -9,6 +9,11 @@ using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
 using System;
+using PagedList;
+using TestCasesInventory.Common;
+using AutoMapper;
+using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -42,10 +47,7 @@ namespace TestCasesInventory.Presenter.Business
             var roleManager = RoleManager.Roles.ToList();
             foreach (var item in roleManager)
             {
-                var Role = new RoleViewModel();
-                Role.Id = item.Id;
-                Role.Name = item.Name;
-                Role.numberOfAccount = RoleManager.FindById(item.Id).Users.ToList().Count;
+                var Role = item.MapTo<IdentityRole, RoleViewModel>();
                 listRoleViewModel.Add(Role);
             }
             return listRoleViewModel;
@@ -66,7 +68,6 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new RoleNotFoundException();
             }
-
             return RoleManager.Delete(choosenRole);
         }
 
@@ -77,16 +78,13 @@ namespace TestCasesInventory.Presenter.Business
 
         public RoleViewModel GetRoleById(string id)
         {
-            var choosenRole = new RoleViewModel();
             var currentRole = RoleManager.FindById(id);
             if (currentRole == null)
             {
                 throw new RoleNotFoundException();
             }
 
-            choosenRole.Name = currentRole.Name;
-
-
+            var choosenRole = Mapper.Map<RoleViewModel>(currentRole);
             return choosenRole;
         }
 
@@ -116,12 +114,7 @@ namespace TestCasesInventory.Presenter.Business
             var Result = new List<UsersNotBelongRoleViewModel>();
             foreach (var user in ListUserNotInRole)
             {
-                Result.Add(new UsersNotBelongRoleViewModel
-                {
-                    ID = user.Id,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName
-                });
+                Result.Add(user.MapTo<ApplicationUser, UsersNotBelongRoleViewModel>());
             }
             return Result;
         }
@@ -138,12 +131,7 @@ namespace TestCasesInventory.Presenter.Business
             var Result = new List<UsersBelongRoleViewModel>();
             foreach (var user in ListUserInRole)
             {
-                Result.Add(new UsersBelongRoleViewModel
-                {
-                    ID = user.Id,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName
-                });
+                Result.Add(user.MapTo<ApplicationUser, UsersBelongRoleViewModel>());
             }
             return Result;
 
@@ -198,7 +186,6 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        
     }
 
     #endregion

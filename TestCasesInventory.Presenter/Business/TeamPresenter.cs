@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity;
 using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TestCasesInventory.Data;
+using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -39,42 +42,13 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TeamNotFoundException("Team was not found.");
             }
-            var teamViewModel = Mapper.Map<TeamViewModel>(team);
+            var teamViewModel = team.MapTo<TeamDataModel, TeamViewModel>();
             return teamViewModel;
         }
 
-        public List<TeamViewModel> ListAll()
-        {
-            var listTeam = teamRepository.ListAll();
-            List<TeamViewModel> listTeamView = new List<TeamViewModel>();
-            foreach (var item in listTeam)
-            {
-                var membersNumber = teamRepository.ListUsersBelongTeam(item.ID).Count();
-                var createdBy = UserManager.FindByEmail(item.Created ?? string.Empty);
-                var teamView = new TeamViewModel
-                {
-                    ID = item.ID,
-                    Name = item.Name,
-                    Created = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    MembersNumber = membersNumber,
-                    CreatedDate = item.CreatedDate,
-                    LastModified = createdBy != null ? createdBy.DisplayName : string.Empty,
-                    LastModifiedDate = item.LastModifiedDate
-                };
-                listTeamView.Add(teamView);
-            }
-            return listTeamView;
-        }
         public void InsertTeam(CreateTeamViewModel team)
         {
-            var teamDataModel = new TeamDataModel
-            {
-                Name = team.Name,
-                Created = team.Created,
-                CreatedDate = team.CreatedDate,
-                LastModified = team.LastModified,
-                LastModifiedDate = team.LastModifiedDate
-            };
+            var teamDataModel = team.MapTo<CreateTeamViewModel, TeamDataModel>();
             teamRepository.InsertTeam(teamDataModel);
             teamRepository.Save();
         }
@@ -88,9 +62,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                teamDataModel.Name = team.Name;
-                teamDataModel.LastModified = team.LastModified;
-                teamDataModel.LastModifiedDate = team.LastModifiedDate;
+                teamDataModel = team.MapTo<EditTeamViewModel, TeamDataModel>(teamDataModel);
                 teamRepository.UpdateTeam(teamDataModel);
                 teamRepository.Save();
             }
@@ -121,18 +93,7 @@ namespace TestCasesInventory.Presenter.Business
             List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
             foreach (var user in usersNotBelongTeam)
             {
-                string nameOfTeamManageUser = null;
-                if (user.TeamID.HasValue)
-                {
-                    nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
-                }
-                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName,
-                    TeamName = nameOfTeamManageUser
-                };
+                var usersNotBelongTeamView = user.MapTo<ApplicationUser, UsersNotBelongTeamViewModel>();
                 listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
             }
             return listUsersNotBelongTeamView;
@@ -148,13 +109,7 @@ namespace TestCasesInventory.Presenter.Business
             List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
             foreach (var user in usersBelongTeam)
             {
-                var usersBelongTeamView = new UsersBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    TeamID = user.TeamID.Value,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName
-                };
+                var usersBelongTeamView = user.MapTo<ApplicationUser, UsersBelongTeamViewModel>();
                 listUsersBelongTeamView.Add(usersBelongTeamView);
             }
             return listUsersBelongTeamView;
@@ -167,7 +122,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeAddedToTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToAdd)
                 {
-                    var user = UserManager.FindById(userID);
+                    var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");
@@ -190,7 +145,7 @@ namespace TestCasesInventory.Presenter.Business
                 List<ApplicationUser> listUsersBeRemovedFromTeam = new List<ApplicationUser>();
                 foreach (var userID in usersToRemove)
                 {
-                    var user = UserManager.FindById(userID);
+                    var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
                         throw new UserNotFoundException("User was not found.");
@@ -209,7 +164,7 @@ namespace TestCasesInventory.Presenter.Business
         public IPagedList<TeamViewModel> GetTeams(FilterOptions options)
         {
             var list = teamRepository.GetTeams(options);
-            var mappedList = Mapper.Map<IPagedList<TeamViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>();
             return mappedList;
         }
     }

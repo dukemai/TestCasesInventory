@@ -21,6 +21,8 @@ namespace TestCasesInventory.Presenter.Mappings
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
             this.CreateMap<IPagedList<TestCaseDataModel>, IPagedList<TestCaseViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestCaseDataModel, TestCaseViewModel>>();
+            this.CreateMap<CreateTestCaseViewModel, TestCaseDataModel>();
+            this.CreateMap<EditTestCaseViewModel, TestCaseDataModel>();
         }
     }
 }
