@@ -11,9 +11,10 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class RoleViewModel : IdentityRole
+    public class RoleViewModel : ViewModelBase
     {
-        [Required]        
+        public string Name { get; set; }
+        public string Id { get; set; }      
         public int numberOfAccount { get; set; }
     }
 

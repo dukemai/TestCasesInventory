@@ -22,6 +22,9 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/list-user-customjs").Include(
+                    "~/Scripts/list-user-customjs.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/tinymceInit").Include(
                         "~/Scripts/TinyMceInit.js"));
 

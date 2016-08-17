@@ -266,9 +266,5 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 
-        private void SetViewBagToSort(string sortBy)
-        {
-            ViewBag.SortByTitle = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-        }
     }
 }

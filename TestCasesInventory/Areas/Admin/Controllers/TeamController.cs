@@ -4,10 +4,6 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
-using TestCasesInventory.Web.Common;
-using PagedList;
-using PagedList.Mvc;
-using System.Linq;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 
@@ -273,12 +269,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
-        }
-
-        private void SetViewBagToSort(string sortBy)
-        {
-            ViewBag.SortByName = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
-            ViewBag.SortByMembersNumber = sortBy == "MembersNumber asc" ? "MembersNumber desc" : "MembersNumber asc";
         }
 
     }

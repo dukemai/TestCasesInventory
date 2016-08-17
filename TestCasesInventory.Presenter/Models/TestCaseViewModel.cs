@@ -70,12 +70,9 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Precondition { get; set; }
         public string Priority { get; set; }
-        public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
-        public string Created { get; set; }
         public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }
 }
