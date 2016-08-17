@@ -82,7 +82,6 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Users.Find(userID);
         }
 
-
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

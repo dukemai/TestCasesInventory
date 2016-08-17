@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Web;
+using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
-using Microsoft.AspNet.Identity;
-using System.Linq;
-using TestCasesInventory.Common;
-using PagedList;
-using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -46,20 +45,8 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
-            var teamName = teamRepository.GetTeamByID(testSuite.TeamID).Name;
-            var testCasesNumber = testSuiteRepository.ListTestCasesForTestSuite(testSuiteID.Value).Count();
-            return new TestSuiteViewModel
-            {
-                ID = testSuite.ID,
-                Title = testSuite.Title,
-                TeamName = teamName,
-                TestCasesNumber = testCasesNumber,
-                Description = testSuite.Description,
-                Created = testSuite.Created,
-                CreatedDate = testSuite.CreatedDate,
-                LastModified = testSuite.LastModified,
-                LastModifiedDate = testSuite.LastModifiedDate
-            };
+            var testSuiteViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
+            return testSuiteViewModel;
         }
 
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
@@ -69,16 +56,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 throw new Exception("User has not been assigned to any team.");
             }
-            var testSuiteDataModel = new TestSuiteDataModel
-            {
-                Title = testSuite.Title,
-                TeamID = teamID.Value,
-                Description = testSuite.Description,
-                Created = testSuite.Created,
-                CreatedDate = testSuite.CreatedDate,
-                LastModified = testSuite.LastModified,
-                LastModifiedDate = testSuite.LastModifiedDate
-            };
+            var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
             testSuiteRepository.InsertTestSuite(testSuiteDataModel);
             testSuiteRepository.Save();
         }
@@ -92,10 +70,7 @@ namespace TestCasesInventory.Presenter.Business
             }
             else
             {
-                testSuiteDataModel.Title = testSuite.Title;
-                testSuiteDataModel.Description = testSuite.Description;
-                testSuiteDataModel.LastModified = testSuite.LastModified;
-                testSuiteDataModel.LastModifiedDate = testSuite.LastModifiedDate;
+                testSuiteDataModel = testSuite.MapTo<EditTestSuiteViewModel, TestSuiteDataModel>(testSuiteDataModel);
                 testSuiteRepository.UpdateTestSuite(testSuiteDataModel);
                 testSuiteRepository.Save();
             }
@@ -126,7 +101,7 @@ namespace TestCasesInventory.Presenter.Business
             var user = UserManager.FindById(userId);
             var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
             var list = testSuiteRepository.GetTestSuites(options, user.TeamID, getAll);
-            var mappedList = Mapper.Map<IPagedList<TestSuiteViewModel>>(list);
+            var mappedList = list.MapTo<IPagedList<TestSuiteDataModel>, IPagedList<TestSuiteViewModel>>();
             return mappedList;
         }
     }

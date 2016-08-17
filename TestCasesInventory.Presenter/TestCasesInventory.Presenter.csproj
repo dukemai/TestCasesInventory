@@ -128,6 +128,7 @@
     <Compile Include="Business\FileControlPresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Mappings\PagedListConverter.cs" />
+    <Compile Include="Mappings\RoleMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
     <Compile Include="Mappings\TestSuiteMappingProfile.cs" />

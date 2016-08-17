@@ -212,6 +212,9 @@
     <Content Include="Areas\Admin\Views\TestCase\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\ListMembersInTeamPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminDetailLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminEditLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminListingLayout.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -225,6 +228,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\list-user-customjs.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -299,6 +303,9 @@
     <Content Include="Views\Shared\_UnprivilegedPartial.cshtml" />
     <Content Include="Views\Shared\Filter\_FilterPartialView.cshtml" />
     <Content Include="Views\Shared\Filter\_FilterOptionPartialView.cshtml" />
+    <Content Include="Views\Shared\_DetailLayout.cshtml" />
+    <Content Include="Views\Shared\_EditLayout.cshtml" />
+    <Content Include="Views\Shared\_ListingLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

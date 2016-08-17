@@ -18,10 +18,13 @@ namespace TestCasesInventory.Data.Repositories
 
         IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID);
         IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID);
+
+
         void AssignUsersToTeam(IList<ApplicationUser> users, int teamID);
         void RemoveUsersFromTeam(IList<ApplicationUser> users);
 
         ApplicationUser FindUserByID(string userID);
+
         IPagedList<TeamDataModel> GetTeams(FilterOptions options);
 
     }
