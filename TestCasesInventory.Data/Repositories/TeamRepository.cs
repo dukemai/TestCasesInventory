@@ -57,14 +57,105 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name.StartsWith(teamName)).ToList();
         }
 
-        public IEnumerable<ApplicationUser> ListUsersNotBelongTeam(int teamID)
+        public IPagedList<ApplicationUser> ListUsersNotBelongTeam(int teamID, FilterOptions options)
         {
-            return dataContext.Users.Where(u => u.TeamID != teamID).ToList();
+            IQueryable<ApplicationUser> query = dataContext.Users.Where(t => t.TeamID != teamID);
+
+            if (options == null)
+            {
+                return query.ToCustomPagedList<ApplicationUser>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "name":
+                            query = query.Where(t => t.DisplayName.Contains(options.Keyword));
+                            break;
+                        case "mail":
+                            query = query.Where(t => t.Email.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "name":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.DisplayName) : query.OrderByDescending(t => t.DisplayName);
+                        break;
+                    default:
+                        query = query.OrderBy(t => t.Id);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
+            }
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
 
-        public IEnumerable<ApplicationUser> ListUsersBelongTeam(int teamID)
+        public int NumberMemberInTeam(int teamID)
         {
-            return dataContext.Users.Where(u => u.TeamID == teamID).ToList();
+            return dataContext.Users.Where(user => user.TeamID == teamID).Count();
+        }
+
+        public IPagedList<ApplicationUser> ListUsersBelongTeam(int teamID, FilterOptions options)
+        {
+            IQueryable<ApplicationUser> query = dataContext.Users.Where(t => t.TeamID == teamID);
+
+            if (options == null)
+            {
+                return query.ToCustomPagedList<ApplicationUser>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "name":
+                            query = query.Where(t => t.DisplayName.Contains(options.Keyword));
+                            break;
+                        case "mail":
+                            query = query.Where(t => t.Email.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "name":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.DisplayName) : query.OrderByDescending(t => t.DisplayName);
+                        break;
+                    default:
+                        query = query.OrderBy(t => t.Id);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
+            }
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
 
         public void AssignUsersToTeam(IList<ApplicationUser> users, int teamID)

@@ -1,6 +1,11 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model  List<UsersNotBelongTeamViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 
+@model  IPagedList<UsersNotBelongTeamViewModel>
+
+@Html.Action("FilterForAddUserToTeam", "Filter", new { area = "" })
 <form action="~/Admin/Team/AddUsersToTeam/@ViewBag.TeamID" method="post">
     <table class="table">
         <tr>
@@ -24,5 +29,6 @@
             </tr>
         }
     </table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
     <input type="submit" value="Add to Team" name="buttonSubmitIn" class="btn btn-default" />
 </form>

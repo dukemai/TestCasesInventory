@@ -169,13 +169,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/Team/AddUsersToTeam/5
-        public ActionResult AddUsersToTeam(int? id)
+        public ActionResult AddUsersToTeam(int? id, FilterOptions options)
         {
             try
             {
                 ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
-                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id);
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id, options);
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)
@@ -205,13 +205,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/Team/RemoveUsersFromTeam/5
-        public ActionResult RemoveUsersFromTeam(int? id)
+        public ActionResult RemoveUsersFromTeam(int? id, FilterOptions options)
         {
             try
             {
                 ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
-                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id);
+                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id, options);
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
             }
             catch (TeamNotFoundException e)
@@ -240,12 +240,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListMembersInTeam(int? teamID)
+        public ActionResult ListMembersInTeam(int? teamID, FilterOptions options)
         {
             try
             {
                 var team = TeamPresenterObject.GetTeamById(teamID);
-                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID);
+                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID, options);
                 return PartialView("ListMembersInTeamPartial", listMembersInTeam);
             }
             catch (TeamNotFoundException e)

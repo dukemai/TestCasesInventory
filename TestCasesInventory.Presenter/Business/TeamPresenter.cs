@@ -83,53 +83,28 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
+        public IPagedList<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID, FilterOptions options)
         {
             if (!teamID.HasValue)
             {
                 throw new Exception("Id was not valid.");
             }
-            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
-            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
-            foreach (var user in usersNotBelongTeam)
-            {
-                string nameOfTeamManageUser = null;
-                if (user.TeamID.HasValue)
-                {
-                    nameOfTeamManageUser = teamRepository.GetTeamByID(user.TeamID.Value).Name;
-                }
-                var usersNotBelongTeamView = new UsersNotBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName,
-                    TeamName = nameOfTeamManageUser
-                };
-                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
-            }
-            return listUsersNotBelongTeamView;
+
+            var list = teamRepository.ListUsersNotBelongTeam(teamID.Value, options);
+            var mappedList = Mapper.Map<IPagedList<UsersNotBelongTeamViewModel>>(list);
+            return mappedList;
+
         }
 
-        public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
+        public IPagedList<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID, FilterOptions options)
         {
             if (!teamID.HasValue)
             {
                 throw new Exception("Id was not valid.");
             }
-            var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
-            List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
-            foreach (var user in usersBelongTeam)
-            {
-                var usersBelongTeamView = new UsersBelongTeamViewModel
-                {
-                    ID = user.Id,
-                    TeamID = user.TeamID.Value,
-                    Email = user.Email,
-                    DisplayName = user.DisplayName
-                };
-                listUsersBelongTeamView.Add(usersBelongTeamView);
-            }
-            return listUsersBelongTeamView;
+            var list = teamRepository.ListUsersBelongTeam(teamID.Value, options);
+            var mappedList = Mapper.Map<IPagedList<UsersBelongTeamViewModel>>(list);
+            return mappedList;
         }
 
         public void AddUsersToTeam(int teamID, string[] usersToAdd)
