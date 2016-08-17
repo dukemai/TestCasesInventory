@@ -91,6 +91,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 {
                     testCase.IsAttachmentUrlExisted = true;
                     testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
+                    testCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id);
                 }
 
                 return View("Details", testCase);
@@ -175,6 +176,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 {
                     updatedTestCase.IsAttachmentUrlExisted = true;
                     updatedTestCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
+                    updatedTestCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id);
+                    updatedTestCase.AttachmentNameList = FileControlPresenterObject.GetFileNameList(updatedTestCase.AttachmentUrlList);
                 }
                 return View("Edit", updatedTestCase);
             }
@@ -256,9 +259,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult DeleteFile(int id)
+        //public ActionResult DeleteFile(int id)
+        public ActionResult DeleteFile(int id, string item)
         {
-            FileControlPresenterObject.DeleteFile(id);
+            FileControlPresenterObject.DeleteFile(item);
             return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 

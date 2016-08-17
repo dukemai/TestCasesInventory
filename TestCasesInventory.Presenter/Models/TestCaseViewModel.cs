@@ -22,6 +22,8 @@ namespace TestCasesInventory.Presenter.Models
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]
 		public string AttachmentUrl { get; set; }
+        public string[] AttachmentUrlList { get; set; }
+        public string[] AttachmentNameList { get; set; }
         public bool IsAttachmentUrlExisted { get; set; }
 		public string PriorityStyleClass
         {

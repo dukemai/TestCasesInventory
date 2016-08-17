@@ -33,11 +33,15 @@ namespace TestCasesInventory.Presenter.Business
             return Path.Combine(attachmentFolder, fileName);
 
         }
-        public void DeleteFile(int id)
+        public string[] GetFileUrlList(int id)
         {
             var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
-            File.Delete(filePath[0]);
+            return Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
+        }
+       
+        public void DeleteFile(string item)
+        {
+            File.Delete(item);
         }
         public bool IsDirectoryEmpty(string path)
         {
@@ -61,5 +65,15 @@ namespace TestCasesInventory.Presenter.Business
                     return false;
             }
         }
+        public string[] GetFileNameList(string[] fileUrlList)
+        {
+            var fileNameList = new string[fileUrlList.Length] ;
+            for (int i = 0; i < fileUrlList.Length; i++)
+            {
+                fileNameList[i] = Path.GetFileName(fileUrlList[i]);
+            }
+            return fileNameList;
+        }
+
     }
 }
