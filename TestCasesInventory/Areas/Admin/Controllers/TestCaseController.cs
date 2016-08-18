@@ -92,6 +92,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testCase.IsAttachmentUrlExisted = true;
                     testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
                     testCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id);
+                    testCase.AttachmentNameList = FileControlPresenterObject.GetFileNameList(testCase.AttachmentUrlList);
                 }
 
                 return View("Details", testCase);
