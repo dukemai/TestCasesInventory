@@ -12,8 +12,8 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTeam(int teamID, EditTeamViewModel team);
         void DeleteTeam(int teamID);
 
-        List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID);
-        List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID);
+        IPagedList<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID, FilterOptions options);
+        IPagedList<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID, FilterOptions options);
         void AddUsersToTeam(int teamID, string[] usersNotBelongTeam);
         void RemoveUsersFromTeam(int teamID, string[] usersBelongTeam);
         IPagedList<TeamViewModel> GetTeams(FilterOptions options);

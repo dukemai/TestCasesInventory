@@ -53,7 +53,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -70,7 +70,7 @@ namespace TestCasesInventory.Presenter.Models
         //RegisterViewModelConfig Config = new RegisterViewModelConfig();
 
         [Required]
-        [EmailAddress]
+        //[EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

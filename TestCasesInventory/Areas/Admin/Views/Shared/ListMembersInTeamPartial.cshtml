@@ -1,6 +1,11 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model  List<UsersBelongTeamViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 
+@model  IPagedList<UsersBelongTeamViewModel>
+
+@Html.Action("FilterForListUserBelongTeam", "Filter", new { area = "" })
 <table class="table table-bordered">
     <tr>
         <th>Email</th>
@@ -22,3 +27,4 @@
         </tr>
     }
 </table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))

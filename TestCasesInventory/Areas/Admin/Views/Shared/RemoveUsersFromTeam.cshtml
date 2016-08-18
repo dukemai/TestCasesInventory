@@ -1,6 +1,11 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model  List<UsersBelongTeamViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 
+@model  IPagedList<UsersBelongTeamViewModel>
+
+@Html.Action("FilterForRemoveUsersFromTeam", "Filter", new { area = "" })
 <form action="~/Admin/Team/RemoveUsersFromTeam/@ViewBag.TeamID" method="post">
     <table class="table">
         <tr>
@@ -20,6 +25,6 @@
             </tr>
         }
     </table>
-
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
     <input type="submit" value="Remove from Team" name="buttonSubmitIn" class="btn btn-default" />
 </form>
