@@ -1,0 +1,30 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
+
+@model  IPagedList<UsersBelongRoleViewModel>
+
+@Html.Action("FilterForListUserBelongRole", "Filter", new { area = "" })
+<table class="table table-bordered">
+    <tr>
+        <th>Email</th>
+        <th>Display Name</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayName)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveAccountsFromRole", "Role", new { RoleID = item.RoleID, userBeRemoved = item.ID }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))

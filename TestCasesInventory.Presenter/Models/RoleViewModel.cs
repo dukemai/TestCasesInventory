@@ -34,6 +34,7 @@ namespace TestCasesInventory.Presenter.Models
     public class UsersBelongRoleViewModel : ViewModelBase
     {
         public string ID { get; set; }
+        public string RoleID { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
     }
@@ -41,6 +42,7 @@ namespace TestCasesInventory.Presenter.Models
     public class UsersNotBelongRoleViewModel : ViewModelBase
     {
         public string ID { get; set; }
+        public string RoleID { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
     }

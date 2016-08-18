@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCasesInventory.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
@@ -25,9 +27,9 @@ namespace TestCasesInventory.Presenter.Business
 
         IdentityResult DeleteRole(string id);
 
-        List<UsersBelongRoleViewModel> ListUsersBelongRole(string roleID);
+        IPagedList<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleId, FilterOptions options);
 
-        List<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleID);
+        IPagedList<UsersBelongRoleViewModel> ListUsersBelongRole(string roleId, FilterOptions options);
 
         void AddUsersToRole(string RoleID, string[] usersToAddRole);
 

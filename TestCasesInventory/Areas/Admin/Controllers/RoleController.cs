@@ -158,9 +158,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var Role = RolePresenter.GetRoleById(id);
-                ViewBag.Name = Role.Name;
-                var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id);
-                return View(listUsersBelongRole);
+                return View(Role);
             }
             catch (RoleNotFoundException e)
             {
@@ -190,13 +188,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/Role/AddUsersToRole/5
-        public ActionResult AddUsersToRole(string id)
+        public ActionResult AddUsersToRole(string id, FilterOptions options)
         {
             try
             {
-                ViewBag.id = id;
+                ViewBag.RoleId = id;
                 var Role = RolePresenter.GetRoleById(id);
-                var listUsersNotBelongRole = RolePresenter.ListUsersNotBelongRole(id);
+                var listUsersNotBelongRole = RolePresenter.ListUsersNotBelongRole(id, options);
                 return View("_AddUsersToRolePartialView", listUsersNotBelongRole);
             }
             catch (RoleNotFoundException e)
@@ -234,13 +232,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/Role/RemoveUsersFromRole/5
-        public ActionResult RemoveUsersFromRole(string id)
+        public ActionResult RemoveUsersFromRole(string id, FilterOptions options)
         {
             try
             {
-                ViewBag.id = id;
+                ViewBag.RoleId = id;
                 var Role = RolePresenter.GetRoleById(id);
-                var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id);
+                var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id, options);
                 return View("_RemoveUsersFromRolePartialView", listUsersBelongRole);
             }
             catch (RoleNotFoundException e)
@@ -273,6 +271,38 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             catch (Exception e)
             {
                 return RedirectToAction("AssignUsersToRole", new { id = id });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ListUsersInRole(string RoleID, FilterOptions options)
+        {
+            try
+            {
+                var Role = RolePresenter.GetRoleById(RoleID);
+                var listUsersInRole = RolePresenter.ListUsersBelongRole(RoleID, options);
+                return PartialView("_ListUsersInRolePartial", listUsersInRole);
+            }
+            catch (RoleNotFoundException e)
+            {
+                return View("RoleNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult RemoveAccountsFromRole(string RoleID, string[] userBeRemoved)
+        {
+            try
+            {
+                RolePresenter.RemoveUsersFromRole(RoleID, userBeRemoved);
+                return RedirectToAction("Details", new { id = RoleID });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
             }
         }
 

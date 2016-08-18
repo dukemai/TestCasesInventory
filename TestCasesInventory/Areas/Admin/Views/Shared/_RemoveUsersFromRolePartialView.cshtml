@@ -1,11 +1,16 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model  List<UsersBelongRoleViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 
-<form action="~/Admin/Role/RemoveUsersFromRole/@ViewBag.id" method="post">
+@model  IPagedList<UsersBelongRoleViewModel>
+
+@Html.Action("FilterForRemoveUsersFromRole", "Filter", new { area = "" })
+<form action="~/Admin/Role/RemoveUsersFromRole/@ViewBag.RoleID" method="post">
     <table class="table">
         <tr>
             <th>Email</th>
-            <th>Name</th>
+            <th>Display Name</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -20,6 +25,6 @@
             </tr>
         }
     </table>
-
+    @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
     <input type="submit" value="Remove from Role" name="buttonSubmitIn" class="btn btn-default" />
 </form>

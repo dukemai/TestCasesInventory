@@ -171,5 +171,89 @@ namespace TestCasesInventory.Controllers
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
+
+        public ActionResult FilterForListUserBelongRole([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Role", "Role"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Role",
+                Action = "ListMembersInRole",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
+        public ActionResult FilterForAddUserToRole([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Role", "Role"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Role",
+                Action = "AddUsersToRole",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
+        public ActionResult FilterForRemoveUsersFromRole([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Role", "Role"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Role",
+                Action = "RemoveUsersFromRole",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
     }
 }
