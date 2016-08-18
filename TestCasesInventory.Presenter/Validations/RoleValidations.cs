@@ -12,6 +12,8 @@ namespace TestCasesInventory.Presenter.Validations
     public class RoleValidationAttribute : ValidationAttribute
     {
         protected RoleManager<IdentityRole> RoleManager;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(RoleValidationAttribute));
+
 
         public RoleValidationAttribute()
         {
@@ -24,6 +26,7 @@ namespace TestCasesInventory.Presenter.Validations
 
             if(role == null)
             {
+                logger.Error("Expected object is CreateRoleViewModel while its type is " + validationContext.ObjectInstance.GetType());
                 throw new System.Exception("Expected object is CreateRoleViewModel while its type is " + validationContext.ObjectInstance.GetType());
             }
 

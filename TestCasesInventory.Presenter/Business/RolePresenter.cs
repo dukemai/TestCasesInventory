@@ -26,6 +26,8 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected RoleManager<IdentityRole> RoleManager;
         protected ApplicationUserManager UserManager;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TeamPresenter));
+
         #endregion
 
         #region Methods
@@ -66,6 +68,7 @@ namespace TestCasesInventory.Presenter.Business
 
             if (choosenRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             return RoleManager.Delete(choosenRole);
@@ -81,6 +84,7 @@ namespace TestCasesInventory.Presenter.Business
             var currentRole = RoleManager.FindById(id);
             if (currentRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
@@ -94,6 +98,7 @@ namespace TestCasesInventory.Presenter.Business
 
             if (choosenRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
@@ -107,6 +112,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(roleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
@@ -124,6 +130,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(roleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
@@ -142,6 +149,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(RoleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             if (usersToAddRole != null)
@@ -151,6 +159,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = UserManager.FindById(userID);
                     if (user == null)
                     {
+                        logger.Error("Use was not found");
                         throw new UserNotFoundException();
                     }
                     else
@@ -166,6 +175,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(RoleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             if (usersToRemoveRole != null)
@@ -175,6 +185,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = UserManager.FindById(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found");
                         throw new UserNotFoundException();
                     }
                     else

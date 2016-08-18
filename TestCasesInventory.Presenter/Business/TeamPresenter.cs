@@ -4,15 +4,12 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
-using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using TestCasesInventory.Data;
 using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
@@ -22,7 +19,7 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
-
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TeamPresenter));
 
         public TeamPresenter(HttpContextBase context)
         {
@@ -35,11 +32,13 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
             var team = teamRepository.GetTeamByID(teamID.Value);
             if (team == null)
             {
+                logger.Error("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             var teamViewModel = team.MapTo<TeamDataModel, TeamViewModel>();
@@ -58,6 +57,7 @@ namespace TestCasesInventory.Presenter.Business
             var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
+                logger.Debug("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             else
@@ -73,6 +73,7 @@ namespace TestCasesInventory.Presenter.Business
             var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
+                logger.Error("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             else
@@ -87,6 +88,7 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
 
@@ -100,6 +102,7 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
             var list = teamRepository.ListUsersBelongTeam(teamID.Value, options);
@@ -117,6 +120,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found.");
                         throw new UserNotFoundException("User was not found.");
                     }
                     else
@@ -140,6 +144,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found.");
                         throw new UserNotFoundException("User was not found.");
                     }
                     else
