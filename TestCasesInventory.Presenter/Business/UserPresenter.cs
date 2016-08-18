@@ -18,7 +18,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class UserPresenter : IUserPresenter
+    public class UserPresenter : PresenterBase, IUserPresenter
     {
         #region Properties
 
@@ -29,8 +29,6 @@ namespace TestCasesInventory.Presenter.Business
         protected IPrincipal User;
         protected RoleManager<IdentityRole> RoleManager;
         protected ITeamRepository TeamRepository;
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(UserPresenter));
-
 
         #endregion
 

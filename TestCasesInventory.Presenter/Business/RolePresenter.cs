@@ -26,8 +26,6 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected RoleManager<IdentityRole> RoleManager;
         protected ApplicationUserManager UserManager;
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TeamPresenter));
-
         #endregion
 
         #region Methods

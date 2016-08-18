@@ -22,7 +22,6 @@ namespace TestCasesInventory.Presenter.Business
         protected ITeamRepository teamRepository;
         protected ITestCaseRepository testCaseRepository;
         protected RoleManager<IdentityRole> RoleManager;
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TestSuitePresenter));
 
 
         public TestSuitePresenter(HttpContextBase context) : base()

@@ -14,13 +14,12 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class TestCasePresenter : ITestCasePresenter
+    public class TestCasePresenter : PresenterBase, ITestCasePresenter
     {
         protected HttpContextBase HttpContext;
         protected ITestCaseRepository testCaseRepository;
         protected ITestSuiteRepository testSuiteRepository;
         protected ApplicationUserManager UserManager;
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TestCasePresenter));
 
 
         public TestCasePresenter(HttpContextBase context)

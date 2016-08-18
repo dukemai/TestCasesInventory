@@ -19,7 +19,6 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TeamPresenter));
 
         public TeamPresenter(HttpContextBase context)
         {
