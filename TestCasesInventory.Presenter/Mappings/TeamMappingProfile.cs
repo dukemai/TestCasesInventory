@@ -21,7 +21,7 @@ namespace TestCasesInventory.Presenter.Mappings
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TeamDataModel, TeamViewModel>()
-                 .ForMember(dest => dest.MembersNumber, opt => opt.MapFrom(src => teamRepository.ListUsersBelongTeam(src.ID).Count()))
+                 .ForMember(dest => dest.MembersNumber, opt => opt.MapFrom(src => teamRepository.NumberMemberInTeam(src.ID)))
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
             this.CreateMap<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>()
@@ -31,6 +31,5 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<ApplicationUser, UsersBelongTeamViewModel>();
             this.CreateMap<ApplicationUser, UsersNotBelongTeamViewModel>();
         }
-
     }
 }

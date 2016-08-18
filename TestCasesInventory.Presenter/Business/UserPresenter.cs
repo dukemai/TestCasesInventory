@@ -69,7 +69,7 @@ namespace TestCasesInventory.Presenter.Business
         public Task<SignInStatus> PasswordSignInAsync(string email, string passWord, bool rememberMe, bool shouldLockOut)
         {
 
-            return SignInManager.PasswordSignInAsync(email, passWord, rememberMe, shouldLockOut);
+            return SignInManager.PasswordSignInAsync(email.Trim(), passWord, rememberMe, shouldLockOut);
         }
 
         public Task SignInAsync(Data.DataModels.ApplicationUser user, bool isPersistent, bool rememberBrowser)
@@ -84,7 +84,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public Task<IdentityResult> CreateAsync(RegisterViewModel model)
         {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName, LastModifiedDate = model.LastModifiedDate };
+            var user = new ApplicationUser { UserName = model.Email.Trim(), Email = model.Email.Trim(), DisplayName = model.DisplayName.Trim(), LastModifiedDate = model.LastModifiedDate };
 
             return UserManager.CreateAsync(user, model.Password);
         }

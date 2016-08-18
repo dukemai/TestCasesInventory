@@ -10,6 +10,90 @@ namespace TestCasesInventory.Controllers
 {
     public class FilterController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
+        public ActionResult FilterForListUserBelongTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Team",
+                Action = "ListMembersInTeam",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
+        public ActionResult FilterForAddUserToTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Team",
+                Action = "AddUsersToTeam",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
+        public ActionResult FilterForRemoveUsersFromTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Name",
+                DisplayName = "Name",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Name") != null : true
+            });
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Mail",
+                DisplayName = "Email",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Mail") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "Team",
+                Action = "RemoveUsersFromTeam",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
         public ActionResult FilterForTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             var filterFields = new List<FilterOptionViewModel>();
