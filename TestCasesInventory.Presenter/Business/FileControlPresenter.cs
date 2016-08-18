@@ -36,7 +36,14 @@ namespace TestCasesInventory.Presenter.Business
         public string[] GetFileUrlList(int id)
         {
             var attachmentFolder = GetFileFolder(id.ToString());
-            return Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
+            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
+            string[] fileUrlList= new string[filePath.Length];
+            for (int i =0; i < filePath.Length; i++)
+            {
+                fileUrlList[i] = Path.GetFileName(filePath[i]);
+                fileUrlList[i] = Path.Combine(attachmentFolder, fileUrlList[i]);
+            }
+            return fileUrlList;
         }
        
         public void DeleteFile(string item)
