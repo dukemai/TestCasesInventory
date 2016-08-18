@@ -1,11 +1,16 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model  List<UsersNotBelongRoleViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
 
-<form action="~/Admin/Role/AddUsersToRole/@ViewBag.id" method="post">
+@model  IPagedList<UsersNotBelongRoleViewModel>
+
+@Html.Action("FilterForAddUserToRole", "Filter", new { area = "" })
+<form action="~/Admin/Role/AddUsersToRole/@ViewBag.RoleID" method="post">
     <table class="table">
         <tr>
             <th>Email</th>
-            <th>Name</th>
+            <th>Display Name</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -20,6 +25,6 @@
             </tr>
         }
     </table>
-
+    @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
     <input type="submit" value="Add to Role" name="buttonSubmitIn" class="btn btn-default" />
 </form>

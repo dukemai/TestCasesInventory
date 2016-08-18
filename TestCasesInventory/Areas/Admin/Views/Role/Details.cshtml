@@ -1,32 +1,46 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model List<UsersBelongRoleViewModel>
+@model RoleViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminDetailLayout.cshtml";
 }
-
 <h3>Details</h3>
-<h4>Users in Role: @ViewBag.Name</h4>
-<table class="table">
-    <tr>
-        <th>Email</th>
-        <th>Name</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(Model => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(Model => item.DisplayName)
-            </td>
-        </tr>
-    }
-</table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <h4>@Model.Name Role</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            Users
+        </dt>
+        <dd>
+            @Html.ActionLink("Add new user", "AssignUsersToRole", "Role", new { id = Model.Id }, new { @class = "btn btn-default" })
+        </dd>
+        <dd>
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+        </dt>
+        <dd>
+            @Html.Action("ListUsersInRole", "Role", new { RoleID = Model.Id })
+        </dd>
+    </dl>
+
 </div>
-
-
+<br>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

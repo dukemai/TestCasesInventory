@@ -26,6 +26,7 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected RoleManager<IdentityRole> RoleManager;
         protected ApplicationUserManager UserManager;
+        protected UserRoleRepository UserRepository;
         #endregion
 
         #region Methods
@@ -37,6 +38,7 @@ namespace TestCasesInventory.Presenter.Business
             HttpContext = context;
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            UserRepository = new UserRoleRepository();
         }
 
 
@@ -66,6 +68,7 @@ namespace TestCasesInventory.Presenter.Business
 
             if (choosenRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             return RoleManager.Delete(choosenRole);
@@ -81,10 +84,11 @@ namespace TestCasesInventory.Presenter.Business
             var currentRole = RoleManager.FindById(id);
             if (currentRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
-            var choosenRole = Mapper.Map<RoleViewModel>(currentRole);
+            var choosenRole = currentRole.MapTo<IdentityRole, RoleViewModel>();
             return choosenRole;
         }
 
@@ -94,6 +98,7 @@ namespace TestCasesInventory.Presenter.Business
 
             if (choosenRole == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
@@ -102,37 +107,43 @@ namespace TestCasesInventory.Presenter.Business
             return RoleManager.Update(choosenRole);
         }
 
-        public List<UsersNotBelongRoleViewModel> ListUsersNotBelongRole(string roleID)
+        IPagedList<UsersNotBelongRoleViewModel> IRolePresenter.ListUsersNotBelongRole(string roleId, FilterOptions options)
         {
-            var role = RoleManager.FindById(roleID);
+            var role = RoleManager.FindById(roleId);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
-            var ListUserNotInRole = UserManager.Users.Where(user => user.Roles.All(r => r.RoleId != roleID)).ToList();
-            var Result = new List<UsersNotBelongRoleViewModel>();
-            foreach (var user in ListUserNotInRole)
-            {
-                Result.Add(user.MapTo<ApplicationUser, UsersNotBelongRoleViewModel>());
-            }
+            //var ListUserNotInRole = UserManager.Users.Where(user => user.Roles.All(r => r.RoleId != roleId)).ToList();
+            //var Result = new List<UsersNotBelongRoleViewModel>();
+            //foreach (var user in ListUserNotInRole)
+            //{
+            //    Result.Add(user.MapTo<ApplicationUser, UsersNotBelongRoleViewModel>());
+            //}
+
+            var list = UserRepository.ListUsersNotBelongRole(roleId, options);
+            var Result = list.MapTo<IPagedList<ApplicationUser>, IPagedList<UsersNotBelongRoleViewModel>>();
             return Result;
         }
 
-        public List<UsersBelongRoleViewModel> ListUsersBelongRole(string roleID)
+        IPagedList<UsersBelongRoleViewModel> IRolePresenter.ListUsersBelongRole(string roleId, FilterOptions options)
         {
-            var role = RoleManager.FindById(roleID);
+            var role = RoleManager.FindById(roleId);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
 
-            var ListUserInRole = UserManager.Users.Where(user => user.Roles.Any(r => r.RoleId == roleID)).ToList();
-            var Result = new List<UsersBelongRoleViewModel>();
-            foreach (var user in ListUserInRole)
-            {
-                Result.Add(user.MapTo<ApplicationUser, UsersBelongRoleViewModel>());
-            }
+            //var ListUserInRole = UserManager.Users.Where(user => user.Roles.Any(r => r.RoleId == roleId)).ToList();
+            var list = UserRepository.ListUsersBelongRole(roleId, options);
+            var Result = list.MapTo<IPagedList<ApplicationUser>, IPagedList<UsersBelongRoleViewModel>>();
+            //foreach (var user in ListUserInRole)
+            //{
+            //    Result.Add(user.MapTo<ApplicationUser, UsersBelongRoleViewModel>());
+            //}
             return Result;
 
         }
@@ -142,6 +153,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(RoleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             if (usersToAddRole != null)
@@ -151,6 +163,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = UserManager.FindById(userID);
                     if (user == null)
                     {
+                        logger.Error("Use was not found");
                         throw new UserNotFoundException();
                     }
                     else
@@ -166,6 +179,7 @@ namespace TestCasesInventory.Presenter.Business
             var role = RoleManager.FindById(RoleID);
             if (role == null)
             {
+                logger.Error("Role was not found");
                 throw new RoleNotFoundException();
             }
             if (usersToRemoveRole != null)
@@ -175,6 +189,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = UserManager.FindById(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found");
                         throw new UserNotFoundException();
                     }
                     else

@@ -215,6 +215,7 @@
     <Content Include="Areas\Admin\Views\Shared\_AdminDetailLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminEditLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminListingLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ListUsersInRolePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\file-control-custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
