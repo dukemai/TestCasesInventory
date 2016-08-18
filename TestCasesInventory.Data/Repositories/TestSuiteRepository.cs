@@ -114,8 +114,9 @@ namespace TestCasesInventory.Data.Repositories
                     case "title":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
                         break;
+                    case "":
                     default:
-                        query = query.OrderBy(t => t.ID);
+                        query = query.OrderByDescending(d => d.CreatedDate);
                         break;
                 }
             }

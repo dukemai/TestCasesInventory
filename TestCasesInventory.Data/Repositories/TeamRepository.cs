@@ -227,7 +227,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Name) : query.OrderByDescending(t => t.Name);
                         break;
                     default:
-                        query = query.OrderBy(t => t.ID);
+                        query = query.OrderByDescending(d => d.CreatedDate);
                         break;
                 }
             }
