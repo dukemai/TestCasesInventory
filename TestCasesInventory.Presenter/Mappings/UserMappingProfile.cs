@@ -22,6 +22,10 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ConvertUsing<Mappings.PagedListConverter<ApplicationUser, UsersBelongTeamViewModel>>();
             this.CreateMap<IPagedList<ApplicationUser>, IPagedList<UsersNotBelongTeamViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<ApplicationUser, UsersNotBelongTeamViewModel>>();
+            this.CreateMap<IPagedList<ApplicationUser>, IPagedList<UsersBelongRoleViewModel>>()
+                .ConvertUsing<Mappings.PagedListConverter<ApplicationUser, UsersBelongRoleViewModel>>();
+            this.CreateMap<IPagedList<ApplicationUser>, IPagedList<UsersNotBelongRoleViewModel>>()
+                .ConvertUsing<Mappings.PagedListConverter<ApplicationUser, UsersNotBelongRoleViewModel>>();
         }
     }
 }
