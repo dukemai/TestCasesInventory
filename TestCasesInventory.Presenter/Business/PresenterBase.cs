@@ -8,12 +8,8 @@ namespace TestCasesInventory.Presenter.Business
     /// </summary>
     public class PresenterBase
     {
-        #region Properties
+        protected readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-
-        protected ApplicationDbContext DataContext;
-
-        #endregion
 
         #region Methods
 
