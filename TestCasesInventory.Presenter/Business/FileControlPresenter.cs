@@ -10,7 +10,7 @@ using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class FileControlPresenter : IFileControlPresenter
+    public class FileControlPresenter : PresenterBase, IFileControlPresenter
     {
         public void UploadFile(HttpPostedFileBase file, string id)
         {
@@ -48,8 +48,17 @@ namespace TestCasesInventory.Presenter.Business
        
         public void DeleteFile(string item)
         {
-            File.Delete(HttpContext.Current.Server.MapPath(item));
+            try
+            {
+                var path = HttpContext.Current.Server.MapPath(item);
+                File.Delete(path);
+            }
+            catch(Exception e)
+            {
+                logger.Error(e);
+            }
         }
+        
         public bool IsDirectoryEmpty(string path)
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
