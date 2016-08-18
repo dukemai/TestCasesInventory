@@ -65,14 +65,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AttachmentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div style="padding-top:7px">
+                <div class="attachment-list">
                     @if (Model.IsAttachmentUrlExisted)
                     {
                         for (int i = 0; i < Model.AttachmentUrlList.Length; i++)
                         {
-                            <a class="col-md-3" href="@Url.Content(Model.AttachmentUrlList[i])" download>  [@Model.AttachmentNameList[i]] </a>
-                            <a id="deleteItem" class="btn btn-danger deleteItem" data-target="#basic" data-toggle="modal" data-id="@Model.AttachmentUrlList[i]">Delete</a>
-                            <br/><br/>
+                            <div class="attachment-item">
+                                <a class="col-md-3" href="@Url.Content(Model.AttachmentUrlList[i])" download>  [@Model.AttachmentNameList[i]] </a>
+                                <a class="delete-item" data-target="#basic" data-toggle="modal" data-id="@Model.AttachmentUrlList[i]">Delete</a>
+                            </div>
                         }
                     }
                     else
@@ -124,9 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" type="button" class="btn btn-default">Cancel</button>
-
                     <input type="submit" value="Delete" class="btn btn-danger" />
-
                     @Html.Hidden("item")
                 </div>
             </div>

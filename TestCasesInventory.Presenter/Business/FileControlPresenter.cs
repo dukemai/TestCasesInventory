@@ -48,7 +48,7 @@ namespace TestCasesInventory.Presenter.Business
        
         public void DeleteFile(string item)
         {
-            File.Delete(item);
+            File.Delete(HttpContext.Current.Server.MapPath(item));
         }
         public bool IsDirectoryEmpty(string path)
         {
