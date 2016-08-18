@@ -80,6 +80,21 @@ namespace TestCasesInventory.Data.Repositories
                     case "title":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
                         break;
+                    case "priority":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Priority) : query.OrderByDescending(t => t.Priority);
+                        break;
+                    case "createdby":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Created) : query.OrderByDescending(t => t.Created);
+                        break;
+                    case "lastmodifiedby":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModified) : query.OrderByDescending(t => t.LastModified);
+                        break;
+                    case "created":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.CreatedDate) : query.OrderByDescending(t => t.CreatedDate);
+                        break;
+                    case "lastmodified":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModifiedDate) : query.OrderByDescending(t => t.LastModifiedDate);
+                        break;
                     default:
                         query = query.OrderByDescending(d => d.CreatedDate);
                         break;
