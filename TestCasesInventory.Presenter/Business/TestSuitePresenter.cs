@@ -52,6 +52,7 @@ namespace TestCasesInventory.Presenter.Business
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
             var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
+            testSuite.TeamID = teamID.Value; 
             if (!teamID.HasValue)
             {
                 throw new Exception("User has not been assigned to any team.");
