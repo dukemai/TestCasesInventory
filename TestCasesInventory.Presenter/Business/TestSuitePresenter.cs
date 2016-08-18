@@ -22,6 +22,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITeamRepository teamRepository;
         protected ITestCaseRepository testCaseRepository;
         protected RoleManager<IdentityRole> RoleManager;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TestSuitePresenter));
 
 
         public TestSuitePresenter(HttpContextBase context) : base()
@@ -38,11 +39,13 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!testSuiteID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
             var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
             if (testSuite == null)
             {
+                logger.Error("Test Suite was not found.");
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             var testSuiteViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
@@ -54,6 +57,7 @@ namespace TestCasesInventory.Presenter.Business
             var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
             if (!teamID.HasValue)
             {
+                logger.Error("User has not been assigned to any team.");
                 throw new Exception("User has not been assigned to any team.");
             }
             var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
@@ -66,6 +70,7 @@ namespace TestCasesInventory.Presenter.Business
             var testSuiteDataModel = testSuiteRepository.GetTestSuiteByID(testSuiteID);
             if (testSuiteDataModel == null)
             {
+                logger.Error("Test Suite was not found.");
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             else
@@ -81,6 +86,7 @@ namespace TestCasesInventory.Presenter.Business
             var testSuiteDataModel = testSuiteRepository.GetTestSuiteByID(testSuiteID);
             if (testSuiteDataModel == null)
             {
+                logger.Error("Test Suite was not found.");
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             else

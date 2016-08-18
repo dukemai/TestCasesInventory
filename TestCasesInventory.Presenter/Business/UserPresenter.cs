@@ -29,6 +29,7 @@ namespace TestCasesInventory.Presenter.Business
         protected IPrincipal User;
         protected RoleManager<IdentityRole> RoleManager;
         protected ITeamRepository TeamRepository;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(UserPresenter));
 
 
         #endregion
@@ -56,6 +57,7 @@ namespace TestCasesInventory.Presenter.Business
             var user = UserManager.FindById(userId);
             if (user == null)
             {
+                logger.Error("User was not found");
                 throw new UserNotFoundException();
             }
             return UserManager.ChangePasswordAsync(userId, currentPassword, newPassword);
@@ -131,6 +133,7 @@ namespace TestCasesInventory.Presenter.Business
             var currentUser = UserManager.FindById(UserId);
             if (currentUser == null)
             {
+                logger.Error("User was not found");
                 throw new UserNotFoundException();
             }
             string teamName = null;
@@ -139,6 +142,7 @@ namespace TestCasesInventory.Presenter.Business
                 var team = TeamRepository.GetTeamByID(currentUser.TeamID.Value);
                 if(team == null)
                 {
+                    logger.Error("User was not found");
                     throw new TeamNotFoundException("Team was not found");
                 }
                 teamName = TeamRepository.GetTeamByID(currentUser.TeamID.Value).Name;
@@ -218,6 +222,7 @@ namespace TestCasesInventory.Presenter.Business
             var currentUser = UserManager.FindById(id);
             if (currentUser == null)
             {
+                logger.Error("User was not found");
                 throw new UserNotFoundException();
             }
             var viewModel = new IndexViewModel { Email = currentUser.Email.Trim(), LastModifiedDate = currentUser.LastModifiedDate };
@@ -230,6 +235,7 @@ namespace TestCasesInventory.Presenter.Business
             var currentUser = UserManager.FindById(UserId);
             if (currentUser == null)
             {
+                logger.Error("User was not found");
                 throw new UserNotFoundException();
             }
             currentUser.DisplayName = NewDisplayName;
@@ -243,6 +249,7 @@ namespace TestCasesInventory.Presenter.Business
             var currentUser = UserManager.FindById(UserId);
             if (currentUser == null)
             {
+                logger.Error("User was not found");
                 throw new UserNotFoundException();
             }
             currentUser.LastModifiedDate = NewLastModifiedDate;

@@ -20,6 +20,8 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestCaseRepository testCaseRepository;
         protected ITestSuiteRepository testSuiteRepository;
         protected ApplicationUserManager UserManager;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TestCasePresenter));
+
 
         public TestCasePresenter(HttpContextBase context)
         {
@@ -33,16 +35,19 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!id.HasValue)
             {
+                logger.Error("TestCase Id was not valid.");
                 throw new Exception("TestCase Id was not valid.");
             }
             var testCase = testCaseRepository.GetTestCaseByID(id.Value);
             if (testCase == null)
             {
+                logger.Error("TestCase was not found.");
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
             var testSuite = testSuiteRepository.GetTestSuiteByID(testCase.TestSuiteID);
             if (testSuite == null)
             {
+                logger.Error("Test Suite was not found.");
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             var testCaseViewModel = testCase.MapTo<TestCaseDataModel, TestCaseViewModel>();
@@ -63,6 +68,7 @@ namespace TestCasesInventory.Presenter.Business
             var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
             if (testCaseDataModel == null)
             {
+                logger.Error("TestCase was not found.");
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
             else
@@ -78,6 +84,7 @@ namespace TestCasesInventory.Presenter.Business
             var testCaseDataModel = testCaseRepository.GetTestCaseByID(id);
             if (testCaseDataModel == null)
             {
+                logger.Error("TestCase was not found.");
                 throw new TestCaseNotFoundException("TestCase was not found.");
             }
             else
