@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -118,6 +118,7 @@
     <Compile Include="Business\IRolePresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
     <Compile Include="Business\ITestCasePresenter.cs" />
+    <Compile Include="Business\ITestCasesInTestRunPresenter.cs" />
     <Compile Include="Business\ITestSuitePresenter.cs" />
     <Compile Include="Business\IUpdateLastModifiedDatePresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
@@ -127,12 +128,15 @@
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\TestCasePresenter.cs" />
+    <Compile Include="Business\TestCasesInTestRunPresenter.cs" />
     <Compile Include="Business\TestSuitePresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Mappings\PagedListConverter.cs" />
     <Compile Include="Mappings\RoleMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
+    <Compile Include="Mappings\TestCasesInTestRunMappingProfile.cs" />
+    <Compile Include="Mappings\TestRunMappingProfile.cs" />
     <Compile Include="Mappings\TestSuiteMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
+    <Compile Include="Models\TestCasesInTestRunViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
