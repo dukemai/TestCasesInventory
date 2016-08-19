@@ -27,7 +27,8 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTestSuiteTitle, ErrorMessage = ValidationMessages.ErrorMessageForTestSuiteTitleProperty)]
         public string Title { get; set; }
-        public int TeamID { get; set; }
+        public int? TeamID { get; set; }
+        public string TeamName { get; set; }
         [AllowHtml]
         public string Description { get; set; }
         public string Created { get; set; }
@@ -45,6 +46,12 @@ namespace TestCasesInventory.Presenter.Models
         public string Description { get; set; }
         public string LastModified { get; set; }
         public DateTime LastModifiedDate { get; set; }
+    }
+
+    public class ChooseTeamForTestSuiteViewModel : ViewModelBase
+    {
+        public string TeamName;
+        public int TeamID;
     }
 
 }

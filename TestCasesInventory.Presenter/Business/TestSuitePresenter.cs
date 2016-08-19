@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
+using System.Linq;
 using System.Web;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
@@ -53,13 +54,23 @@ namespace TestCasesInventory.Presenter.Business
 
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
-            var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
-            if (!teamID.HasValue)
+            var user = UserManager.FindByEmail(testSuite.Created);
+            if (UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole))
+            {
+                testSuite.TeamID = teamRepository.GetExistedTeamByName(testSuite.TeamName).First().ID;
+            }
+            else
+            {
+                testSuite.TeamID = user.TeamID;
+            }
+
+            if (!testSuite.TeamID.HasValue)
             {
                 logger.Error("User has not been assigned to any team.");
                 throw new Exception("User has not been assigned to any team.");
             }
             var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
+            
             testSuiteRepository.InsertTestSuite(testSuiteDataModel);
             testSuiteRepository.Save();
         }

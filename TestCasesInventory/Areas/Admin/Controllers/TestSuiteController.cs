@@ -9,7 +9,8 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
-
+using System.Collections.Generic;
+using TestCasesInventory.Data.Repositories;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -21,6 +22,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         private IUserPresenter userPresenter;
         private ITestSuitePresenter testSuitePresenterObject;
         private IRolePresenter rolePresenter;
+        private ITeamPresenter teamPresenter;
+
+        protected ITeamPresenter TeamPresenter
+        {
+            get
+            {
+                if(teamPresenter == null)
+                {
+                    teamPresenter = new TeamPresenter(HttpContext);
+                }
+                return teamPresenter;
+            }
+        }
         protected ITestSuitePresenter TestSuitePresenterObject
         {
             get
@@ -88,18 +102,60 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // GET: Admin/TestSuite/Create
         public ActionResult Create()
         {
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
+            {
+                var teams = TeamPresenter.ListAllTeam();
+                List<SelectListItem> items = new List<SelectListItem>();
+                foreach (var item in teams)
+                {
+                    items.Add(new SelectListItem { Text = item.Name, Value = item.Name });
+                }
+                ViewBag.ListTeam = items;
+
+                return View("CreateByAdmin");
+            }
+            if (User.IsInRole(PrivilegedUsersConfig.TesterRole) && user.TeamID != null)
+            {
+                return View("CreateByTester");
+            }
             return View();
         }
 
-        // POST: Admin/TestSuite/Create
+
+
+        // POST: Admin/TestSuite/CreateByTester
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title, Description")] TestSuiteViewModel testSuite)
+        public ActionResult CreateByTester([Bind(Include = "Title, Description")] TestSuiteViewModel testSuite)
         {
             if (ModelState.IsValid)
             {
                 var createdTestSuite = new CreateTestSuiteViewModel
                 {
+                    Title = testSuite.Title,
+                    Description = testSuite.Description,
+                    Created = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    LastModified = User.Identity.Name,
+                    LastModifiedDate = DateTime.Now
+                };
+                TestSuitePresenterObject.InsertTestSuite(createdTestSuite);
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        // POST: Admin/TestSuite/CreateByAdmin
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateByAdmin([Bind(Include = "Title, Description, TeamName")] TestSuiteViewModel testSuite)
+        {
+            if (ModelState.IsValid)
+            {
+                var createdTestSuite = new CreateTestSuiteViewModel
+                {
+                    TeamName = testSuite.TeamName,
                     Title = testSuite.Title,
                     Description = testSuite.Description,
                     Created = User.Identity.Name,
