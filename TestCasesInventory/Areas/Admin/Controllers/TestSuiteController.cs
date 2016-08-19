@@ -109,7 +109,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 List<SelectListItem> items = new List<SelectListItem>();
                 foreach (var item in teams)
                 {
-                    items.Add(new SelectListItem { Text = item.Name, Value = item.Name });
+                    bool choose = false;
+                    if(user.TeamID == item.ID)
+                    {
+                        choose = true;
+                    }
+                    items.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.Name,
+                        Selected = choose,
+                    });
                 }
                 ViewBag.ListTeam = items;
 
