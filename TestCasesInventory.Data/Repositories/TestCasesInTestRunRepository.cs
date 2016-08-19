@@ -65,22 +65,16 @@ namespace TestCasesInventory.Data.Repositories
                 switch (sortOptions.Field.ToLowerInvariant())
                 {
                     case "testcase":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Title) : query.OrderByDescending(t => t.Created);
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Title) : query.OrderByDescending(t => t.TestCase.Title);
                         break;
-                    case "createdby":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Created) : query.OrderByDescending(t => t.Created);
+                    case "assignedby":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
                         break;
-                    case "lastmodifiedby":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModified) : query.OrderByDescending(t => t.LastModified);
-                        break;
-                    case "created":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.CreatedDate) : query.OrderByDescending(t => t.CreatedDate);
-                        break;
-                    case "lastmodified":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModifiedDate) : query.OrderByDescending(t => t.LastModifiedDate);
+                    case "assignedto":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
                         break;
                     default:
-                        query = query.OrderByDescending(d => d.CreatedDate);
+                        query = query.OrderByDescending(d => d.TestCase.Title);
                         break;
                 }
             }
