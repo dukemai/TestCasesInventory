@@ -1,0 +1,63 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
+
+@model PagedList.IPagedList<TestCasesInTestRunViewModel>
+@{
+    ViewBag.Title = "TestCases in the TestRun Home Page";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminListingLayout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+</p>
+
+@Html.Action("FilterForTestCase", "Filter", new { area = "" })
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
+        </th>
+        
+        <th>
+            <h4>@Html.SortableLink(Request, "TestSuite", "TestSuite")</h4>
+        </th>
+        @*<th>
+            <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
+        </th>*@
+        <th>
+            <h4>Actions</h4>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestCaseTitle)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.TestRunTitle)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.AssignedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedTo)
+            </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
+

@@ -153,6 +153,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestCaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TestCasesInTestRunController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestSuiteController.cs" />
     <Compile Include="Bindings\FilterOptionsBinding.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -220,6 +221,7 @@
     <Content Include="Areas\Admin\Views\Shared\_AdminEditLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminListingLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ListUsersInRolePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\TestCasesInTestRun\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
