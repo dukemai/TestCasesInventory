@@ -30,21 +30,27 @@ namespace TestCasesInventory.Data
         public DbSet<TestCaseDataModel> TestCases { get; set; }
         public DbSet<TestSuiteDataModel> TestSuites { get; set; }
         public DbSet<TestRunDataModel> TestRuns { get; set; }
-        public DbSet<TestCaseInTestRunDataModel> TestCaseInTestRuns { get; set; }
+        public DbSet<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
 
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-         //   base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TestCaseInTestRunDataModel>()
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
                 .HasRequired(c => c.TestRun)
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<TestCaseInTestRunDataModel>()
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
                 .HasRequired(s => s.TestCase)
                 .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
+                .HasRequired(u => u.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(t => t.AssignedTo)
                 .WillCascadeOnDelete(false);
         }
     }

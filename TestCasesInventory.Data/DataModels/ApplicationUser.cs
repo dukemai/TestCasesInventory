@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,5 +23,7 @@ namespace TestCasesInventory.Data.DataModels
         public int? TeamID { get; set; }
         public virtual TeamDataModel Team { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
+
     }
 }

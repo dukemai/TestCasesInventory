@@ -16,14 +16,10 @@ namespace TestCasesInventory.Data.DataModels
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
 
         public int TestSuiteID { get; set; }
         public virtual TestSuiteDataModel TestSuite { get; set; }
-        public virtual ICollection<TestCaseInTestRunDataModel> TestCaseInTestRuns { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
 
     }
 }
