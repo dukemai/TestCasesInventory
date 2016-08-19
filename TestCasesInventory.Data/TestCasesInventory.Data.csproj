@@ -97,6 +97,8 @@
     <Compile Include="DataModels\DataModelBase.cs" />
     <Compile Include="DataModels\TeamDataModel.cs" />
     <Compile Include="DataModels\TestCaseDataModel.cs" />
+    <Compile Include="DataModels\TestCaseInTestRunDataModel.cs" />
+    <Compile Include="DataModels\TestRunDataModel.cs" />
     <Compile Include="DataModels\TestSuiteDataModel.cs" />
     <Compile Include="DataSeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />

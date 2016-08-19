@@ -29,7 +29,23 @@ namespace TestCasesInventory.Data
         public DbSet<TeamDataModel> Teams { get; set; }
         public DbSet<TestCaseDataModel> TestCases { get; set; }
         public DbSet<TestSuiteDataModel> TestSuites { get; set; }
+        public DbSet<TestRunDataModel> TestRuns { get; set; }
+        public DbSet<TestCaseInTestRunDataModel> TestCaseInTestRuns { get; set; }
 
         #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+         //   base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TestCaseInTestRunDataModel>()
+                .HasRequired(c => c.TestRun)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCaseInTestRunDataModel>()
+                .HasRequired(s => s.TestCase)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+        }
     }
 }
