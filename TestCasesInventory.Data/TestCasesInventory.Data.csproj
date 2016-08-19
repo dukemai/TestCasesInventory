@@ -107,13 +107,13 @@
     <Compile Include="Repositories\ApplicationSignInManager.cs" />
     <Compile Include="Repositories\ApplicationUserManager.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
-    <Compile Include="Repositories\ITestCaseInTestRunRepository.cs" />
+    <Compile Include="Repositories\ITestCasesInTestRunRepository.cs" />
     <Compile Include="Repositories\ITestCaseRepository.cs" />
     <Compile Include="Repositories\ITestSuiteRepository.cs" />
     <Compile Include="Repositories\IUserRoleRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
-    <Compile Include="Repositories\TestCaseInTestRunRepository.cs" />
+    <Compile Include="Repositories\TestCasesInTestRunRepository.cs" />
     <Compile Include="Repositories\TestCaseRepository.cs" />
     <Compile Include="Repositories\TestSuiteRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
