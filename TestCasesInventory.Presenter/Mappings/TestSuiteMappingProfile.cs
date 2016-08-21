@@ -13,10 +13,13 @@ namespace TestCasesInventory.Presenter.Mappings
     {
         ITestCaseRepository testCaseRepository;
         UserManager<ApplicationUser> UserManager;
+        TeamRepository teamRepository;
 
-        public TestSuiteMappingProfile(string profileName) : base(profileName)
+        public TestSuiteMappingProfile(string profileName)
+            : base(profileName)
         {
             testCaseRepository = new TestCaseRepository();
+
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestSuiteDataModel, TestSuiteViewModel>()
@@ -27,7 +30,10 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ConvertUsing<Mappings.PagedListConverter<TestSuiteDataModel, TestSuiteViewModel>>();
 
             this.CreateMap<CreateTestSuiteViewModel, TestSuiteDataModel>()
-                .ForMember(dest => dest.TeamID, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).TeamID));
+                .ForMember(dest => dest.TeamID, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).TeamID))
+                .ForMember(dest => dest.TeamNameDisplayOnly, opt => opt.MapFrom(src => teamRepository.GetTeamByID(src.TeamID).Name))
+                .ForMember(dest => dest.LastModifiedDisplayOnly, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName))
+                .ForMember(dest => dest.CreateDisplayOnly, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName));
 
             this.CreateMap<EditTestSuiteViewModel, TestSuiteDataModel>();
         }
