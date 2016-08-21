@@ -14,7 +14,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class TestSuitePresenter : PresenterBase, ITestSuitePresenter
+    public class TestSuitePresenter : ObservablePresenterBase<TestSuiteDataModel>, ITestSuitePresenter
     {
         protected HttpContextBase HttpContext;
         protected ITestSuiteRepository testSuiteRepository;
@@ -62,6 +62,7 @@ namespace TestCasesInventory.Presenter.Business
             var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
             testSuiteRepository.InsertTestSuite(testSuiteDataModel);
             testSuiteRepository.Save();
+            FeedObservers(testSuiteDataModel);
         }
 
         public void UpdateTestSuite(int testSuiteID, EditTestSuiteViewModel testSuite)
