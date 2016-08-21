@@ -25,7 +25,7 @@ namespace TestCasesInventory.Presenter.Synchroniser
 
         public void OnNext(TeamDataModel value)
         {
-            BackgroundSynchroniser.Instance.AddNewTask(new BackgroundTask<ApplicationUser> { Action = () => { UpdateTestSuite(value); } });
+            BackgroundSynchroniser.Instance.AddNewTask(new BackgroundTask<TeamDataModel> { Action = () => { UpdateTestSuite(value); } });
         }
 
         protected void UpdateTestSuite(TeamDataModel team)
