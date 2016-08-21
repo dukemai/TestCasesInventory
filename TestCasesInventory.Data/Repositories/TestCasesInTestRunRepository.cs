@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TestCasesInventory.Common;
@@ -11,18 +12,23 @@ namespace TestCasesInventory.Data.Repositories
     {
         public TestCasesInTestRunRepository() : base() { }
 
+        public IEnumerable<TestCasesInTestRunDataModel> ListAll(int testRunID)
+        {
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
+        }
+
         public TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID)
         {
-            return dataContext.TestCaseInTestRuns.Find(testCaseInTestRunID);
+            return dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
         }
         public void InsertTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
         {
-            dataContext.TestCaseInTestRuns.Add(testCaseInTestRun);
+            dataContext.TestCasesInTestRuns.Add(testCaseInTestRun);
         }
         public void DeleteTestCaseInTestRun(int testCaseInTestRunID)
         {
-            var TestCaseInTestRunDataModel = dataContext.TestCaseInTestRuns.Find(testCaseInTestRunID);
-            dataContext.TestCaseInTestRuns.Remove(TestCaseInTestRunDataModel);
+            var TestCaseInTestRunDataModel = dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
+            dataContext.TestCasesInTestRuns.Remove(TestCaseInTestRunDataModel);
         }
         public void UpdateTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
         {
@@ -33,11 +39,14 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-
+        public int TotalTestCasesInTestRun(int testRunID)
+        {
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
+        }
 
         public IPagedList<TestCasesInTestRunDataModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)
         {
-            IQueryable<TestCasesInTestRunDataModel> query = dataContext.TestCaseInTestRuns.Where(t => t.TestRunID == testRunId).Select(t => t);
+            IQueryable<TestCasesInTestRunDataModel> query = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunId).Select(t => t);
 
             if (filterOptions == null)
             {
@@ -59,25 +68,25 @@ namespace TestCasesInventory.Data.Repositories
                 }
             }
 
-            if (filterOptions.SortOptions != null)
-            {
-                var sortOptions = filterOptions.SortOptions;
-                switch (sortOptions.Field.ToLowerInvariant())
-                {
-                    case "testcase":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Title) : query.OrderByDescending(t => t.TestCase.Title);
-                        break;
-                    case "assignedby":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
-                        break;
-                    case "assignedto":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
-                        break;
-                    default:
-                        query = query.OrderByDescending(d => d.TestCase.Title);
-                        break;
-                }
-            }
+            //if (filterOptions.SortOptions != null)
+            //{
+            //    var sortOptions = filterOptions.SortOptions;
+            //    switch (sortOptions.Field.ToLowerInvariant())
+            //    {
+            //        case "testcase":
+            //            query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Title) : query.OrderByDescending(t => t.TestCase.Title);
+            //            break;
+            //        case "assignedby":
+            //            query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
+            //            break;
+            //        case "assignedto":
+            //            query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
+            //            break;
+            //        default:
+            //            query = query.OrderByDescending(d => d.TestCase.Title);
+            //            break;
+            //    }
+            //}
 
             if (filterOptions.PagingOptions != null)
             {
