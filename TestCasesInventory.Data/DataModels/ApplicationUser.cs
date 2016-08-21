@@ -23,7 +23,7 @@ namespace TestCasesInventory.Data.DataModels
         public int? TeamID { get; set; }
         public virtual TeamDataModel Team { get; set; }
         public DateTime LastModifiedDate { get; set; }
-        public virtual ICollection<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
 
     }
 }

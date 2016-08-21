@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace TestCasesInventory.Data.DataModels
@@ -10,7 +12,8 @@ namespace TestCasesInventory.Data.DataModels
         [AllowHtml]
         public string Description { get; set; }
         public int TeamID { get; set; }
+        [ForeignKey("TeamID")]
         public virtual TeamDataModel Team { get; set; }
-        public virtual ICollection<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
     }
 }

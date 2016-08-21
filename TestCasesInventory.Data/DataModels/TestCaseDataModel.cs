@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace TestCasesInventory.Data.DataModels
@@ -16,10 +17,10 @@ namespace TestCasesInventory.Data.DataModels
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
-
         public int TestSuiteID { get; set; }
+        [ForeignKey("TestSuiteID")]
         public virtual TestSuiteDataModel TestSuite { get; set; }
-        public virtual ICollection<TestCasesInTestRunDataModel> TestCaseInTestRuns { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
 
     }
 }
