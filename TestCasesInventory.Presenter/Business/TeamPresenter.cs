@@ -4,15 +4,12 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Data.Common;
-using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using TestCasesInventory.Data;
 using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Business
@@ -22,7 +19,6 @@ namespace TestCasesInventory.Presenter.Business
         protected HttpContextBase HttpContext;
         protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
-
 
         public TeamPresenter(HttpContextBase context)
         {
@@ -35,11 +31,13 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
             var team = teamRepository.GetTeamByID(teamID.Value);
             if (team == null)
             {
+                logger.Error("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             var teamViewModel = team.MapTo<TeamDataModel, TeamViewModel>();
@@ -58,6 +56,7 @@ namespace TestCasesInventory.Presenter.Business
             var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
+                logger.Debug("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             else
@@ -73,6 +72,7 @@ namespace TestCasesInventory.Presenter.Business
             var teamDataModel = teamRepository.GetTeamByID(teamID);
             if (teamDataModel == null)
             {
+                logger.Error("Team was not found.");
                 throw new TeamNotFoundException("Team was not found.");
             }
             else
@@ -83,36 +83,30 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public List<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID)
+        public IPagedList<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID, FilterOptions options)
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
-            var usersNotBelongTeam = teamRepository.ListUsersNotBelongTeam(teamID.Value);
-            List<UsersNotBelongTeamViewModel> listUsersNotBelongTeamView = new List<UsersNotBelongTeamViewModel>();
-            foreach (var user in usersNotBelongTeam)
-            {
-                var usersNotBelongTeamView = user.MapTo<ApplicationUser, UsersNotBelongTeamViewModel>();
-                listUsersNotBelongTeamView.Add(usersNotBelongTeamView);
-            }
-            return listUsersNotBelongTeamView;
+
+            var list = teamRepository.ListUsersNotBelongTeam(teamID.Value, options);
+            var mappedList = Mapper.Map<IPagedList<UsersNotBelongTeamViewModel>>(list);
+            return mappedList;
+
         }
 
-        public List<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID)
+        public IPagedList<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID, FilterOptions options)
         {
             if (!teamID.HasValue)
             {
+                logger.Error("Id was not valid.");
                 throw new Exception("Id was not valid.");
             }
-            var usersBelongTeam = teamRepository.ListUsersBelongTeam(teamID.Value);
-            List<UsersBelongTeamViewModel> listUsersBelongTeamView = new List<UsersBelongTeamViewModel>();
-            foreach (var user in usersBelongTeam)
-            {
-                var usersBelongTeamView = user.MapTo<ApplicationUser, UsersBelongTeamViewModel>();
-                listUsersBelongTeamView.Add(usersBelongTeamView);
-            }
-            return listUsersBelongTeamView;
+            var list = teamRepository.ListUsersBelongTeam(teamID.Value, options);
+            var mappedList = Mapper.Map<IPagedList<UsersBelongTeamViewModel>>(list);
+            return mappedList;
         }
 
         public void AddUsersToTeam(int teamID, string[] usersToAdd)
@@ -125,6 +119,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found.");
                         throw new UserNotFoundException("User was not found.");
                     }
                     else
@@ -148,6 +143,7 @@ namespace TestCasesInventory.Presenter.Business
                     var user = teamRepository.FindUserByID(userID);
                     if (user == null)
                     {
+                        logger.Error("User was not found.");
                         throw new UserNotFoundException("User was not found.");
                     }
                     else

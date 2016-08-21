@@ -11,6 +11,8 @@ namespace TestCasesInventory.Presenter.Validations
         #region Fields
 
         private ITeamRepository teamRepository;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(TeamUniqueValidationAttribute));
+
 
         #endregion
 
@@ -24,6 +26,7 @@ namespace TestCasesInventory.Presenter.Validations
             TeamViewModel team = validationContext.ObjectInstance as TeamViewModel;
             if (team == null)
             {
+                logger.Error("Expected object is TeamViewmodel while its type is " + validationContext.ObjectInstance.GetType());
                 throw new System.Exception("Expected object is TeamViewmodel while its type is " + validationContext.ObjectInstance.GetType());
             }
 
@@ -38,6 +41,7 @@ namespace TestCasesInventory.Presenter.Validations
             //teamID != 0 --> we are editing a team
             if (existedTeamModelById == null && team.ID != 0)
             {
+                logger.Error("Team was not found");
                 throw new TeamNotFoundException();
             }
 

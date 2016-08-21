@@ -16,6 +16,7 @@ namespace TestCasesInventory.Presenter
                 cfg.AddProfile(new TestCaseMappingProfile("TestCaseMapping"));
                 cfg.AddProfile(new TeamMappingProfile("TeamMapping"));
                 cfg.AddProfile(new RoleMappingProfile("RoleMapping"));
+                cfg.AddProfile(new UserMappingProfile("UserMapping"));
             });
         }
     }

@@ -1,8 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.IO;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using TestCasesInventory.Data;
-using TestCasesInventory.Data.Migrations;
 
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
@@ -20,6 +19,8 @@ namespace TestCasesInventory
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
             StartUp.Start();
+            log4net.Config.XmlConfigurator.Configure();
+
         }
     }
 }

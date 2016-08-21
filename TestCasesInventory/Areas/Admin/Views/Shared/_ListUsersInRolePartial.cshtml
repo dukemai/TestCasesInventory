@@ -3,14 +3,14 @@
 @using PagedList.Mvc;
 @using TestCasesInventory.Web.Common.Utils;
 
-@model  IPagedList<UsersBelongTeamViewModel>
+@model  IPagedList<UsersBelongRoleViewModel>
 
-@Html.Action("FilterForListUserBelongTeam", "Filter", new { area = "" })
+@Html.Action("FilterForListUserBelongRole", "Filter", new { area = "" })
 <table class="table table-bordered">
     <tr>
         <th>Email</th>
         <th>Display Name</th>
-        <th></th>
+        <th>Action</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -22,7 +22,7 @@
                 @Html.DisplayFor(modelItem => item.DisplayName)
             </td>
             <td>
-                @Html.ActionLink("Remove", "RemoveMembersFromTeam", "Team", new { teamID = item.TeamID, memberBeRemoved = item.ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Remove", "RemoveAccountsFromRole", "Role", new { RoleID = item.RoleID, userBeRemoved = item.ID }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }
