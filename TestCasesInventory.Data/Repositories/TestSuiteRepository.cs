@@ -117,6 +117,9 @@ namespace TestCasesInventory.Data.Repositories
                     case "team":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Team.Name) : query.OrderByDescending(t => t.Team.Name);
                         break;
+                    case "numbertestcases":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCases.Count) : query.OrderByDescending(t => t.TestCases.Count);
+                        break;
                     case "createdby":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Created) : query.OrderByDescending(t => t.Created);
                         break;
