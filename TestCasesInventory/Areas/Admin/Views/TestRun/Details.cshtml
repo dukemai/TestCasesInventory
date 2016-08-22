@@ -1,0 +1,99 @@
+﻿@using TestCasesInventory.Presenter.Models 
+@model TestRunViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDetailLayout.cshtml";
+}
+<h3>Details</h3>
+
+<div>
+    <h4>TestSuite: @Model.Title</h4>
+    <hr />
+    <div class="information-test-suite-area bg-gray">
+        <dl class="dl-horizontal">
+            <dt>
+                Title
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Description
+            </dt>
+            <dd>
+                @Html.Raw(@Model.Description)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Team
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TeamName)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Number of Test Cases
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestCasesNumber)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Created by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModified)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Created
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModifiedDate)
+            </dd>
+        </dl>
+    </div>
+</div>
+<br>
+@*<div>
+    <div class="test-cases-area bg-gray">
+        <p>
+            <b>TestCases for @Model.Title</b>
+            @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testRunID = Model.ID }, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    @Html.Action("Index", "TestCase", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
+</div>*@
+<br>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -143,6 +143,33 @@ namespace TestCasesInventory.Controllers
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
+        public ActionResult FilterForTestRun([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Title",
+                DisplayName = "Title",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Title") != null : true
+            });
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Team",
+                DisplayName = "Team",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Team") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "TestRun",
+                Action = "Index",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
 
         public ActionResult FilterForTestCase([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
@@ -171,6 +198,7 @@ namespace TestCasesInventory.Controllers
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
+
 
         public ActionResult FilterForListUserBelongRole([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
