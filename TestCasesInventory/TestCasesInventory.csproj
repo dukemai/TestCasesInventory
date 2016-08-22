@@ -229,7 +229,6 @@
     <Content Include="Areas\Admin\Views\TestRun\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\AddTestCasesToTestRun.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -250,7 +249,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\testcasesintestrun.js" />
+    <Content Include="Scripts\test-cases-in-test-run.js" />
     <Content Include="Scripts\tinymceInit.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
