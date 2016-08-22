@@ -15,5 +15,7 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IPagedList<TestSuiteDataModel> GetTestSuites(FilterOptions options, int? teamID, bool getAll);
         IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID);
+        IList<TestSuiteDataModel> GetTestSuitesForTeam(int teamID);
+        IList<TestSuiteDataModel> GetTestSuitesForUser(string userID);
     }
 }

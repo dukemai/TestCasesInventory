@@ -9,13 +9,14 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
+using TestCasesInventory.Presenter.Synchroniser;
 
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
 
-    public class TestSuiteController : Controller
+    public class TestSuiteController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
         #region Properties
         private IUserPresenter userPresenter;
@@ -50,11 +51,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 if (userPresenter == null)
                 {
                     userPresenter = new UserPresenter(HttpContext);
+                    TestSuitePresenterObject.Subscribe(new TestSuiteObserver());
                 }
                 return userPresenter;
             }
         }
         #endregion
+
+        public TestSuiteController()
+        {            
+        }
 
 
         // GET: Admin/TestSuite

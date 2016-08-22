@@ -10,6 +10,7 @@ using TestCasesInventory.Config;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Presenter.Synchroniser;
 using TestCasesInventory.Web.Common.Base;
 using TestCasesInventory.Web.Common.Utils;
 
@@ -37,6 +38,7 @@ namespace TestCasesInventory.Controllers
                 if (userPresenter == null)
                 {
                     userPresenter = new UserPresenter(HttpContext);
+                    userPresenter.Subscribe(new UsersObserver());
                 }
                 return userPresenter;
             }
