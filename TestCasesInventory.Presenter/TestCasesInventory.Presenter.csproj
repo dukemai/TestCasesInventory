@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libaries\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -119,6 +123,7 @@
     <Compile Include="Business\IRolePresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
     <Compile Include="Business\ITestCasePresenter.cs" />
+    <Compile Include="Business\ITestRunPresenter.cs" />
     <Compile Include="Business\ITestSuitePresenter.cs" />
     <Compile Include="Business\IUpdateLastModifiedDatePresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
@@ -128,6 +133,7 @@
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\TestCasePresenter.cs" />
+    <Compile Include="Business\TestRunPresenter.cs" />
     <Compile Include="Business\TestSuitePresenter.cs" />
     <Compile Include="Business\FileControlPresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
@@ -135,6 +141,7 @@
     <Compile Include="Mappings\RoleMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
+    <Compile Include="Mappings\TestRunMappingProfile.cs" />
     <Compile Include="Mappings\TestSuiteMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -144,6 +151,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
+    <Compile Include="Models\TestRunViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
