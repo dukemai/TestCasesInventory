@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using PagedList;
 using System;
 using System.Web.Mvc;
 using TestCasesInventory.Bindings;
@@ -7,10 +7,13 @@ using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
+using TestCasesInventory.Web.Common;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
+    
     public class TestRunController : Controller
     {
         #region Properties
@@ -78,7 +81,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-
         // GET: Admin/TestRun/Create
         public ActionResult Create()
         {
@@ -106,7 +108,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             return View();
         }
-
         // GET: Admin/TestRun/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -115,7 +116,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var updatedTestRun = TestRunPresenterObject.GetTestRunById(id);
                 return View("Edit", updatedTestRun);
             }
-            catch (TestRunNotFoundException e)
+            catch (TestSuiteNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
@@ -146,12 +147,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 }
                 return View();
             }
-            catch (TestRunNotFoundException e)
+            catch (TestSuiteNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
         }
-
         // GET: Admin/TestRun/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -160,7 +160,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var deletedTestRun = TestRunPresenterObject.GetTestRunById(id);
                 return View("Delete", deletedTestRun);
             }
-            catch (TestRunNotFoundException e)
+            catch (TestSuiteNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
@@ -185,23 +185,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
-
-        public ActionResult AddTestCasesToTestRun(int id)
-        {
-            try
-            {
-                var testSuite = TestRunPresenterObject.GetTestRunById(id);
-                return PartialView("AddTestCasesToTestRun", testSuite);
-                //return RedirectToAction("Create", "TestCasesInTestRun", new { testRunID = id });
-            }
-            catch (TestSuiteNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //[HttpGet]
+        //public ActionResult AddTestCase(int id)
+        //{
+        //    try
+        //    {
+        //        var testRun = TestRunPresenterObject.GetTestRunById(id);
+        //        return RedirectToAction("Create", "TestCase", new { testRunID = id });
+        //    }
+        //    catch (TestSuiteNotFoundException e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
     }
 }

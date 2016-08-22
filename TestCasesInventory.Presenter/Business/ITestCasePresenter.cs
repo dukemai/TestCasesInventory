@@ -13,6 +13,5 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTestCase(int id, EditTestCaseViewModel testCase);
         void DeleteTestCase(int id);
         IPagedList<TestCaseViewModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions);
-
     }
 }

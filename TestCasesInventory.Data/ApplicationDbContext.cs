@@ -32,7 +32,8 @@ namespace TestCasesInventory.Data
         public DbSet<TestSuiteDataModel> TestSuites { get; set; }
         public DbSet<TestRunDataModel> TestRuns { get; set; }
         public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
-
+        public DbSet<TestRunDataModel> TestRuns { get; set; }
+        public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

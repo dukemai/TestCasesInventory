@@ -9,10 +9,11 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
 {
-    public class TestRunMappingProfile: Profile
+    public class TestRunMappingProfile : Profile
     {
-        private ITestCasesInTestRunRepository testCasesInTestRunRepository;
-        private UserManager<ApplicationUser> UserManager;
+
+        ITestCasesInTestRunRepository testCasesInTestRunRepository;
+        UserManager<ApplicationUser> UserManager;
 
         public TestRunMappingProfile(string profileName) : base(profileName)
         {
@@ -20,9 +21,10 @@ namespace TestCasesInventory.Presenter.Mappings
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestRunDataModel, TestRunViewModel>()
-                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesInTestRun(src.ID)))
+                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesForTestRun(src.ID)))
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
+
             this.CreateMap<IPagedList<TestRunDataModel>, IPagedList<TestRunViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestRunDataModel, TestRunViewModel>>();
 
@@ -31,5 +33,6 @@ namespace TestCasesInventory.Presenter.Mappings
 
             this.CreateMap<EditTestRunViewModel, TestRunDataModel>();
         }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@using TestCasesInventory.Presenter.Models
+﻿@using TestCasesInventory.Presenter.Models 
 @model TestRunViewModel
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h3>Details</h3>
 
 <div>
-    <h4>TestRun: @Model.Title</h4>
+    <h4>TestSuite: @Model.Title</h4>
     <hr />
     <div class="information-test-suite-area bg-gray">
         <dl class="dl-horizontal">
@@ -83,26 +83,17 @@
     </div>
 </div>
 <br>
-<div>
+@*<div>
     <div class="test-cases-area bg-gray">
         <p>
             <b>TestCases for @Model.Title</b>
-            @Html.ActionLink("Add TestCases", "AddTestCasesToTestRun", new { id = Model.ID }, new { @class = "modal-link btn btn-default" })
+            @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testRunID = Model.ID }, new { @class = "btn btn-default" })
         </p>
     </div>
-    @Html.Action("Index", "TestCasesInTestRun", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
-</div>
+    @Html.Action("Index", "TestCase", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
+</div>*@
 <br>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-@* The place where the dialog will be loaded.*@
-<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content" id="modalContent">
-
-        </div>
-    </div>
-</div>

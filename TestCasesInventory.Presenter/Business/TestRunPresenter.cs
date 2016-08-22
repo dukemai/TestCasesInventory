@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
@@ -13,28 +14,25 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class TestRunPresenter : PresenterBase, ITestRunPresenter
+    public class TestRunPresenter : PresenterBase , ITestRunPresenter
     {
-        #region Properties
         protected HttpContextBase HttpContext;
         protected ITestRunRepository testRunRepository;
         protected ApplicationUserManager UserManager;
         protected ITeamRepository teamRepository;
+        protected ITestCaseRepository testCaseRepository;
         protected ITestCasesInTestRunRepository testCasesInTestRunRepository;
         protected RoleManager<IdentityRole> RoleManager;
-        #endregion
 
-        #region Constructors
         public TestRunPresenter(HttpContextBase context) : base()
         {
             HttpContext = context;
             testRunRepository = new TestRunRepository();
             teamRepository = new TeamRepository();
-            testCasesInTestRunRepository = new TestCasesInTestRunRepository();
+            testCaseRepository = new TestCaseRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
-        #endregion
 
         public TestRunViewModel GetTestRunById(int? testRunID)
         {
@@ -56,6 +54,7 @@ namespace TestCasesInventory.Presenter.Business
         public void InsertTestRun(CreateTestRunViewModel testRun)
         {
             var teamID = UserManager.FindByEmail(testRun.Created).TeamID;
+            testRun.TeamID = teamID.Value;
             if (!teamID.HasValue)
             {
                 logger.Error("User has not been assigned to any team.");
@@ -84,24 +83,25 @@ namespace TestCasesInventory.Presenter.Business
 
         public void DeleteTestRun(int testRunID)
         {
-            var testSuiteDataModel = testRunRepository.GetTestRunByID(testRunID);
-            if (testSuiteDataModel == null)
+            var testRunDataModel = testRunRepository.GetTestRunByID(testRunID);
+            if (testRunDataModel == null)
             {
                 logger.Error("Test Run was not found.");
                 throw new TestRunNotFoundException("Test Run was not found.");
             }
             else
             {
-                var testCasesInTestRun = testCasesInTestRunRepository.ListAll(testRunID);
-                foreach (var item in testCasesInTestRun)
-                {
-                    testCasesInTestRunRepository.DeleteTestCaseInTestRun(item.ID);
-                    testCasesInTestRunRepository.Save();
-                }
+                //var testCasesForTestRun = testCasesInTestRunRepository.ListAll(testRunID);
+                //foreach (var testCase in testCasesForTestRun)
+                //{
+                //    testCaseRepository.DeleteTestCase(testCase.ID);
+                //    testCaseRepository.Save();
+                //}
                 testRunRepository.DeleteTestRun(testRunID);
                 testRunRepository.Save();
             }
         }
+
 
         public IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId)
         {
@@ -113,4 +113,6 @@ namespace TestCasesInventory.Presenter.Business
         }
 
     }
+
+  
 }
