@@ -13,10 +13,13 @@ namespace TestCasesInventory.Presenter.Mappings
     {
         private ITestCaseRepository testCaseRepository;
         private UserManager<ApplicationUser> UserManager;
+        private TeamRepository teamRepository;
 
-        public TestSuiteMappingProfile(string profileName) : base(profileName)
+        public TestSuiteMappingProfile(string profileName)
+            : base(profileName)
         {
             testCaseRepository = new TestCaseRepository();
+
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestSuiteDataModel, TestSuiteViewModel>()

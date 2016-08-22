@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
@@ -6,7 +7,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public interface ITestSuitePresenter : IPresenter<TestSuitePresenter>
+    public interface ITestSuitePresenter : IPresenter<TestSuitePresenter>, IObservable<TestSuiteDataModel>
     {
         TestSuiteViewModel GetTestSuiteById(int? testSuiteID);
         void InsertTestSuite(CreateTestSuiteViewModel testSuite);

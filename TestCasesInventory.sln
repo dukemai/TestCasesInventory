@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory", "TestCasesInventory\TestCasesInventory.csproj", "{DEF75649-F0A3-40FD-B8AB-0348F35B4C6D}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Presenter.Common", "TestCasesInventory.Presenter.Common\TestCasesInventory.Presenter.Common.csproj", "{670DE574-BC7B-4640-B5BB-F68660018CF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Presenter.Config", "TestCasesInventory.Presenter.Config\TestCasesInventory.Presenter.Config.csproj", "{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCasesInventory.Presenter.Synchroniser", "TestCasesInventory.Presenter.Synchroniser\TestCasesInventory.Presenter.Synchroniser.csproj", "{31F8DAEC-14FB-4470-B2FA-C134BD0970F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F8DAEC-14FB-4470-B2FA-C134BD0970F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F8DAEC-14FB-4470-B2FA-C134BD0970F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F8DAEC-14FB-4470-B2FA-C134BD0970F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F8DAEC-14FB-4470-B2FA-C134BD0970F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +105,6 @@ Global
 		{E02F6BF6-E978-41B4-9FE5-1A3F558D4A71} = {916407E3-9528-4A63-909B-43883172F65B}
 		{670DE574-BC7B-4640-B5BB-F68660018CF7} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
 		{62E0B8E6-ECD1-4696-9254-C4CEAE8BAB9B} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
+		{31F8DAEC-14FB-4470-B2FA-C134BD0970F6} = {7664BFCF-6843-40F5-9F7A-0908C56329CC}
 	EndGlobalSection
 EndGlobal

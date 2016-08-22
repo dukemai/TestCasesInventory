@@ -129,6 +129,7 @@
     <Compile Include="Business\IUpdateLastModifiedDatePresenter.cs" />
     <Compile Include="Business\IUserPresenter.cs" />
     <Compile Include="Business\LoginStatusPresenter.cs" />
+    <Compile Include="Business\ObservablePresenterBase.cs" />
     <Compile Include="Business\PresenterBase.cs" />
     <Compile Include="Business\RolePresenter.cs" />
     <Compile Include="Business\TeamPresenter.cs" />
