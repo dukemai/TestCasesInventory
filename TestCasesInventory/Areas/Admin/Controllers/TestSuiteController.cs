@@ -51,6 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 if (userPresenter == null)
                 {
                     userPresenter = new UserPresenter(HttpContext);
+                    TestSuitePresenterObject.Subscribe(new TestSuiteObserver());
                 }
                 return userPresenter;
             }
@@ -58,8 +59,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #endregion
 
         public TestSuiteController()
-        {
-            TestSuitePresenterObject.Subscribe(new TestSuiteObserver());
+        {            
         }
 
 
