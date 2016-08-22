@@ -1,0 +1,86 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using PagedList;
+@using PagedList.Mvc;
+@using TestCasesInventory.Web.Common.Utils;
+
+@model PagedList.IPagedList<TestRunViewModel>
+@{
+    ViewBag.Title = "TestRun Home Page";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminListingLayout.cshtml";
+}
+
+<h3>TestRuns</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+</p>
+
+@Html.Action("FilterForTestRun", "Filter", new { area = "" })
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <h4>
+                @Html.SortableLink(Request, "Title", "Title")
+
+            </h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "Team", "Team")</h4>
+        </th>
+        <th>
+            <h4>Number of Test Cases</h4>
+        </th>
+        <th>
+            <h4>Created By</h4>
+        </th>
+        <th>
+            <h4>Last Modified By</h4>
+        </th>
+        <th>
+            <h4>Created</h4>
+        </th>
+        <th>
+            <h4>Last Modified</h4>
+        </th>
+        <th>
+            <h4>Actions</h4>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestCasesNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
+                @*@Html.ActionLink("Add TestCase", "AddTestCase", new { id = item.ID })*@
+                <a href="#"> Add Test Cases</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
