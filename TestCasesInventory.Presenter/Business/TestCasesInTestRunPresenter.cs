@@ -26,30 +26,30 @@ namespace TestCasesInventory.Presenter.Business
             testCaseRepository = new TestCaseRepository();
         }
 
-        public List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID)
-        {
-            var testRunPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuites = testSuiteRepository.ListAll();
-            foreach(var testSuite in listTestSuites)
-            {
-                var testSuiteInTestRunPopUp = new TestSuiteInTestRunPopUpViewModel();
-                var listTestCases = testCaseRepository.ListAll(testSuite.ID);
-                testSuiteInTestRunPopUp.TestSuite = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
-                foreach(var testCase in listTestCases)
-                {
-                    var testCaseInTestRunPopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestRunPopUpViewModel>();
-                    var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
-                    if(testCaseInTestRun != null)
-                    {
-                        testCaseInTestRunPopUp.isInTestRun = true;
-                        testCaseInTestRunPopUp.TestRunID = testRunID;
-                    }
-                    testSuiteInTestRunPopUp.ListTestCaseInTestRunPopUp.Add(testCaseInTestRunPopUp);
-                }
-                testRunPopUp.Add(testSuiteInTestRunPopUp);
-            }
-            return testRunPopUp;
-        }
+        //public List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID)
+        //{
+        //    var testRunPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
+        //    var listTestSuites = testSuiteRepository.ListAll();
+        //    foreach(var testSuite in listTestSuites)
+        //    {
+        //        var testSuiteInTestRunPopUp = new TestSuiteInTestRunPopUpViewModel();
+        //        var listTestCases = testCaseRepository.ListAll(testSuite.ID);
+        //        testSuiteInTestRunPopUp.TestSuite = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
+        //        foreach(var testCase in listTestCases)
+        //        {
+        //            var testCaseInTestRunPopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestRunPopUpViewModel>();
+        //            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
+        //            if(testCaseInTestRun != null)
+        //            {
+        //                testCaseInTestRunPopUp.isInTestRun = true;
+        //                testCaseInTestRunPopUp.TestRunID = testRunID;
+        //            }
+        //            testSuiteInTestRunPopUp.ListTestCaseInTestRunPopUp.Add(testCaseInTestRunPopUp);
+        //        }
+        //        testRunPopUp.Add(testSuiteInTestRunPopUp);
+        //    }
+        //    return testRunPopUp;
+        //}
 
         public IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)
         {

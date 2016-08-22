@@ -11,7 +11,6 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITestCasesInTestRunPresenter : IPresenter<TestCasesInTestRunViewModel>
     {
-        List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID);
         IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testSuiteId, FilterOptions filterOptions);
 
     }

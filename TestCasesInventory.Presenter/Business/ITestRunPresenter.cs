@@ -14,5 +14,7 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTestRun(int testRunID, EditTestRunViewModel testRun);
         void DeleteTestRun(int testRunID);
         IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId);
+        List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID);
+
     }
 }
