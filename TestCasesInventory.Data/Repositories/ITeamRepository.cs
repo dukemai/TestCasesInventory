@@ -25,6 +25,7 @@ namespace TestCasesInventory.Data.Repositories
         void RemoveUsersFromTeam(IList<ApplicationUser> users);
 
         ApplicationUser FindUserByID(string userID);
+        ApplicationUser FindUserByEmail(string Email);
 
         IPagedList<TeamDataModel> GetTeams(FilterOptions options);
 
