@@ -39,6 +39,12 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
+        public TestCasesInTestRunDataModel GetTestCaseInTestRunByTestCaseID(int testRunID, int testCaseID)
+        {
+            var listTestCasesInTestRun = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Select(t => t);
+            return listTestCasesInTestRun.Where(t => t.TestCaseID == testCaseID).ToList().First();
+        }
+
         public int TotalTestCasesInTestRun(int testRunID)
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
