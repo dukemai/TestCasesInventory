@@ -87,7 +87,7 @@
     <div class="test-cases-area bg-gray">
         <p>
             <b>TestCases for @Model.Title</b>
-            @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testRunID = Model.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Add TestCases", "AddTestCasesToTestRun", new { id = Model.ID }, new { @class = "modal-link btn btn-default" })
         </p>
     </div>
     @Html.Action("Index", "TestCasesInTestRun", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
@@ -97,3 +97,12 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@* The place where the dialog will be loaded.*@
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+
+        </div>
+    </div>
+</div>

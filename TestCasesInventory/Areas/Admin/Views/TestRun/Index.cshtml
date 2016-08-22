@@ -76,11 +76,21 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @Html.ActionLink("Add TestCase", "AddTestCase", new { id = item.ID })
+                @Html.ActionLink("Add TestCase", "AddTestCasesToTestRun", new { id = item.ID }, new { @class = "modal-link" })
             </td>
         </tr>
     }
 
 </table>
+
+
 @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 
+@* The place where the dialog will be loaded.*@
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+
+        </div>
+    </div>
+</div>

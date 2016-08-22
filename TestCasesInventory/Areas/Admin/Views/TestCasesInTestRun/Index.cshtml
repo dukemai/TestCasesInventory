@@ -9,10 +9,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminListingLayout.cshtml";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
-</p>
-
 @Html.Action("FilterForTestCase", "Filter", new { area = "" })
 
 <table class="table table-bordered">
