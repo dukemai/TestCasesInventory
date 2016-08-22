@@ -185,5 +185,23 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        public ActionResult AddTestCasesToTestRun(int id)
+        {
+            try
+            {
+                var testSuite = TestRunPresenterObject.GetTestRunById(id);
+                return PartialView("AddTestCasesToTestRun", testSuite);
+                //return RedirectToAction("Create", "TestCasesInTestRun", new { testRunID = id });
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
     }
 }
