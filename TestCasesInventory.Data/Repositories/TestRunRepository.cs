@@ -3,15 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Config;
 using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
 {
-    public class TestRunRepository: RepositoryBase, ITestRunRepository
+    public class TestRunRepository : RepositoryBase, ITestRunRepository, IDisposable
     {
         public TestRunRepository()
             : base()
@@ -49,7 +47,7 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IEnumerable<TestCasesInTestRunDataModel> ListTestCasesInTestRun(int testRunID)
+        public IEnumerable<TestCasesInTestRunDataModel> ListTestCasesForTestRun(int testRunID)
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
         }
@@ -116,24 +114,7 @@ namespace TestCasesInventory.Data.Repositories
                     case "title":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
                         break;
-                    case "team":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Team.Name) : query.OrderByDescending(t => t.Team.Name);
-                        break;
-                    case "numbertestcases":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCasesInTestRuns.Count) : query.OrderByDescending(t => t.TestCasesInTestRuns.Count);
-                        break;
-                    case "createdby":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Created) : query.OrderByDescending(t => t.Created);
-                        break;
-                    case "lastmodifiedby":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModified) : query.OrderByDescending(t => t.LastModified);
-                        break;
-                    case "created":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.CreatedDate) : query.OrderByDescending(t => t.CreatedDate);
-                        break;
-                    case "lastmodified":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.LastModifiedDate) : query.OrderByDescending(t => t.LastModifiedDate);
-                        break;
+                    case "":
                     default:
                         query = query.OrderByDescending(d => d.CreatedDate);
                         break;

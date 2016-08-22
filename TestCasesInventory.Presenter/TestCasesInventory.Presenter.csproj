@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libaries\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -109,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\IChangePassPresenter.cs" />
+    <Compile Include="Business\IFileControlPresenter.cs" />
     <Compile Include="Business\ILoginPresenter.cs" />
     <Compile Include="Business\ILoginStatusPresenter.cs" />
     <Compile Include="Business\ILogoutPresenter.cs" />
@@ -132,6 +137,7 @@
     <Compile Include="Business\TestCasesInTestRunPresenter.cs" />
     <Compile Include="Business\TestRunPresenter.cs" />
     <Compile Include="Business\TestSuitePresenter.cs" />
+    <Compile Include="Business\FileControlPresenter.cs" />
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Mappings\PagedListConverter.cs" />
     <Compile Include="Mappings\RoleMappingProfile.cs" />

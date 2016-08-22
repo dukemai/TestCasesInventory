@@ -65,8 +65,22 @@
             <dt>
                 Attachment
             </dt>
-            <dd>
-            </dd>
+                @if (Model.IsAttachmentUrlExisted)
+                {
+                    for (int i = 0; i < Model.AttachmentUrlList.Length; i++)
+                    {
+                        <dd>
+                            <a href="@Url.Content(Model.AttachmentUrlList[i])" download> [@Model.AttachmentNameList[i]] </a>
+                        </dd>
+                    }
+                }
+                else
+                {
+                    <dd>
+                        There is no attachment
+                    </dd>
+                }
+
         </dl>
         <dl class="dl-horizontal">
             <dt>

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class TestRunViewModel: ViewModelBase
+    public class TestRunViewModel : ViewModelBase
     {
         public int ID { get; set; }
         [Required]
@@ -24,8 +20,8 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-    }
 
+    }
     public class CreateTestRunViewModel : ViewModelBase
     {
         [Required]
@@ -39,7 +35,6 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }
-
     public class EditTestRunViewModel : ViewModelBase
     {
         [Required]

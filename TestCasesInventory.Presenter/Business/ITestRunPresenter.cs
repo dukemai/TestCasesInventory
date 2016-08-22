@@ -1,10 +1,13 @@
 ﻿using PagedList;
+using System.Collections.Generic;
 using TestCasesInventory.Common;
+using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
+
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public interface ITestRunPresenter:IPresenter<TestRunPresenter>
+    public interface ITestRunPresenter
     {
         TestRunViewModel GetTestRunById(int? testRunID);
         void InsertTestRun(CreateTestRunViewModel testRun);
