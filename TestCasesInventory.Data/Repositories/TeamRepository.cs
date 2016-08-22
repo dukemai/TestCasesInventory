@@ -173,6 +173,11 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Users.Find(userID);
         }
 
+        public ApplicationUser FindUserByEmail(string Email)
+        {
+            return dataContext.Users.Where(u => u.Email == Email).FirstOrDefault();
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

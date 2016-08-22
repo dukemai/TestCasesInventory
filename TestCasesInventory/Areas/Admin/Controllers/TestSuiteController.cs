@@ -29,6 +29,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 if (testSuitePresenterObject == null)
                 {
                     testSuitePresenterObject = new TestSuitePresenter(HttpContext);
+                    testSuitePresenterObject.Subscribe(new TestSuiteObserver());
                 }
                 return testSuitePresenterObject;
             }
@@ -50,8 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (userPresenter == null)
                 {
-                    userPresenter = new UserPresenter(HttpContext);
-                    TestSuitePresenterObject.Subscribe(new TestSuiteObserver());
+                    userPresenter = new UserPresenter(HttpContext);                    
                 }
                 return userPresenter;
             }
