@@ -185,22 +185,23 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
-        //[HttpGet]
-        //public ActionResult AddTestCase(int id)
-        //{
-        //    try
-        //    {
-        //        var testRun = TestRunPresenterObject.GetTestRunById(id);
-        //        return RedirectToAction("Create", "TestCase", new { testRunID = id });
-        //    }
-        //    catch (TestSuiteNotFoundException e)
-        //    {
-        //        return View("ResultNotFoundError");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return View("ResultNotFoundError");
-        //    }
-        //}
+        [HttpGet]
+        public ActionResult AddTestCasesToTestRun(int id)
+        {
+            try
+            {
+                var testSuite = TestRunPresenterObject.GetTestRunById(id);
+                return PartialView("AddTestCasesToTestRun", testSuite);
+                //return RedirectToAction("Create", "TestCasesInTestRun", new { testRunID = id });
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
     }
 }
