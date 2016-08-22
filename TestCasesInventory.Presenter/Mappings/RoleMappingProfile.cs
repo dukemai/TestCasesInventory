@@ -15,8 +15,8 @@ namespace TestCasesInventory.Presenter.Mappings
 {
     class RoleMappingProfile : Profile
     {
-        protected RoleManager<IdentityRole> RoleManager;
-        protected UserManager<ApplicationUser> UserManager;
+        private RoleManager<IdentityRole> RoleManager;
+        private UserManager<ApplicationUser> UserManager;
 
         public RoleMappingProfile(string profileName) : base(profileName)
         {

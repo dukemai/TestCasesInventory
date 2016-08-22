@@ -11,8 +11,8 @@ namespace TestCasesInventory.Presenter.Mappings
 {
     public class TestRunMappingProfile: Profile
     {
-        ITestCasesInTestRunRepository testCasesInTestRunRepository;
-        UserManager<ApplicationUser> UserManager;
+        private ITestCasesInTestRunRepository testCasesInTestRunRepository;
+        private UserManager<ApplicationUser> UserManager;
 
         public TestRunMappingProfile(string profileName) : base(profileName)
         {

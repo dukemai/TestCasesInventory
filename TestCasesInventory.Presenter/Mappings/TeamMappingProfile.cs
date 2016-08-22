@@ -12,8 +12,8 @@ namespace TestCasesInventory.Presenter.Mappings
 {
     class TeamMappingProfile : Profile
     {
-        TeamRepository teamRepository;
-        UserManager<ApplicationUser> UserManager;
+        private TeamRepository teamRepository;
+        private UserManager<ApplicationUser> UserManager;
 
         public TeamMappingProfile(string profileName) : base(profileName)
         {

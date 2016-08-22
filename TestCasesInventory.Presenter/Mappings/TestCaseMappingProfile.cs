@@ -10,7 +10,7 @@ namespace TestCasesInventory.Presenter.Mappings
 {
     public class TestCaseMappingProfile : Profile
     {
-        UserManager<ApplicationUser> UserManager;
+        private UserManager<ApplicationUser> UserManager;
 
         public TestCaseMappingProfile(string profileName) : base(profileName)
         {
