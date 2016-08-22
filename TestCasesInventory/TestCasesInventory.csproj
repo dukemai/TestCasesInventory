@@ -228,6 +228,9 @@
     <Content Include="Areas\Admin\Views\TestRun\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_CreateTestSuiteByTesterPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_CreateTestSuiteByAdminPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SelectTeamInCreateTestSuitePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\file-control-custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

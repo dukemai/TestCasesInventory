@@ -54,15 +54,15 @@ namespace TestCasesInventory.Presenter.Business
 
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
-            var user = UserManager.FindByEmail(testSuite.Created);
-            if (UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole))
-            {
-                testSuite.TeamID = teamRepository.GetExistedTeamByName(testSuite.TeamName).First().ID;
-            }
-            else
-            {
-                testSuite.TeamID = user.TeamID;
-            }
+            //var user = UserManager.FindByEmail(testSuite.Created);
+            //if (UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole))
+            //{
+            //    testSuite.TeamID = testSuite.TeamID;
+            //}
+            //else
+            //{
+            //    testSuite.TeamID = user.TeamID;
+            //}
 
             if (!testSuite.TeamID.HasValue)
             {
