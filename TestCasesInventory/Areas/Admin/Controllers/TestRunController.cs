@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestRunController : Controller
     {
         #region Properties
@@ -190,9 +190,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testSuite = TestRunPresenterObject.GetTestRunById(id);
-                return PartialView("AddTestCasesToTestRun", testSuite);
-                //return RedirectToAction("Create", "TestCasesInTestRun", new { testRunID = id });
+                var testRunPopUp = TestRunPresenterObject.GetTestRunPopUp(id);
+                return PartialView("AddTestCasesToTestRun", testRunPopUp);
             }
             catch (TestSuiteNotFoundException e)
             {
