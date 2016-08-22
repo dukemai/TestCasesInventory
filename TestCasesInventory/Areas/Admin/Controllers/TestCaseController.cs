@@ -87,11 +87,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testCase = TestCasePresenterObject.GetTestCaseById(id);
-                if (FileControlPresenterObject.IsAttachmentExisted(id))
+                var context = ControllerContext.HttpContext;
+                if (FileControlPresenterObject.IsAttachmentExisted(id,context))
                 {
                     testCase.IsAttachmentUrlExisted = true;
-                    testCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
-                    testCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id);
+                    testCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id, context);
                     testCase.AttachmentNameList = FileControlPresenterObject.GetFileNameList(testCase.AttachmentUrlList);
                 }
 
@@ -159,8 +159,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 TestCasePresenterObject.InsertTestCase(createdTestCase);
                 if (!(file == null || file.ContentLength == 0))
                 {
+                    var context = ControllerContext.HttpContext;
                     var testCaseId = createdTestCase.ID.ToString();
-                    FileControlPresenterObject.UploadFile(file, testCaseId);
+                    FileControlPresenterObject.UploadFile(file, testCaseId, context);
                 }
                 return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
             }
@@ -173,11 +174,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var updatedTestCase = TestCasePresenterObject.GetTestCaseById(id);
-                if (FileControlPresenterObject.IsAttachmentExisted(id))
+                var context = ControllerContext.HttpContext;
+                if (FileControlPresenterObject.IsAttachmentExisted(id, context))
                 {
                     updatedTestCase.IsAttachmentUrlExisted = true;
-                    updatedTestCase.AttachmentUrl = FileControlPresenterObject.GetFileUrl(id);
-                    updatedTestCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id);
+                    updatedTestCase.AttachmentUrlList = FileControlPresenterObject.GetFileUrlList(id, context);
                     updatedTestCase.AttachmentNameList = FileControlPresenterObject.GetFileNameList(updatedTestCase.AttachmentUrlList);
                 }
                 return View("Edit", updatedTestCase);
@@ -214,7 +215,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
                     if (!(file == null || file.ContentLength == 0))
                     {
-                        FileControlPresenterObject.UploadFile(file, id.ToString());
+                        var context = ControllerContext.HttpContext;
+                        FileControlPresenterObject.UploadFile(file, id.ToString(), context);
                     }
                     return RedirectToAction("Edit", "TestCase", new { id = id });
                 }
@@ -260,10 +262,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        //public ActionResult DeleteFile(int id)
+        
         public ActionResult DeleteFile(int id, string item)
-        {
-            FileControlPresenterObject.DeleteFile(item);
+        { 
+            var context = ControllerContext.HttpContext;
+            FileControlPresenterObject.DeleteFile(item, context);
             return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 

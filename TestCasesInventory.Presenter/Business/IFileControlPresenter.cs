@@ -10,13 +10,12 @@ namespace TestCasesInventory.Presenter.Business
     public interface IFileControlPresenter 
 
     {
-        void UploadFile(HttpPostedFileBase file, string id);
+        void UploadFile(HttpPostedFileBase file, string id, HttpContextBase context);
         string GetFileFolder(string id);
-        string GetFileUrl(int id);
         bool IsDirectoryEmpty(string path);
-        bool IsAttachmentExisted(int id);
-        string[] GetFileUrlList(int id);
-        void DeleteFile(string item);
+        bool IsAttachmentExisted(int id, HttpContextBase context);
+        string[] GetFileUrlList(int id, HttpContextBase context);
+        void DeleteFile(string item, HttpContextBase context);
         string[] GetFileNameList(string[] fileUrlList);
     }
 }

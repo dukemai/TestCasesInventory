@@ -12,10 +12,10 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class FileControlPresenter : PresenterBase, IFileControlPresenter
     {
-        public void UploadFile(HttpPostedFileBase file, string id)
+        public void UploadFile(HttpPostedFileBase file, string id, HttpContextBase context)
         {
             var filePath = GetFileFolder(id);
-            var serverPath = Path.Combine(HttpContext.Current.Server.MapPath(filePath), Path.GetFileName(file.FileName));
+            var serverPath = Path.Combine(context.Server.MapPath(filePath), Path.GetFileName(file.FileName));
             PathHelper.EnsureDirectories(serverPath);
             file.SaveAs(serverPath);
         }
@@ -25,18 +25,11 @@ namespace TestCasesInventory.Presenter.Business
             var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
             return folderPath;
         }
-        public string GetFileUrl(int id)
+        
+        public string[] GetFileUrlList(int id, HttpContextBase context)
         {
             var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
-            var fileName = Path.GetFileName(filePath[0]);
-            return Path.Combine(attachmentFolder, fileName);
-
-        }
-        public string[] GetFileUrlList(int id)
-        {
-            var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
+            var filePath = Directory.GetFiles(context.Server.MapPath(attachmentFolder));
             string[] fileUrlList= new string[filePath.Length];
             for (int i =0; i < filePath.Length; i++)
             {
@@ -46,11 +39,11 @@ namespace TestCasesInventory.Presenter.Business
             return fileUrlList;
         }
        
-        public void DeleteFile(string item)
+        public void DeleteFile(string item, HttpContextBase context)
         {
             try
             {
-                var path = HttpContext.Current.Server.MapPath(item);
+                var path = context.Server.MapPath(item);
                 File.Delete(path);
             }
             catch(Exception e)
@@ -63,9 +56,9 @@ namespace TestCasesInventory.Presenter.Business
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
         }
-        public bool IsAttachmentExisted(int id)
+        public bool IsAttachmentExisted(int id, HttpContextBase context)
         {
-            var attachmentFolder = HttpContext.Current.Server.MapPath(GetFileFolder(id.ToString()));
+            var attachmentFolder = context.Server.MapPath(GetFileFolder(id.ToString()));
             if (!Directory.Exists(attachmentFolder))
             {
                 return false;
