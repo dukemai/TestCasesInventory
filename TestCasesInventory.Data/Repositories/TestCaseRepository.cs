@@ -49,7 +49,7 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).Count();
         }
-
+        
         public IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions)
         {
             IQueryable<TestCaseDataModel> query = dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteId).Select(t => t);

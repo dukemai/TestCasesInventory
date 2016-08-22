@@ -97,6 +97,8 @@
     <Compile Include="DataModels\DataModelBase.cs" />
     <Compile Include="DataModels\TeamDataModel.cs" />
     <Compile Include="DataModels\TestCaseDataModel.cs" />
+    <Compile Include="DataModels\TestCasesInTestRunDataModel.cs" />
+    <Compile Include="DataModels\TestRunDataModel.cs" />
     <Compile Include="DataModels\TestSuiteDataModel.cs" />
     <Compile Include="DataSeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -106,11 +108,15 @@
     <Compile Include="Repositories\ApplicationUserManager.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
     <Compile Include="Repositories\ITestCaseRepository.cs" />
+    <Compile Include="Repositories\ITestCasesInTestRunRepository.cs" />
+    <Compile Include="Repositories\ITestRunRepository.cs" />
     <Compile Include="Repositories\ITestSuiteRepository.cs" />
     <Compile Include="Repositories\IUserRoleRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Repositories\TestCaseRepository.cs" />
+    <Compile Include="Repositories\TestCasesInTestRunRepository.cs" />
+    <Compile Include="Repositories\TestRunRepository.cs" />
     <Compile Include="Repositories\TestSuiteRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="Startup.cs" />

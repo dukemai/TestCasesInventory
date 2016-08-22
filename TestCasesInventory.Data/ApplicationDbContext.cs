@@ -29,7 +29,8 @@ namespace TestCasesInventory.Data
         public DbSet<TeamDataModel> Teams { get; set; }
         public DbSet<TestCaseDataModel> TestCases { get; set; }
         public DbSet<TestSuiteDataModel> TestSuites { get; set; }
-
+        public DbSet<TestRunDataModel> TestRuns { get; set; }
+        public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
         #endregion
     }
 }

@@ -11,6 +11,9 @@ using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Presenter.Config;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -59,6 +62,7 @@ namespace TestCasesInventory.Presenter.Business
             var testCaseDataModel = testCase.MapTo<CreateTestCaseViewModel, TestCaseDataModel>();
             testCaseRepository.InsertTestCase(testCaseDataModel);
             testCaseRepository.Save();
+            testCase.ID = testCaseDataModel.ID;
         }
 
         public void UpdateTestCase(int id, EditTestCaseViewModel testCase)

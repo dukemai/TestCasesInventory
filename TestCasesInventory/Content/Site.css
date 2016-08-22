@@ -103,3 +103,16 @@ textarea {
 .search-bar {
     padding: 0;
 }
+
+div.attachment-list {
+    padding-top: 7px ;
+   
+}
+
+.attachment-item {
+    display : block;
+
+}
+/*.btn-file input[type=file] {
+    display: none;
+}*/
