@@ -26,29 +26,29 @@ namespace TestCasesInventory.Presenter.Business
             testCaseRepository = new TestCaseRepository();
         }
 
-        public List<TestSuiteStorageViewModel> GetTestSuiteStorages(int testRunID)
+        public List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID)
         {
-            var testSuiteStorages = new List<TestSuiteStorageViewModel>();
+            var testRunPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
             var listTestSuites = testSuiteRepository.ListAll();
             foreach(var testSuite in listTestSuites)
             {
-                var storage = new TestSuiteStorageViewModel();
+                var testSuiteInTestRunPopUp = new TestSuiteInTestRunPopUpViewModel();
                 var listTestCases = testCaseRepository.ListAll(testSuite.ID);
-                storage.TestSuite = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
+                testSuiteInTestRunPopUp.TestSuite = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
                 foreach(var testCase in listTestCases)
                 {
-                    var testCaseInStorage = testCase.MapTo<TestCaseDataModel, TestCaseInStorageViewModel>();
+                    var testCaseInTestRunPopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestRunPopUpViewModel>();
                     var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
                     if(testCaseInTestRun != null)
                     {
-                        testCaseInStorage.isInTestRun = true;
-                        testCaseInStorage.TestRunID = testRunID;
+                        testCaseInTestRunPopUp.isInTestRun = true;
+                        testCaseInTestRunPopUp.TestRunID = testRunID;
                     }
-                    storage.TestCasesInStorage.Add(testCaseInStorage);
+                    testSuiteInTestRunPopUp.ListTestCaseInTestRunPopUp.Add(testCaseInTestRunPopUp);
                 }
-                testSuiteStorages.Add(storage);
+                testRunPopUp.Add(testSuiteInTestRunPopUp);
             }
-            return testSuiteStorages;
+            return testRunPopUp;
         }
 
         public IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)

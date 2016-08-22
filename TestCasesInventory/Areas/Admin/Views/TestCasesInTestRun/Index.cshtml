@@ -6,7 +6,6 @@
 @model PagedList.IPagedList<TestCasesInTestRunViewModel>
 @{
     ViewBag.Title = "TestCases in the TestRun Home Page";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminListingLayout.cshtml";
 }
 
 @Html.Action("FilterForTestCase", "Filter", new { area = "" })

@@ -136,7 +136,7 @@
     <Compile Include="Mappings\PagedListConverter.cs" />
     <Compile Include="Mappings\RoleMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
-    <Compile Include="Mappings\TestCaseInStorageMappingProfile.cs" />
+    <Compile Include="Mappings\TestCaseInTestRunPopUpMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
     <Compile Include="Mappings\TestCasesInTestRunMappingProfile.cs" />
     <Compile Include="Mappings\TestRunMappingProfile.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TestCasesInTestRunViewModel.cs" />
-    <Compile Include="Models\TestSuiteStorageViewModel.cs" />
+    <Compile Include="Models\TestSuiteInTestRunPopUpViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
