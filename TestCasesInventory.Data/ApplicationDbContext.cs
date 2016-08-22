@@ -31,6 +31,8 @@ namespace TestCasesInventory.Data
         public DbSet<TestSuiteDataModel> TestSuites { get; set; }
         public DbSet<TestRunDataModel> TestRuns { get; set; }
         public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
+        public DbSet<TestCaseResultDataModel> TestCaseResults { get; set; }
+        public DbSet<TestRunResultDataModel> TestRunResults { get; set; }
         #endregion
     }
 }
