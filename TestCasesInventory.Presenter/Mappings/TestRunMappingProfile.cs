@@ -21,7 +21,7 @@ namespace TestCasesInventory.Presenter.Mappings
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestRunDataModel, TestRunViewModel>()
-                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesForTestRun(src.ID)))
+                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesInTestRun(src.ID)))
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
 
