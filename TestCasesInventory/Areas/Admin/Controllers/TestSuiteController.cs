@@ -122,14 +122,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
             {
                 model = TestSuitePresenterObject.GetTestSuiteForAdminCreate();
-                return PartialView("_CreateTestSuiteByAdminPartial", model);
+                return PartialView("TestSuite/_CreateTestSuiteByAdminPartial", model);
             }
 
             var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
             if (user.TeamID.HasValue)
             {
                 model = TestSuitePresenterObject.GetTestSuiteForCreate();
-                return PartialView("_CreateTestSuiteByTesterPartial", model);
+                return PartialView("TestSuite/_CreateTestSuiteByTesterPartial", model);
             }
             else
             {
@@ -185,13 +185,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
             {
                 updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForAdminEdit(id.Value);
-                return PartialView("_EditTestSuiteByAdminPartial", updatedTestSuite);
+                return PartialView("TestSuite/_EditTestSuiteByAdminPartial", updatedTestSuite);
             }
             var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
             if (user.TeamID.HasValue)
             {
                 updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForEdit(id.Value);
-                return PartialView("_EditTestSuiteByTesterPartial", updatedTestSuite);
+                return PartialView("TestSuite/_EditTestSuiteByTesterPartial", updatedTestSuite);
             }
             else
             {
