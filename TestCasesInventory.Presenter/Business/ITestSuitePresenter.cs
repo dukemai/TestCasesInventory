@@ -15,7 +15,7 @@ namespace TestCasesInventory.Presenter.Business
         void DeleteTestSuite(int testSuiteID);
         IPagedList<TestSuiteViewModel> GetTestSuites(FilterOptions options, string userId);
         CreateTestSuiteViewModel GetTestSuiteForCreate();
-        CreateTestSuiteViewModel GetTestSuiteForAdminCreate();
+        CreateTestSuiteViewModel GetTestSuiteForAdminCreate(int? teamID);
         EditTestSuiteViewModel GetTestSuiteForEdit(int testSuiteID);
         EditTestSuiteViewModel GetTestSuiteForAdminEdit(int testSuiteID);
     }
