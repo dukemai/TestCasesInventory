@@ -65,10 +65,10 @@ namespace TestCasesInventory.Data.Repositories
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
 
-        //public int NumberMemberInRole(int RoleID)
-        //{
-        //    return dataContext.Users.Where(user => user.RoleID == RoleID).Count();
-        //}
+        public int NumberAcountInRole(string RoleID)
+        {
+            return dataContext.Users.Where(user => user.Roles.Any(r => r.RoleId == RoleID)).Count();
+        }
 
         public IPagedList<ApplicationUser> ListUsersBelongRole(string RoleID, FilterOptions options)
         {
