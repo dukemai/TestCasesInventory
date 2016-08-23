@@ -13,8 +13,8 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTestRun(int testRunID, EditTestRunViewModel testRun);
         void DeleteTestRun(int testRunID);
         IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId);
-        List<TestSuiteViewModel> GetTestSuitesPopUp(int testRunID);
-        List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID);
+        List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID);
+        List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID);
 
 
     }

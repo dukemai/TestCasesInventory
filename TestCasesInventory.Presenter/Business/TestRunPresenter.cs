@@ -108,13 +108,14 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public List<TestSuiteViewModel> GetTestSuitesPopUp(int testRunID)
+        public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
         {
-            var listTestSuitesPopUp = new List<TestSuiteViewModel>();
+            var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
             var listTestSuitesDataModel = testSuiteRepository.ListAll();
             foreach (var testSuite in listTestSuitesDataModel)
             {
-                var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
+                var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
+                testSuitePopUpViewModel.TestRunID = testRunID;
                 listTestSuitesPopUp.Add(testSuitePopUpViewModel);
             }
             return listTestSuitesPopUp;

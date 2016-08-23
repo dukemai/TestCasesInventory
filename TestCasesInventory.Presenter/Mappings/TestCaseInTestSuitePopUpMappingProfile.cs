@@ -14,6 +14,7 @@ namespace TestCasesInventory.Presenter.Mappings
        //     testCasesInTestRunRepository = new TestCasesInTestRunRepository();
 
             this.CreateMap<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
+            this.CreateMap<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
         }
 
     }
