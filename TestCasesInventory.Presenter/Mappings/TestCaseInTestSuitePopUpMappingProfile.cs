@@ -5,15 +5,15 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
 {
-    public class TestCaseInTestRunPopUpMappingProfile : Profile
+    public class TestCaseInTestSuitePopUpMappingProfile : Profile
     {
        // private ITestCasesInTestRunRepository testCasesInTestRunRepository;
 
-        public TestCaseInTestRunPopUpMappingProfile(string profileName) : base(profileName)
+        public TestCaseInTestSuitePopUpMappingProfile(string profileName) : base(profileName)
         {
        //     testCasesInTestRunRepository = new TestCasesInTestRunRepository();
 
-            this.CreateMap<TestCaseDataModel, TestCaseInTestRunPopUpViewModel>();
+            this.CreateMap<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
         }
 
     }

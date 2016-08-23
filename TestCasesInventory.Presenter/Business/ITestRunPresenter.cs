@@ -1,7 +1,6 @@
 ﻿using PagedList;
 using System.Collections.Generic;
 using TestCasesInventory.Common;
-using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
 
@@ -14,7 +13,9 @@ namespace TestCasesInventory.Presenter.Business
         void UpdateTestRun(int testRunID, EditTestRunViewModel testRun);
         void DeleteTestRun(int testRunID);
         IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId);
-        List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID);
+        List<TestSuiteViewModel> GetTestSuitesPopUp(int testRunID);
+        List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID);
+
 
     }
 }

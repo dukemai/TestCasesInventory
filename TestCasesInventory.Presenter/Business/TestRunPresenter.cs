@@ -108,30 +108,34 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public List<TestSuiteInTestRunPopUpViewModel> GetTestRunPopUp(int testRunID)
+        public List<TestSuiteViewModel> GetTestSuitesPopUp(int testRunID)
         {
-            var testRunPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuites = testSuiteRepository.ListAll();
-            foreach (var testSuite in listTestSuites)
+            var listTestSuitesPopUp = new List<TestSuiteViewModel>();
+            var listTestSuitesDataModel = testSuiteRepository.ListAll();
+            foreach (var testSuite in listTestSuitesDataModel)
             {
-                var testSuiteInTestRunPopUp = new TestSuiteInTestRunPopUpViewModel();
-                testSuiteInTestRunPopUp.ListTestCaseInTestRunPopUp = new List<TestCaseInTestRunPopUpViewModel>();
-                var listTestCases = testCaseRepository.ListAll(testSuite.ID);
-                testSuiteInTestRunPopUp.TestSuite = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
-                foreach (var testCase in listTestCases)
-                {
-                    var testCaseInTestRunPopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestRunPopUpViewModel>();
-                    bool checkTestCaseInTestRun = testCasesInTestRunRepository.CheckTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
-                    if (checkTestCaseInTestRun)
-                    {
-                        testCaseInTestRunPopUp.isInTestRun = true;
-                        testCaseInTestRunPopUp.TestRunID = testRunID;
-                    }
-                    testSuiteInTestRunPopUp.ListTestCaseInTestRunPopUp.Add(testCaseInTestRunPopUp);
-                }
-                testRunPopUp.Add(testSuiteInTestRunPopUp);
+                var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteViewModel>();
+                listTestSuitesPopUp.Add(testSuitePopUpViewModel);
             }
-            return testRunPopUp;
+            return listTestSuitesPopUp;
+        }
+
+        public List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
+        {
+            var listTestCasesInTestSuitePopUp = new List<TestCaseInTestSuitePopUpViewModel>();
+            var listTestCasesDataModel = testCaseRepository.ListAll(testSuiteID);
+            foreach (var testCase in listTestCasesDataModel)
+            {
+                var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
+                bool checkTestCaseInTestRun = testCasesInTestRunRepository.CheckTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
+                if (checkTestCaseInTestRun)
+                {
+                    testCaseInTestSuitePopUp.IsInTestRun = true;
+                    testCaseInTestSuitePopUp.TestRunID = testRunID;
+                }
+                listTestCasesInTestSuitePopUp.Add(testCaseInTestSuitePopUp);
+            }
+            return listTestCasesInTestSuitePopUp;
         }
 
 
