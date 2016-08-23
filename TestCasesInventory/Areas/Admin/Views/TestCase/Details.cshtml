@@ -1,4 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
 @model TestCaseViewModel
 @{
     ViewBag.Title = "Details";
@@ -70,7 +71,7 @@
                     foreach (var file in Model.AttachmentUrlList)
                     {
                          <dd>
-                            <a href="@Url.Content(file)" download> [@file] </a>
+                            <a href="@Url.Content(file)" download> [@file.GetFileNameFromRelativeUrl()] </a>
                         </dd> 
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
 @model TestCaseViewModel
 @{
     ViewBag.Title = "Edit";
@@ -71,7 +72,7 @@
                         foreach (var file in Model.AttachmentUrlList)
                         {
                             <dd>
-                                <a href="@Url.Content(file)" download> [@file] </a>
+                                <a href="@Url.Content(file)" download> [@file.GetFileNameFromRelativeUrl()] </a>
                                 <a href="#" class="delete-item" data-target="#basic" data-toggle="modal" data-id="@file">Delete</a>
                             </dd>
                         }                        
