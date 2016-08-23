@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace TestCasesInventory.Common
 {
@@ -29,6 +27,13 @@ namespace TestCasesInventory.Common
             }
             sb.AppendFormat("/{0}", end);
             return sb.ToString();
+        }
+
+        public static string PhysicalPathToVirtualPath(string physicalPath)
+        {
+            var output = physicalPath.Replace(HostingEnvironment.ApplicationPhysicalPath, String.Empty);
+            output = output.Replace('\\', '/').Insert(0, "~/");
+            return output;
         }
     }
 }

@@ -13,6 +13,7 @@ using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Common;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -146,7 +147,7 @@ namespace TestCasesInventory.Presenter.Business
         public List<string> GetTestCaseAttachments(int testCaseId)
         {
             var testCaseDirectory = TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.ToString());
-            return PathHelper.GetFileNamesFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server);
+            return PathHelper.GetFileNamesFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server).Select(f => TestCasesInventory.Common.UrlHelper.PhysicalPathToVirtualPath(f)).ToList();
         }
     }
 }
