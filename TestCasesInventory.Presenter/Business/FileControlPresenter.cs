@@ -26,28 +26,21 @@ namespace TestCasesInventory.Presenter.Business
         }
 
         #endregion
+
         #region Methods
         public void UploadFile(HttpPostedFileBase file, string filePath)
-        {          
+        {
             PathHelper.EnsureDirectories(filePath);
             file.SaveAs(filePath);
         }
-        public string GetFileFolder(string id)
+        protected string GetTestCaseFileFolder(int id)
         {
-            var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
+            var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id.ToString());
             return folderPath;
-        }
-        public string GetFileUrl(int id)
+        }    
+        public string[] GetFileUrlList(int testCaseId)
         {
-            var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(server.MapPath(attachmentFolder));
-            var fileName = Path.GetFileName(filePath[0]);
-            return Path.Combine(attachmentFolder, fileName);
-
-        }
-        public string[] GetFileUrlList(int id)
-        {
-            var attachmentFolder = GetFileFolder(id.ToString());
+            var attachmentFolder = GetTestCaseFileFolder(id);
             var filePath = Directory.GetFiles(server.MapPath(attachmentFolder));
             string[] fileUrlList = new string[filePath.Length];
             for (int i = 0; i < filePath.Length; i++)
@@ -56,28 +49,14 @@ namespace TestCasesInventory.Presenter.Business
                 fileUrlList[i] = Path.Combine(attachmentFolder, fileUrlList[i]);
             }
             return fileUrlList;
-        }
-
-        public void DeleteFile(string item)
-        {
-            try
-            {
-                var path = server.MapPath(item);
-                File.Delete(path);
-            }
-            catch (Exception e)
-            {
-                logger.Error(e);
-            }
-        }
-
+        } 
         public bool IsDirectoryEmpty(string path)
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
         }
         public bool IsAttachmentExisted(int id)
         {
-            var attachmentFolder = server.MapPath(GetFileFolder(id.ToString()));
+            var attachmentFolder = server.MapPath(GetTestCaseFileFolder(id));
             if (!Directory.Exists(attachmentFolder))
             {
                 return false;
@@ -102,12 +81,34 @@ namespace TestCasesInventory.Presenter.Business
             }
             return fileNameList;
         }
-
-        public void UploadTestCaseAttachment(HttpPostedFileBase file, string id)
+        public void UploadTestCaseAttachment(HttpPostedFileBase file, int testCaseId)
         {
-            var filePath = GetFileFolder(id);
+            var filePath = GetTestCaseFileFolder(testCaseId);
             var serverPath = Path.Combine(server.MapPath(filePath), Path.GetFileName(file.FileName));
             UploadFile(file, serverPath);
+        }
+
+        public string GetTestCaseFileUrl(int testCaseId)
+        {
+            var attachmentFolder = GetTestCaseFileFolder(testCaseId);
+            var filePath = Directory.GetFiles(server.MapPath(attachmentFolder));
+            var fileName = Path.GetFileName(filePath[0]);
+            return Path.Combine(attachmentFolder, fileName);
+        }
+
+        public bool DeleteTestCaseFiles(string item)
+        {
+            try
+            {
+                var path = server.MapPath(item);
+                File.Delete(path);
+                return true;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+                return false;
+            }
         }
         #endregion;
     }
