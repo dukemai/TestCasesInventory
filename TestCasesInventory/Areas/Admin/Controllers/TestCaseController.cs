@@ -16,9 +16,10 @@ using System.Collections.Generic;
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.AdminRole, PrivilegedUsersConfig.TesterRole)]
-    public class TestCaseController : Controller
+    public class TestCaseController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
         #region Properties
+
         private ITestCasePresenter testCasePresenterObject;
         private ITestSuitePresenter testSuitePresenterObject;
         protected ITestCasePresenter TestCasePresenterObject
@@ -59,6 +60,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         #endregion
 
+        #region Actions
 
         // GET: Admin/TestCase
         public ActionResult Index(int? testSuiteID, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
@@ -113,18 +115,18 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                List<SelectListItem> items = new List<SelectListItem>();
+                if (!testSuiteID.HasValue)
+                {
+                    throw new Exception("TestSuite ID must be specified");
+                }
 
-                items.Add(new SelectListItem { Text = "Highest", Value = "Highest" });
-                items.Add(new SelectListItem { Text = "High", Value = "High" });
-                items.Add(new SelectListItem { Text = "Medium", Value = "Medium", Selected = true });
-                items.Add(new SelectListItem { Text = "Low", Value = "Low" });
-                items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
-                ViewBag.PriorityList = items;
+                var model = TestCasePresenterObject.GetTestCaseForCreate(testSuiteID.Value);
+                //ViewBag.PriorityList = items;
 
-                ViewBag.TestSuiteID = testSuiteID;
-                ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
-                return View();
+                //ViewBag.TestSuiteID = testSuiteID;
+                //ViewBag.TestSuiteTitle = TestSuitePresenterObject.GetTestSuiteById(testSuiteID).Title;
+                //model.TestSuiteID = testSuiteID.Value;
+                return View(model);
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -139,27 +141,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] TestCaseViewModel testCase, HttpPostedFileBase file)
+        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] CreateTestCaseViewModel testCase, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                var createdTestCase = new CreateTestCaseViewModel
-                {
-                    Title = testCase.Title,
-                    Priority = testCase.Priority,
-                    TestSuiteID = testSuiteID,
-                    Description = testCase.Description,
-                    Precondition = testCase.Precondition,
-                    Expect = testCase.Expect,
-                    Created = User.Identity.Name,
-                    CreatedDate = DateTime.Now,
-                    LastModified = User.Identity.Name,
-                    LastModifiedDate = DateTime.Now
-                };
-                TestCasePresenterObject.InsertTestCase(createdTestCase);
+                testCase.Created = testCase.LastModified = User.Identity.Name;
+                testCase.CreatedDate = testCase.LastModifiedDate = DateTime.Now;
+                testCase.TestSuiteID = testSuiteID;
+                TestCasePresenterObject.InsertTestCase(testCase);
                 if (!(file == null || file.ContentLength == 0))
                 {
-                    var testCaseId = createdTestCase.ID.ToString();
+                    var testCaseId = testCase.ID.ToString();
                     FileControlPresenterObject.UploadFile(file, testCaseId);
                 }
                 return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
@@ -195,23 +187,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] TestCaseViewModel testCase, HttpPostedFileBase file)
+        public ActionResult Edit(int id, int testSuiteID, [Bind(Include = "Title, Priority, Description, Precondition, Expect, TestSuitID")] EditTestCaseViewModel testCase, HttpPostedFileBase file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var updatedTestCase = new EditTestCaseViewModel
-                    {
-                        Title = testCase.Title,
-                        Priority = testCase.Priority,
-                        Description = testCase.Description,
-                        Precondition = testCase.Precondition,
-                        Expect = testCase.Expect,
-                        LastModified = User.Identity.Name,
-                        LastModifiedDate = DateTime.Now
-                    };
-                    TestCasePresenterObject.UpdateTestCase(id, updatedTestCase);
+                    testCase.LastModified = User.Identity.Name;
+                    testCase.LastModifiedDate = DateTime.Now;
+                    TestCasePresenterObject.UpdateTestCase(id, testCase);
                     if (!(file == null || file.ContentLength == 0))
                     {
                         FileControlPresenterObject.UploadFile(file, id.ToString());
@@ -267,5 +251,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return RedirectToAction("Edit", "TestCase", new { id = id });
         }
 
+        #endregion
     }
 }
