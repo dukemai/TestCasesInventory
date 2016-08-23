@@ -41,8 +41,7 @@ namespace TestCasesInventory.Data.Repositories
 
         public bool CheckTestCaseInTestRunByTestCaseID(int testRunID, int testCaseID)
         {
-            var listTestCasesInTestRun = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Select(t => t);
-            return listTestCasesInTestRun.Where(t => t.TestCaseID == testCaseID).ToList().Any();
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.TestCaseID == testCaseID).Any();
         }
 
         public int TotalTestCasesInTestRun(int testRunID)
