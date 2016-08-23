@@ -11,6 +11,7 @@ using TestCasesInventory.Common;
 using PagedList;
 using AutoMapper;
 using TestCasesInventory.Presenter.Common;
+using System.Web.Mvc;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -162,6 +163,18 @@ namespace TestCasesInventory.Presenter.Business
             var list = teamRepository.GetTeams(options);
             var mappedList = list.MapTo<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>();
             return mappedList;
+        }
+
+        public List<TeamViewModel> ListAllTeam()
+        {
+            var listTeamDataModel = teamRepository.ListAll();
+            var listTeamViewModel = new List<TeamViewModel>();
+
+            foreach (var item in listTeamDataModel)
+            {
+                listTeamViewModel.Add(item.MapTo<TeamDataModel, TeamViewModel>());
+            }    
+            return listTeamViewModel;
         }
     }
 }

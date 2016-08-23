@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 
@@ -33,30 +34,35 @@ namespace TestCasesInventory.Presenter.Synchroniser
         protected void UpdateTestSuite(TestSuiteDataModel testSuite)
         {
             var isUpdate = false;
-            if (string.IsNullOrEmpty(testSuite.TeamNameDisplayOnly))
+            var dataModel = testSuiteRepository.GetTestSuiteByID(testSuite.ID);
+            if (dataModel == null)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(dataModel.TeamNameDisplayOnly))
             {
                 var team = teamRepository.GetTeamByID(testSuite.TeamID);
                 if (team != null)
                 {
-                    testSuite.TeamNameDisplayOnly = team.Name;
+                    dataModel.TeamNameDisplayOnly = team.Name;
                     isUpdate = true;
                 }
             }
-            if (string.IsNullOrEmpty(testSuite.CreateDisplayOnly))
+            if (string.IsNullOrEmpty(dataModel.CreateDisplayOnly))
             {
-                var user = teamRepository.FindUserByID(testSuite.Created);
+                var user = teamRepository.FindUserByEmail(testSuite.Created);
                 if (user != null)
                 {
-                    testSuite.TeamNameDisplayOnly = user.DisplayName;
+                    dataModel.CreateDisplayOnly = user.DisplayName;
                     isUpdate = true;
                 }
             }
-            if (string.IsNullOrEmpty(testSuite.LastModifiedDisplayOnly))
+            if (string.IsNullOrEmpty(dataModel.LastModifiedDisplayOnly))
             {
-                var user = teamRepository.FindUserByID(testSuite.LastModifiedDisplayOnly);
+                var user = teamRepository.FindUserByEmail(testSuite.LastModified);
                 if (user != null)
                 {
-                    testSuite.TeamNameDisplayOnly = user.DisplayName;
+                    dataModel.LastModifiedDisplayOnly = user.DisplayName;
                     isUpdate = true;
                 }
             }

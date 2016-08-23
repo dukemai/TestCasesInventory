@@ -14,6 +14,7 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Config;
 using System.IO;
 using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -102,6 +103,40 @@ namespace TestCasesInventory.Presenter.Business
             var list = testCaseRepository.GetTestCasesForTestSuite(testSuiteId, filterOptions);
             var mappedList = list.MapTo<IPagedList<TestCaseDataModel>, IPagedList<TestCaseViewModel>>();
             return mappedList;
+        }
+
+        public CreateTestCaseViewModel GetTestCaseForCreate(int testSuiteId)
+        {
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteId);
+            if (testSuite == null)
+            {
+                throw new TestSuiteNotFoundException();
+            }
+            var model = new CreateTestCaseViewModel();
+            model.TestSuiteID = testSuiteId;
+            model.TestSuiteTitle = testSuite.Title;
+            model.Priorities = GetPriorities();
+            return model;
+        }
+
+        public EditTestCaseViewModel GetTestCaseForEdit(int id)
+        {
+            var dataModel = testCaseRepository.GetTestCaseByID(id);
+            var model = dataModel.MapTo<TestCaseDataModel, EditTestCaseViewModel>();
+            model.Priorities = GetPriorities();
+            return model;
+        }
+
+        private List<SelectListItem> GetPriorities()
+        {
+            var items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem { Text = "Highest", Value = "Highest" });
+            items.Add(new SelectListItem { Text = "High", Value = "High" });
+            items.Add(new SelectListItem { Text = "Medium", Value = "Medium", Selected = true });
+            items.Add(new SelectListItem { Text = "Low", Value = "Low" });
+            items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
+            return items;
         }
     }
 }
