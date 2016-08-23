@@ -51,7 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (fileControlPresenterObject == null)
                 {
-                    fileControlPresenterObject = new FileControlPresenter();
+                    fileControlPresenterObject = new FileControlPresenter(HttpContext.Server);
                 }
                 return fileControlPresenterObject;
             }

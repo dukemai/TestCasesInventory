@@ -11,6 +11,7 @@ namespace TestCasesInventory.Presenter.Business
 
     {
         void UploadFile(HttpPostedFileBase file, string id);
+        void UploadTestCaseAttachment(HttpPostedFileBase file, string id);
         string GetFileFolder(string id);
         string GetFileUrl(int id);
         bool IsDirectoryEmpty(string path);
