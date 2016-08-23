@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
@@ -9,8 +10,9 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using TestCasesInventory.Presenter.Synchroniser;
-
+using TestCasesInventory.Data.Repositories;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -22,6 +24,19 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         private IUserPresenter userPresenter;
         private ITestSuitePresenter testSuitePresenterObject;
         private IRolePresenter rolePresenter;
+        private ITeamPresenter teamPresenter;
+
+        protected ITeamPresenter TeamPresenter
+        {
+            get
+            {
+                if (teamPresenter == null)
+                {
+                    teamPresenter = new TeamPresenter(HttpContext);
+                }
+                return teamPresenter;
+            }
+        }
         protected ITestSuitePresenter TestSuitePresenterObject
         {
             get
@@ -51,23 +66,28 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 if (userPresenter == null)
                 {
-                    userPresenter = new UserPresenter(HttpContext);                    
+                    userPresenter = new UserPresenter(HttpContext);
                 }
                 return userPresenter;
             }
         }
         #endregion
 
+        #region Constructors
+
         public TestSuiteController()
-        {            
+        {
         }
 
+        #endregion
+
+        #region Actions
 
         // GET: Admin/TestSuite
         public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             //var searchOptions = BuildFilterOptionsFromRequest(keyword, filterBy, page, sortBy, sortDirection);
-            var userId = User.Identity.GetUserId();          
+            var userId = User.Identity.GetUserId();
             var testSuites = TestSuitePresenterObject.GetTestSuites(filterOptions, userId);
             return View("Index", testSuites);
         }
@@ -77,7 +97,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);               
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -90,30 +110,48 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-
         // GET: Admin/TestSuite/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/TestSuite/Create
+        public ActionResult CreateTestSuitePartial()
+        {
+            CreateTestSuiteViewModel model = null;
+            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
+            {
+                model = TestSuitePresenterObject.GetTestSuiteForAdminCreate();
+                return PartialView("TestSuite/_CreateTestSuiteByAdminPartial", model);
+            }
+
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+            if (user.TeamID.HasValue)
+            {
+                model = TestSuitePresenterObject.GetTestSuiteForCreate();
+                return PartialView("TestSuite/_CreateTestSuiteByTesterPartial", model);
+            }
+            else
+            {
+                throw new Exception("Current user is missing TeamID");
+            }
+        }
+
+        // POST: Admin/TestSuite/CreateByTester
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title, Description")] TestSuiteViewModel testSuite)
+        public ActionResult Create([Bind(Include = "Title, Description, TeamID")] CreateTestSuiteViewModel testSuite)
         {
             if (ModelState.IsValid)
             {
-                var createdTestSuite = new CreateTestSuiteViewModel
+                var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+                if (User.IsInRole(PrivilegedUsersConfig.TesterRole))
                 {
-                    Title = testSuite.Title,
-                    Description = testSuite.Description,
-                    Created = User.Identity.Name,
-                    CreatedDate = DateTime.Now,
-                    LastModified = User.Identity.Name,
-                    LastModifiedDate = DateTime.Now
-                };
-                TestSuitePresenterObject.InsertTestSuite(createdTestSuite);
+                    testSuite.TeamID = user.TeamID;
+                }
+                testSuite.CreatedDate = testSuite.LastModifiedDate = DateTime.Now;
+                testSuite.Created = testSuite.LastModified = user.Email;
+                TestSuitePresenterObject.InsertTestSuite(testSuite);
                 return RedirectToAction("Index");
             }
             return View();
@@ -137,23 +175,47 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult EditTestSuitePartial(int? id)
+        {
+            if (!id.HasValue)
+            {
+                throw new Exception("ID must not be null");
+            }
+            EditTestSuiteViewModel updatedTestSuite = null;
+            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
+            {
+                updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForAdminEdit(id.Value);
+                return PartialView("TestSuite/_EditTestSuiteByAdminPartial", updatedTestSuite);
+            }
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+            if (user.TeamID.HasValue)
+            {
+                updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForEdit(id.Value);
+                return PartialView("TestSuite/_EditTestSuiteByTesterPartial", updatedTestSuite);
+            }
+            else
+            {
+                throw new Exception("Current user is missing TeamID");
+            }
+        }
+
         // POST: Admin/TestSuite/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description")] TestSuiteViewModel testSuite)
+        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description, TeamID")] EditTestSuiteViewModel testSuite)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var updatedTestSuite = new EditTestSuiteViewModel
+                    var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+                    if (user == null)
                     {
-                        Title = testSuite.Title,
-                        Description = testSuite.Description,
-                        LastModified = User.Identity.Name,
-                        LastModifiedDate = DateTime.Now
-                    };
-                    TestSuitePresenterObject.UpdateTestSuite(id, updatedTestSuite);
+                        throw new Exception("Could not identify current user");
+                    }
+                    testSuite.LastModifiedDate = DateTime.Now;
+                    testSuite.LastModified = user.Email;
+                    TestSuitePresenterObject.UpdateTestSuite(id, testSuite);
                     return RedirectToAction("Index");
                 }
                 return View();
@@ -215,6 +277,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        #endregion
 
     }
 }

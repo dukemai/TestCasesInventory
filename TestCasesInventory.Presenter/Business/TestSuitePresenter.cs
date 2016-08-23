@@ -4,7 +4,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
+using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
@@ -53,14 +55,23 @@ namespace TestCasesInventory.Presenter.Business
 
         public void InsertTestSuite(CreateTestSuiteViewModel testSuite)
         {
-            var teamID = UserManager.FindByEmail(testSuite.Created).TeamID;
-            testSuite.TeamID = teamID.Value;
-            if (!teamID.HasValue)
+            //var user = UserManager.FindByEmail(testSuite.Created);
+            //if (UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole))
+            //{
+            //    testSuite.TeamID = testSuite.TeamID;
+            //}
+            //else
+            //{
+            //    testSuite.TeamID = user.TeamID;
+            //}
+
+            if (!testSuite.TeamID.HasValue)
             {
                 logger.Error("User has not been assigned to any team.");
                 throw new Exception("User has not been assigned to any team.");
             }
             var testSuiteDataModel = testSuite.MapTo<CreateTestSuiteViewModel, TestSuiteDataModel>();
+
             testSuiteRepository.InsertTestSuite(testSuiteDataModel);
             testSuiteRepository.Save();
             FeedObservers(testSuiteDataModel);
@@ -75,7 +86,7 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestSuiteNotFoundException("Test Suite was not found.");
             }
             else
-            {
+            {                              
                 testSuiteDataModel = testSuite.MapTo<EditTestSuiteViewModel, TestSuiteDataModel>(testSuiteDataModel);
                 testSuiteRepository.UpdateTestSuite(testSuiteDataModel);
                 testSuiteRepository.Save();
@@ -110,6 +121,45 @@ namespace TestCasesInventory.Presenter.Business
             var list = testSuiteRepository.GetTestSuites(options, user.TeamID, getAll);
             var mappedList = list.MapTo<IPagedList<TestSuiteDataModel>, IPagedList<TestSuiteViewModel>>();
             return mappedList;
+        }
+
+        public CreateTestSuiteViewModel GetTestSuiteForCreate()
+        {
+            return new CreateTestSuiteViewModel();
+        }
+
+        public EditTestSuiteViewModel GetTestSuiteForEdit(int testSuiteID)
+        {
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID);
+            if (testSuite == null)
+            {
+                logger.Error("Test Suite was not found.");
+                throw new TestSuiteNotFoundException("Test Suite was not found.");
+            }
+            var testSuiteViewModel = testSuite.MapTo<TestSuiteDataModel, EditTestSuiteViewModel>();
+            return testSuiteViewModel;
+        }
+
+        public CreateTestSuiteViewModel GetTestSuiteForAdminCreate()
+        {
+            var model = GetTestSuiteForCreate();
+            model.Teams = teamRepository.ListAll().Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = t.ID.ToString()
+            }).ToList();
+            return model;
+        }
+
+        public EditTestSuiteViewModel GetTestSuiteForAdminEdit(int testSuiteID)
+        {
+            var model = GetTestSuiteForEdit(testSuiteID);
+            model.Teams = teamRepository.ListAll().Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = t.ID.ToString()
+            }).ToList();
+            return model;
         }
     }
 }
