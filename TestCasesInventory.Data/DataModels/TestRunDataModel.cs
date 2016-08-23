@@ -18,5 +18,6 @@ namespace TestCasesInventory.Data.DataModels
         public int TeamID { get; set; }
         public virtual TeamDataModel Team { get; set; }
         public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRun { get; set; }
+        public virtual ICollection<TestRunResultDataModel> TestRunResults { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace TestCasesInventory.Data
 {
@@ -33,6 +34,32 @@ namespace TestCasesInventory.Data
         public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
         public DbSet<TestCaseResultDataModel> TestCaseResults { get; set; }
         public DbSet<TestRunResultDataModel> TestRunResults { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TestRunResultDataModel>()
+                .HasRequired(t => t.TestRun)
+                .WithMany(t => t.TestRunResults)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCaseResultDataModel>()
+                .HasRequired(t => t.TestRunResult)
+                .WithMany(t => t.TestCaseResults)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCaseResultDataModel>()
+                .HasRequired(t => t.User)
+                .WithMany(t => t.TestCaseResults)
+                .HasForeignKey(t => t.RunBy)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCaseResultDataModel>()
+               .HasRequired(t => t.TestCase)
+               .WithMany(t => t.TestCaseResults)
+               .WillCascadeOnDelete(false);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
         #endregion
     }
 }

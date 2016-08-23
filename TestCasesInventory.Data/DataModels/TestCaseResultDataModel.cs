@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestCasesInventory.Data.DataModels
 {
@@ -19,5 +20,11 @@ namespace TestCasesInventory.Data.DataModels
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        [ForeignKey("TestRunResultID")]
+        public virtual TestRunResultDataModel TestRunResult { get; set; }
+        [ForeignKey("TestCasesInTestRunID")]
+        public virtual TestCasesInTestRunDataModel TestCase { get; set; }
+        [ForeignKey("RunBy")]
+        public virtual ApplicationUser User { get; set; }
     }
 }
