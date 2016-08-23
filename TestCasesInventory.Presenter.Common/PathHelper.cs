@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Common
 {
@@ -12,6 +15,12 @@ namespace TestCasesInventory.Presenter.Common
             {
                 Directory.CreateDirectory(dirs);
             }
+        }
+
+        public static List<string> GetFileNamesFromRelativeUrlDirectory(string relativeUrl, HttpServerUtilityBase server)
+        {
+            var physicalUrl = server.MapPath(relativeUrl);
+            return Directory.Exists(physicalUrl) ? Directory.GetFiles(physicalUrl).ToList() : new List<string>();
         }
     }
 }

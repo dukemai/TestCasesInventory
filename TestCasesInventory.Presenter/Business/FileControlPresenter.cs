@@ -28,88 +28,48 @@ namespace TestCasesInventory.Presenter.Business
         #endregion
 
         #region Methods
+
         public void UploadFile(HttpPostedFileBase file, string filePath)
-        {
-            PathHelper.EnsureDirectories(filePath);
-            file.SaveAs(filePath);
-        }
-        protected string GetTestCaseFileFolder(int id)
-        {
-            var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id.ToString());
-            return folderPath;
-        }    
-        public string[] GetFileUrlList(int testCaseId)
-        {
-            var attachmentFolder = GetTestCaseFileFolder(id);
-            var filePath = Directory.GetFiles(server.MapPath(attachmentFolder));
-            string[] fileUrlList = new string[filePath.Length];
-            for (int i = 0; i < filePath.Length; i++)
-            {
-                fileUrlList[i] = Path.GetFileName(filePath[i]);
-                fileUrlList[i] = Path.Combine(attachmentFolder, fileUrlList[i]);
-            }
-            return fileUrlList;
-        } 
-        public bool IsDirectoryEmpty(string path)
-        {
-            return !Directory.EnumerateFileSystemEntries(path).Any();
-        }
-        public bool IsAttachmentExisted(int id)
-        {
-            var attachmentFolder = server.MapPath(GetTestCaseFileFolder(id));
-            if (!Directory.Exists(attachmentFolder))
-            {
-                return false;
-            }
-            else
-            {
-                var isAttachmentUrlExisted = !IsDirectoryEmpty(attachmentFolder);
-                if (isAttachmentUrlExisted)
-                {
-                    return true;
-                }
-                else
-                    return false;
-            }
-        }
-        public string[] GetFileNameList(string[] fileUrlList)
-        {
-            var fileNameList = new string[fileUrlList.Length];
-            for (int i = 0; i < fileUrlList.Length; i++)
-            {
-                fileNameList[i] = Path.GetFileName(fileUrlList[i]);
-            }
-            return fileNameList;
-        }
-        public void UploadTestCaseAttachment(HttpPostedFileBase file, int testCaseId)
-        {
-            var filePath = GetTestCaseFileFolder(testCaseId);
-            var serverPath = Path.Combine(server.MapPath(filePath), Path.GetFileName(file.FileName));
-            UploadFile(file, serverPath);
-        }
-
-        public string GetTestCaseFileUrl(int testCaseId)
-        {
-            var attachmentFolder = GetTestCaseFileFolder(testCaseId);
-            var filePath = Directory.GetFiles(server.MapPath(attachmentFolder));
-            var fileName = Path.GetFileName(filePath[0]);
-            return Path.Combine(attachmentFolder, fileName);
-        }
-
-        public bool DeleteTestCaseFiles(string item)
         {
             try
             {
-                var path = server.MapPath(item);
-                File.Delete(path);
+                PathHelper.EnsureDirectories(filePath);
+                file.SaveAs(filePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
+
+        }
+
+        public void UploadRelativeUrlFile(HttpPostedFileBase file, string relativeUrl)
+        {
+            UploadFile(file, server.MapPath(relativeUrl));
+        }
+
+
+        public bool DeleteFile(string url)
+        {
+            try
+            {
+                File.Delete(url);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.Error(e);
+                logger.Error(ex);
                 return false;
             }
         }
+
+        public bool DeleteRelativeUrlFile(string relativeUrl)
+        {
+            return DeleteFile(server.MapPath(relativeUrl));
+        }
+        
         #endregion;
+
+
     }
 }
