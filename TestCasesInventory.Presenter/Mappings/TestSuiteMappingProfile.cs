@@ -37,9 +37,11 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<IPagedList<TestSuiteDataModel>, IPagedList<TestSuiteViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestSuiteDataModel, TestSuiteViewModel>>();
 
+            this.CreateMap<TestSuiteDataModel, CreateTestSuiteViewModel>();
             this.CreateMap<CreateTestSuiteViewModel, TestSuiteDataModel>();
-                //.ForMember(dest => dest.TeamID, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).TeamID));
 
+            //.ForMember(dest => dest.TeamID, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).TeamID));
+            this.CreateMap<TestSuiteDataModel, EditTestSuiteViewModel>();
             this.CreateMap<EditTestSuiteViewModel, TestSuiteDataModel>();
 
         }

@@ -24,8 +24,7 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModified { get; set; }
         public string LastModifiedDisplayOnly { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public List<SelectListItem> Teams { get; set; }
+        public DateTime LastModifiedDate { get; set; }        
     }
 
     public class CreateTestSuiteViewModel : ViewModelBase
@@ -40,6 +39,7 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        public List<SelectListItem> Teams { get; set; }
     }
 
     public class EditTestSuiteViewModel : ViewModelBase
@@ -51,6 +51,8 @@ namespace TestCasesInventory.Presenter.Models
         public string Description { get; set; }
         public string LastModified { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        public List<SelectListItem> Teams { get; set; }
+        public int? TeamID { get; set; }
     }
 
 }
