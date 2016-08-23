@@ -119,7 +119,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult CreateTestSuitePartial()
         {
             CreateTestSuiteViewModel model = null;
-            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
+            if (IsCurrentUserAdmin())
             {
                 model = TestSuitePresenterObject.GetTestSuiteForAdminCreate();
                 return PartialView("TestSuite/_CreateTestSuiteByAdminPartial", model);
@@ -145,7 +145,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
-                if (User.IsInRole(PrivilegedUsersConfig.TesterRole))
+                if (IsCurrentUserTester())
                 {
                     testSuite.TeamID = user.TeamID;
                 }
@@ -182,7 +182,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 throw new Exception("ID must not be null");
             }
             EditTestSuiteViewModel updatedTestSuite = null;
-            if (User.IsInRole(PrivilegedUsersConfig.AdminRole))
+            if (IsCurrentUserAdmin())
             {
                 updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForAdminEdit(id.Value);
                 return PartialView("TestSuite/_EditTestSuiteByAdminPartial", updatedTestSuite);

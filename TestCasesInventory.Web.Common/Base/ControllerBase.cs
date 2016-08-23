@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using TestCasesInventory.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 
@@ -15,5 +16,14 @@ namespace TestCasesInventory.Web.Common.Base
             return RedirectToAction("Index", "Home");
         }
 
+        protected virtual bool IsCurrentUserAdmin()
+        {
+            return User.IsInRole(PrivilegedUsersConfig.AdminRole);
+        }
+
+        protected virtual bool IsCurrentUserTester()
+        {
+            return User.IsInRole(PrivilegedUsersConfig.TesterRole);
+        }
     }
 }

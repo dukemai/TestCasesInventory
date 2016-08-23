@@ -141,7 +141,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestCase/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect")] CreateTestCaseViewModel testCase, HttpPostedFileBase file)
+        public ActionResult Create(int testSuiteID, [Bind(Include = "Title, Description, Precondition, Expect, Priority")] CreateTestCaseViewModel testCase, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -200,7 +200,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     {
                         FileControlPresenterObject.UploadFile(file, id.ToString());
                     }
-                    return RedirectToAction("Edit", "TestCase", new { id = id });
+                    return RedirectToAction("Details", "TestSuite", new { id = testSuiteID });
                 }
                 return View();
             }
