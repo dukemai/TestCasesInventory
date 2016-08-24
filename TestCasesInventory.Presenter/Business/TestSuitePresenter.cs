@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -140,25 +141,29 @@ namespace TestCasesInventory.Presenter.Business
             return testSuiteViewModel;
         }
 
-        public CreateTestSuiteViewModel GetTestSuiteForAdminCreate()
+        public CreateTestSuiteViewModel GetTestSuiteForAdminCreate(int? teamID)
         {
             var model = GetTestSuiteForCreate();
+            model.TeamID = teamID;
             model.Teams = teamRepository.ListAll().Select(t => new SelectListItem
             {
                 Text = t.Name,
                 Value = t.ID.ToString()
             }).ToList();
+
             return model;
         }
 
         public EditTestSuiteViewModel GetTestSuiteForAdminEdit(int testSuiteID)
         {
             var model = GetTestSuiteForEdit(testSuiteID);
+            
             model.Teams = teamRepository.ListAll().Select(t => new SelectListItem
             {
                 Text = t.Name,
                 Value = t.ID.ToString()
             }).ToList();
+
             return model;
         }
     }

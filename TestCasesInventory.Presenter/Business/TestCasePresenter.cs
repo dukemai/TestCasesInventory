@@ -1,20 +1,19 @@
-﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
+using System.Web.Mvc;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
 using TestCasesInventory.Presenter.Common;
-using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Config;
-using System.IO;
-using Microsoft.AspNet.Identity;
-using System.Web.Mvc;
+using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Common;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Business
 {
@@ -137,6 +136,18 @@ namespace TestCasesInventory.Presenter.Business
             items.Add(new SelectListItem { Text = "Low", Value = "Low" });
             items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
             return items;
+        }
+
+        public string BuildTestCaseAttachmentUrl(string fileName, int testCaseId)
+        {
+            return TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.ToString(), fileName);
+        }
+
+
+        public List<string> GetTestCaseAttachments(int testCaseId)
+        {
+            var testCaseDirectory = TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.ToString());
+            return PathHelper.GetFileNamesFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server).Select(f => TestCasesInventory.Common.UrlHelper.PhysicalPathToVirtualPath(f)).ToList();
         }
     }
 }

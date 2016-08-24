@@ -1,4 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
 @model TestCaseViewModel
 @{
     ViewBag.Title = "Edit";
@@ -66,15 +67,15 @@
             @Html.LabelFor(model => model.AttachmentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="attachment-list">
-                    @if (Model.IsAttachmentUrlExisted)
+                    @if (Model.HasAttachment)
                     {
-                        for (int i = 0; i < Model.AttachmentUrlList.Length; i++)
+                        foreach (var file in Model.AttachmentUrlList)
                         {
-                            <div class="attachment-item">
-                                <a class="col-md-3" href="@Url.Content(Model.AttachmentUrlList[i])" download>  [@Model.AttachmentNameList[i]] </a>
-                                <a href="#" class="delete-item" data-target="#basic" data-toggle="modal" data-id="@Model.AttachmentUrlList[i]">Delete</a>
-                            </div>
-                        }
+                            <dd>
+                                <a href="@Url.Content(file)" download> [@file.GetFileNameFromRelativeUrl()] </a>
+                                <a href="#" class="delete-item" data-target="#basic" data-toggle="modal" data-id="@file">Delete</a>
+                            </dd>
+                        }                        
                     }
                     else
                     {
