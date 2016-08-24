@@ -5,13 +5,14 @@ using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 using TestCasesInventory.Presenter.Validations;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Models
 {
     public class TestCaseViewModel : ViewModelBase
     {
         public int ID { get; set; }
-        
+
         [Required]
         public string Title { get; set; }
         public int TestSuiteID { get; set; }
@@ -22,18 +23,22 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]
-		public string AttachmentUrl { get; set; }
-        public string[] AttachmentUrlList { get; set; }
-        public string[] AttachmentNameList { get; set; }
-        public bool IsAttachmentUrlExisted { get; set; }
-		public string PriorityStyleClass
+        public List<string> AttachmentUrlList { get; set; }
+        public bool HasAttachment
+        {
+            get
+            {
+                return AttachmentUrlList.Any();
+            }
+        }
+        public string PriorityStyleClass
         {
             get
             {
                 return string.IsNullOrEmpty(Priority) ? "default" : Priority.ToLowerInvariant();
             }
         }
-        
+
         [AllowHtml]
         public string Expect { get; set; }
         public string Created { get; set; }
@@ -63,10 +68,8 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-        public string AttachmentUrl { get; set; }
-        public string[] AttachmentUrlList { get; set; }
-        public string[] AttachmentNameList { get; set; }
-        public bool IsAttachmentUrlExisted { get; set; }
+        public List<string> AttachmentUrlList { get; set; }
+        public bool HasAttachment { get; set; }
         public string PriorityStyleClass
         {
             get
@@ -90,10 +93,8 @@ namespace TestCasesInventory.Presenter.Models
         public string Expect { get; set; }
         public string LastModified { get; set; }
         public DateTime LastModifiedDate { get; set; }
-        public string AttachmentUrl { get; set; }
-        public string[] AttachmentUrlList { get; set; }
-        public string[] AttachmentNameList { get; set; }
-        public bool IsAttachmentUrlExisted { get; set; }
+        public List<string> AttachmentUrlList { get; set; }
+        public bool HasAttachment { get; set; }
         public string PriorityStyleClass
         {
             get

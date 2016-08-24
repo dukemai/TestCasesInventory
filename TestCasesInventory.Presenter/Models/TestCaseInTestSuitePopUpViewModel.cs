@@ -12,4 +12,10 @@ namespace TestCasesInventory.Presenter.Models
         public int? TestRunID { get; set; }
     }
 
+    public class TestSuiteInTestRunPopUpViewModel : TestSuiteViewModel
+    {
+        public int TestRunID { get; set; }
+    }
+
+
 }

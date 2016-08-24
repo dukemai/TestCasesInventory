@@ -190,8 +190,26 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testRunPopUp = TestRunPresenterObject.GetTestSuitesPopUp(id);
-                return PartialView("AddTestCasesToTestRun", testRunPopUp);
+                var testSuitesPopUp = TestRunPresenterObject.GetTestSuitesPopUp(id);
+                return View("AddTestCasesToTestRun", testSuitesPopUp);
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTestCasesInTestSuitePopUp(int testSuiteID, int id)
+        {
+            try
+            {
+                var testCasesInTestSuitePopUp = TestRunPresenterObject.GetTestCasesInTestSuitePopUp(testSuiteID, id);
+                return Json(testCasesInTestSuitePopUp);
             }
             catch (TestSuiteNotFoundException e)
             {
