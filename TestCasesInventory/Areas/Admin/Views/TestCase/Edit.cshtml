@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.AttachmentUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Attachments", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="attachment-list">
                     @if (Model.HasAttachment)
@@ -90,7 +90,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AttachmentUrl, "Add attachment", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Add attachment", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 <input type="file" name="file" id="file" class="btn btn-default" /><br><br>
             </div>
