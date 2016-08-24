@@ -37,6 +37,8 @@ namespace TestCasesInventory
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/fileControl").Include(
                         "~/Scripts/file-control-custom.js"));
+            bundles.Add(new ScriptBundle("~/bundles/runTestRun").Include(
+                       "~/Scripts/run-test-run.js"));
         }
     }
 }

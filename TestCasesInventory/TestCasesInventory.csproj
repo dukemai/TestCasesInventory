@@ -233,6 +233,7 @@
     <Content Include="Areas\Admin\Views\Shared\_SelectTeamInCreateTestSuitePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestSuite\_EditTestSuiteByAdminPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestSuite\_EditTestSuiteByTesterPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\TestRun\ChooseTestRunOption.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\file-control-custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -251,6 +252,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\run-test-run.js" />
     <Content Include="Scripts\tinymceInit.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
