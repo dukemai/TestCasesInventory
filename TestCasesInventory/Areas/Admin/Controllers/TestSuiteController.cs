@@ -119,13 +119,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult CreateTestSuitePartial()
         {
             CreateTestSuiteViewModel model = null;
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+
             if (IsCurrentUserAdmin())
             {
-                model = TestSuitePresenterObject.GetTestSuiteForAdminCreate();
+                model = TestSuitePresenterObject.GetTestSuiteForAdminCreate(user.TeamID);
                 return PartialView("TestSuite/_CreateTestSuiteByAdminPartial", model);
             }
 
-            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
             if (user.TeamID.HasValue)
             {
                 model = TestSuitePresenterObject.GetTestSuiteForCreate();
@@ -145,7 +146,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
-                if (IsCurrentUserTester())
+                if (!IsCurrentUserAdmin())
                 {
                     testSuite.TeamID = user.TeamID;
                 }
@@ -182,12 +183,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 throw new Exception("ID must not be null");
             }
             EditTestSuiteViewModel updatedTestSuite = null;
+
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
             if (IsCurrentUserAdmin())
             {
                 updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForAdminEdit(id.Value);
                 return PartialView("TestSuite/_EditTestSuiteByAdminPartial", updatedTestSuite);
             }
-            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+            
             if (user.TeamID.HasValue)
             {
                 updatedTestSuite = TestSuitePresenterObject.GetTestSuiteForEdit(id.Value);
