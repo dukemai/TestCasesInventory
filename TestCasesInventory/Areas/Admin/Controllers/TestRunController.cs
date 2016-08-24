@@ -189,7 +189,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     }
                     testRun.LastModifiedDate = DateTime.Now;
                     testRun.LastModified = user.Email;
-                    testRun.TeamID = TestRunPresenterObject.GetTestRunById(id).TeamID;
                     TestRunPresenterObject.UpdateTestRun(id, testRun);
                     return RedirectToAction("Index");
                 }
