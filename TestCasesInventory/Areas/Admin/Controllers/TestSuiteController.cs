@@ -205,7 +205,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         // POST: Admin/TestSuite/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description, TeamID")] EditTestSuiteViewModel testSuite)
+        public ActionResult Edit(int id, [Bind(Include = "Title, Description, TeamID")] EditTestSuiteViewModel testSuite)
         {
             try
             {
@@ -218,6 +218,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     }
                     testSuite.LastModifiedDate = DateTime.Now;
                     testSuite.LastModified = user.Email;
+                    testSuite.TeamID = TestSuitePresenterObject.GetTestSuiteById(id).TeamID;
                     TestSuitePresenterObject.UpdateTestSuite(id, testSuite);
                     return RedirectToAction("Index");
                 }
