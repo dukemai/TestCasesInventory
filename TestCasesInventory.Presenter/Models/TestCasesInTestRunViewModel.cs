@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TestCasesInventory.Presenter.Models
+﻿namespace TestCasesInventory.Presenter.Models
 {
     public class TestCasesInTestRunViewModel: ViewModelBase
     {
@@ -17,6 +11,10 @@ namespace TestCasesInventory.Presenter.Models
 
         public string AssignedTo { get; set; }
         public string AssignedBy { get; set; }
+    }
 
+    public class EditTestCasesInTestRunViewModel : ViewModelBase
+    {
+        public string AssignedTo { get; set; }
     }
 }

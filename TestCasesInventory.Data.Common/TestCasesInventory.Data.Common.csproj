@@ -45,6 +45,7 @@
     <Compile Include="FirstAdminUserDefault.cs" />
     <Compile Include="RoleNotFoundException.cs" />
     <Compile Include="TeamNotFoundException.cs" />
+    <Compile Include="TestCaseInTestRunNotFoundException.cs" />
     <Compile Include="TestCaseNotFoundException.cs" />
     <Compile Include="TestRunNotFoundException.cs" />
     <Compile Include="TestSuiteNotFoundException.cs" />
