@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Web;
 using System.Linq;
-using TestCasesInventory.Common;
+using System.Web;
 
-namespace TestCasesInventory.Presenter.Common
+namespace TestCasesInventory.Common
 {
     public class PathHelper
     {
@@ -30,7 +29,7 @@ namespace TestCasesInventory.Presenter.Common
             if (Directory.Exists(physicalUrl))
             {
                 var files = Directory.GetFiles(physicalUrl);
-                return files.Select(f => UrlHelper.Combine(relativeUrl, f)).ToList();
+                return files.Select(f => UrlHelper.Combine(relativeUrl, Path.GetFileName(f))).ToList();
             }
             return new List<string>();
         }
