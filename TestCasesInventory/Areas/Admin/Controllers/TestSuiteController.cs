@@ -218,7 +218,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     }
                     testSuite.LastModifiedDate = DateTime.Now;
                     testSuite.LastModified = user.Email;
-                    testSuite.TeamID = TestSuitePresenterObject.GetTestSuiteById(id).TeamID;
                     TestSuitePresenterObject.UpdateTestSuite(id, testSuite);
                     return RedirectToAction("Index");
                 }
