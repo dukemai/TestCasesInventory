@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Config;
 using TestCasesInventory.Presenter.Validations;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -22,9 +23,14 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Precondition { get; set; }
         [Display(Name = "Attachment")]
-        public string AttachmentUrl { get; set; }
         public List<string> AttachmentUrlList { get; set; }
-        public bool HasAttachment { get; set; }
+        public bool HasAttachment
+        {
+            get
+            {
+                return AttachmentUrlList.Any();
+            }
+        }
         public string PriorityStyleClass
         {
             get
@@ -61,7 +67,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Created { get; set; }
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }        
+        public DateTime LastModifiedDate { get; set; }
         public List<string> AttachmentUrlList { get; set; }
         public bool HasAttachment { get; set; }
         public string PriorityStyleClass
@@ -86,7 +92,7 @@ namespace TestCasesInventory.Presenter.Models
         [AllowHtml]
         public string Expect { get; set; }
         public string LastModified { get; set; }
-        public DateTime LastModifiedDate { get; set; }        
+        public DateTime LastModifiedDate { get; set; }
         public List<string> AttachmentUrlList { get; set; }
         public bool HasAttachment { get; set; }
         public string PriorityStyleClass
