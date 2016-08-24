@@ -191,7 +191,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var testSuitesPopUp = TestRunPresenterObject.GetTestSuitesPopUp(id);
-                return View("AddTestCasesToTestRun", testSuitesPopUp);
+                return Json(testSuitesPopUp, JsonRequestBehavior.AllowGet);
             }
             catch (TestSuiteNotFoundException e)
             {
@@ -204,12 +204,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTestCasesInTestSuitePopUp(int testSuiteID, int id)
+        public ActionResult GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
         {
             try
             {
-                var testCasesInTestSuitePopUp = TestRunPresenterObject.GetTestCasesInTestSuitePopUp(testSuiteID, id);
-                return Json(testCasesInTestSuitePopUp);
+                var testCasesInTestSuitePopUp = TestRunPresenterObject.GetTestCasesInTestSuitePopUp(testSuiteID, testRunID);
+                return Json(testCasesInTestSuitePopUp, JsonRequestBehavior.AllowGet);
             }
             catch (TestSuiteNotFoundException e)
             {
