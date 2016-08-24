@@ -1,4 +1,8 @@
-﻿th h4 {
+﻿.view-test-suites {
+    padding : 10px;
+}
+
+th h4 {
     font-size: 14px;
     font-weight: bold;
 }

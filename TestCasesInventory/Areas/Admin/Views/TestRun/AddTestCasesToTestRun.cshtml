@@ -1,10 +1,25 @@
 ﻿@using TestCasesInventory.Presenter.Models
 @model List<TestSuiteInTestRunPopUpViewModel>
 
-@{
-    ViewBag.Title = "Add TestCases To TestRun";
-}
+<div class="panel-group" id="pop-up-content" role="tablist" aria-multiselectable="false">
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading" role="tab" id="@item.Title">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#pop-up-content" href="#@item.ID" aria-expanded="false" aria-controls="@item.ID">
+                        @item.Title
+                    </a>
+                </h4>
+            </div>
+            <div id="@item.ID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@item.Title">
+                <div class="panel-body">
+                    
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-<h3>Add TestCases To TestRun</h3>
 
 

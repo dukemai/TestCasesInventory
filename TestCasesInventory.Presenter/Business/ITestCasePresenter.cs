@@ -15,5 +15,7 @@ namespace TestCasesInventory.Presenter.Business
         IPagedList<TestCaseViewModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions);
         CreateTestCaseViewModel GetTestCaseForCreate(int testSuiteId);
         EditTestCaseViewModel GetTestCaseForEdit(int id);
+        string BuildTestCaseAttachmentUrl(string fileName, int testCaseId);
+        List<string> GetTestCaseAttachments(int testCaseId);
     }
 }
