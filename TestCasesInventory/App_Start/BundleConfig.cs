@@ -22,6 +22,9 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
                         "~/Scripts/handlebars.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/add-test-case-template").Include(
+                     "~/Scripts/Handle-Bars-Templates/add-test-case-template.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js"));
 

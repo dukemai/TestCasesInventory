@@ -245,6 +245,7 @@
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByTesterPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\file-control-custom.js" />
+    <Content Include="Scripts\Handle-Bars-Templates\add-test-case-template.js" />
     <Content Include="Scripts\handlebars.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
