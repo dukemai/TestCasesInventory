@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
       <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
       <Name>TestCasesInventory.Common</Name>
     </ProjectReference>
