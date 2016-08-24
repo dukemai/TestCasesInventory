@@ -15,10 +15,6 @@ namespace TestCasesInventory.Presenter.Models
         [TeamUniqueValidation]
         public string Name { get; set; }
         public int MembersNumber { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public string CreatedUser { get; set; }
         public string LastModifiedUser { get; set; }
     }
@@ -29,10 +25,6 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")] 
         public string Name { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 
     public class EditTeamViewModel : ViewModelBase
@@ -41,11 +33,9 @@ namespace TestCasesInventory.Presenter.Models
         [StringLength(ValidationMagicNumbers.MaximumLengthOfTeamName, ErrorMessage = ValidationMessages.ErrorMessageForTeamNameProperty)]
         [Display(Name = "Team Name:")]
         public string Name { get; set; }
-        public string LastModified { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 
-    public class UsersBelongTeamViewModel : ViewModelBase
+    public class UsersBelongTeamViewModel
     {
         public string ID { get; set; }
         public int TeamID { get; set; }
@@ -53,7 +43,7 @@ namespace TestCasesInventory.Presenter.Models
         public string DisplayName { get; set; }
     }
 
-    public class UsersNotBelongTeamViewModel : ViewModelBase
+    public class UsersNotBelongTeamViewModel
     {
         public string ID { get; set; }
         public string Email { get; set; }
