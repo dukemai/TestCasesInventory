@@ -98,9 +98,4 @@
 </p>
 
 @* The place where the dialog will be loaded.*@
-<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content" id="modalContent">
-        </div>
-    </div>
-</div>
+@{  Html.RenderPartial("TestRun/_AddTestCaseToTestRunPopUpTemplatePartial"); }

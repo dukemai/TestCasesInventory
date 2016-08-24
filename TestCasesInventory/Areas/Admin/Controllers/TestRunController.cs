@@ -190,7 +190,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testRunPopUp = TestRunPresenterObject.GetTestRunPopUp(id);
+                var testRunPopUp = TestRunPresenterObject.GetTestSuitesPopUp(id);
                 return PartialView("AddTestCasesToTestRun", testRunPopUp);
             }
             catch (TestSuiteNotFoundException e)
