@@ -1,95 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using TestCasesInventory.Presenter.Common;
-using TestCasesInventory.Presenter.Config;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public class FileControlPresenter : PresenterBase, IFileControlPresenter
     {
-        public void UploadFile(HttpPostedFileBase file, string id)
+        #region Fields
+
+        HttpServerUtilityBase server;
+
+        #endregion
+
+        #region Constructors
+
+        public FileControlPresenter(HttpServerUtilityBase serverParam)
         {
-            var filePath = GetFileFolder(id);
-            var serverPath = Path.Combine(HttpContext.Current.Server.MapPath(filePath), Path.GetFileName(file.FileName));
-            PathHelper.EnsureDirectories(serverPath);
-            file.SaveAs(serverPath);
+            server = serverParam;
         }
 
-        public string GetFileFolder(string id)
-        {
-            var folderPath = Path.Combine(TestCaseConfigurations.TestCasesFolderPath, id);
-            return folderPath;
-        }
-        public string GetFileUrl(int id)
-        {
-            var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
-            var fileName = Path.GetFileName(filePath[0]);
-            return Path.Combine(attachmentFolder, fileName);
+        #endregion
 
-        }
-        public string[] GetFileUrlList(int id)
-        {
-            var attachmentFolder = GetFileFolder(id.ToString());
-            var filePath = Directory.GetFiles(HttpContext.Current.Server.MapPath(attachmentFolder));
-            string[] fileUrlList= new string[filePath.Length];
-            for (int i =0; i < filePath.Length; i++)
-            {
-                fileUrlList[i] = Path.GetFileName(filePath[i]);
-                fileUrlList[i] = Path.Combine(attachmentFolder, fileUrlList[i]);
-            }
-            return fileUrlList;
-        }
-       
-        public void DeleteFile(string item)
+        #region Methods
+
+        public void UploadFile(HttpPostedFileBase file, string filePath)
         {
             try
             {
-                var path = HttpContext.Current.Server.MapPath(item);
-                File.Delete(path);
+                PathHelper.EnsureDirectories(filePath);
+                file.SaveAs(filePath);
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
-                logger.Error(e);
+                logger.Error(ex);
             }
+
         }
-        
-        public bool IsDirectoryEmpty(string path)
+
+        public void UploadRelativeUrlFile(HttpPostedFileBase file, string relativeUrl)
         {
-            return !Directory.EnumerateFileSystemEntries(path).Any();
+            UploadFile(file, server.MapPath(relativeUrl));
         }
-        public bool IsAttachmentExisted(int id)
+
+
+        public bool DeleteFile(string url)
         {
-            var attachmentFolder = HttpContext.Current.Server.MapPath(GetFileFolder(id.ToString()));
-            if (!Directory.Exists(attachmentFolder))
+            try
             {
+                File.Delete(url);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
                 return false;
             }
-            else
-            {
-                var isAttachmentUrlExisted = !IsDirectoryEmpty(attachmentFolder);
-                if (isAttachmentUrlExisted)
-                {
-                    return true;
-                }
-                else
-                    return false;
-            }
         }
-        public string[] GetFileNameList(string[] fileUrlList)
+
+        public bool DeleteRelativeUrlFile(string relativeUrl)
         {
-            var fileNameList = new string[fileUrlList.Length] ;
-            for (int i = 0; i < fileUrlList.Length; i++)
-            {
-                fileNameList[i] = Path.GetFileName(fileUrlList[i]);
-            }
-            return fileNameList;
+            return DeleteFile(server.MapPath(relativeUrl));
         }
+        
+        #endregion;
+
 
     }
 }

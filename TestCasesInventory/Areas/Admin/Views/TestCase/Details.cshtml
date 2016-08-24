@@ -1,4 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
 @model TestCaseViewModel
 @{
     ViewBag.Title = "Details";
@@ -65,13 +66,13 @@
             <dt>
                 Attachment
             </dt>
-                @if (Model.IsAttachmentUrlExisted)
+                @if (Model.HasAttachment)
                 {
-                    for (int i = 0; i < Model.AttachmentUrlList.Length; i++)
+                    foreach (var file in Model.AttachmentUrlList)
                     {
-                        <dd>
-                            <a href="@Url.Content(Model.AttachmentUrlList[i])" download> [@Model.AttachmentNameList[i]] </a>
-                        </dd>
+                         <dd>
+                            <a href="@Url.Content(file)" download> [@file.GetFileNameFromRelativeUrl()] </a>
+                        </dd> 
                     }
                 }
                 else

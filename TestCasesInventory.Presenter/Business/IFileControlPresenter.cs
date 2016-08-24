@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 
 namespace TestCasesInventory.Presenter.Business
 {
     public interface IFileControlPresenter 
-
     {
-        void UploadFile(HttpPostedFileBase file, string id);
-        string GetFileFolder(string id);
-        string GetFileUrl(int id);
-        bool IsDirectoryEmpty(string path);
-        bool IsAttachmentExisted(int id);
-        string[] GetFileUrlList(int id);
-        void DeleteFile(string item);
-        string[] GetFileNameList(string[] fileUrlList);
+        void UploadFile(HttpPostedFileBase file, string url);
+        void UploadRelativeUrlFile(HttpPostedFileBase file, string relativeUrl);
+        bool DeleteFile(string url);
+        bool DeleteRelativeUrlFile(string relativeUrl);
+        //void UploadTestCaseAttachment(HttpPostedFileBase file, int testCaseId);        
+        //string GetTestCaseFileUrl(int testCaseId);  
+        //bool IsAttachmentExisted(int testCaseId);
+        //string[] GetFileUrlList(int testCaseId);
+        //bool DeleteTestCaseFiles(string item);
+        //string[] GetFileNameList(string[] fileUrlList);
     }
 }
