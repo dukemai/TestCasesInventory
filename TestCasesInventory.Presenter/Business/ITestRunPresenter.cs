@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TestCasesInventory.Common;
+using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
