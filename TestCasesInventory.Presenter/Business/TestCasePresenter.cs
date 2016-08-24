@@ -147,7 +147,7 @@ namespace TestCasesInventory.Presenter.Business
         public List<string> GetTestCaseAttachments(int testCaseId)
         {
             var testCaseDirectory = TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.ToString());
-            return PathHelper.GetFileNamesFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server).Select(f => TestCasesInventory.Common.UrlHelper.PhysicalPathToVirtualPath(f)).ToList();
+            return PathHelper.GetFileRelativeUrlsFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server);
         }
     }
 }
