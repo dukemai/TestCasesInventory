@@ -11,7 +11,7 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public class TestCasesInTestRunPresenter: PresenterBase, ITestCasesInTestRunPresenter
+    public class TestCasesInTestRunPresenter : PresenterBase, ITestCasesInTestRunPresenter
     {
         protected HttpContextBase HttpContext;
         protected ITestCasesInTestRunRepository testCasesInTestRunRepository;
@@ -38,6 +38,21 @@ namespace TestCasesInventory.Presenter.Business
                 throw new Exception("Id was not valid.");
             }
             var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(id.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
+            var testCaseInTestRunViewModel = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
+            return testCaseInTestRunViewModel;
+        }
+
+        public void DeleteTestCaseInTestRun(int id)
+        {
+            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(id);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
+            testCaseRepository.DeleteTestCase(id);
+            testCaseRepository.Save();
+        }
+
+        public void CheckExceptionTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
+        {
             if (testCaseInTestRun == null)
             {
                 logger.Error("The test case in the current test run was not found.");
@@ -61,11 +76,7 @@ namespace TestCasesInventory.Presenter.Business
                 logger.Error("Test run was not found.");
                 throw new TestCaseNotFoundException("Test run was not found.");
             }
-            var testCaseInTestRunViewModel = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
-            return testCaseInTestRunViewModel;
         }
-
-
 
 
 

@@ -6,19 +6,19 @@ using TestCasesInventory.Presenter.Config;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class ExternalLoginConfirmationViewModel : ViewModelBase
+    public class ExternalLoginConfirmationViewModel
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class ExternalLoginListViewModel : ViewModelBase
+    public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
     }
 
-    public class SendCodeViewModel : ViewModelBase
+    public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
@@ -26,7 +26,7 @@ namespace TestCasesInventory.Presenter.Models
         public bool RememberMe { get; set; }
     }
 
-    public class VerifyCodeViewModel : ViewModelBase
+    public class VerifyCodeViewModel
     {
         [Required]
         public string Provider { get; set; }
@@ -42,14 +42,14 @@ namespace TestCasesInventory.Presenter.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel : ViewModelBase
+    public class ForgotViewModel 
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel 
     {
         [Required]
         [Display(Name = "Email")]
@@ -65,7 +65,7 @@ namespace TestCasesInventory.Presenter.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel : ViewModelBase
+    public class RegisterViewModel 
     {
         //RegisterViewModelConfig Config = new RegisterViewModelConfig();
 
@@ -92,7 +92,7 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime LastModifiedDate { get; set; }
     }
 
-    public class ResetPasswordViewModel : ViewModelBase
+    public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
@@ -113,7 +113,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Code { get; set; }
     }
 
-    public class ForgotPasswordViewModel : ViewModelBase
+    public class ForgotPasswordViewModel
     {
         [Required]
         [EmailAddress]

@@ -2,7 +2,7 @@
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class TestCaseInTestSuitePopUpViewModel : ViewModelBase
+    public class TestCaseInTestSuitePopUpViewModel
     {
         public int ID { get; set; }
         public string Title { get; set; }

@@ -11,5 +11,9 @@ namespace TestCasesInventory.Presenter.Models
     /// </summary>
     public class ViewModelBase
     {
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
     }
 }
