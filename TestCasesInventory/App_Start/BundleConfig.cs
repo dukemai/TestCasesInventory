@@ -19,6 +19,9 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
+                        "~/Scripts/handlebars.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js"));
 
