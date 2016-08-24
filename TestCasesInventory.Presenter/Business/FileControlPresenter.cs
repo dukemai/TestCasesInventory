@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using TestCasesInventory.Presenter.Common;
-using TestCasesInventory.Presenter.Config;
+using TestCasesInventory.Common;
 
 namespace TestCasesInventory.Presenter.Business
 {
