@@ -14,7 +14,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
 
-    public class TestRunController : Controller
+    public class TestRunController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
         #region Properties
         private IUserPresenter userPresenter;
@@ -87,27 +87,48 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/TestRun/Create
+        public ActionResult CreateTestRunPartial()
+        {
+            CreateTestRunViewModel model = null;
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+
+            if (IsCurrentUserAdmin())
+            {
+                model = TestRunPresenterObject.GetTestRunForAdminCreate(user.TeamID);
+                return PartialView("TestRun/_CreateTestRunByAdminPartial", model);
+            }
+
+            if (user.TeamID.HasValue)
+            {
+                model = TestRunPresenterObject.GetTestRunForCreate();
+                return PartialView("TestRun/_CreateTestRunByTesterPartial", model);
+            }
+            else
+            {
+                throw new Exception("Current user is missing TeamID");
+            }
+        }
+
+        // POST: Admin/TestRun/CreateByTester
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title, Description")] TestRunViewModel testRun)
+        public ActionResult Create([Bind(Include = "Title, Description, TeamID")] CreateTestRunViewModel testRun)
         {
             if (ModelState.IsValid)
             {
-                var createdTestRun = new CreateTestRunViewModel
+                var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+                if (!IsCurrentUserAdmin())
                 {
-                    Title = testRun.Title,
-                    Description = testRun.Description,
-                    Created = User.Identity.Name,
-                    CreatedDate = DateTime.Now,
-                    LastModified = User.Identity.Name,
-                    LastModifiedDate = DateTime.Now
-                };
-                TestRunPresenterObject.InsertTestRun(createdTestRun);
+                    testRun.TeamID = user.TeamID;
+                }
+                testRun.CreatedDate = testRun.LastModifiedDate = DateTime.Now;
+                testRun.Created = testRun.LastModified = user.Email;
+                TestRunPresenterObject.InsertTestRun(testRun);
                 return RedirectToAction("Index");
             }
             return View();
         }
+
         // GET: Admin/TestRun/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -116,7 +137,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var updatedTestRun = TestRunPresenterObject.GetTestRunById(id);
                 return View("Edit", updatedTestRun);
             }
-            catch (TestSuiteNotFoundException e)
+            catch (TestRunNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
@@ -126,28 +147,54 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult EditTestRunPartial(int? id)
+        {
+            if (!id.HasValue)
+            {
+                throw new Exception("ID must not be null");
+            }
+            EditTestRunViewModel updatedTestRun = null;
+
+            var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+            if (IsCurrentUserAdmin())
+            {
+                updatedTestRun = TestRunPresenterObject.GetTestRunForAdminEdit(id.Value);
+                return PartialView("TestRun/_EditTestRunByAdminPartial", updatedTestRun);
+            }
+
+            if (user.TeamID.HasValue)
+            {
+                updatedTestRun = TestRunPresenterObject.GetTestRunForEdit(id.Value);
+                return PartialView("TestRun/_EditTestRunByTesterPartial", updatedTestRun);
+            }
+            else
+            {
+                throw new Exception("Current user is missing TeamID");
+            }
+        }
+
         // POST: Admin/TestRun/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description")] TestRunViewModel testRun)
+        public ActionResult Edit(int id, [Bind(Include = "ID, Title, Description, TeamID")] EditTestRunViewModel testRun)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var updatedTestRun = new EditTestRunViewModel
+                    var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+                    if (user == null)
                     {
-                        Title = testRun.Title,
-                        Description = testRun.Description,
-                        LastModified = User.Identity.Name,
-                        LastModifiedDate = DateTime.Now
-                    };
-                    TestRunPresenterObject.UpdateTestRun(id, updatedTestRun);
+                        throw new Exception("Could not identify current user");
+                    }
+                    testRun.LastModifiedDate = DateTime.Now;
+                    testRun.LastModified = user.Email;
+                    TestRunPresenterObject.UpdateTestRun(id, testRun);
                     return RedirectToAction("Index");
                 }
                 return View();
             }
-            catch (TestSuiteNotFoundException e)
+            catch (TestRunNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
@@ -160,7 +207,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var deletedTestRun = TestRunPresenterObject.GetTestRunById(id);
                 return View("Delete", deletedTestRun);
             }
-            catch (TestSuiteNotFoundException e)
+            catch (TestRunNotFoundException e)
             {
                 return View("ResultNotFoundError");
             }
