@@ -1,0 +1,24 @@
+﻿@using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Choose Test Cases", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                <select id="test-run" class="form-control">
+                    <option>All Test Cases</option>
+                    <option>Assigned To Me</option>
+                    <option>Selected Test Cases</option>
+                </select>
+            </div>
+        </div>
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="Next" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

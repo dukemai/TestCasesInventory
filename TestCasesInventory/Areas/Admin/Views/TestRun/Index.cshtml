@@ -76,7 +76,7 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @*@Html.ActionLink("Add TestCase", "AddTestCase", new { id = item.ID })*@
+                @Html.ActionLink("Run", "Run", new { id = item.ID }, new { @class = "modal-link"}) |
                 <a href="#"> Add Test Cases</a>
             </td>
         </tr>
@@ -84,3 +84,21 @@
 
 </table>
 @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
+
+
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>*@
+                <h4 class="modal-title">TestRun Options</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

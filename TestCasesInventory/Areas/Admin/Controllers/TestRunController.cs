@@ -185,6 +185,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+        public ActionResult Run(int id)
+        {
+            return PartialView("ChooseTestRunOption");
+        }
+
         //[HttpGet]
         //public ActionResult AddTestCase(int id)
         //{
