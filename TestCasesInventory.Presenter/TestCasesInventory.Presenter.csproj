@@ -153,8 +153,6 @@
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TestCaseInTestSuitePopUpViewModel.cs" />
     <Compile Include="Models\TestCasesInTestRunViewModel.cs" />
-    <Compile Include="Models\TestCaseInTestSuitePopUpViewModel.cs" />
-    <Compile Include="Models\TestCaseInTestRunPopUpViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
