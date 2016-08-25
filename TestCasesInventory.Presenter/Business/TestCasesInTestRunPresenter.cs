@@ -1,4 +1,6 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -18,6 +20,8 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ITestCaseRepository testCaseRepository;
         protected ITestRunRepository testRunRepository;
+        protected ApplicationUserManager UserManager;
+
 
 
 
@@ -28,6 +32,7 @@ namespace TestCasesInventory.Presenter.Business
             testSuiteRepository = new TestSuiteRepository();
             testCaseRepository = new TestCaseRepository();
             testRunRepository = new TestRunRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public TestCasesInTestRunViewModel GetTestCaseInTestRunById(int? id)
@@ -43,12 +48,61 @@ namespace TestCasesInventory.Presenter.Business
             return testCaseInTestRunViewModel;
         }
 
+        public void AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        {
+            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new UserNotFoundException("User was not found.");
+            }
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
+            if (testRun == null)
+            {
+                logger.Error("Test Run was not found.");
+                throw new TestRunNotFoundException("Test Run was not found.");
+            }
+            foreach (var testCase in testCases)
+            {
+                var testCaseDataModel = testCaseRepository.GetTestCaseByID(testCase.ID);
+                if (testCaseDataModel == null)
+                {
+                    logger.Error("Test Case with id = " + testCase.ID + " was not found.");
+                    throw new TestCaseNotFoundException("Test Case with id = " + testCase.ID + " was not found.");
+                }
+                TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
+                if (!testCase.IsInTestRun && testCaseAlreadyInTestRun != null)
+                {
+                    testCasesInTestRunRepository.DeleteTestCaseInTestRun(testCaseAlreadyInTestRun.ID);
+                    testCasesInTestRunRepository.Save();
+                }
+                if (testCase.IsInTestRun && testCaseAlreadyInTestRun == null)
+                {
+                    var testCaseInTestRunViewModel = new CreateTestCasesInTestRunViewModel
+                    {
+                        TestCaseID = testCase.ID,
+                        TestRunID = testRunID,
+                        TestSuiteID = testCase.TestSuiteID,
+                        CreatedDate = DateTime.Now,
+                        LastModifiedDate = DateTime.Now,
+                        Created = user.Email,
+                        LastModified = user.Email,
+                        AssignedTo = user.Email,
+                    };
+                    var testCaseInTestRunDataModel = testCaseInTestRunViewModel.MapTo<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
+                    testCasesInTestRunRepository.InsertTestCaseInTestRun(testCaseInTestRunDataModel);
+                    testCasesInTestRunRepository.Save();
+                }
+            }
+        }
+
+
         public void DeleteTestCaseInTestRun(int id)
         {
             var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(id);
             CheckExceptionTestCaseInTestRun(testCaseInTestRun);
-            testCaseRepository.DeleteTestCase(id);
-            testCaseRepository.Save();
+            testCasesInTestRunRepository.DeleteTestCaseInTestRun(id);
+            testCasesInTestRunRepository.Save();
         }
 
         public void CheckExceptionTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
@@ -59,11 +113,6 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestCaseInTestRunNotFoundException("The test case in the current test run was not found.");
             }
             var testSuite = testSuiteRepository.GetTestSuiteByID(testCaseInTestRun.TestSuiteID);
-            if (testSuite == null)
-            {
-                logger.Error("Test suite was not found.");
-                throw new TestSuiteNotFoundException("Test suite was not found.");
-            }
             var testCase = testCaseRepository.GetTestCaseByID(testCaseInTestRun.TestCaseID);
             if (testCase == null)
             {

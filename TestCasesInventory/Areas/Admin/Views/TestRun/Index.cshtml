@@ -76,7 +76,7 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @Html.ActionLink("Add TestCases", "AddTestCasesToTestRun", new { id = item.ID }, new { @class = "modal-link" })
+                @Html.ActionLink("Add TestCases", "GetTestSuitesPopUp", new { id = item.ID }, new { @class = "modal-link" })
             </td>
         </tr>
     }

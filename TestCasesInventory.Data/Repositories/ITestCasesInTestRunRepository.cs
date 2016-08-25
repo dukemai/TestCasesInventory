@@ -14,7 +14,7 @@ namespace TestCasesInventory.Data.Repositories
         void UpdateTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun);
         void Save();
         int TotalTestCasesInTestRun(int testRunID);
-        bool CheckTestCaseInTestRunByTestCaseID(int testRunID, int testCaseID);
+        TestCasesInTestRunDataModel TestCaseAlreadyInTestRun(int testRunID, int testCaseID);
         IPagedList<TestCasesInTestRunDataModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions);
 
     }

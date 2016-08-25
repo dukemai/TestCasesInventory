@@ -39,9 +39,9 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public bool CheckTestCaseInTestRunByTestCaseID(int testRunID, int testCaseID)
+        public TestCasesInTestRunDataModel TestCaseAlreadyInTestRun(int testRunID, int testCaseID)
         {
-            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.TestCaseID == testCaseID).Any();
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.TestCaseID == testCaseID).First();
         }
 
         public int TotalTestCasesInTestRun(int testRunID)

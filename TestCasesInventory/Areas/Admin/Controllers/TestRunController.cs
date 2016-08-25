@@ -9,6 +9,7 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -20,6 +21,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         private IUserPresenter userPresenter;
         private ITestRunPresenter testRunPresenterObject;
         private IRolePresenter rolePresenter;
+        private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
         protected ITestRunPresenter TestRunPresenterObject
         {
             get
@@ -29,6 +31,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testRunPresenterObject = new TestRunPresenter(HttpContext);
                 }
                 return testRunPresenterObject;
+            }
+        }
+        protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
+        {
+            get
+            {
+                if (testCasesInTestRunPresenterObject == null)
+                {
+                    testCasesInTestRunPresenterObject = new TestCasesInTestRunPresenter(HttpContext);
+                }
+                return testCasesInTestRunPresenterObject;
             }
         }
         protected IRolePresenter RolePresenter
@@ -233,7 +246,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
         [HttpGet]
-        public ActionResult AddTestCasesToTestRun(int id)
+        public ActionResult GetTestSuitesPopUp(int id)
         {
             try
             {
@@ -267,5 +280,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        [HttpPost]
+        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.AddTestCasesToTestRun(testCases, testRunID);
+                return Json("Response from AddTestCases");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
     }
 }

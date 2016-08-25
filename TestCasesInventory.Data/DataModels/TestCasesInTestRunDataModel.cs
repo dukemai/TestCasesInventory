@@ -23,6 +23,6 @@ namespace TestCasesInventory.Data.DataModels
 
         [ForeignKey("AssignedTo")]
         public virtual ApplicationUser ApplicationUser { get; set; }
-        public DateTime LastRunDate { get; set; }
+        public DateTime? LastRunDate { get; set; }
     }
 }

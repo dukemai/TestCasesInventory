@@ -10,10 +10,12 @@ namespace TestCasesInventory.Presenter.Mappings
         public TestCasesInTestRunMappingProfile(string profileName) : base(profileName)
         {
             this.CreateMap<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
-                    
+
             this.CreateMap<IPagedList<TestCasesInTestRunDataModel>, IPagedList<TestCasesInTestRunViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>>();
-            
+
+            this.CreateMap<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
+
         }
 
     }
