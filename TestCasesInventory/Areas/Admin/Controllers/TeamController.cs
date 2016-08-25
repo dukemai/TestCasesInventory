@@ -163,7 +163,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult AssignUsersToTeam(int? id, int? activeTab)
+        public ActionResult AssignUsersToTeam(int? id, TabOptions tabOptions)
         {
             var teamName = TeamPresenterObject.GetTeamById(id).Name;
             var model = new AssignUsersToTeamViewModel { TeamName = teamName };
@@ -173,7 +173,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 Name = "List Users in Team",
                 Action = "RemoveUsersFromTeam",
                 Controller = "Team",
-                IsActive = !activeTab.HasValue || activeTab == 0
+                IsActive = tabOptions.ActiveTab == 0
             });
             model.Tabs.Add(new TabViewModel
             {
@@ -181,20 +181,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 Name = "List Users NOT belonging to the Team",
                 Action = "AddUsersToTeam",
                 Controller = "Team",
-                IsActive = activeTab == 1
+                IsActive = tabOptions.ActiveTab == 1
             });
             return View(model);
         }
 
         // GET: Admin/Team/AddUsersToTeam/5
-        public ActionResult AddUsersToTeam(int? id, FilterOptions options, int? activeTab)
+        public ActionResult AddUsersToTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
             {
                 ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 //default tab is 1 --> if tab is not active then we use default filter
-                options = activeTab.HasValue && activeTab != 1 ? PagingHelper.DefaultFilterOptions : options;
+                options = tabOptions.ActiveTab != 1 ? PagingHelper.DefaultFilterOptions : options;
                 var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id, options);
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
@@ -225,14 +225,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         // GET: Admin/Team/RemoveUsersFromTeam/5
-        public ActionResult RemoveUsersFromTeam(int? id, FilterOptions options, int? activeTab)
+        public ActionResult RemoveUsersFromTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
             {
                 ViewBag.TeamID = id;
                 var team = TeamPresenterObject.GetTeamById(id);
                 //default tab is 0 --> if tab is not active then we use default filter
-                options = activeTab.HasValue && activeTab != 0 ? PagingHelper.DefaultFilterOptions : options;
+                options = tabOptions.ActiveTab != 0 ? PagingHelper.DefaultFilterOptions : options;
                 var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id, options);
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
             }
@@ -245,7 +245,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
-       
+
         [HttpGet]
         public ActionResult ListMembersInTeam(int? teamID, FilterOptions options)
         {

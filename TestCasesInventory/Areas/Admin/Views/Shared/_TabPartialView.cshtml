@@ -2,9 +2,13 @@
 @using TestCasesInventory.Web.Common.Utils
 @model List<TabViewModel>
 <ul class="nav nav-tabs" id="user-list">
+    @{
+        var tabIndex = 0;
+    }
     @foreach (var tab in Model)
     {
-        <li class="@TabHelper.TabStateClass(tab.IsActive)"><a data-toggle="tab" href="#@tab.ID">@tab.Name</a></li>
+        <li class="@TabHelper.TabStateClass(tab.IsActive)"><a data-toggle="tab" data-tab-index="@tabIndex" href="#@tab.ID">@tab.Name</a></li>
+        tabIndex++;
     }
 </ul>
 
