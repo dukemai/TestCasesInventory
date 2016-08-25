@@ -84,7 +84,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestCase/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestCase/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             try
             {
