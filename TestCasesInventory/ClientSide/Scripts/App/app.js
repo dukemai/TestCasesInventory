@@ -1,4 +1,4 @@
-﻿define(['tinyMCEInit'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions'], function () {
 
     var app = function () {
     };
@@ -11,6 +11,11 @@
             var tinyMCEInit = require('tinyMCEInit');
             tinyMCEInit.init(this);
         });
+    }
+    
+    function initTabFunctions() {
+        var tabCommonFunctions = require('tabCommonFunctions');
+        tabCommonFunctions.init();
     }
 
     return app;

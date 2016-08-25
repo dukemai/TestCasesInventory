@@ -3,6 +3,7 @@
     'paths': {
         'tinyMCE': 'Lib/tinymce/tinymce.min',
         'tinyMCEInit': 'App/tinymce-init',
+        'tabCommonFunctions': 'App/tab-common-functions',
         'app':'App/app'
     },
     'shim': {
