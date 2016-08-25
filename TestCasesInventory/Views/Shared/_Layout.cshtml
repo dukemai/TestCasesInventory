@@ -33,10 +33,12 @@
             <p>&copy; @DateTime.Now.Year - TestCases Inventory Application</p>
         </footer>
     </div>
-
+    
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.cookie")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/list-user-customjs")
+    @Scripts.Render("~/bundles/tab-common-functions")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/fileControl")
     @Scripts.Render("~/bundles/runTestRun")

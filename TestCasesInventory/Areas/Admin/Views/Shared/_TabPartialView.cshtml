@@ -1,0 +1,22 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Web.Common.Utils
+@model List<TabViewModel>
+<ul class="nav nav-tabs" id="user-list">
+    @{
+        var tabIndex = 0;
+    }
+    @foreach (var tab in Model)
+    {
+        <li class="@TabHelper.TabStateClass(tab.IsActive)"><a data-toggle="tab" data-tab-index="@tabIndex" href="#@tab.ID">@tab.Name</a></li>
+        tabIndex++;
+    }
+</ul>
+
+<div class="tab-content">
+    @foreach (var tab in Model)
+    {
+        <div id="@tab.ID" class="tab-pane fade in @TabHelper.TabContentStateClass(tab.IsActive)" active":"tab-content"">
+            @Html.Action(tab.Action, tab.Controller, new { currentTabIndex = tab.TabIndex })
+        </div>
+    }
+</div>
