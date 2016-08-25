@@ -16,7 +16,7 @@
     @foreach (var tab in Model)
     {
         <div id="@tab.ID" class="tab-pane fade in @TabHelper.TabContentStateClass(tab.IsActive)" active":"tab-content"">
-            @Html.Action(tab.Action, tab.Controller)
+            @Html.Action(tab.Action, tab.Controller, new { currentTabIndex = tab.TabIndex })
         </div>
     }
 </div>

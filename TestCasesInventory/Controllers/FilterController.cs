@@ -4,7 +4,7 @@ using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Presenter.Models;
 using System.Linq;
-
+using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory.Controllers
 {
@@ -38,7 +38,7 @@ namespace TestCasesInventory.Controllers
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
 
-        public ActionResult FilterForAddUserToTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult FilterForAddUserToTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions, TabOptions tabOptions)
         {
             var filterFields = new List<FilterOptionViewModel>();
 
@@ -61,12 +61,12 @@ namespace TestCasesInventory.Controllers
                 Action = "AddUsersToTeam",
                 Area = "Admin",
                 FilterFields = filterFields,
-                FilterOptions = filterOptions
+                FilterOptions = tabOptions.ActiveTab == tabOptions.CurrentTabIndex ? filterOptions : PagingHelper.DefaultFilterOptions
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
 
-        public ActionResult FilterForRemoveUsersFromTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult FilterForRemoveUsersFromTeam([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions, TabOptions tabOptions)
         {
             var filterFields = new List<FilterOptionViewModel>();
 
@@ -89,7 +89,7 @@ namespace TestCasesInventory.Controllers
                 Action = "RemoveUsersFromTeam",
                 Area = "Admin",
                 FilterFields = filterFields,
-                FilterOptions = filterOptions
+                FilterOptions = tabOptions.ActiveTab == tabOptions.CurrentTabIndex ? filterOptions : PagingHelper.DefaultFilterOptions
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }

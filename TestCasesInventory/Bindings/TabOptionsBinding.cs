@@ -14,6 +14,8 @@ namespace TestCasesInventory.Bindings
             var activeTab = request.Cookies[TabConfig.ActiveTabCookie];
             var activeTabIndex = activeTab == null ? 0 : activeTab.Value.ToInt(0);
             tabOptions.ActiveTab = activeTabIndex;
+            var routeData = controllerContext.RouteData.Values[TabConfig.CurrentTabIndex];
+            tabOptions.CurrentTabIndex = routeData != null ? routeData.ToString().ToInt(0) : 0;
             return tabOptions;
         }
     }

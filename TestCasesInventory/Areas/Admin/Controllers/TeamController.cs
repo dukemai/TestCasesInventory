@@ -173,6 +173,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 Name = "List Users in Team",
                 Action = "RemoveUsersFromTeam",
                 Controller = "Team",
+                TabIndex = 0,
                 IsActive = tabOptions.ActiveTab == 0
             });
             model.Tabs.Add(new TabViewModel
@@ -181,6 +182,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 Name = "List Users NOT belonging to the Team",
                 Action = "AddUsersToTeam",
                 Controller = "Team",
+                TabIndex = 1,
                 IsActive = tabOptions.ActiveTab == 1
             });
             return View(model);
@@ -190,12 +192,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult AddUsersToTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
-            {
-                ViewBag.TeamID = id;
+            {                
                 var team = TeamPresenterObject.GetTeamById(id);
                 //default tab is 1 --> if tab is not active then we use default filter
-                options = tabOptions.ActiveTab != 1 ? PagingHelper.DefaultFilterOptions : options;
+                options = tabOptions.ActiveTab != tabOptions.CurrentTabIndex ? PagingHelper.DefaultFilterOptions : options;
                 var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id, options);
+
+                ViewBag.TeamID = id;
+                ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
+
                 return View("AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)
@@ -228,12 +233,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult RemoveUsersFromTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
-            {
-                ViewBag.TeamID = id;
+            {                
                 var team = TeamPresenterObject.GetTeamById(id);
                 //default tab is 0 --> if tab is not active then we use default filter
-                options = tabOptions.ActiveTab != 0 ? PagingHelper.DefaultFilterOptions : options;
+                options = tabOptions.ActiveTab != tabOptions.CurrentTabIndex ? PagingHelper.DefaultFilterOptions : options;
                 var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id, options);
+
+                ViewBag.TeamID = id;
+                ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
+
                 return View("RemoveUsersFromTeam", listUsersBelongTeam);
             }
             catch (TeamNotFoundException e)
