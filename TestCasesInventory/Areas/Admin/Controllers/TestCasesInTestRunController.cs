@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
+using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Validations;
 
@@ -15,7 +16,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
         private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
-        protected ITestCasesInTestRunPresenter TestCasePresenterObject
+        protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
         {
             get
             {
@@ -35,15 +36,30 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 int? testRunID = 2;
                 if (testRunID == 2)
                 {
-                    var testCasesInTestRun = TestCasePresenterObject.GetTestCasesByTestRunID(testRunID.Value, filterOptions);
+                    var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesByTestRunID(testRunID.Value, filterOptions);
                     return View("Index", testCasesInTestRun);
                 }
                 else
                 {
                     return View("Index");
-                }
-            
-            
+                }              
+        }
+
+        public ActionResult Details(int? id)
+        {
+            try
+            {
+                var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+                return View("Details", testCaseInTestRun);
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
     }
 }

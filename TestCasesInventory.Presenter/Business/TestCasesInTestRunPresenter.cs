@@ -87,7 +87,7 @@ namespace TestCasesInventory.Presenter.Business
                         LastModifiedDate = DateTime.Now,
                         Created = user.Email,
                         LastModified = user.Email,
-                        AssignedTo = user.Email,
+                        AssignedTo = user.Id,
                     };
                     var testCaseInTestRunDataModel = testCaseInTestRunViewModel.MapTo<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
                     testCasesInTestRunRepository.InsertTestCaseInTestRun(testCaseInTestRunDataModel);

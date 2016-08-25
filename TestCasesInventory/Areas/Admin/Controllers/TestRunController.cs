@@ -77,7 +77,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestRun/Details/5
-        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult Details(int? id)
         {
             try
             {
