@@ -171,6 +171,34 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientSide\Scripts\App\app.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\themes\modern\theme.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\tinymce.min.js" />
+    <Content Include="ClientSide\Scripts\main.js" />
+    <Content Include="ClientSide\Scripts\App\requirejs-config.js" />
+    <Content Include="ClientSide\Scripts\Lib\bootstrap.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\jquery-1.9.1.js" />
+    <Content Include="ClientSide\Scripts\Lib\jquery-1.9.1.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\jquery.cookie.js" />
+    <Content Include="ClientSide\Scripts\Lib\jquery.validate.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\jquery.validate.unobtrusive.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\modernizr-2.6.2.js" />
+    <Content Include="ClientSide\Scripts\Lib\require.js" />
+    <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -246,6 +274,8 @@
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByTesterPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_TabPartialView.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Details.cshtml" />
+    <Content Include="ClientSide\Scripts\Lib\jquery-1.9.1.min.map" />
+    <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
     <Content Include="Scripts\Handle-Bars-Templates\add-test-case-template.js" />
@@ -349,7 +379,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
+    <Folder Include="ClientSide\Templates\" />
     <Folder Include="Models\" />
+    <Folder Include="Templates\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Menu\" />
   </ItemGroup>
