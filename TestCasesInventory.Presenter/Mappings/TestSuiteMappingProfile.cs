@@ -29,7 +29,7 @@ namespace TestCasesInventory.Presenter.Mappings
                  })
                  .ForMember(dest => dest.LastModifiedDisplayOnly, opt =>
                  {
-                     opt.MapFrom(src => string.IsNullOrEmpty(src.LastModifiedDisplayOnly) ? teamRepository.FindUserByEmail(src.LastModifiedDisplayOnly).DisplayName : src.LastModifiedDisplayOnly);
+                     opt.MapFrom(src => string.IsNullOrEmpty(src.LastModifiedDisplayOnly) ? teamRepository.FindUserByEmail(src.LastModified).DisplayName : src.LastModifiedDisplayOnly);
                  })
                  .ForMember(dest => dest.TeamNameDisplayOnly, opt =>
                  {
