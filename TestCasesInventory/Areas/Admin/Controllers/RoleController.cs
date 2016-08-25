@@ -173,17 +173,30 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
 
-        public ActionResult AssignUsersToRole(string id)
+        public ActionResult AssignUsersToRole(string id, TabOptions tabOptions)
         {
-            try
+            var roleName = RolePresenter.GetRoleById(id).Name;
+            var model = new AssignUsersToRoleViewModel { RoleName = roleName };
+            model.Tabs.Add(new TabViewModel
             {
-                var role = RolePresenter.GetRoleById(id);
-                return View(role);
-            }
-            catch (RoleNotFoundException e)
+                ID = "UsersBelongingToTheRole",
+                Name = "List Users in Role",
+                Action = "RemoveUsersFromRole",
+                Controller = "Role",
+                TabIndex = 0,
+                IsActive = tabOptions.ActiveTab == 0
+            });
+            model.Tabs.Add(new TabViewModel
             {
-                return View("RoleNotFoundError");
-            }
+                ID = "UsersNotBelongingToTheRole",
+                Name = "List Users NOT belonging to the Role",
+                Action = "AddUsersToRole",
+                Controller = "Role",
+                TabIndex = 1,
+                IsActive = tabOptions.ActiveTab == 1
+            });
+
+            return View(model);
 
         }
 
