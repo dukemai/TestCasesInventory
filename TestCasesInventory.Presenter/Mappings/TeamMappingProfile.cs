@@ -6,6 +6,7 @@ using System.Linq;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -26,7 +27,9 @@ namespace TestCasesInventory.Presenter.Mappings
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
             this.CreateMap<IPagedList<TeamDataModel>, IPagedList<TeamViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TeamDataModel, TeamViewModel>>();
-            this.CreateMap<EditTeamViewModel, TeamDataModel>();
+            this.CreateMap<EditTeamViewModel, TeamDataModel>()
+                .Ignore(m => m.Created)
+                .Ignore(m => m.CreatedDate);
             this.CreateMap<CreateTeamViewModel, TeamDataModel>();
             this.CreateMap<ApplicationUser, UsersBelongTeamViewModel>();
             this.CreateMap<ApplicationUser, UsersNotBelongTeamViewModel>();
