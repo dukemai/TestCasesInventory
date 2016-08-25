@@ -112,9 +112,20 @@ namespace TestCasesInventory.Presenter.Business
         public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
         {
             var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestRunNotFoundException("User was not found.");
+            }
             var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
+            if (testRun == null)
+            {
+                logger.Error("Test Run was not found.");
+                throw new TestRunNotFoundException("Test Run was not found.");
+            }
             var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesPopUp(user.TeamID, getAll);
+            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesPopUp(testRun.TeamID, getAll);
             foreach (var testSuite in listTestSuitesDataModel)
             {
                 var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
