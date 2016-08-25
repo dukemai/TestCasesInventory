@@ -18,6 +18,7 @@ namespace TestCasesInventory
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(FilterOptions), new FilterOptionsBinding());
+            ModelBinders.Binders.Add(typeof(TabOptions), new TabOptionsBinding());
             StartUp.Start();
             log4net.Config.XmlConfigurator.Configure();
 
