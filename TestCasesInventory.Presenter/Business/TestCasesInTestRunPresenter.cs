@@ -1,4 +1,6 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -18,6 +20,8 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ITestCaseRepository testCaseRepository;
         protected ITestRunRepository testRunRepository;
+        protected ApplicationUserManager UserManager;
+
 
 
 
@@ -28,6 +32,7 @@ namespace TestCasesInventory.Presenter.Business
             testSuiteRepository = new TestSuiteRepository();
             testCaseRepository = new TestCaseRepository();
             testRunRepository = new TestRunRepository();
+            UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
         public TestCasesInTestRunViewModel GetTestCaseInTestRunById(int? id)
@@ -53,11 +58,17 @@ namespace TestCasesInventory.Presenter.Business
             }
             foreach (var testCase in testCases)
             {
+                var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                if(user == null)
+                {
+                    logger.Error("User was not found.");
+                    throw new UserNotFoundException("User was not found.");
+                }
                 var testCaseDataModel = testCaseRepository.GetTestCaseByID(testCase.ID);
                 if (testCaseDataModel == null)
                 {
                     logger.Error("Test Case with id = " + testCase.ID + " was not found.");
-                    throw new TestRunNotFoundException("Test Case with id = " + testCase.ID + " was not found.");
+                    throw new TestCaseNotFoundException("Test Case with id = " + testCase.ID + " was not found.");
                 }
                 TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
                 if (!testCase.IsInTestRun && testCaseAlreadyInTestRun != null)
@@ -72,6 +83,11 @@ namespace TestCasesInventory.Presenter.Business
                         TestCaseID = testCase.ID,
                         TestRunID = testRunID,
                         TestSuiteID = testCase.TestSuiteID,
+                        CreatedDate = DateTime.Now,
+                        LastModifiedDate = DateTime.Now,
+                        Created = user.Email,
+                        LastModified = user.Email,
+                        AssignedTo = user.Email,
                     };
                     var testCaseInTestRunDataModel = testCaseInTestRunViewModel.MapTo<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
                     testCasesInTestRunRepository.InsertTestCaseInTestRun(testCaseInTestRunDataModel);

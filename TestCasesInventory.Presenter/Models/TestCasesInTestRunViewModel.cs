@@ -2,7 +2,7 @@
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class TestCasesInTestRunViewModel
+    public class TestCasesInTestRunViewModel : ViewModelBase
     {
         public int ID { get; set; }
         public string TestCaseTitle { get; set; }
@@ -15,11 +15,12 @@ namespace TestCasesInventory.Presenter.Models
         public string AssignedBy { get; set; }
     }
 
-    public class CreateTestCasesInTestRunViewModel
+    public class CreateTestCasesInTestRunViewModel: ViewModelBase
     {
         public int TestCaseID { get; set; }
         public int TestSuiteID { get; set; }
         public int TestRunID { get; set; }
+        public string AssignedTo { get; set; }
     }
 
     public class EditTestCasesInTestRunViewModel
