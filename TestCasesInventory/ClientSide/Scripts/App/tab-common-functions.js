@@ -1,7 +1,6 @@
 ﻿define([], function () {
 
-    var exportModule = function () {
-    };
+    var exportModule = {};
     exportModule.init = function (el) {
         $('[data-toggle="tab"]').click(function (e) {
             e.preventDefault();

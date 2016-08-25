@@ -1,4 +1,4 @@
-﻿@using TestCasesInventory.Presenter.Models 
+﻿@using TestCasesInventory.Presenter.Models
 @model TestRunViewModel
 @{
     ViewBag.Title = "Details";
@@ -87,7 +87,9 @@
     <div class="test-cases-area bg-gray">
         <p>
             <b>TestCases for @Model.Title</b>
-            @Html.ActionLink("Add TestCases", "GetTestSuitesPopUp", new { id = Model.ID }, new { @class = "modal-link btn btn-default" })        </p>
+            <a href="#" id="show-testrun-popup" data-test-run="@Model.ID" class="modal-link btn btn-default">Add TestCases</a>
+            
+        </p>
     </div>
     @Html.Action("Index", "TestCasesInTestRun", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
 </div>

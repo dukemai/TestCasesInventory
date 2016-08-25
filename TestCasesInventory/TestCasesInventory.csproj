@@ -172,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientSide\Scripts\App\app.js" />
+    <Content Include="ClientSide\Scripts\App\file-control-custom.js" />
+    <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
+    <Content Include="ClientSide\Scripts\App\template-common.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\add-testcases-to-testrun.js" />
+    <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
+    <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\autolink\plugin.min.js" />
@@ -199,6 +205,7 @@
     <Content Include="ClientSide\Scripts\Lib\require.js" />
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
+    <Content Include="ClientSide\Templates\TestRun\test-run-popup.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -379,7 +386,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
-    <Folder Include="ClientSide\Templates\" />
     <Folder Include="Models\" />
     <Folder Include="Templates\" />
     <Folder Include="Views\Errors\" />

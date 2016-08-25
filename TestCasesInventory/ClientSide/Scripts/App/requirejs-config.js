@@ -4,11 +4,15 @@
         'tinyMCE': 'Lib/tinymce/tinymce.min',
         'tinyMCEInit': 'App/tinymce-init',
         'tabCommonFunctions': 'App/tab-common-functions',
-        'app':'App/app'
+        'fileControl': 'App/file-control-custom',
+        'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
+        'handlebars': 'Lib/handlebars.min',
+        'templateHelper': 'App/template-common',
+        'app': 'App/app'
     },
     'shim': {
-        'underscore': {
-            'exports': '_'
+        underscore: {
+            exports: '_'
         },
         tinyMCE: {
             exports: 'tinyMCE',
@@ -16,6 +20,9 @@
                 this.tinyMCE.DOM.events.domLoaded = true;
                 return this.tinyMCE;
             }
+        },
+        handlebars: {
+            exports: 'Handlebars'
         }
     }
 });

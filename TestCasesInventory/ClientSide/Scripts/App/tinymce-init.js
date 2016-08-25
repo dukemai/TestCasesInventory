@@ -1,7 +1,6 @@
 ﻿define(['tinyMCE'], function (tinyMCE) {
 
-    var exportModule = function () {
-    };
+    var exportModule = {};
     exportModule.init = function (el) {
         tinyMCE.init({
             selector: '#' + el.id,
