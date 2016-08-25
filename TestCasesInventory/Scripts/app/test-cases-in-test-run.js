@@ -4,7 +4,7 @@ $('.modal-link').click(function (e) {
     e.preventDefault();
     var thisHref = this.href;
     $.get(thisHref, function (data, status) {
-        var testRunID = data[1].TestRunID;
+        var testRunID = data[0].TestRunID;
         var result = template(data);
         $("#modalContent").empty();
         $("#modalContent").append(result);

@@ -111,8 +111,10 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
         {
+            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
             var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuitesDataModel = testSuiteRepository.ListAll();
+            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesPopUp(user.TeamID, getAll);
             foreach (var testSuite in listTestSuitesDataModel)
             {
                 var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
@@ -129,8 +131,8 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCase in listTestCasesDataModel)
             {
                 var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
-                if (testCaseAlreadyInTestRun == null)
+                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
+                if (testCaseAlreadyInTestRun.Any())
                 {
                     testCaseInTestSuitePopUp.IsInTestRun = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;
@@ -140,7 +142,7 @@ namespace TestCasesInventory.Presenter.Business
             return listTestCasesInTestSuitePopUp;
         }
 
-        
+
 
         public IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId)
         {

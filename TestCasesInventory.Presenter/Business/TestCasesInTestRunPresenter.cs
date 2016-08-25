@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
@@ -70,13 +71,13 @@ namespace TestCasesInventory.Presenter.Business
                     logger.Error("Test Case with id = " + testCase.ID + " was not found.");
                     throw new TestCaseNotFoundException("Test Case with id = " + testCase.ID + " was not found.");
                 }
-                TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
-                if (!testCase.IsInTestRun && testCaseAlreadyInTestRun != null)
+                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
+                if (!testCase.IsInTestRun && testCaseAlreadyInTestRun.Any())
                 {
-                    testCasesInTestRunRepository.DeleteTestCaseInTestRun(testCaseAlreadyInTestRun.ID);
+                    testCasesInTestRunRepository.DeleteTestCaseInTestRun(testCaseAlreadyInTestRun.First().ID);
                     testCasesInTestRunRepository.Save();
                 }
-                if (testCase.IsInTestRun && testCaseAlreadyInTestRun == null)
+                if (testCase.IsInTestRun && !testCaseAlreadyInTestRun.Any())
                 {
                     var testCaseInTestRunViewModel = new CreateTestCasesInTestRunViewModel
                     {
