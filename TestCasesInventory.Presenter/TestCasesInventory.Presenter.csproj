@@ -142,6 +142,7 @@
     <Compile Include="Mappings\TestSuiteMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AssignUsersToRoleViewModel.cs" />
     <Compile Include="Models\AssignUsersToTeamViewModel.cs" />
     <Compile Include="Models\FilterViewModel.cs" />
     <Compile Include="Models\LoginStatusViewModel.cs" />
