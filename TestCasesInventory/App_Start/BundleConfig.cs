@@ -27,6 +27,9 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
             "~/Scripts/lib/tinymce/tinymce.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/underscore").Include(
+           "~/Scripts/lib/underscore-min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery.cookie").Include(
                   "~/Scripts/lib/jquery.cookie.js"));
 

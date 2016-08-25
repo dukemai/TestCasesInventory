@@ -286,6 +286,7 @@
     <Content Include="Scripts\lib\tinymce\skins\lightgray\skin.min.css" />
     <Content Include="Scripts\lib\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\lib\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\lib\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
