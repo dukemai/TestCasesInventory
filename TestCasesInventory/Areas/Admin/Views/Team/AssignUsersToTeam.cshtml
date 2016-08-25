@@ -1,23 +1,12 @@
-﻿
+﻿@using TestCasesInventory.Presenter.Models
+@model AssignUsersToTeamViewModel
 @{
     ViewBag.Title = "AssignUsersToTeam";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>Assign Users To @ViewBag.TeamName</h3>
-<ul class="nav nav-tabs" id="user-list">
-    <li class="active"><a data-toggle="tab" href="#UsersBelongingToTheTeam">List Users in Team</a></li>
-    <li><a data-toggle="tab" href="#UsersNotBelongingToTheTeam">List Users NOT belonging to the Team</a></li>
-</ul>
-
-<div class="tab-content">
-    <div id="UsersBelongingToTheTeam" class="tab-pane fade in active">
-        @Html.Action("RemoveUsersFromTeam")
-    </div>
-    <div id="UsersNotBelongingToTheTeam" class="tab-pane fade">
-        @Html.Action("AddUsersToTeam")
-    </div>
-</div>
+<h3>Assign Users To @Model.TeamName</h3>
+@Html.Partial("_TabPartialView", Model.Tabs)
 <br />
 <hr />
 <p>

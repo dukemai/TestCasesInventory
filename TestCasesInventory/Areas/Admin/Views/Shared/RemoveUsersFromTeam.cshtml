@@ -5,7 +5,7 @@
 
 @model  IPagedList<UsersBelongTeamViewModel>
 
-@Html.Action("FilterForRemoveUsersFromTeam", "Filter", new { area = "" })
+@Html.Action("FilterForRemoveUsersFromTeam", "Filter", new { area = "", currentTabIndex = ViewBag.CurrentTabIndex })
 <form action="~/Admin/Team/RemoveUsersFromTeam/@ViewBag.TeamID" method="post">
     <table class="table">
         <tr>

@@ -157,6 +157,7 @@
     <Compile Include="Areas\Admin\Controllers\TestRunController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestSuiteController.cs" />
     <Compile Include="Bindings\FilterOptionsBinding.cs" />
+    <Compile Include="Bindings\TabOptionsBinding.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\FilterController.cs" />
@@ -243,8 +244,10 @@
     <Content Include="Areas\Admin\Views\Shared\TestRun\_AddTestCaseToTestRunPopUpTemplatePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByAdminPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByTesterPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_TabPartialView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\file-control-custom.js" />
+    <Content Include="Scripts\Handle-Bars-Templates\add-test-case-template.js" />
     <Content Include="Scripts\handlebars.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -254,6 +257,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -262,6 +266,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tab-common-functions.js" />
     <Content Include="Scripts\test-cases-in-test-run.js" />
     <Content Include="Scripts\tinymceInit.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />

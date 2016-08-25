@@ -45,6 +45,7 @@
     <Compile Include="ImageExtensionConfig.cs" />
     <Compile Include="PathConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

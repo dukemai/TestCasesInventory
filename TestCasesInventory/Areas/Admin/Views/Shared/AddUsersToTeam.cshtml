@@ -5,7 +5,7 @@
 
 @model  IPagedList<UsersNotBelongTeamViewModel>
 
-@Html.Action("FilterForAddUserToTeam", "Filter", new { area = "" })
+@Html.Action("FilterForAddUserToTeam", "Filter", new { area = "", currentTabIndex = ViewBag.CurrentTabIndex })
 <form action="~/Admin/Team/AddUsersToTeam/@ViewBag.TeamID" method="post">
     <table class="table">
         <tr>

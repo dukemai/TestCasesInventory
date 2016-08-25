@@ -22,11 +22,20 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
                         "~/Scripts/handlebars.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/add-test-case-template").Include(
+                     "~/Scripts/Handle-Bars-Templates/add-test-case-template.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/list-user-customjs").Include(
                     "~/Scripts/list-user-customjs.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery.cookie").Include(
+                    "~/Scripts/jquery.cookie.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tab-common-functions").Include(
+                   "~/Scripts/tab-common-functions.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymceInit").Include(
                         "~/Scripts/TinyMceInit.js"));

@@ -1,8 +1,12 @@
 ﻿
+
 $('.modal-link').click(function (e) {
     e.preventDefault();
-    $('#modalContent').load(this.href, function () {
+    var thisHref = this.href;
+    $.get(thisHref, function (data, status) {
+        var result = template(data);
+        $("#modalContent").empty();
+        $("#modalContent").append(result);
         $('#modal-container').modal('show');
     });
 })
-
