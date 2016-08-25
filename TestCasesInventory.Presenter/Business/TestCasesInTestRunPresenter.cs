@@ -50,6 +50,12 @@ namespace TestCasesInventory.Presenter.Business
 
         public void AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
         {
+            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new UserNotFoundException("User was not found.");
+            }
             var testRun = testRunRepository.GetTestRunByID(testRunID);
             if (testRun == null)
             {
@@ -58,12 +64,6 @@ namespace TestCasesInventory.Presenter.Business
             }
             foreach (var testCase in testCases)
             {
-                var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                if(user == null)
-                {
-                    logger.Error("User was not found.");
-                    throw new UserNotFoundException("User was not found.");
-                }
                 var testCaseDataModel = testCaseRepository.GetTestCaseByID(testCase.ID);
                 if (testCaseDataModel == null)
                 {

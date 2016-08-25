@@ -246,7 +246,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
         [HttpGet]
-        public ActionResult AddTestCasesToTestRun(int id)
+        public ActionResult GetTestSuitesPopUp(int id)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTestCases(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
         {
             try
             {
