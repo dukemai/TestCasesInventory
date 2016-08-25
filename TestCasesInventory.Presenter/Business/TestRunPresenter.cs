@@ -129,8 +129,8 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCase in listTestCasesDataModel)
             {
                 var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                bool checkTestCaseInTestRun = testCasesInTestRunRepository.CheckTestCaseInTestRunByTestCaseID(testRunID, testCase.ID);
-                if (checkTestCaseInTestRun)
+                TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
+                if (testCaseAlreadyInTestRun == null)
                 {
                     testCaseInTestSuitePopUp.IsInTestRun = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;
@@ -140,6 +140,7 @@ namespace TestCasesInventory.Presenter.Business
             return listTestCasesInTestSuitePopUp;
         }
 
+        
 
         public IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId)
         {

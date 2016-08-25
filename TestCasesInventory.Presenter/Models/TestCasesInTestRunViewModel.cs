@@ -1,4 +1,6 @@
-﻿namespace TestCasesInventory.Presenter.Models
+﻿using System;
+
+namespace TestCasesInventory.Presenter.Models
 {
     public class TestCasesInTestRunViewModel
     {
@@ -11,6 +13,13 @@
 
         public string AssignedTo { get; set; }
         public string AssignedBy { get; set; }
+    }
+
+    public class CreateTestCasesInTestRunViewModel
+    {
+        public int TestCaseID { get; set; }
+        public int TestSuiteID { get; set; }
+        public int TestRunID { get; set; }
     }
 
     public class EditTestCasesInTestRunViewModel
