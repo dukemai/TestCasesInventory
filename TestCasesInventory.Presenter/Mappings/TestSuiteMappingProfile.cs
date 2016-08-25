@@ -5,6 +5,7 @@ using PagedList;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -24,7 +25,7 @@ namespace TestCasesInventory.Presenter.Mappings
                  .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCaseRepository.TotalTestCasesForTestSuite(src.ID)))
                  .ForMember(dest => dest.CreateDisplayOnly, opt =>
                  {
-                     opt.MapFrom(src => string.IsNullOrEmpty(src.CreateDisplayOnly) ? teamRepository.FindUserByEmail(src.Created).DisplayName: src.CreateDisplayOnly);
+                     opt.MapFrom(src => string.IsNullOrEmpty(src.CreateDisplayOnly) ? teamRepository.FindUserByEmail(src.Created).DisplayName : src.CreateDisplayOnly);
                  })
                  .ForMember(dest => dest.LastModifiedDisplayOnly, opt =>
                  {
@@ -38,11 +39,15 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ConvertUsing<Mappings.PagedListConverter<TestSuiteDataModel, TestSuiteViewModel>>();
 
             this.CreateMap<TestSuiteDataModel, CreateTestSuiteViewModel>();
+
             this.CreateMap<CreateTestSuiteViewModel, TestSuiteDataModel>();
 
             //.ForMember(dest => dest.TeamID, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).TeamID));
             this.CreateMap<TestSuiteDataModel, EditTestSuiteViewModel>();
-            this.CreateMap<EditTestSuiteViewModel, TestSuiteDataModel>();
+            this.CreateMap<EditTestSuiteViewModel, TestSuiteDataModel>()
+                .Ignore(m => m.CreatedDate)
+                .Ignore(m => m.Created)
+                .Ignore(m => m.TeamID);
 
         }
     }
