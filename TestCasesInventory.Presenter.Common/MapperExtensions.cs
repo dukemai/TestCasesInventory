@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using PagedList;
+using System;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace TestCasesInventory.Presenter.Common
 {
@@ -13,6 +15,14 @@ namespace TestCasesInventory.Presenter.Common
         public static Destination MapTo<Source, Destination>(this Source source, Destination des)
         {
             return Mapper.Map(source, des);
+        }
+
+        public static IMappingExpression<TSource, TDestination> Ignore<TSource, TDestination>(
+    this IMappingExpression<TSource, TDestination> map,
+    Expression<Func<TDestination, object>> selector)
+        {
+            map.ForMember(selector, config => config.Ignore());
+            return map;
         }
     }
 }
