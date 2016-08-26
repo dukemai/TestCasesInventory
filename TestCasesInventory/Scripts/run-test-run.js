@@ -9,6 +9,3 @@
         });
     });
 });
-//$('#modal-container').modal({
-    
-//})
