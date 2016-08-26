@@ -171,6 +171,28 @@ namespace TestCasesInventory.Controllers
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
 
+        public ActionResult FilterForTestRunResult([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Status",
+                DisplayName = "Status",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Status") != null : true
+            });
+
+       
+            var viewModel = new FilterViewModel
+            {
+                Controller = "TestRunResult",
+                Action = "Index",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
         public ActionResult FilterForTestCase([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             var filterFields = new List<FilterOptionViewModel>();

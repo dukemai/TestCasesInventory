@@ -234,25 +234,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
         public ActionResult Run(int id)
         {
-            return PartialView("ChooseTestRunOption");
+            return PartialView("ChooseTestRunOptionPartial");
         }
-
-        //[HttpGet]
-        //public ActionResult AddTestCase(int id)
-        //{
-        //    try
-        //    {
-        //        var testRun = TestRunPresenterObject.GetTestRunById(id);
-        //        return RedirectToAction("Create", "TestCase", new { testRunID = id });
-        //    }
-        //    catch (TestRunNotFoundException e)
-        //    {
-        //        return View("ResultNotFoundError");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return View("ResultNotFoundError");
-        //    }
-        //}
+              
     }
 }
