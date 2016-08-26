@@ -248,7 +248,6 @@
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Details.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
-    <Content Include="Scripts\Handle-Bars-Templates\add-test-case-template.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.min.js" />
@@ -288,6 +287,7 @@
     <Content Include="Scripts\lib\tinymce\tinymce.min.js" />
     <Content Include="Scripts\lib\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\handlebars_template_test_run.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
