@@ -31,10 +31,14 @@ namespace TestCasesInventory.Presenter.Models
         public int TestSuiteID { get; set; }
         public int TestRunID { get; set; }
         public string AssignedTo { get; set; }
+        public string AssignedBy { get; set; }
+
     }
 
     public class EditTestCasesInTestRunViewModel : ViewModelBase
     {
         public string AssignedTo { get; set; }
+        public string AssignedBy { get; set; }
+
     }
 }

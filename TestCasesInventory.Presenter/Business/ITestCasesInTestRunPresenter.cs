@@ -16,6 +16,7 @@ namespace TestCasesInventory.Presenter.Business
         void DeleteTestCaseInTestRun(int id);
         void AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID);
         void CheckExceptionTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun);
+        void AssignToMe(int? testCaseInTestRunID, string userId);
         IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testSuiteId, FilterOptions filterOptions);
 
     }

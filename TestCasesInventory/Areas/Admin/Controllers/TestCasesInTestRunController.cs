@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,7 @@ using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
+using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
@@ -16,6 +18,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
     {
         #region Properties
         private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
+        private IUserPresenter userPresenter;
+
         protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
         {
             get
@@ -25,6 +29,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testCasesInTestRunPresenterObject = new TestCasesInTestRunPresenter(HttpContext);
                 }
                 return testCasesInTestRunPresenterObject;
+            }
+        }
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
             }
         }
         #endregion
@@ -66,6 +81,22 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        public ActionResult AssignToMe(int? id)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                TestCasesInTestRunPresenterObject.AssignToMe(id, userId);
+                return Json("Assigned", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+       
 
         public ActionResult Delete(int? id)
         {

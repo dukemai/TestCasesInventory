@@ -93,6 +93,7 @@ namespace TestCasesInventory.Presenter.Business
                             Created = user.Email,
                             LastModified = user.Email,
                             AssignedTo = user.Id,
+                            AssignedBy = user.Id,
                         };
                         var testCaseInTestRunDataModel = testCaseInTestRunViewModel.MapTo<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
                         testCasesInTestRunRepository.InsertTestCaseInTestRun(testCaseInTestRunDataModel);
@@ -114,6 +115,37 @@ namespace TestCasesInventory.Presenter.Business
                 }
 
             }
+        }
+
+        public void AssignToMe(int? testCaseInTestRunID, string userId)
+        {
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            if (!testCaseInTestRunID.HasValue)
+            {
+                logger.Error("Id was not valid.");
+                throw new TestCaseNotFoundException("Id was not valid.");
+            }
+            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            if(testCaseInTestRunDataModel == null)
+            {
+                logger.Error("This test case was not found.");
+                throw new TestCaseNotFoundException("This test case was not found.");
+            }
+            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+            {
+                AssignedBy = userId,
+                AssignedTo = userId,
+                LastModified = user.Email,
+                LastModifiedDate = DateTime.Now
+            };
+            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.UpdateTestCaseInTestRun(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.Save();
         }
 
 
@@ -143,7 +175,7 @@ namespace TestCasesInventory.Presenter.Business
             if (testRun == null)
             {
                 logger.Error("Test run was not found.");
-                throw new TestCaseNotFoundException("Test run was not found.");
+                throw new TestRunNotFoundException("Test run was not found.");
             }
         }
 
