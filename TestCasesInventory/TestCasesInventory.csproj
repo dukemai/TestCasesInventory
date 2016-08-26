@@ -288,7 +288,8 @@
     <Content Include="Scripts\lib\tinymce\tinymce.min.js" />
     <Content Include="Scripts\lib\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Templates\handlebars_template_test_run.htm" />
+    <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
+    <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

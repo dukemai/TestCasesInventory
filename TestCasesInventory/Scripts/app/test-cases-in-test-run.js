@@ -15,18 +15,23 @@ function return_html(appendTo, tmpl, data) {
     $(appendTo).html(html);
 }
 
+
 $('.modal-link').on("click", function (e) {
     e.preventDefault();
     var thisHref = this.href;
     $.get(thisHref, function (data, status) {
         var testRunID = data[0].TestRunID;
-        return_html("#modalContent", "test_run", data);
+        return_html("#modalContent", "list_test_suite_popup", data);
         $('#modal-container').modal('show');
         $("#modalContent").on("click","a" ,function () {
             var testSuiteID = $(this).attr("data-id");
-            $.get("TestRun/GetTestCasesInTestSuitePopUp?testSuiteID=" + testSuiteID + "&testRunID=" + testRunID, function (data, status) {
-                console.log(data);
-            });
+            if ($("#" + testSuiteID + " .panel-body").html().trim() == "")
+            {
+                $.get("TestRun/GetTestCasesInTestSuitePopUp?testSuiteID=" + testSuiteID + "&testRunID=" + testRunID, function (data, status) {
+                    if (data != null)
+                        return_html("#" + testSuiteID + " .panel-body", "list_test_cases_popup", data);
+                });
+            }
         })
     });
 })
