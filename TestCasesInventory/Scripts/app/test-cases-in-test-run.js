@@ -29,12 +29,20 @@ $("#modalContent").on("click", "a", function () {
     if ($("#" + testSuiteID + " .panel-body").html().trim() == "") {
         $.get("TestRun/GetTestCasesInTestSuitePopUp?testSuiteID=" + testSuiteID + "&testRunID=" + testRunID, function (data, status) {
             return_html("#" + testSuiteID + " .panel-body", "list_test_cases_popup", data);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "TestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
+                data: JSON.stringify({ testCases: data })
+            });
         });
     }
 })
 
 $("#submit-button").on("click", function () {
     console.log($("#modalContent").html());
+
     //duyet nhung thang <input> test case.
     //attr.checked, is in testrun = true.
     //submit action ve server.
