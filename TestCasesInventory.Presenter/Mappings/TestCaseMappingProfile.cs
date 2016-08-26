@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using PagedList;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -24,7 +25,10 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<TestCaseDataModel, CreateTestCaseViewModel>();
             this.CreateMap<CreateTestCaseViewModel, TestCaseDataModel>();
             this.CreateMap<TestCaseDataModel, EditTestCaseViewModel>();
-            this.CreateMap<EditTestCaseViewModel, TestCaseDataModel>();
+            this.CreateMap<EditTestCaseViewModel, TestCaseDataModel>()
+                .Ignore(m => m.Created)
+                .Ignore(m => m.CreatedDate)
+                .Ignore(m => m.TestSuiteID);
         }
     }
 }
