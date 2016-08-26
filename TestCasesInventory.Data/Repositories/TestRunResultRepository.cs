@@ -48,5 +48,51 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).ToList();
         }
+
+        public IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options)
+        {
+            IQueryable<TestRunResultDataModel> query = dataContext.TestRunResults.Select(t => t);
+
+            if (options == null)
+            {
+                return query.ToCustomPagedList<TestRunResultDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "status":
+                            query = query.Where(t => t.Status.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "status":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Status) : query.OrderByDescending(t => t.Status);
+                        break;
+                    case "":
+                    default:
+                        query = query.OrderByDescending(d => d.CreatedDate);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
+            }
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+        }
     }
 }
