@@ -21,6 +21,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ITestCaseRepository testCaseRepository;
         protected ITestRunRepository testRunRepository;
+        protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
 
 
@@ -33,6 +34,7 @@ namespace TestCasesInventory.Presenter.Business
             testSuiteRepository = new TestSuiteRepository();
             testCaseRepository = new TestCaseRepository();
             testRunRepository = new TestRunRepository();
+            teamRepository = new TeamRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
@@ -117,7 +119,7 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public void AssignToMe(int? testCaseInTestRunID, string userId)
+        public void AssignTestCaseToMe(int? testCaseInTestRunID, string userId)
         {
             var user = UserManager.FindById(userId);
             if (user == null)
@@ -131,16 +133,66 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestCaseNotFoundException("Id was not valid.");
             }
             var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
-            if(testCaseInTestRunDataModel == null)
-            {
-                logger.Error("This test case was not found.");
-                throw new TestCaseNotFoundException("This test case was not found.");
-            }
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
             var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
             {
                 AssignedBy = userId,
                 AssignedTo = userId,
                 LastModified = user.Email,
+                LastModifiedDate = DateTime.Now
+            };
+            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.UpdateTestCaseInTestRun(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.Save();
+        }
+
+
+        public IList<UsersBelongTeamViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
+        {
+            if (!testCaseInTestRunID.HasValue)
+            {
+                logger.Error("Id was not valid.");
+                throw new Exception("Id was not valid.");
+            }
+            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
+            var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
+            var listUsers = teamRepository.ListUsersByTeamID(testRun.TeamID);
+            var listUsersViewModel = new List<UsersBelongTeamViewModel>();
+            foreach (var user in listUsers)
+            {
+                var userViewModel = user.MapTo<ApplicationUser, UsersBelongTeamViewModel>();
+                listUsersViewModel.Add(userViewModel);
+            }
+            return listUsersViewModel;
+        }
+
+        public void AssignTestCaseToUser(int? testCaseInTestRunID, UsersBelongTeamViewModel userBeAssign)
+        {
+            var assignedBy = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (userBeAssign == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            if (assignedBy == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            if (!testCaseInTestRunID.HasValue)
+            {
+                logger.Error("Id was not valid.");
+                throw new TestCaseNotFoundException("Id was not valid.");
+            }
+            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+            {
+                AssignedBy = assignedBy.Id,
+                AssignedTo = userBeAssign.ID,
+                LastModified = assignedBy.Email,
                 LastModifiedDate = DateTime.Now
             };
             testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);

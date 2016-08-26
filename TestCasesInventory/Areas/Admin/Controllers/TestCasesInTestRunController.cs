@@ -19,7 +19,31 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #region Properties
         private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
         private IUserPresenter userPresenter;
+        private ITeamPresenter teamPresenterObject;
+        private ITestRunPresenter testRunPresenterObject;
 
+        protected ITestRunPresenter TestRunPresenterObject
+        {
+            get
+            {
+                if (testRunPresenterObject == null)
+                {
+                    testRunPresenterObject = new TestRunPresenter(HttpContext);
+                }
+                return testRunPresenterObject;
+            }
+        }
+        protected ITeamPresenter TeamPresenterObject
+        {
+            get
+            {
+                if (teamPresenterObject == null)
+                {
+                    teamPresenterObject = new TeamPresenter(HttpContext);
+                }
+                return teamPresenterObject;
+            }
+        }
         protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
         {
             get
@@ -87,8 +111,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
-                TestCasesInTestRunPresenterObject.AssignToMe(id, userId);
-                return Json("Assigned", JsonRequestBehavior.AllowGet);
+                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
+                return RedirectToAction("Details", "TestRun", new { id = id.Value });
             }
             catch (Exception e)
             {
@@ -96,7 +120,31 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-       
+        public ActionResult GetUsersToAssign(int? id)
+        {
+            try
+            {
+                var users = TestCasesInTestRunPresenterObject.ListUsersAssignedToTestCase(id);
+                return Json(users, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult AssignToUser(int? id, UsersBelongTeamViewModel user)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(id, user);
+                return Json("Assigned.");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
 
         public ActionResult Delete(int? id)
         {
