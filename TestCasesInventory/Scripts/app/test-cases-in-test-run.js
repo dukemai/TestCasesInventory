@@ -29,22 +29,37 @@ $("#modalContent").on("click", "a", function () {
     if ($("#" + testSuiteID + " .panel-body").html().trim() == "") {
         $.get("TestRun/GetTestCasesInTestSuitePopUp?testSuiteID=" + testSuiteID + "&testRunID=" + testRunID, function (data, status) {
             return_html("#" + testSuiteID + " .panel-body", "list_test_cases_popup", data);
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                url: "TestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
-                data: JSON.stringify({ testCases: data })
-            });
         });
     }
 })
 
 $("#submit-button").on("click", function () {
-    console.log($("#modalContent").html());
+    var objArray = [];
+    var testRunID = $("#modalContent a").attr("data-test-run-id");
+    $("input[name='test-case']:checked").each(function (index, elem) {
+        var ID = Number($(this).attr('testcase-id'));
+        var IsInTestRun = $(this).attr('IsInTestRun') === 'true' ? true : false;
+        var TestRunID = $(this).attr('TestRunID') == "" ? null : Number($(this).attr('TestRunID'));
+        var TestSuiteID = Number($(this).attr('TestSuiteID'));
+        var TestSuiteTitle = $(this).attr('TestSuiteTitle');
+        var Title = $(this).attr('Title');
+        var obj = {
+            ID: ID,
+            IsInTestRun: IsInTestRun,
+            TestRunID: TestRunID,
+            TestSuiteID: TestSuiteID,
+            TestSuiteTitle: TestSuiteTitle,
+            Title: Title
+        };
+        objArray.push(obj);
+    });
 
-    //duyet nhung thang <input> test case.
-    //attr.checked, is in testrun = true.
-    //submit action ve server.
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        url: "TestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
+        data: JSON.stringify({ testCases: objArray })
+    });
 })
 
