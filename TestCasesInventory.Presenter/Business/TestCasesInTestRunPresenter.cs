@@ -81,7 +81,7 @@ namespace TestCasesInventory.Presenter.Business
                         throw new TestCaseNotFoundException("Test Case with id = " + testCasePopUp.ID + " was not found.");
                     }
                     var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCasePopUp.ID);
-                    if (testCaseAlreadyInTestRun.Any())
+                    if (!testCaseAlreadyInTestRun.Any())
                     {
                         var testCaseInTestRunViewModel = new CreateTestCasesInTestRunViewModel
                         {
@@ -105,7 +105,7 @@ namespace TestCasesInventory.Presenter.Business
                     if (testCaseDataModel != null)
                     {
                         var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCasePopUp.ID);
-                        if (!testCaseAlreadyInTestRun.Any())
+                        if (testCaseAlreadyInTestRun.Any())
                         {
                             testCasesInTestRunRepository.DeleteTestCaseInTestRun(testCaseAlreadyInTestRun.First().ID);
                             testCasesInTestRunRepository.Save();

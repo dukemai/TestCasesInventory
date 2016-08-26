@@ -30,11 +30,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         #endregion
 
         // GET: Admin/TestCasesInTestRun
-        public ActionResult Index(/*int? testRunID, */[ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult Index(int? testRunID, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
-            
-                int? testRunID = 2;
-                if (testRunID == 2)
+            try
+            {
+                if (testRunID.HasValue)
                 {
                     var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesByTestRunID(testRunID.Value, filterOptions);
                     return View("Index", testCasesInTestRun);
@@ -42,7 +42,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 else
                 {
                     return View("Index");
-                }              
+                }
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         public ActionResult Details(int? id)
@@ -61,5 +66,44 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+        public ActionResult Delete(int? id)
+        {
+            try
+            {
+                var deletedTestCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+                return View("Delete", deletedTestCaseInTestRun);
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, int testRunID)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.DeleteTestCaseInTestRun(id);
+                return RedirectToAction("Details", "TestRun", new { id = testRunID });
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        //public ActionResult DeleteFile(int id)
+        //public ActionResult DeleteFile(int id, string item)
+        //{
+        //    FileControlPresenterObject.DeleteRelativeUrlFile(item);
+        //    return RedirectToAction("Edit", "TestCase", new { id = id });
+        //}
     }
 }
