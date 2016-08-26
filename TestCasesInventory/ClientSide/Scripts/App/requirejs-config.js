@@ -7,7 +7,10 @@
         'fileControl': 'App/file-control-custom',
         'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
         'handlebars': 'Lib/handlebars.min',
-        'templateHelper': 'App/template-common',
+        'templateHelper': 'App/template-helper',
+        'backbone': 'Lib/backbone-min',
+        'underscore': 'Lib/underscore-min',
+        'jquery': 'Lib/jquery-1.9.1',
         'app': 'App/app'
     },
     'shim': {
