@@ -51,7 +51,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                 @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID }, new { @class= "btn btn-default" })
-                @Html.ActionLink("Assign To User", "AssignTo", new { id = item.ID }, new { @class = "modal-link btn btn-default" })
+                @Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }
