@@ -111,8 +111,20 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
         {
+            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestRunNotFoundException("User was not found.");
+            }
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
+            if (testRun == null)
+            {
+                logger.Error("Test Run was not found.");
+                throw new TestRunNotFoundException("Test Run was not found.");
+            }
             var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuitesDataModel = testSuiteRepository.ListAll();
+            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesForTeam(testRun.TeamID);
             foreach (var testSuite in listTestSuitesDataModel)
             {
                 var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
@@ -129,8 +141,8 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCase in listTestCasesDataModel)
             {
                 var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                TestCasesInTestRunDataModel testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
-                if (testCaseAlreadyInTestRun == null)
+                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
+                if (testCaseAlreadyInTestRun.Any())
                 {
                     testCaseInTestSuitePopUp.IsInTestRun = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;
@@ -140,7 +152,7 @@ namespace TestCasesInventory.Presenter.Business
             return listTestCasesInTestSuitePopUp;
         }
 
-        
+
 
         public IPagedList<TestRunViewModel> GetTestRuns(FilterOptions options, string userId)
         {
