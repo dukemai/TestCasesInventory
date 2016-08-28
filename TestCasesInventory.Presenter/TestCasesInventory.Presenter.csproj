@@ -119,6 +119,7 @@
     <Compile Include="Business\IRolePresenter.cs" />
     <Compile Include="Business\ITeamPresenter.cs" />
     <Compile Include="Business\ITestCasePresenter.cs" />
+    <Compile Include="Business\ITestCaseResultPresenter.cs" />
     <Compile Include="Business\ITestRunPresenter.cs" />
     <Compile Include="Business\ITestRunResultPresenter.cs" />
     <Compile Include="Business\ITestSuitePresenter.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Business\TeamPresenter.cs" />
     <Compile Include="Business\IUpdateDisplayNamePresenter.cs" />
     <Compile Include="Business\TestCasePresenter.cs" />
+    <Compile Include="Business\TestCaseResultPresenter.cs" />
     <Compile Include="Business\TestRunPresenter.cs" />
     <Compile Include="Business\TestRunResultPresenter.cs" />
     <Compile Include="Business\TestSuitePresenter.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Mappings\PagedListConverter.cs" />
     <Compile Include="Mappings\RoleMappingProfile.cs" />
+    <Compile Include="Mappings\TestCaseResultMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
     <Compile Include="Mappings\TestRunMappingProfile.cs" />
@@ -153,6 +156,7 @@
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunResultViewModel.cs" />
+    <Compile Include="Models\TestCaseResutlViewModel.cs" />
     <Compile Include="Models\TestRunViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
