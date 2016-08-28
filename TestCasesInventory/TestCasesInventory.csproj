@@ -173,10 +173,17 @@
   <ItemGroup>
     <Content Include="ClientSide\Scripts\App\app.js" />
     <Content Include="ClientSide\Scripts\App\file-control-custom.js" />
+    <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
-    <Content Include="ClientSide\Scripts\App\template-common.js" />
+    <Content Include="ClientSide\Scripts\App\template-helper.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\add-testcases-to-testrun.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasemodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Models\testrunmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Models\testsuitemodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\testrun-routes.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Views\testrun-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
+    <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
@@ -205,7 +212,9 @@
     <Content Include="ClientSide\Scripts\Lib\require.js" />
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
-    <Content Include="ClientSide\Templates\TestRun\test-run-popup.html" />
+    <Content Include="ClientSide\Templates\TestRun\testcases-in-popup.html" />
+    <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
+    <Content Include="ClientSide\Templates\TestRun\testsuite-in-popup.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

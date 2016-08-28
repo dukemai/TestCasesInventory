@@ -1,5 +1,5 @@
 ﻿
-define(['handlebars'], function (handlebars) {
+define(['handlebars', 'promise'], function (handlebars, promise) {
 
     var exportModule = {};
     exportModule.init = function (el) {
@@ -21,8 +21,12 @@ define(['handlebars'], function (handlebars) {
 
     exportModule.loadAndCache = function (name, url) {
         if (exportModule.templates[name] === undefined) {
-            $.get(url, function (data) {
+            return promise.resolve($.get(url)).then(function (data) {
                 exportModule.templates[name] = handlebars.compile(data);;
+            });
+        } else {
+            return new promise(function (resolve) {
+                resolve();
             });
         }
     }
