@@ -8,7 +8,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Title { get; set; }
         public int TestSuiteID { get; set; }
         public string TestSuiteTitle { get; set; }
-        public bool IsInTestRun { get; set; }
+        public bool Checked { get; set; }
         public int? TestRunID { get; set; }
     }
 

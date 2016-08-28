@@ -144,7 +144,7 @@ namespace TestCasesInventory.Presenter.Business
                 var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
                 if (testCaseAlreadyInTestRun.Any())
                 {
-                    testCaseInTestSuitePopUp.IsInTestRun = true;
+                    testCaseInTestSuitePopUp.Checked = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;
                 }
                 listTestCasesInTestSuitePopUp.Add(testCaseInTestSuitePopUp);

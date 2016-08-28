@@ -75,7 +75,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 var testCaseDataModel = testCaseRepository.GetTestCaseByID(testCasePopUp.ID);
 
-                if (testCasePopUp.IsInTestRun)
+                if (testCasePopUp.Checked)
                 {
                     if (testCaseDataModel == null)
                     {

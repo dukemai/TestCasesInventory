@@ -2,7 +2,7 @@
     {{#each .}}
     <tr>
         <td>
-            <input Title="{{Title}}" TestSuiteTitle="{{TestSuiteTitle}}" TestSuiteID="{{TestSuiteID}}" TestRunID="{{TestRunID}}" IsInTestRun="{{IsInTestRun}}" testcase-id="{{ID}}" name="test-case" {{#if IsInTestRun}} {{checked}} {{/if}} type="checkbox" value="{{ID}}"/>
+            <input Title="{{Title}}" TestSuiteTitle="{{TestSuiteTitle}}" TestSuiteID="{{TestSuiteID}}" TestRunID="{{TestRunID}}" TestcaseID="{{ID}}" name="test-case" {{#if Checked}} checked {{/if}} type="checkbox" value="{{ID}}"/>
         </td>
         <td>
             <label>{{Title}}</label>

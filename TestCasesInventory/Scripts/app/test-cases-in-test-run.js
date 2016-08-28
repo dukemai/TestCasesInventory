@@ -36,16 +36,16 @@ $("#modalContent").on("click", "a", function () {
 $("#submit-button").on("click", function () {
     var objArray = [];
     var testRunID = $("#modalContent a").attr("data-test-run-id");
-    $("input[name='test-case']:checked").each(function (index, elem) {
-        var ID = Number($(this).attr('testcase-id'));
-        var IsInTestRun = $(this).attr('IsInTestRun') === 'true' ? true : false;
+    $("input[name='test-case']").each(function (index, elem) {
+        var ID = Number($(this).attr('TestCaseID'));
+        var Checked = this.checked;
         var TestRunID = $(this).attr('TestRunID') == "" ? null : Number($(this).attr('TestRunID'));
         var TestSuiteID = Number($(this).attr('TestSuiteID'));
         var TestSuiteTitle = $(this).attr('TestSuiteTitle');
         var Title = $(this).attr('Title');
         var obj = {
             ID: ID,
-            IsInTestRun: IsInTestRun,
+            Checked: Checked,
             TestRunID: TestRunID,
             TestSuiteID: TestSuiteID,
             TestSuiteTitle: TestSuiteTitle,
