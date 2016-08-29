@@ -17,5 +17,8 @@ namespace TestCasesInventory.Presenter.Models
         public int TestRunID { get; set; }
     }
 
-
+    public class UserPopUpViewModel : UsersBelongTeamViewModel
+    {
+        public int TestCaseInTestRunID { get; set; }
+    }
 }

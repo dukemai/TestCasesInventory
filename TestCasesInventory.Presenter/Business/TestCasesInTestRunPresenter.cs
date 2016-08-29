@@ -147,7 +147,7 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public IList<UsersBelongTeamViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
+        public IList<UserPopUpViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
         {
             if (!testCaseInTestRunID.HasValue)
             {
@@ -158,16 +158,17 @@ namespace TestCasesInventory.Presenter.Business
             CheckExceptionTestCaseInTestRun(testCaseInTestRun);
             var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
             var listUsers = teamRepository.ListUsersByTeamID(testRun.TeamID);
-            var listUsersViewModel = new List<UsersBelongTeamViewModel>();
+            var listUsersViewModel = new List<UserPopUpViewModel>();
             foreach (var user in listUsers)
             {
-                var userViewModel = user.MapTo<ApplicationUser, UsersBelongTeamViewModel>();
+                var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
+                userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
                 listUsersViewModel.Add(userViewModel);
             }
             return listUsersViewModel;
         }
 
-        public void AssignTestCaseToUser(int? testCaseInTestRunID, UsersBelongTeamViewModel userBeAssign)
+        public void AssignTestCaseToUser(UserPopUpViewModel userBeAssign)
         {
             var assignedBy = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             if (userBeAssign == null)
@@ -180,13 +181,7 @@ namespace TestCasesInventory.Presenter.Business
                 logger.Error("User was not found.");
                 throw new TestCaseNotFoundException("User was not found.");
             }
-            if (!testCaseInTestRunID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new TestCaseNotFoundException("Id was not valid.");
-            }
-            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(userBeAssign.TestCaseInTestRunID);
             CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
             var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
             {
