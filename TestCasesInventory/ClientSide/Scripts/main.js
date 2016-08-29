@@ -1,4 +1,4 @@
-﻿require(['app', 'bootstrap'], function (app) {
+﻿require(['app'], function (app) {
     app.init();
     app.initAddTestCasesToTestRun();
 });
