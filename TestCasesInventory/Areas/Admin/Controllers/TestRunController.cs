@@ -109,7 +109,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        // POST: Admin/TestRun/CreateByTester
+        // POST: Admin/TestRun/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title, Description, TeamID")] CreateTestRunViewModel testRun)
@@ -234,7 +234,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
         public ActionResult Run(int id)
         {
-            return PartialView("ChooseTestRunOptionPartial");
+            return PartialView("ChooseTestRunOptionPartial",id);
         }
               
     }

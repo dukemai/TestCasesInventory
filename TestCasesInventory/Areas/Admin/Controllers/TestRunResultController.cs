@@ -12,9 +12,10 @@ using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
-    public class TestRunResultController :  Web.Common.Base.ControllerBase
+    public class TestRunResultController : Web.Common.Base.ControllerBase
     {
         #region Properties
+        private IUserPresenter userPresenter;
         private ITestRunResultPresenter testRunResultPresenterObject;
         protected ITestRunResultPresenter TestRunResultPresenterObject
         {
@@ -27,12 +28,40 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return testRunResultPresenterObject;
             }
         }
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
         #endregion
         // GET: Admin/TestRunResult
         public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
         {
             var testRunResults = TestRunResultPresenterObject.GetTestRunResults(filterOptions);
             return View("Index", testRunResults);
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(int testRunId)
+        {
+            if (ModelState.IsValid)
+            {
+                var testRunResult = new CreateTestRunResultViewModel();
+                var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
+                testRunResult.CreatedDate = testRunResult.LastModifiedDate = DateTime.Now;
+                testRunResult.Created = testRunResult.LastModified = user.Email;
+                testRunResult.Status = "In Progress";
+                testRunResult.TestRunID = testRunId;
+                TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
+            }
+            return RedirectToAction("Index"); 
         }
     }
 }
