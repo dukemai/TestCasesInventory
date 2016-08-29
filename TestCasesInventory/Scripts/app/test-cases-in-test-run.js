@@ -62,5 +62,7 @@ $("#submit-button").on("click", function () {
         url: "TestCasesInTestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
         data: JSON.stringify({ testCases: objArray })
     });
+    $('#modal-container').modal('hide');
+    location.reload();
 })
 
