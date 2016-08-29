@@ -9,7 +9,7 @@
         var self = this;
         return promise.resolve($.get(routes.getTestCase + '?testSuiteID=' + self.ID + '&testRunID=' + testRunID, function (data) {
             self.TestCases = _.map(data, function (testCaseData) {
-                return new testCaseModel(testCaseData.ID, testCaseData.Title)
+                return new testCaseModel(testCaseData.ID, testCaseData.Title, testCaseData.IsInTestRun)
             });
         }));
     }

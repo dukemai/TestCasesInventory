@@ -13,6 +13,7 @@
                 self.template = templateHelper.templates['test-suite-popup'];
                 self.model.loadTestCases(self.testRunId).then(function () {
                     if (self.model.TestCases.length > 0) {
+                        console.log(self.model.TestCases);
                         $('#test-suite-content-body-' + self.model.ID).append(self.template(self.model.TestCases));
                     }
                 });

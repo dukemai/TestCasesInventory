@@ -1,8 +1,8 @@
 ﻿define([], function () {
-    function testCaseModel() {
-        this.ID = '';
-        this.Title = '';
-        this.Checked = false;
+    function testCaseModel(id, title, checked) {
+        this.ID = id;
+        this.Title = title;
+        this.Checked = checked;
     }
     return testCaseModel;
 });
