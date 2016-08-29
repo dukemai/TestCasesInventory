@@ -105,14 +105,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+        [HttpPost]
+        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        {
+            TestCasesInTestRunPresenterObject.AddTestCasesToTestRun(testCases, testRunID);
+            return Json("Response from AddTestCases");
+        }
 
-        public ActionResult AssignToMe(int? id)
+        public ActionResult AssignToMe(int? id, int testRunID)
         {
             try
             {
                 var userId = User.Identity.GetUserId();
                 TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
-                return RedirectToAction("Details", "TestRun", new { id = id.Value });
+                return RedirectToAction("Details", "TestRun", new { id = testRunID });
             }
             catch (Exception e)
             {
@@ -133,11 +139,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult AssignToUser(int? id, UsersBelongTeamViewModel user)
+        public ActionResult AssignToUser(UserPopUpViewModel user)
         {
             try
             {
-                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(id, user);
+                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(user);
                 return Json("Assigned.");
             }
             catch (Exception e)
