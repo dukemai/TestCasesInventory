@@ -26,6 +26,7 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         public int TestRunID { get; set; }
         public string Status { get; set; }
+        public string TestRunOption { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
         public DateTime CreatedDate { get; set; }

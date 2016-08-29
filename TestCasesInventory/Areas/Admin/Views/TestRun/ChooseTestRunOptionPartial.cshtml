@@ -1,22 +1,26 @@
-﻿@model int 
+﻿@using TestCasesInventory.Presenter.Models
+@model CreateTestRunResultViewModel
 @using (Html.BeginForm("Create", "TestRunResult"))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.Label("Choose Test Cases", htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.TestRunOption, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                <select id="test-run" class="form-control">
-                    <option>All Test Cases</option>
-                    <option>Assigned To Me</option>
-                    <option>Selected Test Cases</option>
-                </select>
+                @Html.DropDownListFor(model => model.TestRunOption, new SelectList(
+                  new List<Object>{
+                       new { value = "All Test Cases" , text = "All Test Cases"  },
+                       new { value = "Assigned To Me" , text = "Assigned To Me"  },
+                       new { value = "Selected Test Cases" , text = "Selected Test Cases"  },
+                    },
+                  "value",
+                  "text",
+                   2),
+                   htmlAttributes: new { @class = "form-control" })
             </div>
+            @Html.HiddenFor(model => model.TestRunID)
         </div>
-       <div>
-           @Html.Hidden("testRunId", @Model)
-       </div>
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
                 <input type="submit" value="Next" class="btn btn-default" />

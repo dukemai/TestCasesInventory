@@ -49,16 +49,14 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(int testRunId)
+        public ActionResult Create([Bind(Include = "TestRunID, TestRunOption")] CreateTestRunResultViewModel testRunResult)
         {
             if (ModelState.IsValid)
             {
-                var testRunResult = new CreateTestRunResultViewModel();
                 var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
                 testRunResult.CreatedDate = testRunResult.LastModifiedDate = DateTime.Now;
                 testRunResult.Created = testRunResult.LastModified = user.Email;
                 testRunResult.Status = "In Progress";
-                testRunResult.TestRunID = testRunId;
                 TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
             }
             return RedirectToAction("Index"); 

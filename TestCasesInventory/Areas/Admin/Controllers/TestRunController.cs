@@ -234,7 +234,9 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
         public ActionResult Run(int id)
         {
-            return PartialView("ChooseTestRunOptionPartial",id);
+            var model = new CreateTestRunResultViewModel();
+            model.TestRunID = id;
+            return PartialView("ChooseTestRunOptionPartial", model);
         }
               
     }
