@@ -41,10 +41,6 @@ namespace TestCasesInventory.Presenter.Models
 
         [AllowHtml]
         public string Expect { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 
 
@@ -64,10 +60,6 @@ namespace TestCasesInventory.Presenter.Models
         public bool Attachment { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public List<string> AttachmentUrlList { get; set; }
         public bool HasAttachment { get; set; }
         public string PriorityStyleClass
@@ -91,8 +83,6 @@ namespace TestCasesInventory.Presenter.Models
         public List<SelectListItem> Priorities { get; set; }
         [AllowHtml]
         public string Expect { get; set; }
-        public string LastModified { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public List<string> AttachmentUrlList { get; set; }
         public bool HasAttachment { get; set; }
         public string PriorityStyleClass

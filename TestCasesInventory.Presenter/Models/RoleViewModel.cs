@@ -11,27 +11,27 @@ using TestCasesInventory.Presenter.Validations;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class RoleViewModel : ViewModelBase
+    public class RoleViewModel
     {
         public string Name { get; set; }
         public string Id { get; set; }      
         public int numberOfAccount { get; set; }
     }
 
-    public class CreateRoleViewModel: ViewModelBase
+    public class CreateRoleViewModel
     {
         [Display(Name = "Role Name:")]
         [RoleValidation]
         public string Name { get; set; }
     }
 
-    public class EditRoleViewModel : ViewModelBase
+    public class EditRoleViewModel
     {
         [Display(Name = "Role Name:")]
         public string Name { get; set; }
     }
 
-    public class UsersBelongRoleViewModel : ViewModelBase
+    public class UsersBelongRoleViewModel
     {
         public string ID { get; set; }
         public string RoleID { get; set; }
@@ -39,7 +39,7 @@ namespace TestCasesInventory.Presenter.Models
         public string DisplayName { get; set; }
     }
 
-    public class UsersNotBelongRoleViewModel : ViewModelBase
+    public class UsersNotBelongRoleViewModel
     {
         public string ID { get; set; }
         public string RoleID { get; set; }

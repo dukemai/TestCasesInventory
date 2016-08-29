@@ -185,6 +185,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 TabIndex = 1,
                 IsActive = tabOptions.ActiveTab == 1
             });
+           
             return View(model);
         }
 
@@ -253,6 +254,23 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+
+        // POST: Admin/Team/AddUsersToTeam/5
+        [HttpPost]
+        public ActionResult RemoveUsersFromTeam(int id, string[] usersToRemove)
+        {
+            try
+            {
+                TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
+                return RedirectToAction("AssignUsersToTeam", new { id = id });
+            }
+            catch (UserNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
 
         // POST: Admin/Team/AddUsersToTeam/5
         [HttpPost]

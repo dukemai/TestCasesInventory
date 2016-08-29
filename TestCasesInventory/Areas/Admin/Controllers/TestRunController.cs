@@ -9,17 +9,19 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestRunController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
         #region Properties
         private IUserPresenter userPresenter;
         private ITestRunPresenter testRunPresenterObject;
         private IRolePresenter rolePresenter;
+        private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
         protected ITestRunPresenter TestRunPresenterObject
         {
             get
@@ -29,6 +31,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testRunPresenterObject = new TestRunPresenter(HttpContext);
                 }
                 return testRunPresenterObject;
+            }
+        }
+        protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
+        {
+            get
+            {
+                if (testCasesInTestRunPresenterObject == null)
+                {
+                    testCasesInTestRunPresenterObject = new TestCasesInTestRunPresenter(HttpContext);
+                }
+                return testCasesInTestRunPresenterObject;
             }
         }
         protected IRolePresenter RolePresenter
@@ -64,7 +77,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestRun/Details/5
-        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult Details(int? id)
         {
             try
             {
@@ -237,5 +250,55 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return PartialView("ChooseTestRunOptionPartial");
         }
               
+        [HttpGet]
+        public ActionResult GetTestSuitesPopUp(int id)
+        {
+            try
+            {
+                var testSuitesPopUp = TestRunPresenterObject.GetTestSuitesPopUp(id);
+                return Json(testSuitesPopUp, JsonRequestBehavior.AllowGet);
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
+        {
+            try
+            {
+                var testCasesInTestSuitePopUp = TestRunPresenterObject.GetTestCasesInTestSuitePopUp(testSuiteID, testRunID);
+                return Json(testCasesInTestSuitePopUp, JsonRequestBehavior.AllowGet);
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.AddTestCasesToTestRun(testCases, testRunID);
+                return Json("Response from AddTestCases");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
     }
 }

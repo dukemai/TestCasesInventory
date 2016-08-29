@@ -87,7 +87,7 @@
     <div class="test-cases-area bg-gray">
         <p>
             <b>TestCases for @Model.Title</b>
-            @Html.ActionLink("Add new TestCase", "Create", "TestCase", new { testSuiteID = Model.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Add new TestCase", "AddTestCase", new { id = Model.ID }, new { @class = "btn btn-default" })
         </p>
     </div>
     @Html.Action("Index", "TestCase", new { testSuiteID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })

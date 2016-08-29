@@ -12,8 +12,8 @@ namespace TestCasesInventory.Presenter.Mappings
 {
     public class TestSuiteMappingProfile : Profile
     {
-        ITestCaseRepository testCaseRepository;
-        TeamRepository teamRepository;
+        private ITestCaseRepository testCaseRepository;
+        private TeamRepository teamRepository;
 
         public TestSuiteMappingProfile(string profileName)
             : base(profileName)

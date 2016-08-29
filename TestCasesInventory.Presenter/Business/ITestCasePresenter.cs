@@ -16,6 +16,6 @@ namespace TestCasesInventory.Presenter.Business
         CreateTestCaseViewModel GetTestCaseForCreate(int testSuiteId);
         EditTestCaseViewModel GetTestCaseForEdit(int id);
         string BuildTestCaseAttachmentUrl(string fileName, int testCaseId);
-        List<string> GetTestCaseAttachments(int testCaseId);
+        List<string> GetTestCaseAttachments(int? testCaseId);
     }
 }

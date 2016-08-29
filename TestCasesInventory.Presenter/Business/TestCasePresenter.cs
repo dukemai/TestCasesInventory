@@ -144,9 +144,14 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public List<string> GetTestCaseAttachments(int testCaseId)
+        public List<string> GetTestCaseAttachments(int? testCaseId)
         {
-            var testCaseDirectory = TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.ToString());
+            if (!testCaseId.HasValue)
+            {
+                logger.Error("TestCase Id was not valid.");
+                throw new Exception("TestCase Id was not valid.");
+            }
+            var testCaseDirectory = TestCasesInventory.Common.UrlHelper.Combine(TestCaseConfigurations.TestCasesFolderPath, testCaseId.Value.ToString());
             return PathHelper.GetFileRelativeUrlsFromRelativeUrlDirectory(testCaseDirectory, HttpContext.Server);
         }
     }

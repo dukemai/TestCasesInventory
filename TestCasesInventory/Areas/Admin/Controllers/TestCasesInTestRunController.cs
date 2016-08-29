@@ -1,0 +1,188 @@
+﻿using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TestCasesInventory.Bindings;
+using TestCasesInventory.Common;
+using TestCasesInventory.Data.Common;
+using TestCasesInventory.Presenter.Business;
+using TestCasesInventory.Presenter.Models;
+using TestCasesInventory.Presenter.Validations;
+
+namespace TestCasesInventory.Areas.Admin.Controllers
+{
+    [CustomAuthorize(PrivilegedUsersConfig.AdminRole, PrivilegedUsersConfig.TesterRole)]
+    public class TestCasesInTestRunController : Controller
+    {
+        #region Properties
+        private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
+        private IUserPresenter userPresenter;
+        private ITeamPresenter teamPresenterObject;
+        private ITestRunPresenter testRunPresenterObject;
+
+        protected ITestRunPresenter TestRunPresenterObject
+        {
+            get
+            {
+                if (testRunPresenterObject == null)
+                {
+                    testRunPresenterObject = new TestRunPresenter(HttpContext);
+                }
+                return testRunPresenterObject;
+            }
+        }
+        protected ITeamPresenter TeamPresenterObject
+        {
+            get
+            {
+                if (teamPresenterObject == null)
+                {
+                    teamPresenterObject = new TeamPresenter(HttpContext);
+                }
+                return teamPresenterObject;
+            }
+        }
+        protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
+        {
+            get
+            {
+                if (testCasesInTestRunPresenterObject == null)
+                {
+                    testCasesInTestRunPresenterObject = new TestCasesInTestRunPresenter(HttpContext);
+                }
+                return testCasesInTestRunPresenterObject;
+            }
+        }
+        protected IUserPresenter UserPresenter
+        {
+            get
+            {
+                if (userPresenter == null)
+                {
+                    userPresenter = new UserPresenter(HttpContext);
+                }
+                return userPresenter;
+            }
+        }
+        #endregion
+
+        // GET: Admin/TestCasesInTestRun
+        public ActionResult Index(int? testRunID, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            try
+            {
+                if (testRunID.HasValue)
+                {
+                    var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesByTestRunID(testRunID.Value, filterOptions);
+                    return View("Index", testCasesInTestRun);
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult Details(int? id)
+        {
+            try
+            {
+                var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+                return View("Details", testCaseInTestRun);
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult AssignToMe(int? id)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
+                return RedirectToAction("Details", "TestRun", new { id = id.Value });
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult GetUsersToAssign(int? id)
+        {
+            try
+            {
+                var users = TestCasesInTestRunPresenterObject.ListUsersAssignedToTestCase(id);
+                return Json(users, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult AssignToUser(int? id, UsersBelongTeamViewModel user)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(id, user);
+                return Json("Assigned.");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            try
+            {
+                var deletedTestCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+                return View("Delete", deletedTestCaseInTestRun);
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, int testRunID)
+        {
+            try
+            {
+                TestCasesInTestRunPresenterObject.DeleteTestCaseInTestRun(id);
+                return RedirectToAction("Details", "TestRun", new { id = testRunID });
+            }
+            catch (TestCaseInTestRunNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        //public ActionResult DeleteFile(int id)
+        //public ActionResult DeleteFile(int id, string item)
+        //{
+        //    FileControlPresenterObject.DeleteRelativeUrlFile(item);
+        //    return RedirectToAction("Edit", "TestCase", new { id = id });
+        //}
+    }
+}

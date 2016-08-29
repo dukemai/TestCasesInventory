@@ -5,6 +5,7 @@ using PagedList;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -23,7 +24,7 @@ namespace TestCasesInventory.Presenter.Mappings
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestRunDataModel, TestRunViewModel>()
-                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesForTestRun(src.ID)))
+                 .ForMember(dest => dest.TestCasesNumber, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesInTestRun(src.ID)))
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName))
                  .ForMember(dest => dest.CreateDisplayOnly, opt =>
@@ -44,8 +45,10 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<CreateTestRunViewModel, TestRunDataModel>();
             this.CreateMap<TestRunDataModel, CreateTestRunViewModel>();
                 
-
-            this.CreateMap<EditTestRunViewModel, TestRunDataModel>();
+            this.CreateMap<EditTestRunViewModel, TestRunDataModel>()
+                .Ignore(m => m.CreatedDate)
+                .Ignore(m => m.Created)
+                .Ignore(m => m.TeamID);
             this.CreateMap<TestRunDataModel, EditTestRunViewModel>();
         }
 
