@@ -17,12 +17,16 @@
 
         function bindEvents() {
             $('#show-testrun-popup').click(function (e) {
+                e.preventDefault();
                 var self = $(this);
-                $('#modal-container').modal('show');
                 var id = self.attr('data-test-run');
                 var view = new testRunPopUpView(id);
-                view.render();
-                e.preventDefault();
+
+                $('#modal-container').modal('show').on('hide.bs.modal', function () {
+                    view.dispose();
+                });
+                
+                view.render();                
             });
         }
 

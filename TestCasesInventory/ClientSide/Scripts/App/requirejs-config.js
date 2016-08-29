@@ -9,8 +9,7 @@
         'handlebars': 'Lib/handlebars.min',
         'templateHelper': 'App/template-helper',
         'backbone': 'Lib/backbone-min',
-        'underscore': 'Lib/underscore-min',
-        'jquery': 'Lib/jquery-1.9.1.min',
+        'underscore': 'Lib/underscore-min',        
         'bootstrap': 'Lib/bootstrap.min',
         'promise': 'Lib/bluebird.core.min',
         'app': 'App/app'
