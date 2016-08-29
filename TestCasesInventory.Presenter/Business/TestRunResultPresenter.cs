@@ -22,6 +22,7 @@ namespace TestCasesInventory.Presenter.Business
 
         protected HttpContextBase HttpContext;
         protected ITestRunResultRepository testRunResultRepository;
+        protected ITestCasesInTestRunRepository testCasesInTestRunRepository;
         protected ITestRunRepository testRunRepository;
         protected ApplicationUserManager UserManager;
         protected RoleManager<IdentityRole> RoleManager;
@@ -126,5 +127,36 @@ namespace TestCasesInventory.Presenter.Business
             var testRunResultViewModel = testRunResult.MapTo<TestRunResultDataModel, EditTestRunResultViewModel>();
             return testRunResultViewModel;
         }
+
+        public List<TestCasesInTestRunViewModel> GetTestCasesAssignedToMe(int testRunId)
+        {
+            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new UserNotFoundException("User was not found.");
+            }
+
+            var listTestCasesInTestRun = new List<TestCasesInTestRunViewModel>();
+            var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
+            foreach (var testCase in listTestCasesInTestRunDataModel)
+            {
+                listTestCasesInTestRun.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>());
+            }
+            return listTestCasesInTestRun;
+        }
+
+        public List<TestCasesInTestRunViewModel> GetAllTestCases(int testRunId)
+        {
+            var listTestCasesInTestRun = new List<TestCasesInTestRunViewModel>();
+            var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.ListAll(testRunId);
+            foreach (var testCase in listTestCasesInTestRunDataModel)
+            {
+                listTestCasesInTestRun.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>());
+            }
+            return listTestCasesInTestRun;
+        }
+
+
     }
 }

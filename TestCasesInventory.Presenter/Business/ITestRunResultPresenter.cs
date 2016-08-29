@@ -16,5 +16,7 @@ namespace TestCasesInventory.Presenter.Business
         IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options);
         CreateTestRunResultViewModel GetTestRunResultForCreate(int testRunId);
         EditTestRunResultViewModel GetTestRunResultForEdit(int id);
+        List<TestCasesInTestRunViewModel> GetTestCasesAssignedToMe(int testRunId);
+        List<TestCasesInTestRunViewModel> GetAllTestCases(int testRunId);
     }
 }

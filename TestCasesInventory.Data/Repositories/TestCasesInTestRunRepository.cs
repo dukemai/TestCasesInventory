@@ -26,5 +26,10 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
         }
+
+        public IList<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToMe(string userId, int testRunID)
+        {
+            return dataContext.TestCasesInTestRuns.Where(t => t.AssignedTo == userId).Where(t => t.TestRunID == testRunID).ToList();
+        }
     }
 }
