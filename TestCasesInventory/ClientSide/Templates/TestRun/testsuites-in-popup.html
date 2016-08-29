@@ -1,10 +1,8 @@
 ﻿<ul class="list-group">
     {{#each .}}
     <li class="list-group-item" data-id="{{ID}}">
-        <input type="checkbox" name="" value=""  {{bindAttr checked="Checked"}} />
-        <span class="test-case-title">
-            {{Title}}
-        </span>
+        <input id ="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value=""  {{bindAttr checked="Checked"}} />
+        <label for="ckb-{{ID}}">{{Title}}</label>        
     </li>
     {{/each}}
 </ul>

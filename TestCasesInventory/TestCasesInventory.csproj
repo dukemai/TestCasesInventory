@@ -181,6 +181,7 @@
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testrunmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testsuitemodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\testrun-routes.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Views\testsuite-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Views\testrun-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
@@ -212,9 +213,8 @@
     <Content Include="ClientSide\Scripts\Lib\require.js" />
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
-    <Content Include="ClientSide\Templates\TestRun\testcases-in-popup.html" />
+    <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
-    <Content Include="ClientSide\Templates\TestRun\testsuite-in-popup.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
