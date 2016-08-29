@@ -281,19 +281,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
-        {
-            try
-            {
-                TestCasesInTestRunPresenterObject.AddTestCasesToTestRun(testCases, testRunID);
-                return Json("Response from AddTestCases");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        
+        
 
     }
 }

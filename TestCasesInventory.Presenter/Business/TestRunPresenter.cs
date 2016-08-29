@@ -117,7 +117,6 @@ namespace TestCasesInventory.Presenter.Business
                 logger.Error("User was not found.");
                 throw new TestRunNotFoundException("User was not found.");
             }
-            var getAll = UserManager.IsInRole(user.Id, PrivilegedUsersConfig.AdminRole);
             var testRun = testRunRepository.GetTestRunByID(testRunID);
             if (testRun == null)
             {
@@ -125,7 +124,7 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestRunNotFoundException("Test Run was not found.");
             }
             var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesPopUp(testRun.TeamID, getAll);
+            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesForTeam(testRun.TeamID);
             foreach (var testSuite in listTestSuitesDataModel)
             {
                 var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
@@ -145,7 +144,7 @@ namespace TestCasesInventory.Presenter.Business
                 var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
                 if (testCaseAlreadyInTestRun.Any())
                 {
-                    testCaseInTestSuitePopUp.IsInTestRun = true;
+                    testCaseInTestSuitePopUp.Checked = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;
                 }
                 listTestCasesInTestSuitePopUp.Add(testCaseInTestSuitePopUp);

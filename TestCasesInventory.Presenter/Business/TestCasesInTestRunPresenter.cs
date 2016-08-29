@@ -21,6 +21,7 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
         protected ITestCaseRepository testCaseRepository;
         protected ITestRunRepository testRunRepository;
+        protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
 
 
@@ -33,6 +34,7 @@ namespace TestCasesInventory.Presenter.Business
             testSuiteRepository = new TestSuiteRepository();
             testCaseRepository = new TestCaseRepository();
             testRunRepository = new TestRunRepository();
+            teamRepository = new TeamRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
@@ -73,7 +75,7 @@ namespace TestCasesInventory.Presenter.Business
             {
                 var testCaseDataModel = testCaseRepository.GetTestCaseByID(testCasePopUp.ID);
 
-                if (testCasePopUp.IsInTestRun)
+                if (testCasePopUp.Checked)
                 {
                     if (testCaseDataModel == null)
                     {
@@ -81,7 +83,7 @@ namespace TestCasesInventory.Presenter.Business
                         throw new TestCaseNotFoundException("Test Case with id = " + testCasePopUp.ID + " was not found.");
                     }
                     var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCasePopUp.ID);
-                    if (testCaseAlreadyInTestRun.Any())
+                    if (!testCaseAlreadyInTestRun.Any())
                     {
                         var testCaseInTestRunViewModel = new CreateTestCasesInTestRunViewModel
                         {
@@ -93,6 +95,7 @@ namespace TestCasesInventory.Presenter.Business
                             Created = user.Email,
                             LastModified = user.Email,
                             AssignedTo = user.Id,
+                            AssignedBy = user.Id,
                         };
                         var testCaseInTestRunDataModel = testCaseInTestRunViewModel.MapTo<CreateTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>();
                         testCasesInTestRunRepository.InsertTestCaseInTestRun(testCaseInTestRunDataModel);
@@ -105,7 +108,7 @@ namespace TestCasesInventory.Presenter.Business
                     if (testCaseDataModel != null)
                     {
                         var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCasePopUp.ID);
-                        if (!testCaseAlreadyInTestRun.Any())
+                        if (testCaseAlreadyInTestRun.Any())
                         {
                             testCasesInTestRunRepository.DeleteTestCaseInTestRun(testCaseAlreadyInTestRun.First().ID);
                             testCasesInTestRunRepository.Save();
@@ -114,6 +117,82 @@ namespace TestCasesInventory.Presenter.Business
                 }
 
             }
+        }
+
+        public void AssignTestCaseToMe(int? testCaseInTestRunID, string userId)
+        {
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            if (!testCaseInTestRunID.HasValue)
+            {
+                logger.Error("Id was not valid.");
+                throw new TestCaseNotFoundException("Id was not valid.");
+            }
+            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+            {
+                AssignedBy = userId,
+                AssignedTo = userId,
+                LastModified = user.Email,
+                LastModifiedDate = DateTime.Now
+            };
+            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.UpdateTestCaseInTestRun(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.Save();
+        }
+
+
+        public IList<UserPopUpViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
+        {
+            if (!testCaseInTestRunID.HasValue)
+            {
+                logger.Error("Id was not valid.");
+                throw new Exception("Id was not valid.");
+            }
+            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
+            var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
+            var listUsers = teamRepository.ListUsersByTeamID(testRun.TeamID);
+            var listUsersViewModel = new List<UserPopUpViewModel>();
+            foreach (var user in listUsers)
+            {
+                var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
+                userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
+                listUsersViewModel.Add(userViewModel);
+            }
+            return listUsersViewModel;
+        }
+
+        public void AssignTestCaseToUser(UserPopUpViewModel userBeAssign)
+        {
+            var assignedBy = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (userBeAssign == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            if (assignedBy == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestCaseNotFoundException("User was not found.");
+            }
+            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(userBeAssign.TestCaseInTestRunID);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+            {
+                AssignedBy = assignedBy.Id,
+                AssignedTo = userBeAssign.ID,
+                LastModified = assignedBy.Email,
+                LastModifiedDate = DateTime.Now
+            };
+            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.UpdateTestCaseInTestRun(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.Save();
         }
 
 
@@ -143,7 +222,7 @@ namespace TestCasesInventory.Presenter.Business
             if (testRun == null)
             {
                 logger.Error("Test run was not found.");
-                throw new TestCaseNotFoundException("Test run was not found.");
+                throw new TestRunNotFoundException("Test run was not found.");
             }
         }
 

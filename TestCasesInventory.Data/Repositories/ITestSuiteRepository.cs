@@ -17,7 +17,6 @@ namespace TestCasesInventory.Data.Repositories
         IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID);
         IList<TestSuiteDataModel> GetTestSuitesForTeam(int teamID);
         IList<TestSuiteDataModel> GetTestSuitesForUser(string userID);
-        List<TestSuiteDataModel> GetTestSuitesPopUp(int? teamID, bool getAll);
 
     }
 }

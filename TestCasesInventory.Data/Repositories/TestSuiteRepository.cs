@@ -155,18 +155,5 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestSuites.Where(t => t.Created == userID || t.LastModified == userID).ToList();
         }
-
-        public List<TestSuiteDataModel> GetTestSuitesPopUp(int? teamID, bool getAll)
-        {
-            IQueryable<TestSuiteDataModel> query = dataContext.TestSuites.Select(t => t);
-            if (!getAll)
-            {
-                if (teamID.HasValue)
-                    query = query.Where(t => t.TeamID == teamID.Value);
-                else
-                    query = query.Where(t => t.TeamID < 0);
-            }
-            return query.ToList();
-        }
     }
 }

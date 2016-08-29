@@ -5,6 +5,7 @@ using PagedList;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -44,8 +45,10 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<CreateTestRunViewModel, TestRunDataModel>();
             this.CreateMap<TestRunDataModel, CreateTestRunViewModel>();
                 
-
-            this.CreateMap<EditTestRunViewModel, TestRunDataModel>();
+            this.CreateMap<EditTestRunViewModel, TestRunDataModel>()
+                .Ignore(m => m.CreatedDate)
+                .Ignore(m => m.Created)
+                .Ignore(m => m.TeamID);
             this.CreateMap<TestRunDataModel, EditTestRunViewModel>();
         }
 

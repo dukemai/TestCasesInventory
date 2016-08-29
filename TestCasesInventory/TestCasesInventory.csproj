@@ -290,11 +290,11 @@
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByTesterPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_TabPartialView.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TestCasesInTestRun\Delete.cshtml" />
     <Content Include="ClientSide\Scripts\Lib\jquery-1.9.1.min.map" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
-    <Content Include="Scripts\Handle-Bars-Templates\add-test-case-template.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.min.js" />
@@ -334,6 +334,8 @@
     <Content Include="Scripts\lib\tinymce\tinymce.min.js" />
     <Content Include="Scripts\lib\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
+    <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -1,0 +1,12 @@
+﻿<table class="table table-striped">
+    {{#each .}}
+    <tr>
+        <td>
+            <input Title="{{Title}}" TestSuiteTitle="{{TestSuiteTitle}}" TestSuiteID="{{TestSuiteID}}" TestRunID="{{TestRunID}}" TestcaseID="{{ID}}" name="test-case" {{#if Checked}} checked {{/if}} type="checkbox" value="{{ID}}"/>
+        </td>
+        <td>
+            <label>{{Title}}</label>
+        </td>
+    </tr>
+    {{/each}}
+</table>
