@@ -18,10 +18,13 @@
         if (promisedResult) {
             promisedResult.then(function () {
                 self.template = templateHelper.templates['test-suite-popup'];
+                $(document).trigger('loading.view');
                 self.model.loadTestCases(self.testRunId).then(function () {
+                    $(document).trigger('loadingCompleted.view');
                     if (self.model.TestCases.length > 0) {
-                        $('#test-suite-content-body-' + self.model.ID).append(self.template(self.model.TestCases));
-                        $('.checkbox-testcase').change(function () {
+                        var testSuiteBody = $('#test-suite-content-body-' + self.model.ID);
+                        testSuiteBody.append(self.template(self.model.TestCases));
+                        $('.checkbox-testcase', testSuiteBody).change(function () {
                             var id = Number(this.getAttribute('data-id'));
                             var testCase = _.findWhere(self.model.TestCases, { ID: id });
                             testCase.Checked = $(this).is(':checked');

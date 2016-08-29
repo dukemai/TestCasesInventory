@@ -1,4 +1,4 @@
-﻿<div class="panel-group" id="pop-up-content" role="tablist" aria-multiselectable="false">
+﻿<div class="panel-group" id="pop-up-content" role="tablist" aria-multiselectable="false">    
     {{#each .}}
     <div class="panel panel-primary test-suite-container" data-id="{{ID}}" id="test-suite-container-{{ID}}">
         <div class="panel-heading" role="tab" id="test-suite-heading-{{ID}}">
@@ -13,9 +13,5 @@
             </div>
         </div>
     </div>
-    {{/each}}
-    <div>
-        <hr/>
-        <input type="button" class="btn btn-default" id="btn-save-popup" name="name" value="Save" />
-    </div>
+    {{/each}}    
 </div>
