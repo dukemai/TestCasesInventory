@@ -56,7 +56,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
                 testRunResult.CreatedDate = testRunResult.LastModifiedDate = DateTime.Now;
                 testRunResult.Created = testRunResult.LastModified = user.Email;
-                testRunResult.Status = ObjectStatus.InProgress;
+                testRunResult.Status = TestRunResultStatus.InProgress;
                 TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
             }
             return RedirectToAction("Index"); 

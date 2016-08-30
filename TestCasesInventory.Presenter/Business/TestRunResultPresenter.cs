@@ -103,7 +103,7 @@ namespace TestCasesInventory.Presenter.Business
         public void FinishTestRunResult(int TestRunResultId)
         {
             var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
-            testRunResult.Status = ObjectStatus.Finished;
+            testRunResult.Status = TestRunResultStatus.Finished;
         }
 
         #endregion
