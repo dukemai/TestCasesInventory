@@ -151,6 +151,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
+    <Compile Include="Models\TestCasesInTestRunResultViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunResultViewModel.cs" />
     <Compile Include="Models\TestRunViewModel.cs" />

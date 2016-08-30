@@ -9,14 +9,24 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface ITestRunResultPresenter : IPresenter<TestRunResultPresenter>, IObservable<TestRunResultDataModel>
     {
-        TestRunResultViewModel GetTestRunResultById(int? testRunResultID);
+        #region TestRunResult
+
+
+        TestRunResultViewModel GetTestRunResultById(int testRunResultID);
         void InsertTestRunResult(CreateTestRunResultViewModel testRunResult);
-        void UpdateTestRunResult(int testRunResultID, EditTestRunResultViewModel testRunResult);
         void DeleteTestRunResult(int testRunResultID);
         IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options);
-        CreateTestRunResultViewModel GetTestRunResultForCreate(int testRunId);
-        EditTestRunResultViewModel GetTestRunResultForEdit(int id);
-        List<TestCasesInTestRunViewModel> GetTestCasesAssignedToMe(int testRunId);
-        List<TestCasesInTestRunViewModel> GetAllTestCases(int testRunId);
+        void FinishTestRunResult(int testRunResultID);
+
+        #endregion
+
+        #region Test Cases
+
+        List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunId);
+        List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunId, string userName);
+        List<TestCasesInTestRunResultViewModel> GetAllTestCases(int testRunId);
+        List<TestCasesInTestRunResultViewModel> GetSelectedTestCases(int testRunId, List<int> selectedTestCases);        
+
+        #endregion
     }
 }
