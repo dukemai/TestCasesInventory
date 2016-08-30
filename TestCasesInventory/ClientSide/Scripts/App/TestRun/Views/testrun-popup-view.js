@@ -1,5 +1,6 @@
-﻿define(['App/TestRun/Models/testrunmodel', 'templateHelper', 'promise', 'underscore', 'App/TestRun/Views/testsuite-popup-view'],
-    function (testRunModel, templateHelper, promise, _, testSuitePopUpView) {
+﻿define(['App/TestRun/Models/testrunmodel', 'templateHelper', 'promise', 'underscore', 'App/TestRun/Views/testsuite-popup-view',
+    'App/TestRun/testrun-routes'],
+    function (testRunModel, templateHelper, promise, _, testSuitePopUpView, routes) {
         function testRunView(id) {
             this.model = new testRunModel(id);
             this.template = '';
@@ -8,16 +9,50 @@
             $(document).on('loading.view', function () {
                 $('.loader').show();
             }).on('loadingCompleted.view', function () {
-                $('.loader').hide();
+                setTimeout(function () {
+                    $('.loader').hide();
+                }, 500);
             });
+        }
+
+        function addTestCasesToTestRun(testRunView, listToAdd) {
+            if (listToAdd.length > 0) {
+                return promise.resolve($.post(routes.addTestCasesToTestRun, {
+                    testRunID: testRunView.model.ID,
+                    testCases: listToAdd
+                }))
+            }
+            else {
+                return promise.resolve();
+            }
+        }
+
+        function removeTestCasesFromTestRun(testRunView, listToRemove) {
+            if (listToRemove.length > 0) {
+                return promise.resolve($.post(routes.removeTestCasesFromTestRun, {
+                    testRunID: testRunView.model.ID,
+                    testCases: listToRemove
+                }))
+            }
+            else {
+                return promise.resolve();
+            }
         }
 
         function registerEvents(testRunView) {
             var self = testRunView;
             $('#submit-button').on('click.submit', function () {
-                var listTestCasesToAdd = self.model.getTestCasesToAdd();
-                var listTestCasesToRemove = self.model.getTestCasesToRemove();
-                console.log(self.model);
+                var listTestCasesToAdd = _.map(self.model.getTestCasesToAdd(), function (testCase) {
+                    return testCase.ID;
+                });
+                var listTestCasesToRemove = _.map(self.model.getTestCasesToRemove(), function (testCase) {
+                    return testCase.ID;
+                });
+                promise
+                    .all([addTestCasesToTestRun(self, listTestCasesToAdd), removeTestCasesFromTestRun(self, listTestCasesToRemove)])
+                    .then(function () {
+                        window.location.href = window.location.href;
+                    });
             });
 
             $('.test-suite-container').on('show.bs.collapse', function () {
@@ -44,7 +79,7 @@
                 promisedResult.then(function () {
                     self.template = templateHelper.templates['test-run-popup'];
                     $(document).trigger('loading.view');
-                    
+
                     self.model.loadTestSuites().then(function () {
                         $(document).trigger('loadingCompleted.view');
                         $('#modalContent').append(self.template(self.model.TestSuites));

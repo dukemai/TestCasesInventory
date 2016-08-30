@@ -2,11 +2,12 @@
     var testRunRoutes = {
         getTestSuite: '/Admin/TestRun/GetTestSuitesPopUp/',
         getTestCase: '/Admin/TestRun/GetTestCasesInTestSuitePopUp/',
-        postListToRemove: '/Admin/',
-        postListToAdd: '/Admin/'
+        addTestCasesToTestRun: '/Admin/TestCasesInTestRun/AddTestCasesToTestRun',
+        removeTestCasesFromTestRun: '/Admin/TestCasesInTestRun/RemoeTestCasesFromTestRun'
     };
 
     _.extend(testRunRoutes, routes);
 
     return testRunRoutes;
 });
+

@@ -29,7 +29,8 @@ namespace TestCasesInventory.Presenter.Business
         protected ITestSuiteRepository testSuiteRepository;
 
 
-        public TestRunPresenter(HttpContextBase context) : base()
+        public TestRunPresenter(HttpContextBase context)
+            : base()
         {
             HttpContext = context;
             testRunRepository = new TestRunRepository();
@@ -141,7 +142,7 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCase in listTestCasesDataModel)
             {
                 var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRun(testRunID, testCase.ID);
+                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRun(testCase.ID, testRunID);
                 if (testCaseAlreadyInTestRun != null)
                 {
                     testCaseInTestSuitePopUp.Checked = true;
