@@ -272,20 +272,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
 
-        // POST: Admin/Team/AddUsersToTeam/5
-        [HttpPost]
-        public ActionResult RemoveUsersFromTeam(int id, string[] usersToRemove)
-        {
-            try
-            {
-                TeamPresenterObject.RemoveUsersFromTeam(id, usersToRemove);
-                return RedirectToAction("AssignUsersToTeam", new { id = id });
-            }
-            catch (UserNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
 
         [HttpGet]
         public ActionResult ListMembersInTeam(int? teamID, FilterOptions options)
