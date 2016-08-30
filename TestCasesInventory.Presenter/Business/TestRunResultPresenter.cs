@@ -157,6 +157,12 @@ namespace TestCasesInventory.Presenter.Business
             return listTestCasesInTestRun;
         }
 
+        public void FinishTestRun(int TestRunResultId)
+        {
+            var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
+            testRunResult.Status = ObjectStatus.Finished;
+        }
+
 
     }
 }

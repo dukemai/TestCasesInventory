@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapperExtensions.cs" />
+    <Compile Include="ObjectStatus.cs" />
     <Compile Include="ValidationMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
