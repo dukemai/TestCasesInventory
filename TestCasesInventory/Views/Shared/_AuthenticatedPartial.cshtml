@@ -9,13 +9,13 @@
 
         </li>
         <li>
-            @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "displayname" })
+            @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "display-name" })
         </li>
         @{
             if (Model.IsProfilePictureExisted)
             {
                 <li  style="height: 32px;    line-height: 32px; text-align:center; ">
-                    <a href="@Url.Action("Index", "Manage")" class="displaypic">
+                    <a href="@Url.Action("Index", "Manage")" class="display-pic">
                         <img class="image" src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" align="middle" />
                     </a>
                 </li>

@@ -88,11 +88,11 @@ textarea {
     max-width: 280px;
 }
 
-.nav > li .displaypic {
+.nav .display-pic {
     padding-left: 5px;
 }
 
-.nav > li .displayname {
+.nav .display-name {
     padding-right: 5px;
 }
 
@@ -104,15 +104,10 @@ textarea {
     padding: 0;
 }
 
-div.attachment-list {
-    padding-top: 7px ;
-   
+.attachment-list {
+    padding-top: 7px;
 }
 
 .attachment-item {
-    display : block;
-
+    display: block;
 }
-/*.btn-file input[type=file] {
-    display: none;
-}*/
