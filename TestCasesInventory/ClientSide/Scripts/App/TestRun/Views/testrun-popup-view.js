@@ -15,6 +15,8 @@
         function registerEvents(testRunView) {
             var self = testRunView;
             $('#submit-button').on('click.submit', function () {
+                var listTestCasesToAdd = self.model.getTestCasesToAdd();
+                var listTestCasesToRemove = self.model.getTestCasesToRemove();
                 console.log(self.model);
             });
 
