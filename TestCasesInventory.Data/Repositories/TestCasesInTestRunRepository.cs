@@ -8,40 +8,56 @@ using TestCasesInventory.Data.DataModels;
 
 namespace TestCasesInventory.Data.Repositories
 {
-    public class TestCasesInTestRunRepository: RepositoryBase, ITestCasesInTestRunRepository
+    public class TestCasesInTestRunRepository : RepositoryBase, ITestCasesInTestRunRepository
     {
         public TestCasesInTestRunRepository() : base() { }
-
-        public IEnumerable<TestCasesInTestRunDataModel> ListAll(int testRunID)
-        {
-            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
-        }
 
         public TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID)
         {
             return dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
         }
-        public void InsertTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
+
+        public IEnumerable<TestCasesInTestRunDataModel> GetTestCasesInTestRun(int testRunID)
         {
-            dataContext.TestCasesInTestRuns.Add(testCaseInTestRun);
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
         }
-        public void DeleteTestCaseInTestRun(int testCaseInTestRunID)
+
+        public void AddTestCasesToTestRun(List<TestCasesInTestRunDataModel> testCasesInTestRunData)
         {
-            var TestCaseInTestRunDataModel = dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
-            dataContext.TestCasesInTestRuns.Remove(TestCaseInTestRunDataModel);
+            foreach (var testCaseInTestRun in testCasesInTestRunData)
+            {
+                if (GetTestCaseInTestRun(testCaseInTestRun.TestCaseID, testCaseInTestRun.TestRunID) == null)
+                {
+                    dataContext.TestCasesInTestRuns.Add(testCaseInTestRun);
+                }
+            }
         }
-        public void UpdateTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
+
+        public TestCasesInTestRunDataModel GetTestCaseInTestRun(int testCaseID, int testRunID)
+        {
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.TestCaseID == testCaseID).FirstOrDefault();
+        }
+
+        public void RemoveTestCasesFromTestRun(List<int> testCasesIDs, int testRunID)
+        {
+            foreach (var testCaseID in testCasesIDs)
+            {
+                var testCaseInTestRun = GetTestCaseInTestRun(testCaseID, testRunID);
+                if (testCaseInTestRun != null)
+                {
+                    dataContext.TestCasesInTestRuns.Remove(testCaseInTestRun);
+                }
+            }
+        }
+
+        public void AssignTestCaseToUser(TestCasesInTestRunDataModel testCaseInTestRun)
         {
             dataContext.Entry(testCaseInTestRun).State = EntityState.Modified;
         }
+
         public void Save()
         {
             dataContext.SaveChanges();
-        }
-
-        public IEnumerable<TestCasesInTestRunDataModel> TestCaseAlreadyInTestRun(int testRunID, int testCaseID)
-        {
-            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.TestCaseID == testCaseID).ToList();
         }
 
         public int TotalTestCasesInTestRun(int testRunID)
@@ -49,7 +65,7 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
         }
 
-        public IPagedList<TestCasesInTestRunDataModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)
+        public IPagedList<TestCasesInTestRunDataModel> GetPagedListTestCasesByTestRun(int testRunId, FilterOptions filterOptions)
         {
             IQueryable<TestCasesInTestRunDataModel> query = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunId).Select(t => t);
 

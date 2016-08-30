@@ -141,8 +141,8 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCase in listTestCasesDataModel)
             {
                 var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.TestCaseAlreadyInTestRun(testRunID, testCase.ID);
-                if (testCaseAlreadyInTestRun.Any())
+                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRun(testRunID, testCase.ID);
+                if (testCaseAlreadyInTestRun != null)
                 {
                     testCaseInTestSuitePopUp.Checked = true;
                     testCaseInTestSuitePopUp.TestRunID = testRunID;

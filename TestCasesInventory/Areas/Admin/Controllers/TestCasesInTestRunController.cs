@@ -89,24 +89,24 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Details(int? id)
-        {
-            try
-            {
-                var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
-                return View("Details", testCaseInTestRun);
-            }
-            catch (TestCaseInTestRunNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    try
+        //    {
+        //        var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+        //        return View("Details", testCaseInTestRun);
+        //    }
+        //    catch (TestCaseInTestRunNotFoundException e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
         [HttpPost]
-        public ActionResult AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> testCases, int testRunID)
+        public ActionResult AddTestCasesToTestRun(List<int> testCases, int testRunID)
         {
             TestCasesInTestRunPresenterObject.AddTestCasesToTestRun(testCases, testRunID);
             return Json("Response from AddTestCases");
@@ -117,7 +117,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
-                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
+                //TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
                 return RedirectToAction("Details", "TestRun", new { id = testRunID });
             }
             catch (Exception e)
@@ -126,63 +126,63 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult GetUsersToAssign(int? id)
-        {
-            try
-            {
-                var users = TestCasesInTestRunPresenterObject.ListUsersAssignedToTestCase(id);
-                return Json(users, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //public ActionResult GetUsersToAssign(int? id)
+        //{
+        //    try
+        //    {
+        //        //var users = TestCasesInTestRunPresenterObject.ListUsersAssignedToTestCase(id);
+        //        return Json(users, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
 
-        public ActionResult AssignToUser(UserPopUpViewModel user)
-        {
-            try
-            {
-                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(user);
-                return Json("Assigned.");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //public ActionResult AssignToUser(UserPopUpViewModel user)
+        //{
+        //    try
+        //    {
+        //        TestCasesInTestRunPresenterObject.AssignTestCaseToUser(user);
+        //        return Json("Assigned.");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
 
-        public ActionResult Delete(int? id)
-        {
-            try
-            {
-                var deletedTestCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
-                return View("Delete", deletedTestCaseInTestRun);
-            }
-            catch (TestCaseInTestRunNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    try
+        //    {
+        //        var deletedTestCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCaseInTestRunById(id);
+        //        return View("Delete", deletedTestCaseInTestRun);
+        //    }
+        //    catch (TestCaseInTestRunNotFoundException e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, int testRunID)
-        {
-            try
-            {
-                TestCasesInTestRunPresenterObject.DeleteTestCaseInTestRun(id);
-                return RedirectToAction("Details", "TestRun", new { id = testRunID });
-            }
-            catch (TestCaseInTestRunNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, int testRunID)
+        //{
+        //    try
+        //    {
+        //        TestCasesInTestRunPresenterObject.DeleteTestCaseInTestRun(id);
+        //        return RedirectToAction("Details", "TestRun", new { id = testRunID });
+        //    }
+        //    catch (TestCaseInTestRunNotFoundException e)
+        //    {
+        //        return View("ResultNotFoundError");
+        //    }
+        //}
 
         //public ActionResult DeleteFile(int id)
         //public ActionResult DeleteFile(int id, string item)
