@@ -16,6 +16,8 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class TestCasesInTestRunPresenter : PresenterBase, ITestCasesInTestRunPresenter
     {
+        #region Fields
+
         protected HttpContextBase HttpContext;
         protected ITestCasesInTestRunRepository testCasesInTestRunRepository;
         protected ITestSuiteRepository testSuiteRepository;
@@ -24,8 +26,9 @@ namespace TestCasesInventory.Presenter.Business
         protected ITeamRepository teamRepository;
         protected ApplicationUserManager UserManager;
 
+        #endregion
 
-
+        #region Constructors
 
         public TestCasesInTestRunPresenter(HttpContextBase context)
         {
@@ -37,6 +40,10 @@ namespace TestCasesInventory.Presenter.Business
             teamRepository = new TeamRepository();
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
+
+        #endregion
+
+        #region Methods        
 
         public TestCasesInTestRunViewModel GetTestCaseInTestRunById(int? id)
         {
@@ -53,11 +60,11 @@ namespace TestCasesInventory.Presenter.Business
 
         public void AddTestCasesToTestRun(List<TestCaseInTestSuitePopUpViewModel> listTestCasesPopUp, int testRunID)
         {
-            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var user = UserManager.FindById(HttpContext.User.Identity.GetUserId());
             if (user == null)
             {
                 logger.Error("User was not found.");
-                throw new UserNotFoundException("User was not found.");
+                throw new UserNotFoundException("Current User Is Not Identified.");
             }
             var testRun = testRunRepository.GetTestRunByID(testRunID);
             if (testRun == null)
@@ -146,7 +153,6 @@ namespace TestCasesInventory.Presenter.Business
             testCasesInTestRunRepository.Save();
         }
 
-
         public IList<UserPopUpViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
         {
             if (!testCaseInTestRunID.HasValue)
@@ -195,7 +201,6 @@ namespace TestCasesInventory.Presenter.Business
             testCasesInTestRunRepository.Save();
         }
 
-
         public void DeleteTestCaseInTestRun(int id)
         {
             var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(id);
@@ -226,8 +231,6 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-
-
         public IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)
         {
             var list = testCasesInTestRunRepository.GetTestCasesByTestRunID(testRunId, filterOptions);
@@ -235,5 +238,6 @@ namespace TestCasesInventory.Presenter.Business
             return mappedList;
         }
 
+        #endregion
     }
 }
