@@ -36,15 +36,10 @@ namespace TestCasesInventory.Presenter.Business
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
             testRunRepository = new TestRunRepository();
         }
-
-        public TestRunResultViewModel GetTestRunResultById(int? testRunResultID)
+        #region TestRunResult
+        public TestRunResultViewModel GetTestRunResultById(int testRunResultID)
         {
-            if (!testRunResultID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID.Value);
+            var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID);
             if (testRunResult == null)
             {
                 logger.Error("Test Run Result was not found.");
@@ -104,65 +99,56 @@ namespace TestCasesInventory.Presenter.Business
             var mappedList = list.MapTo<IPagedList<TestRunResultDataModel>, IPagedList<TestRunResultViewModel>>();
             return mappedList;
         }
-        public CreateTestRunResultViewModel GetTestRunResultForCreate(int testRunId)
+
+        public void FinishTestRunResult(int TestRunResultId)
         {
-            var testRun = testRunRepository.GetTestRunByID(testRunId);
-            if (testRun == null)
-            {
-                throw new TestRunNotFoundException();
-            }
-            var model = new CreateTestRunResultViewModel();
-            model.TestRunID = testRunId;
-            return model;
+            var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
+            testRunResult.Status = ObjectStatus.Finished;
         }
 
-        public EditTestRunResultViewModel GetTestRunResultForEdit(int testRunResultID)
+        #endregion
+        public List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunId, string userName)
         {
-            var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID);
-            if (testRunResult == null)
-            {
-                logger.Error("Test Run Result was not found.");
-                throw new TestRunResultNotFoundException("Test Run Result was not found.");
-            }
-            var testRunResultViewModel = testRunResult.MapTo<TestRunResultDataModel, EditTestRunResultViewModel>();
-            return testRunResultViewModel;
-        }
-
-        public List<TestCasesInTestRunViewModel> GetTestCasesAssignedToMe(int testRunId)
-        {
-            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var user = UserManager.FindByEmail(userName);
             if (user == null)
             {
                 logger.Error("User was not found.");
                 throw new UserNotFoundException("User was not found.");
             }
 
-            var listTestCasesInTestRun = new List<TestCasesInTestRunViewModel>();
-            var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
-            foreach (var testCase in listTestCasesInTestRunDataModel)
+            var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
+            var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
+            foreach (var testCase in listTestCasesInTestRunResultDataModel)
             {
-                listTestCasesInTestRun.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>());
+                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
             }
-            return listTestCasesInTestRun;
+            return listTestCasesInTestRunResult;
+        }
+        public List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunId)
+        {
+            var userName = UserManager.FindById(HttpContext.User.Identity.GetUserId()).Email;
+            return GetTestCasesAssignedToUser(testRunId, userName);
         }
 
-        public List<TestCasesInTestRunViewModel> GetAllTestCases(int testRunId)
+        public List<TestCasesInTestRunResultViewModel> GetAllTestCases(int testRunId)
         {
-            var listTestCasesInTestRun = new List<TestCasesInTestRunViewModel>();
+            var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
             var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.ListAll(testRunId);
             foreach (var testCase in listTestCasesInTestRunDataModel)
             {
-                listTestCasesInTestRun.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>());
+                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
             }
-            return listTestCasesInTestRun;
+            return listTestCasesInTestRunResult;
         }
-
-        public void FinishTestRun(int TestRunResultId)
+        public List<TestCasesInTestRunResultViewModel> GetSelectedTestCases(int testRunId, List<int> selectedTestCases)
         {
-            var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
-            testRunResult.Status = ObjectStatus.Finished;
+            var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
+            foreach (var id in selectedTestCases)
+            {
+                var testCase = testCasesInTestRunRepository.GetTestCaseInTestRunByID(id);
+                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
+            }
+            return listTestCasesInTestRunResult;
         }
-
-
     }
 }

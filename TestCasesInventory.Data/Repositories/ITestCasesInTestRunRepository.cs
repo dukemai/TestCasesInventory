@@ -11,5 +11,6 @@ namespace TestCasesInventory.Data.Repositories
         IEnumerable<TestCasesInTestRunDataModel> ListAll(int testRunID);
         int TotalTestCasesForTestRun(int testRunID);
         IList<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToMe(string userId, int testRunID);
+        TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID);
     }
 }
