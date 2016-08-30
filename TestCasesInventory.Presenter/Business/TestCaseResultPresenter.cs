@@ -28,6 +28,9 @@ namespace TestCasesInventory.Presenter.Business
         protected ApplicationSignInManager SignInManager;
         protected IPrincipal User;
         protected ITestCaseResultRepository TestCaseResultRepository;
+        protected ITestRunResultRepository TestRunResultRepository;
+        protected ITestCasesInTestRunRepository TestCaseInTestRunRepository;
+        protected ITestRunRepository TestRunRepository;
 
         #endregion
 
@@ -41,6 +44,9 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             User = HttpContext.User;
             TestCaseResultRepository = new TestCaseResultRepository();
+            TestRunResultRepository = new TestRunResultRepository();
+            TestCaseInTestRunRepository = new TestCasesInTestRunRepository();
+            TestRunRepository = new TestRunRepository();
         }
 
         public void DeleteTestCaseResult(int testCaseResultID)
@@ -110,6 +116,28 @@ namespace TestCasesInventory.Presenter.Business
         public IDisposable Subscribe(IObserver<TestCaseResultDataModel> observer)
         {
             throw new NotImplementedException();
+        }
+
+        public void CreateTestCaseResultFromTestCaseInTestRun(int? testRunResultID)
+        {
+            if(testRunResultID == null)
+            {
+                logger.Error("Test Run Result was not found!");
+                throw new TestRunResultNotFoundException();
+            }
+            var testRunResult = TestRunResultRepository.GetTestRunResultByID(testRunResultID.Value);
+            var listTestCaseInTestRun = TestCaseInTestRunRepository.ListAll(testRunResult.TestRunID);
+            foreach (var testCaseInTestRun in listTestCaseInTestRun)
+            {
+                var testCaseResult = new TestCaseResultDataModel();
+                testCaseResult.TestRunResultID = testRunResultID.Value;
+                testCaseResult.TestCasesInTestRunID = testCaseInTestRun.ID;
+                testCaseResult.Created = testCaseResult.LastModified = testRunResult.Created;
+                testCaseResult.CreatedDate = testCaseResult.LastModifiedDate = DateTime.Now;
+
+                TestCaseResultRepository.InsertTestCaseResult(testCaseResult);
+                TestCaseResultRepository.Save();
+            }
         }
 
 
