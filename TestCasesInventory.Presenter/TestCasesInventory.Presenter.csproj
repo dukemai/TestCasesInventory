@@ -140,6 +140,8 @@
     <Compile Include="Mappings\RoleMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
+    <Compile Include="Mappings\TestCaseResultMappingProfile.cs" />
+    <Compile Include="Mappings\TestCasesInTestRunMappingProfile.cs" />
     <Compile Include="Mappings\TestRunMappingProfile.cs" />
     <Compile Include="Mappings\TestRunResultMappingProfile.cs" />
     <Compile Include="Mappings\TestSuiteMappingProfile.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
+    <Compile Include="Models\TestCaseResultViewModel.cs" />
     <Compile Include="Models\TestCasesInTestRunResultViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunResultViewModel.cs" />
