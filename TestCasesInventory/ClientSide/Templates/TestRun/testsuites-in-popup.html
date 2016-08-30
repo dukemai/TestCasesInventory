@@ -1,8 +1,11 @@
 ﻿<ul class="list-group">
+    <li class="list-group-item">
+        <input class="check-all" name="check-all" type="checkbox" />        
+    </li>
     {{#each .}}
     <li class="list-group-item" data-id="{{ID}}">
-        <input id ="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value=""  {{bindAttr checked="Checked"}} />
-        <label for="ckb-{{ID}}">{{Title}}</label>        
+        <input id="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value="" {{#if Checked}} checked {{/if}} {{bindAttr checked="Checked"}} />
+        <label for="ckb-{{ID}}">{{Title}}</label>
     </li>
     {{/each}}
 </ul>

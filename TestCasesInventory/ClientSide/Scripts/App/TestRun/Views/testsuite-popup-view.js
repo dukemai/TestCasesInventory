@@ -4,6 +4,7 @@
         this.template = '';
         this.testRunId = testRunId;
         this.id = testSuite.ID;
+
     }
 
     testSuitePopUpView.prototype.render = function () {
@@ -24,10 +25,24 @@
                     if (self.model.TestCases.length > 0) {
                         var testSuiteBody = $('#test-suite-content-body-' + self.model.ID);
                         testSuiteBody.append(self.template(self.model.TestCases));
+
+                        $('.check-all', testSuiteBody).on('change', function () {
+                            var isChecked = $(this).is(':checked');
+                            $('.checkbox-testcase', testSuiteBody).prop("checked", isChecked).trigger('change');
+                        });
+
+
                         $('.checkbox-testcase', testSuiteBody).change(function () {
+                           
                             var id = Number(this.getAttribute('data-id'));
                             var testCase = _.findWhere(self.model.TestCases, { ID: id });
                             testCase.Checked = $(this).is(':checked');
+                            if (testCase.Checked) {
+                                self.model.addTestCase(testCase);
+                            }
+                            else {
+                                self.model.removeTestCase(testCase);
+                            }
                         });
                     }
                 });

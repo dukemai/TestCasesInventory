@@ -3,15 +3,30 @@
         this.ID = id;
         this.Title = title;
         this.TestCases = [];
+        this.TestCasesToAdd = [];
+        this.TestCasesToRemove = [];
     }
 
     testSuiteModel.prototype.loadTestCases = function (testRunID) {
         var self = this;
         return promise.resolve($.get(routes.getTestCase + '?testSuiteID=' + self.ID + '&testRunID=' + testRunID, function (data) {
             self.TestCases = _.map(data, function (testCaseData) {
-                return new testCaseModel(testCaseData.ID, testCaseData.Title, testCaseData.IsInTestRun)
+                return new testCaseModel(testCaseData.ID, testCaseData.Title, testCaseData.Checked);
             });
         }));
     }
+
+    testSuiteModel.prototype.addTestCase = function (testCase) {
+        var self = this;
+        self.TestCasesToAdd.push(testCase);
+        self.TestCasesToRemove = _.without(self.TestCasesToRemove, testCase);
+    }
+
+    testSuiteModel.prototype.removeTestCase = function (testCase) {
+        var self = this;
+        self.TestCasesToRemove.push(testCase);
+        self.TestCasesToAdd = _.without(self.TestCasesToAdd, testCase);
+    }
+
     return testSuiteModel;
 });
