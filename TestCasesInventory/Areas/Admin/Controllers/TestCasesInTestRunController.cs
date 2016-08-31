@@ -103,6 +103,20 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return Json("Done");
         }
 
+        [HttpGet]
+        public ActionResult GetUsersPopUp(int id)
+        {
+            try
+            {
+                var usersPopUp = TestCasesInTestRunPresenterObject.GetUsersPopUp(id);
+                return Json(usersPopUp, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
         public ActionResult AssignToMe(int? id, int testRunID)
         {
             try
@@ -116,6 +130,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
+
+
 
        
     }

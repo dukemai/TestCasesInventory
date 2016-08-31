@@ -57,7 +57,7 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name.StartsWith(teamName)).ToList();
         }
 
-        public IEnumerable<ApplicationUser> ListUsersByTeamID(int teamID)
+        public IEnumerable<ApplicationUser> GetUsersByTeamID(int teamID)
         {
             return dataContext.Users.Where(t => t.TeamID == teamID).ToList();
         }
