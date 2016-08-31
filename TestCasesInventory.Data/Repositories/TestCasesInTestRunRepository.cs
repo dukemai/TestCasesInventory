@@ -83,10 +83,10 @@ namespace TestCasesInventory.Data.Repositories
                         case "title":
                             query = query.Where(t => t.TestCase.Title.Contains(filterOptions.Keyword));
                             break;
-                        case "assignto":
+                        case "assignedto":
                             query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
                             break;
-                        case "assignby":
+                        case "assignedby":
                             query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
                             break;
                         default:

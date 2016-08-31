@@ -212,16 +212,16 @@ namespace TestCasesInventory.Controllers
 
             filterFields.Add(new FilterOptionViewModel
             {
-                Name = "AssignTo",
+                Name = "AssignedTo",
                 DisplayName = "Assign To",
-                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignTo") != null : true
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignedTo") != null : true
             });
 
             filterFields.Add(new FilterOptionViewModel
             {
-                Name = "AssignBy",
+                Name = "AssignedBy",
                 DisplayName = "Assign By",
-                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignBy") != null : true
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignedBy") != null : true
             });
             //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
             var viewModel = new FilterViewModel
