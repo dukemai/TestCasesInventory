@@ -5,13 +5,23 @@
         <span>Check All</span>
     </li>
     {{#each .}}
-    <li class="list-group-item" data-id="{{ID}}">
+    <li class="list-group-item test-case-item" data-id="{{ID}}">
         <div class="list-group-item-heading">
             <input id="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value="" {{#if Checked}} checked {{/if}} {{bindAttr checked="Checked"}} />
             <label for="ckb-{{ID}}">{{Title}}</label>
         </div>
         <div class="list-group-item-text">
-            High Priority
+            <label class="label {{PriorityStyleClass}}">
+            {{Priority}}
+            </label>
+            <div class="pull-right">                
+                <label class="label text-muted">
+                    Created Date
+                </label>
+                <span class="created text-muted label">
+                    {{CreatedDate}}
+                </span>
+            </div>
         </div>
     </li>
     {{/each}}
