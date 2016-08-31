@@ -13,30 +13,28 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>Title</h4>
+            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
         </th>
-
+        <th>
+            <h4>@Html.SortableLink(Request, "Priority", "Priority")</h4>
+        </th>
         <th>
             <h4>TestSuite</h4>
-        </th>
-        <th>
-            <h4>Assign To</h4>
         </th>
         <th>
             <h4>Assign By</h4>
         </th>
         @*<th>
-                <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
-            </th>
-            <th>
-                <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
-            </th>*@
+            <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
+        </th>*@
         <th>
             <h4>Actions</h4>
         </th>
         <th>
             <h4>Assign</h4>
-        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -45,31 +43,28 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TestCaseTitle)
             </td>
-
+            
             <td>
-                @Html.DisplayFor(modelItem => item.TestRunTitle)
+                <span class="label @item.PriorityStyleClass">@Html.DisplayFor(modelItem => item.TestCasePriority)</span>
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestSuiteTitle)
+            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.AssignedTo)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.AssignedBy)
-            </td>
-            @*<td>
                     @Html.DisplayFor(modelItem => item.AssignedBy)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AssignedTo)
-                </td>*@
-            <td>
                 @Html.ActionLink("Details", "Details", "TestCase", new { id = item.ID }, new { @class = "link-detail" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
             <td>
-                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID, testRunID = item.TestRunID }, new { @class = "btn btn-default" })
-                @Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID }, new { @class = "modal-assign-to-user btn btn-default" })
-            </td>
+                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID, testRunID = item.TestRunID }, new { @class= "btn btn-default" })
+@Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID }, new { @class = "modal-assign-to-user btn btn-default" })            </td>
         </tr>
     }
 </table>

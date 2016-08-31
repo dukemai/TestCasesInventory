@@ -94,17 +94,20 @@ namespace TestCasesInventory.Data.Repositories
                 var sortOptions = filterOptions.SortOptions;
                 switch (sortOptions.Field.ToLowerInvariant())
                 {
-                    //case "testcase":
-                    //    query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Title) : query.OrderByDescending(t => t.TestCase.Title);
-                    //    break;
-                    //case "assignedby":
-                    //    query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
-                    //    break;
-                    //case "assignedto":
-                    //    query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
-                    //    break;
+                    case "title":
+                        query = sortOptions.Direction == SortDirections.Desc ? query.OrderByDescending(t => t.TestCase.Title) : query.OrderBy(t => t.TestCase.Title);
+                        break;
+                    case "priority":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Priority) : query.OrderByDescending(t => t.TestCase.Priority);
+                        break;
+                    case "assignedby":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
+                        break;
+                    case "assignedto":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
+                        break;
                     default:
-                        query = query.OrderByDescending(d => d.TestCase.Title);
+                        query = query.OrderBy(d => d.TestCase.Title);
                         break;
                 }
             }
