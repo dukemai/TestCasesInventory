@@ -80,8 +80,14 @@ namespace TestCasesInventory.Data.Repositories
                 {
                     switch (field.ToLowerInvariant())
                     {
-                        case "createdby":
-                            query = query.Where(t => t.Created.Contains(filterOptions.Keyword));
+                        case "title":
+                            query = query.Where(t => t.TestCase.Title.Contains(filterOptions.Keyword));
+                            break;
+                        case "assignto":
+                            query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
+                            break;
+                        case "assignby":
+                            query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
                             break;
                         default:
                             break;
@@ -100,10 +106,10 @@ namespace TestCasesInventory.Data.Repositories
                     case "priority":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Priority) : query.OrderByDescending(t => t.TestCase.Priority);
                         break;
-                    case "assignedby":
+                    case "assignby":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);
                         break;
-                    case "assignedto":
+                    case "assignto":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedTo) : query.OrderByDescending(t => t.AssignedTo);
                         break;
                     default:
