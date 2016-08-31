@@ -42,6 +42,7 @@
         function registerEvents(testRunView) {
             var self = testRunView;
             $('#submit-button').on('click.submit', function () {
+                $(document).trigger('loading.view');
                 var listTestCasesToAdd = _.map(self.model.getTestCasesToAdd(), function (testCase) {
                     return testCase.ID;
                 });
@@ -51,7 +52,10 @@
                 promise
                     .all([addTestCasesToTestRun(self, listTestCasesToAdd), removeTestCasesFromTestRun(self, listTestCasesToRemove)])
                     .then(function () {
-                        window.location.href = window.location.href;
+                        $(document).trigger('loadingCompleted.view');
+                        setTimeout(function () {
+                            window.location.href = window.location.href
+                        }, 500);
                     });
             });
 

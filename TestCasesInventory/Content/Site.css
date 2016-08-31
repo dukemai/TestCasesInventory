@@ -118,6 +118,14 @@ textarea {
 /*.btn-file input[type=file] {
     display: none;
 }*/
+
+.test-case-item .text-muted {
+    color: #999999;
+}
+
+.test-case-item .label-priority {
+    margin-top: 3px;
+}
 /*
     loading animation
 */
@@ -129,7 +137,7 @@ textarea {
     background-color: #ddd;
     top: 76px;
     left: 0;
-    display:none;
+    display: none;
 }
 
     .loader:before {
