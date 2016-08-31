@@ -149,7 +149,7 @@ namespace TestCasesInventory.Presenter.Business
                 logger.Error("User was not found.");
                 throw new TestCaseNotFoundException("User was not found.");
             }
-            var testCaseInTestRunData = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            var testCaseInTestRunData = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID);
             CheckExceptionTestCaseInTestRun(testCaseInTestRunData);
             var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
             {
@@ -158,7 +158,7 @@ namespace TestCasesInventory.Presenter.Business
                 LastModified = currentUser.Email,
                 LastModifiedDate = DateTime.Now
             };
-            testCaseInTestRunData = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCaseInTestRunData = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunData);
             testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunData);
             testCasesInTestRunRepository.Save();
         }
