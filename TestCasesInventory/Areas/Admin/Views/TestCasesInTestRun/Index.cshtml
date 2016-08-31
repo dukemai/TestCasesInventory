@@ -15,7 +15,7 @@
         <th>
             <h4>Title</h4>
         </th>
-        
+
         <th>
             <h4>TestSuite</h4>
         </th>
@@ -26,13 +26,16 @@
             <h4>Assign By</h4>
         </th>
         @*<th>
-            <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
-        </th>*@
+                <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
+            </th>
+            <th>
+                <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
+            </th>*@
         <th>
             <h4>Actions</h4>
+        </th>
+        <th>
+            <h4>Assign</h4>
         </th>
     </tr>
 
@@ -42,7 +45,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TestCaseTitle)
             </td>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.TestRunTitle)
             </td>
@@ -54,17 +57,18 @@
                 @Html.DisplayFor(modelItem => item.AssignedBy)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.AssignedBy)
+                    @Html.DisplayFor(modelItem => item.AssignedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedTo)
+                </td>*@
+            <td>
+                @Html.ActionLink("Details", "Details", "TestCase", new { id = item.ID }, new { @class = "link-detail" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID, testRunID = item.TestRunID }, new { @class= "btn btn-default" })
-                @Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID}, new { @class = "modal-assign-to-user btn btn-default" })
+                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID, testRunID = item.TestRunID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID }, new { @class = "modal-assign-to-user btn btn-default" })
             </td>
         </tr>
     }
