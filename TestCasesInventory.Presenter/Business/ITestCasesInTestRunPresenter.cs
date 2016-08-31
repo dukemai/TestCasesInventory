@@ -16,10 +16,12 @@ namespace TestCasesInventory.Presenter.Business
         #endregion
 
         #region AssignTo
-
+        IList<UserPopUpViewModel> GetUsersPopUp(int testCaseInTestRunID);
         void AssignTestCaseToUser(int testCaseInTestRunId, string username);
         void AssignTestCaseToMe(int testCaseInTestRunId);
 
         #endregion
+
+
     }
 }

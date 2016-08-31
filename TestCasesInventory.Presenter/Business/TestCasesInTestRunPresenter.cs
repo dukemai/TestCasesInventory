@@ -119,6 +119,22 @@ namespace TestCasesInventory.Presenter.Business
             testCasesInTestRunRepository.Save();
         }
 
+        public IList<UserPopUpViewModel> GetUsersPopUp(int testCaseInTestRunID)
+        {
+            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
+            var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
+            var usersBelongTeam = teamRepository.GetUsersByTeamID(testRun.TeamID);
+            var usersPopUpViewModel = new List<UserPopUpViewModel>();
+            foreach (var user in usersBelongTeam)
+            {
+                var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
+                userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
+                usersPopUpViewModel.Add(userViewModel);
+            }
+            return usersPopUpViewModel;
+        }
+
         public void AssignTestCaseToUser(int testCaseInTestRunId, string username)
         {
 
@@ -155,26 +171,7 @@ namespace TestCasesInventory.Presenter.Business
             testCasesInTestRunRepository.Save();
         }
 
-        public IList<UserPopUpViewModel> ListUsersAssignedToTestCase(int? testCaseInTestRunID)
-        {
-            if (!testCaseInTestRunID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
-            var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
-            var listUsers = teamRepository.ListUsersByTeamID(testRun.TeamID);
-            var listUsersViewModel = new List<UserPopUpViewModel>();
-            foreach (var user in listUsers)
-            {
-                var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
-                userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
-                listUsersViewModel.Add(userViewModel);
-            }
-            return listUsersViewModel;
-        }
+        
 
         public void AssignTestCaseToUser(UserPopUpViewModel userBeAssign)
         {
