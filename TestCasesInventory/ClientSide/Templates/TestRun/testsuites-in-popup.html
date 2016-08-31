@@ -1,11 +1,21 @@
-﻿<ul class="list-group">
+﻿{{#if .}}
+<ul class="list-group">
     <li class="list-group-item">
-        <input class="check-all" name="check-all" type="checkbox" />        
+        <input class="check-all" name="check-all" type="checkbox" />
+        <span>Check All</span>
     </li>
     {{#each .}}
     <li class="list-group-item" data-id="{{ID}}">
-        <input id="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value="" {{#if Checked}} checked {{/if}} {{bindAttr checked="Checked"}} />
-        <label for="ckb-{{ID}}">{{Title}}</label>
+        <div class="list-group-item-heading">
+            <input id="ckb-{{ID}}" data-id="{{ID}}" class="checkbox-testcase" type="checkbox" name="" value="" {{#if Checked}} checked {{/if}} {{bindAttr checked="Checked"}} />
+            <label for="ckb-{{ID}}">{{Title}}</label>
+        </div>
+        <div class="list-group-item-text">
+            High Priority
+        </div>
     </li>
     {{/each}}
 </ul>
+{{else}}
+<div>No TestCases Found</div>
+{{/if}}
