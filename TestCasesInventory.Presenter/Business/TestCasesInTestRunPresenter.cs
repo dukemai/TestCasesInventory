@@ -135,69 +135,43 @@ namespace TestCasesInventory.Presenter.Business
             return usersPopUpViewModel;
         }
 
-        public void AssignTestCaseToUser(int testCaseInTestRunId, string username)
+        public void AssignTestCaseToUser(int testCaseInTestRunID, string username)
         {
-
-        }
-        public void AssignTestCaseToMe(int testCaseInTestRunId)
-        {
-
-        }
-
-        public void AssignTestCaseToMe(int? testCaseInTestRunID, string userId)
-        {
-            var user = UserManager.FindById(userId);
-            if (user == null)
+            var currentUser = UserManager.FindById(HttpContext.User.Identity.GetUserId());
+            var assignee = UserManager.FindByEmail(username);
+            if (currentUser == null)
+            {
+                logger.Error("Current User was not found.");
+                throw new TestCaseNotFoundException("Current User was not found.");
+            }
+            if (assignee == null)
             {
                 logger.Error("User was not found.");
                 throw new TestCaseNotFoundException("User was not found.");
             }
-            if (!testCaseInTestRunID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new TestCaseNotFoundException("Id was not valid.");
-            }
-            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
+            var testCaseInTestRunData = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID.Value);
+            CheckExceptionTestCaseInTestRun(testCaseInTestRunData);
             var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
             {
-                AssignedBy = userId,
-                AssignedTo = userId,
-                LastModified = user.Email,
+                AssignedBy = currentUser.Id,
+                AssignedTo = assignee.Id,
+                LastModified = currentUser.Email,
                 LastModifiedDate = DateTime.Now
             };
-            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
-            testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunDataModel);
+            testCaseInTestRunData = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
+            testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunData);
             testCasesInTestRunRepository.Save();
         }
 
-        
-
-        public void AssignTestCaseToUser(UserPopUpViewModel userBeAssign)
+        public void AssignTestCaseToMe(int testCaseInTestRunID)
         {
-            var assignedBy = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            if (userBeAssign == null)
+            var currentUser = UserManager.FindById(HttpContext.User.Identity.GetUserId());
+            if (currentUser == null)
             {
-                logger.Error("User was not found.");
-                throw new TestCaseNotFoundException("User was not found.");
+                logger.Error("Current User was not found.");
+                throw new TestCaseNotFoundException("Current User was not found.");
             }
-            if (assignedBy == null)
-            {
-                logger.Error("User was not found.");
-                throw new TestCaseNotFoundException("User was not found.");
-            }
-            var testCaseInTestRunDataModel = testCasesInTestRunRepository.GetTestCaseInTestRunByID(userBeAssign.TestCaseInTestRunID);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRunDataModel);
-            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
-            {
-                AssignedBy = assignedBy.Id,
-                AssignedTo = userBeAssign.ID,
-                LastModified = assignedBy.Email,
-                LastModifiedDate = DateTime.Now
-            };
-            testCaseInTestRunDataModel = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunDataModel);
-            testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunDataModel);
-            testCasesInTestRunRepository.Save();
+            AssignTestCaseToUser(testCaseInTestRunID, currentUser.Email);
         }
 
         private void CheckExceptionTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
