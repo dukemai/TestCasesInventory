@@ -119,8 +119,12 @@ textarea {
     display: none;
 }*/
 
-.test-case-item .text-muted{
+.test-case-item .text-muted {
     color: #999999;
+}
+
+.test-case-item .label-priority {
+    margin-top: 3px;
 }
 /*
     loading animation
