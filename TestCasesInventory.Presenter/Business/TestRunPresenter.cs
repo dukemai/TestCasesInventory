@@ -42,14 +42,9 @@ namespace TestCasesInventory.Presenter.Business
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
 
-        public TestRunViewModel GetTestRunById(int? testRunID)
+        public TestRunViewModel GetTestRunById(int testRunID)
         {
-            if (!testRunID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var testRun = testRunRepository.GetTestRunByID(testRunID.Value);
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
             if (testRun == null)
             {
                 logger.Error("Test Run was not found.");
@@ -181,7 +176,7 @@ namespace TestCasesInventory.Presenter.Business
             return testRunViewModel;
         }
 
-        public CreateTestRunViewModel GetTestRunForAdminCreate(int? teamID)
+        public CreateTestRunViewModel GetTestRunForAdminCreate(int teamID)
         {
             var model = GetTestRunForCreate();
             model.TeamID = teamID;

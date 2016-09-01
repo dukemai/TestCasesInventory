@@ -42,7 +42,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var team = TeamPresenterObject.GetTeamById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var team = TeamPresenterObject.GetTeamById(id.Value);
                 return View("Details", team);
             }
             catch (TeamNotFoundException e)
@@ -89,7 +93,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var updatedTeam = TeamPresenterObject.GetTeamById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var updatedTeam = TeamPresenterObject.GetTeamById(id.Value);
                 return View("Edit", updatedTeam);
             }
             catch (TeamNotFoundException e)
@@ -134,7 +142,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var deletedTeam = TeamPresenterObject.GetTeamById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var deletedTeam = TeamPresenterObject.GetTeamById(id.Value);
                 return View("Delete", deletedTeam);
             }
             catch (TeamNotFoundException e)
@@ -165,7 +177,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         public ActionResult AssignUsersToTeam(int? id, TabOptions tabOptions)
         {
-            var teamName = TeamPresenterObject.GetTeamById(id).Name;
+            if (!id.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            var teamName = TeamPresenterObject.GetTeamById(id.Value).Name;
             var model = new AssignUsersToTeamViewModel { TeamName = teamName };
             model.Tabs.Add(new TabViewModel
             {
@@ -193,12 +209,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult AddUsersToTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
-            {                
-                var team = TeamPresenterObject.GetTeamById(id);
+            {
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var team = TeamPresenterObject.GetTeamById(id.Value);
                 //default tab is 1 --> if tab is not active then we use default filter
                 options = tabOptions.ActiveTab != tabOptions.CurrentTabIndex ? PagingHelper.DefaultFilterOptions : options;
-                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id, options);
-
+                var listUsersNotBelongTeam = TeamPresenterObject.ListUsersNotBelongTeam(id.Value, options);
                 ViewBag.TeamID = id;
                 ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
 
@@ -234,11 +253,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         public ActionResult RemoveUsersFromTeam(int? id, FilterOptions options, TabOptions tabOptions)
         {
             try
-            {                
-                var team = TeamPresenterObject.GetTeamById(id);
+            {
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var team = TeamPresenterObject.GetTeamById(id.Value);
                 //default tab is 0 --> if tab is not active then we use default filter
                 options = tabOptions.ActiveTab != tabOptions.CurrentTabIndex ? PagingHelper.DefaultFilterOptions : options;
-                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id, options);
+                var listUsersBelongTeam = TeamPresenterObject.ListUsersBelongTeam(id.Value, options);
 
                 ViewBag.TeamID = id;
                 ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
@@ -277,8 +300,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var team = TeamPresenterObject.GetTeamById(teamID);
-                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID, options);
+                if (!teamID.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var team = TeamPresenterObject.GetTeamById(teamID.Value);
+                var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID.Value, options);
                 return PartialView("ListMembersInTeamPartial", listMembersInTeam);
             }
             catch (TeamNotFoundException e)

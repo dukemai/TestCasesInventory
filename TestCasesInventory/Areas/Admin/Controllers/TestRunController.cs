@@ -81,7 +81,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var testRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Details", testRun);
             }
             catch (TestRunNotFoundException e)
@@ -107,7 +111,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
             if (IsCurrentUserAdmin())
             {
-                model = TestRunPresenterObject.GetTestRunForAdminCreate(user.TeamID);
+                model = TestRunPresenterObject.GetTestRunForAdminCreate(user.TeamID.Value);
                 return PartialView("TestRun/_CreateTestRunByAdminPartial", model);
             }
 
@@ -147,7 +151,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var updatedTestRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var updatedTestRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Edit", updatedTestRun);
             }
             catch (TestRunNotFoundException e)
@@ -217,7 +225,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var deletedTestRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var deletedTestRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Delete", deletedTestRun);
             }
             catch (TestRunNotFoundException e)

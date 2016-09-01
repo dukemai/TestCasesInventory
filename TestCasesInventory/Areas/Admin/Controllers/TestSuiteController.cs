@@ -97,7 +97,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var testSuite = TestSuitePresenterObject.GetTestSuiteById(id.Value);
                 return View("Details", testSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -123,7 +127,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
             if (IsCurrentUserAdmin())
             {
-                model = TestSuitePresenterObject.GetTestSuiteForAdminCreate(user.TeamID);
+                model = TestSuitePresenterObject.GetTestSuiteForAdminCreate(user.TeamID.Value);
                 return PartialView("TestSuite/_CreateTestSuiteByAdminPartial", model);
             }
 
@@ -163,7 +167,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var updatedTestSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var updatedTestSuite = TestSuitePresenterObject.GetTestSuiteById(id.Value);
                 return View("Edit", updatedTestSuite);
             }
             catch (TestSuiteNotFoundException e)
@@ -234,7 +242,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var deletedTestSuite = TestSuitePresenterObject.GetTestSuiteById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var deletedTestSuite = TestSuitePresenterObject.GetTestSuiteById(id.Value);
                 return View("Delete", deletedTestSuite);
             }
             catch (TestSuiteNotFoundException e)
