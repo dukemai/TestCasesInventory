@@ -1,4 +1,12 @@
-﻿.view-test-suites {
+﻿.modal-lg{
+      width:900px;
+  }
+
+.modal-sm{
+      width:300px;
+  }
+
+.view-test-suites {
     padding: 10px;
 }
 
