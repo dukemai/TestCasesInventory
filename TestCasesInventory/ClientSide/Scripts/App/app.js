@@ -1,4 +1,4 @@
-﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'assignTestCaseToUser','assignTestCaseToUser'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation', 'assignTestCaseToUser'], function () {
 
     var app = {};
     app.init = function () {
