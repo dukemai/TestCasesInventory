@@ -58,19 +58,10 @@ namespace TestCasesInventory.Presenter.Business
             return testCasesInTestRunViews;
         }
 
-        public TestCasesInTestRunViewModel GetTestCasesInTestRunById(int? testCasesInTestRunID)
+        public TestCasesInTestRunViewModel GetTestCasesInTestRunById(int testCasesInTestRunID)
         {
-            if (!testCasesInTestRunID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var testCasesInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCasesInTestRunID.Value);
-            if (testCasesInTestRun == null)
-            {
-                logger.Error("Test Case In Test Run was not found.");
-                throw new TestCaseNotFoundException("Test Case In Test Run was not found.");
-            }
+            var testCasesInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCasesInTestRunID);
+            CheckExceptionTestCaseInTestRun(testCasesInTestRun);
             var testCasesInTestRunViewModel = testCasesInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
             return testCasesInTestRunViewModel;
         }

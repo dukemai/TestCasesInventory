@@ -8,9 +8,9 @@
 
         function assignTestCaseToUser(testCaseInTestRunID, userID) {
             return promise.resolve($.post(routes.assignTestCaseToUser, {
-                    testCaseInTestRunID: testCaseInTestRunID,
-                    userID: userID
-                }))
+                testCaseInTestRunID: testCaseInTestRunID,
+                userID: userID
+            }))
         }
 
         function registerEvents(testCasesInTestRunView) {
@@ -18,7 +18,12 @@
             $('#submit-assign-to').on('click.submit', function () {
                 var userSelected = $("#assign-to-user").find(":selected");
                 var userID = userSelected.attr('data-id');
-                assignTestCaseToUser(self.model.ID, userID);
+                //assignTestCaseToUser(self.model.ID, userID);
+                promise.resolve(assignTestCaseToUser(self.model.ID, userID))
+                    .then(function () {
+                        $('#modal-container-assign-to-user').modal('hide');
+                        location.reload();
+                    });
             });
         }
 

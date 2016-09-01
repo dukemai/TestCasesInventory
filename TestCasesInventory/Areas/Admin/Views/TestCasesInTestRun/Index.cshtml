@@ -69,8 +69,8 @@
                 <a href="#" class="delete-testcase" data-target="#basic" data-toggle="modal" data-testcase-id="@item.ID"> Delete</a>
             </td>
             <td>
-                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID, testRunID = item.TestRunID }, new { @class = "btn btn-default" })
-                <a href="#" id="show-assigntouser-@item.ID" data-test-case-in-test-run="@item.ID" class="modal-link-assignto btn btn-default">Assign To User</a>
+                <a href="#" data-id="@item.ID" class="modal-link-assign-to-me btn btn-default">Assign To Me</a>
+                <a href="#" id="show-assigntouser-@item.ID" data-id="@item.ID" class="modal-link-assign-to-user btn btn-default">Assign To User</a>
             </td>
         </tr>
     }

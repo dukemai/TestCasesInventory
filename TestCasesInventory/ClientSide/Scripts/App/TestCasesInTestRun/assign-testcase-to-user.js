@@ -16,17 +16,24 @@
         }
 
         function bindEvents() {
-            $('.modal-link-assignto').click(function (e) {
+            $('.modal-link-assign-to-user').click(function (e) {
                 e.preventDefault();
                 var self = $(this);
-                var id = self.attr('data-test-case-in-test-run');
+                var id = self.attr('data-id');
                 var view = new testCasesInTestRunPopUpView(id);
-
                 $('#modal-container-assign-to-user').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
 
                 view.render();
+            });
+
+            $('.modal-link-assign-to-me').click(function (e) {
+                e.preventDefault();
+                var self = $(this);
+                var id = self.attr('data-id');
+                $.post("/Admin/TestCasesInTestRun/AssignToMe/", { id: id });
+                location.reload();
             });
         }
 
