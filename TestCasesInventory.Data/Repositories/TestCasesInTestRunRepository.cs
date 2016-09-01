@@ -80,8 +80,14 @@ namespace TestCasesInventory.Data.Repositories
                 {
                     switch (field.ToLowerInvariant())
                     {
-                        case "createdby":
-                            query = query.Where(t => t.Created.Contains(filterOptions.Keyword));
+                        case "title":
+                            query = query.Where(t => t.TestCase.Title.Contains(filterOptions.Keyword));
+                            break;
+                        case "assignedto":
+                            query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
+                            break;
+                        case "assignedby":
+                            query = query.Where(t => t.ApplicationUser.DisplayName.Contains(filterOptions.Keyword));
                             break;
                         default:
                             break;

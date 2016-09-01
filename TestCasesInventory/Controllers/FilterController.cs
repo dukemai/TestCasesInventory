@@ -192,13 +192,49 @@ namespace TestCasesInventory.Controllers
             var viewModel = new FilterViewModel
             {
                 Controller = "TestSuite",
-                Action = "Detail",
+                Action = "Details",
                 Area = "Admin",
                 FilterFields = filterFields,
                 FilterOptions = filterOptions
             };
             return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
         }
+
+        public ActionResult FilterForTestCaseInTestRun([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        {
+            var filterFields = new List<FilterOptionViewModel>();
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "Title",
+                DisplayName = "Title",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "Title") != null : true
+            });
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "AssignedTo",
+                DisplayName = "Assign To",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignedTo") != null : true
+            });
+
+            filterFields.Add(new FilterOptionViewModel
+            {
+                Name = "AssignedBy",
+                DisplayName = "Assign By",
+                IsChecked = filterOptions.FilterFields.Length > 0 ? filterOptions.FilterFields.FirstOrDefault(f => f == "AssignedBy") != null : true
+            });
+            //filterFields.Add(new KeyValuePair<string, string>("Team", "Team"));
+            var viewModel = new FilterViewModel
+            {
+                Controller = "TestRun",
+                Action = "Details",
+                Area = "Admin",
+                FilterFields = filterFields,
+                FilterOptions = filterOptions
+            };
+            return PartialView("~/Views/Shared/Filter/_FilterPartialView.cshtml", viewModel);
+        }
+
 
 
         public ActionResult FilterForListUserBelongRole([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)

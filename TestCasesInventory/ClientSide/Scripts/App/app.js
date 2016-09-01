@@ -1,4 +1,4 @@
-﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'assignTestCaseToUser','assignTestCaseToUser'], function () {
 
     var app = {};
     app.init = function () {
@@ -16,6 +16,11 @@
         var deleteTestCasesInTestRunConfirmation = require('deleteTestCasesInTestRunConfirmation');
         deleteTestCasesInTestRunConfirmation.init();
     };
+
+    app.initAssignTestCaseToUser = function () {
+        var assignTestCaseToUser = require('assignTestCaseToUser');
+        assignTestCaseToUser.init();
+    }
 
     function initEditors() {
         $('.tinymce-editor').each(function (index) {
