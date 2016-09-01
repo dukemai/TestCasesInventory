@@ -59,7 +59,6 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", "TestCase", new { id = item.TestCaseID }, new { @class = "link-detail" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
                 <a href="#" class="delete-testcase" data-target="#basic" data-toggle="modal" data-testcase-id="@item.ID"> Delete</a>
             </td>
             <td>
