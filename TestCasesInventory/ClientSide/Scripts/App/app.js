@@ -1,4 +1,4 @@
-﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'assignTestCaseToUser'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'assignTestCaseToUser','assignTestCaseToUser'], function () {
 
     var app = {};
     app.init = function () {
@@ -6,9 +6,15 @@
         initTabFunctions();
         initFileControl();
     };
+
     app.initAddTestCasesToTestRun = function () {
         var addTestCasesToTestRun = require('addTestCasesToTestRun');
-        addTestCasesToTestRun.init(); 
+        addTestCasesToTestRun.init();
+    };
+    
+    app.initDeleteTestCasesInTestRunConfirmation = function () {
+        var deleteTestCasesInTestRunConfirmation = require('deleteTestCasesInTestRunConfirmation');
+        deleteTestCasesInTestRunConfirmation.init();
     };
 
     app.initAssignTestCaseToUser = function () {
@@ -32,6 +38,6 @@
         var fileControl = require('fileControl');
         fileControl.init();
     }
-
+   
     return app;
 });

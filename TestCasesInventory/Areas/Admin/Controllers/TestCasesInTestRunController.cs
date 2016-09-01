@@ -97,12 +97,18 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoeTestCasesFromTestRun(List<int> testCases, int testRunID)
+        public ActionResult RemoveTestCasesFromTestRun(List<int> testCases, int testRunID)
         {
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(testCases, testRunID);
             return Json("Done");
         }
-
+        public ActionResult RemoveASingleTestCaseFromTestRun(int testCasesInTestRunID)
+        {
+            var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID);
+            var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
+            TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
+            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID, sortBy = "", searchByTitle = "" });
+        }
         [HttpGet]
         public ActionResult GetUsersPopUp(int id)
         {

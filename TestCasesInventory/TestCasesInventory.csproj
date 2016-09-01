@@ -182,6 +182,7 @@
     <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\testcasesintestrun-routes.js" />
     <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Views\testcasesintestrun-pop-up-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\add-testcases-to-testrun.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\delete-testcase-in-testrun-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasemodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testrunmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testsuitemodel.js" />

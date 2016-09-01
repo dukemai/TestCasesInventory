@@ -5,6 +5,7 @@
         'tinyMCEInit': 'App/tinymce-init',
         'tabCommonFunctions': 'App/tab-common-functions',
         'fileControl': 'App/file-control-custom',
+        'deleteTestCasesInTestRunConfirmation': 'App/TestRun/delete-testcase-in-testrun-confirmation',
         'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
         'assignTestCaseToUser': 'App/TestCasesInTestRun/assign-testcase-to-user',
         'handlebars': 'Lib/handlebars.min',
