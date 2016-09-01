@@ -102,12 +102,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(testCases, testRunID);
             return Json("Done");
         }
-        public ActionResult RemoveASingleTestCaseFromTestRun(int testCasesInTestRunID)
+        public ActionResult RemoveASingleTestCaseFromTestRun(int? testCasesInTestRunID)
         {
-            var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID);
+            if (!testCasesInTestRunID.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID.Value);
             var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
-            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID, sortBy = "", searchByTitle = "" });
+            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID});
         }
         [HttpGet]
         public ActionResult GetUsersPopUp(int id)
@@ -123,16 +127,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult AssignToMe(int? id, int testRunID)
+        [HttpPost]
+        public ActionResult AssignToMe(int id)
         {
             try
             {
-                if (!id.HasValue)
-                {
-                    throw new Exception("Id is not valid");
-                }
-                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id.Value);
-                return RedirectToAction("Details", "TestRun", new { id = testRunID });
+                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
+                return Json("Done.");
             }
             catch (Exception e)
             {

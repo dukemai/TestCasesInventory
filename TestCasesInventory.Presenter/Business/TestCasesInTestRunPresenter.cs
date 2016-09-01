@@ -60,13 +60,8 @@ namespace TestCasesInventory.Presenter.Business
 
         public TestCasesInTestRunViewModel GetTestCasesInTestRunById(int testCasesInTestRunID)
         {
-            
             var testCasesInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCasesInTestRunID);
-            if (testCasesInTestRun == null)
-            {
-                logger.Error("Test Case In Test Run was not found.");
-                throw new TestCaseNotFoundException("Test Case In Test Run was not found.");
-            }
+            CheckExceptionTestCaseInTestRun(testCasesInTestRun);
             var testCasesInTestRunViewModel = testCasesInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
             return testCasesInTestRunViewModel;
         }
