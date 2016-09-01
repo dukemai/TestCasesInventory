@@ -177,6 +177,7 @@
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\add-testcases-to-testrun.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\delete-testcase-in-testrun-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasemodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testrunmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testsuitemodel.js" />
@@ -398,7 +399,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
     <Folder Include="Models\" />
-    <Folder Include="Templates\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Menu\" />
   </ItemGroup>

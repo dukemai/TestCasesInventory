@@ -1,4 +1,4 @@
-﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation'], function () {
 
     var app = {};
     app.init = function () {
@@ -6,10 +6,17 @@
         initTabFunctions();
         initFileControl();
     };
+
     app.initAddTestCasesToTestRun = function () {
         var addTestCasesToTestRun = require('addTestCasesToTestRun');
-        addTestCasesToTestRun.init(); 
+        addTestCasesToTestRun.init();
     };
+    
+    app.initDeleteTestCasesInTestRunConfirmation = function () {
+        var deleteTestCasesInTestRunConfirmation = require('deleteTestCasesInTestRunConfirmation');
+        deleteTestCasesInTestRunConfirmation.init();
+    };
+
     function initEditors() {
         $('.tinymce-editor').each(function (index) {
             var tinyMCEInit = require('tinyMCEInit');
@@ -26,6 +33,6 @@
         var fileControl = require('fileControl');
         fileControl.init();
     }
-
+   
     return app;
 });
