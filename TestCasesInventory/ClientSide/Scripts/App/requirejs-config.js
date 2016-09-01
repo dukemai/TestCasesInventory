@@ -6,6 +6,7 @@
         'tabCommonFunctions': 'App/tab-common-functions',
         'fileControl': 'App/file-control-custom',
         'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
+        'assignTestCaseToUser': 'App/TestCasesInTestRun/assign-testcase-to-user',
         'handlebars': 'Lib/handlebars.min',
         'templateHelper': 'App/template-helper',
         'backbone': 'Lib/backbone-min',
