@@ -135,10 +135,10 @@ namespace TestCasesInventory.Presenter.Business
             return usersPopUpViewModel;
         }
 
-        public void AssignTestCaseToUser(int testCaseInTestRunID, string username)
+        public void AssignTestCaseToUser(int testCaseInTestRunID, string userName)
         {
             var currentUser = UserManager.FindById(HttpContext.User.Identity.GetUserId());
-            var assignee = UserManager.FindByEmail(username);
+            var assignee = UserManager.FindByEmail(userName);
             if (currentUser == null)
             {
                 logger.Error("Current User was not found.");
