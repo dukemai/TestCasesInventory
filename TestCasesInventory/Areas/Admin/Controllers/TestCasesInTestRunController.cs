@@ -121,9 +121,27 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var userId = User.Identity.GetUserId();
-                //TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id, userId);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id is not valid");
+                }
+                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id.Value);
                 return RedirectToAction("Details", "TestRun", new { id = testRunID });
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AssignTestCaseToUser(int testCaseInTestRunID, string userID)
+        {
+            try
+            {
+                var userBeAssigned = UserPresenter.FindUserByID(userID);
+                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(testCaseInTestRunID, userBeAssigned.Email);
+                return Json("Done");
             }
             catch (Exception e)
             {
@@ -133,6 +151,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
 
-       
+
     }
 }
