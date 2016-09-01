@@ -8,7 +8,7 @@
     }
 
     testSuitePopUpView.prototype.render = function () {
-        var self = this;       
+        var self = this;
         var promisedResult = templateHelper.loadAndCache('test-suite-popup', '/ClientSide/Templates/TestRun/testsuites-in-popup.html');
         if (promisedResult) {
             promisedResult.then(function () {
@@ -19,6 +19,9 @@
 
                     var testSuiteBody = $('#test-suite-content-body-' + self.model.ID);
                     testSuiteBody.append(self.template(self.model.TestCases));
+
+                    var checkedAll = _.every(self.model.TestCases, function (testCase) { return testCase.Checked == true });
+                    $('.check-all', testSuiteBody).prop("checked", checkedAll);
 
                     $('.check-all', testSuiteBody).on('change', function () {
                         var isChecked = $(this).is(':checked');
@@ -36,6 +39,9 @@
                         else {
                             self.model.removeTestCase(testCase);
                         }
+
+                        var checkedAll = $('.checkbox-testcase', testSuiteBody).is(":unchecked") ? false : true;
+                        $('.check-all', testSuiteBody).prop("checked", checkedAll);
                     });
 
                 });
