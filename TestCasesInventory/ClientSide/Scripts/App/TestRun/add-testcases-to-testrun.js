@@ -25,7 +25,10 @@
                 $('#modal-container').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
-                
+
+                $('#cancel-button').click(function () {
+                    $('#modal-container').modal('hide').trigger('hide.bs.modal');
+                });
                 view.render();                
             });
         }
