@@ -105,48 +105,48 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
-        {
-            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            if (user == null)
-            {
-                logger.Error("User was not found.");
-                throw new TestRunNotFoundException("User was not found.");
-            }
-            var testRun = testRunRepository.GetTestRunByID(testRunID);
-            if (testRun == null)
-            {
-                logger.Error("Test Run was not found.");
-                throw new TestRunNotFoundException("Test Run was not found.");
-            }
-            var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
-            var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesForTeam(testRun.TeamID);
-            foreach (var testSuite in listTestSuitesDataModel)
-            {
-                var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
-                testSuitePopUpViewModel.TestRunID = testRunID;
-                listTestSuitesPopUp.Add(testSuitePopUpViewModel);
-            }
-            return listTestSuitesPopUp;
-        }
+        //public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
+        //{
+        //    var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        //    if (user == null)
+        //    {
+        //        logger.Error("User was not found.");
+        //        throw new TestRunNotFoundException("User was not found.");
+        //    }
+        //    var testRun = testRunRepository.GetTestRunByID(testRunID);
+        //    if (testRun == null)
+        //    {
+        //        logger.Error("Test Run was not found.");
+        //        throw new TestRunNotFoundException("Test Run was not found.");
+        //    }
+        //    var listTestSuitesPopUp = new List<TestSuiteInTestRunPopUpViewModel>();
+        //    var listTestSuitesDataModel = testSuiteRepository.GetTestSuitesForTeam(testRun.TeamID);
+        //    foreach (var testSuite in listTestSuitesDataModel)
+        //    {
+        //        var testSuitePopUpViewModel = testSuite.MapTo<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
+        //        testSuitePopUpViewModel.TestRunID = testRunID;
+        //        listTestSuitesPopUp.Add(testSuitePopUpViewModel);
+        //    }
+        //    return listTestSuitesPopUp;
+        //}
 
-        public List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
-        {
-            var listTestCasesInTestSuitePopUp = new List<TestCaseInTestSuitePopUpViewModel>();
-            var listTestCasesDataModel = testCaseRepository.ListAll(testSuiteID);
-            foreach (var testCase in listTestCasesDataModel)
-            {
-                var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
-                var testCaseAlreadyInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRun(testCase.ID, testRunID);
-                if (testCaseAlreadyInTestRun != null)
-                {
-                    testCaseInTestSuitePopUp.Checked = true;
-                    testCaseInTestSuitePopUp.TestRunID = testRunID;
-                }
-                listTestCasesInTestSuitePopUp.Add(testCaseInTestSuitePopUp);
-            }
-            return listTestCasesInTestSuitePopUp;
-        }
+        //public List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
+        //{
+        //    var listTestCasesInTestSuitePopUp = new List<TestCaseInTestSuitePopUpViewModel>();
+        //    var listTestCasesDataModel = testCaseRepository.ListAll(testSuiteID);
+        //    foreach (var testCase in listTestCasesDataModel)
+        //    {
+        //        var testCaseInTestSuitePopUp = testCase.MapTo<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
+        //        var testCaseAlreadyInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRun(testCase.ID, testRunID);
+        //        if (testCaseAlreadyInTestRun != null)
+        //        {
+        //            testCaseInTestSuitePopUp.Checked = true;
+        //            testCaseInTestSuitePopUp.TestRunID = testRunID;
+        //        }
+        //        listTestCasesInTestSuitePopUp.Add(testCaseInTestSuitePopUp);
+        //    }
+        //    return listTestCasesInTestSuitePopUp;
+        //}
 
 
 

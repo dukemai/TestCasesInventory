@@ -18,7 +18,6 @@ namespace TestCasesInventory.Presenter.Business
         CreateTestRunViewModel GetTestRunForAdminCreate(int teamID);
         EditTestRunViewModel GetTestRunForEdit(int testRunID);
         EditTestRunViewModel GetTestRunForAdminEdit(int testRunID);
- 		List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID);
-        List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID);
+ 		
     }
 }

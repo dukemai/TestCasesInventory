@@ -1,7 +1,7 @@
 ﻿define(['App/routes'], function (routes) {
     var testRunRoutes = {
-        getTestSuite: '/Admin/TestRun/GetTestSuitesPopUp/',
-        getTestCase: '/Admin/TestRun/GetTestCasesInTestSuitePopUp/',
+        getTestSuite: '/Admin/TestCasesInTestRun/GetTestSuitesPopUp/',
+        getTestCase: '/Admin/TestCasesInTestRun/GetTestCasesInTestSuitePopUp/',
         addTestCasesToTestRun: '/Admin/TestCasesInTestRun/AddTestCasesToTestRun',
         removeTestCasesFromTestRun: '/Admin/TestCasesInTestRun/RemoveTestCasesFromTestRun'
     };

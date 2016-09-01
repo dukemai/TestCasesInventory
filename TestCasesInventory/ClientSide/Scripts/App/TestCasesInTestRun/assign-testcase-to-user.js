@@ -1,6 +1,6 @@
-﻿define(['handlebars', 'templateHelper',
-    'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view'],
-    function (handleBars, templateHelper, testCasesInTestRunPopUpView) {
+﻿define(['handlebars', 'templateHelper', 'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view',
+        'App/TestCasesInTestRun/testcasesintestrun-routes'],
+    function (handleBars, templateHelper, testCasesInTestRunPopUpView, routes) {
         var exportModule = {
 
         };
@@ -32,7 +32,7 @@
                 e.preventDefault();
                 var self = $(this);
                 var id = self.attr('data-id');
-                $.post("/Admin/TestCasesInTestRun/AssignToMe/", { id: id });
+                $.post(routes.assignTestCaseToMe, { id: id });
                 location.reload();
             });
         }
