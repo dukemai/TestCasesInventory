@@ -1,6 +1,6 @@
-﻿define(['handlebars', 'templateHelper', 'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view',
+﻿define(['handlebars', 'templateHelper', 'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view', 'promise',
         'App/TestCasesInTestRun/testcasesintestrun-routes'],
-    function (handleBars, templateHelper, testCasesInTestRunPopUpView, routes) {
+    function (handleBars, templateHelper, testCasesInTestRunPopUpView, promise, routes) {
         var exportModule = {
 
         };
@@ -16,6 +16,7 @@
         }
 
         function bindEvents() {
+
             $('.modal-link-assign-to-user').click(function (e) {
                 e.preventDefault();
                 var self = $(this);
@@ -26,6 +27,7 @@
                 });
 
                 view.render();
+                sessionStorage.setItem("showMessage", "show");
             });
 
             $('.modal-link-assign-to-me').click(function (e) {
@@ -33,8 +35,17 @@
                 var self = $(this);
                 var id = self.attr('data-id');
                 $.post(routes.assignTestCaseToMe, { id: id });
+                sessionStorage.setItem("showMessage", "show");
                 location.reload();
             });
+            
+
+            $(document).ready(function () {
+                if (sessionStorage.getItem("showMessage") == "show") {
+                    $(".show-message").show().delay(700).fadeOut(1000);
+                    sessionStorage.removeItem("showMessage");
+                }
+            })
         }
 
         function setupTheApp() {
