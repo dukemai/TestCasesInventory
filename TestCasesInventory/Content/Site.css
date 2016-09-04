@@ -189,12 +189,12 @@ textarea {
 .show-message {
     height: 40px;
     width: 200px;
-    background-color: honeydew;
-    display: none;
-    position: fixed;
     left: 45%;
     top: 60px;
-    text-align: center;
-    color: seagreen;
+    position: fixed;
     border-radius: 7px;
+    display: none;
+    background-color: honeydew;
+    color: seagreen;
+    text-align: center;
 }

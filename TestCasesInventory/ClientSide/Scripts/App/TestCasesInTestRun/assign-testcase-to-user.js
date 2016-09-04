@@ -21,29 +21,33 @@
                 e.preventDefault();
                 var self = $(this);
                 var id = self.attr('data-id');
+                var assignedTo = self.attr('data-assignedto');
                 var view = new testCasesInTestRunPopUpView(id);
+                view.assignedTo = assignedTo;
                 $('#modal-container-assign-to-user').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
 
                 view.render();
-                sessionStorage.setItem("showMessage", "show");
             });
 
             $('.modal-link-assign-to-me').click(function (e) {
                 e.preventDefault();
                 var self = $(this);
                 var id = self.attr('data-id');
-                $.post(routes.assignTestCaseToMe, { id: id });
-                sessionStorage.setItem("showMessage", "show");
-                location.reload();
+                var assignedTo = self.attr('data-assignedto');
+                promise.resolve($.post(routes.assignTestCaseToMe, { id: id }))
+                    .then(function () {
+                        sessionStorage.setItem('showMessage', 'show');
+                        location.reload();
+                    });
             });
-            
+
 
             $(document).ready(function () {
-                if (sessionStorage.getItem("showMessage") == "show") {
-                    $(".show-message").show().delay(700).fadeOut(1000);
-                    sessionStorage.removeItem("showMessage");
+                if (sessionStorage.getItem('showMessage') == 'show') {
+                    $('.show-message').show().delay(700).fadeOut(1000);
+                    sessionStorage.removeItem('showMessage');
                 }
             })
         }
