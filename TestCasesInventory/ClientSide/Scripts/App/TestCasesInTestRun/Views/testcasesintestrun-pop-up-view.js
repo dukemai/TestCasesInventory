@@ -22,7 +22,6 @@
                 promise.resolve(assignTestCaseToUser(self.model.ID, userID))
                     .then(function () {
                         sessionStorage.setItem('showMessage', 'show');
-                        $('#modal-container-assign-to-user').modal('hide');
                         location.reload();
                     });
             });

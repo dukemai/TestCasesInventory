@@ -147,7 +147,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID.Value);
             var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
-            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID});
+            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID });
         }
         [HttpGet]
         public ActionResult GetUsersPopUp(int id)
@@ -166,30 +166,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AssignToMe(int id)
         {
-            try
-            {
-                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
-                return Json("Done.");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
+            TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
+            return Json("Done.");
         }
 
         [HttpPost]
         public ActionResult AssignTestCaseToUser(int testCaseInTestRunID, string userID)
         {
-            try
-            {
-                var userBeAssigned = UserPresenter.FindUserByID(userID);
-                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(testCaseInTestRunID, userBeAssigned.Email);
-                return Json("Done");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
+            var userBeAssigned = UserPresenter.FindUserByID(userID);
+            TestCasesInTestRunPresenterObject.AssignTestCaseToUser(testCaseInTestRunID, userBeAssigned.Email);
+            return Json("Done");
         }
 
 
