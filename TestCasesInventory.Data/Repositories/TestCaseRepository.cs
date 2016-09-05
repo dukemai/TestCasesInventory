@@ -49,7 +49,7 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).Count();
         }
-        
+
         public IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions)
         {
             IQueryable<TestCaseDataModel> query = dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteId).Select(t => t);
@@ -107,6 +107,25 @@ namespace TestCasesInventory.Data.Repositories
                 return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
             }
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+        }
+
+        public string ConvertPriorityToText(string numberPriority)
+        {
+            switch (numberPriority)
+            {
+                case "1":
+                    return "Lowest";
+                case "2":
+                    return "Low";
+                case "3":
+                    return "Medium";
+                case "4":
+                    return "High";
+                case "5":
+                    return "Highest";
+                default:
+                    return "";
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using System;
 
 namespace TestCasesInventory.Presenter.Models
 {
-    public class IndexViewModel : ViewModelBase
+    public class IndexViewModel
     {
 
         [Display(Name = "Email")]
@@ -26,18 +26,18 @@ namespace TestCasesInventory.Presenter.Models
 
 }
 
-    public class ManageLoginsViewModel : ViewModelBase
+    public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
-    public class FactorViewModel : ViewModelBase
+    public class FactorViewModel
     {
         public string Purpose { get; set; }
     }
 
-    public class SetPasswordViewModel : ViewModelBase
+    public class SetPasswordViewModel
     {
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be a string with a maximum length of {1}")]
@@ -51,7 +51,7 @@ namespace TestCasesInventory.Presenter.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangePasswordViewModel : ViewModelBase
+    public class ChangePasswordViewModel
     {
         [Required]
         [DataType(DataType.Password)]
@@ -70,7 +70,7 @@ namespace TestCasesInventory.Presenter.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class AddPhoneNumberViewModel : ViewModelBase
+    public class AddPhoneNumberViewModel
     {
         [Required]
         [Phone]
@@ -78,7 +78,7 @@ namespace TestCasesInventory.Presenter.Models
         public string Number { get; set; }
     }
 
-    public class UpdateDisplayNameViewModel : ViewModelBase
+    public class UpdateDisplayNameViewModel
     {
         [Required]
         [Display(Name = "Name")]
@@ -86,7 +86,7 @@ namespace TestCasesInventory.Presenter.Models
 
     }
 
-    public class UpdateRolesViewModel : ViewModelBase
+    public class UpdateRolesViewModel
     {
         [Required]
         [Display(Name = "User Roles")]
@@ -98,7 +98,7 @@ namespace TestCasesInventory.Presenter.Models
         }
     }
 
-    public class VerifyPhoneNumberViewModel : ViewModelBase
+    public class VerifyPhoneNumberViewModel
     {
         
         [Display(Name = "Code")]
@@ -110,7 +110,7 @@ namespace TestCasesInventory.Presenter.Models
         public string PhoneNumber { get; set; }
     }
 
-    public class ConfigureTwoFactorViewModel : ViewModelBase
+    public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }

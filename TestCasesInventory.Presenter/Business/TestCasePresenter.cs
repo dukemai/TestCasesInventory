@@ -33,14 +33,10 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
-        public TestCaseViewModel GetTestCaseById(int? id)
+        public TestCaseViewModel GetTestCaseById(int id)
         {
-            if (!id.HasValue)
-            {
-                logger.Error("TestCase Id was not valid.");
-                throw new Exception("TestCase Id was not valid.");
-            }
-            var testCase = testCaseRepository.GetTestCaseByID(id.Value);
+           
+            var testCase = testCaseRepository.GetTestCaseByID(id);
             if (testCase == null)
             {
                 logger.Error("TestCase was not found.");
@@ -130,11 +126,11 @@ namespace TestCasesInventory.Presenter.Business
         {
             var items = new List<SelectListItem>();
 
-            items.Add(new SelectListItem { Text = "Highest", Value = "Highest" });
-            items.Add(new SelectListItem { Text = "High", Value = "High" });
-            items.Add(new SelectListItem { Text = "Medium", Value = "Medium", Selected = true });
-            items.Add(new SelectListItem { Text = "Low", Value = "Low" });
-            items.Add(new SelectListItem { Text = "Lowest", Value = "Lowest" });
+            items.Add(new SelectListItem { Text = "Highest", Value = "5" });
+            items.Add(new SelectListItem { Text = "High", Value = "4" });
+            items.Add(new SelectListItem { Text = "Medium", Value = "3", Selected = true });
+            items.Add(new SelectListItem { Text = "Low", Value = "2" });
+            items.Add(new SelectListItem { Text = "Lowest", Value = "1" });
             return items;
         }
 

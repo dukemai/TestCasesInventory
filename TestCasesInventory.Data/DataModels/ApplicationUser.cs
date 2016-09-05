@@ -24,5 +24,7 @@ namespace TestCasesInventory.Data.DataModels
         public virtual TeamDataModel Team { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public virtual ICollection<TestCaseResultDataModel> TestCaseResults { get; set; }
+        public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
+
     }
 }

@@ -9,17 +9,19 @@ using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     [CustomAuthorize(PrivilegedUsersConfig.TesterRole, PrivilegedUsersConfig.AdminRole)]
-    
+
     public class TestRunController : TestCasesInventory.Web.Common.Base.ControllerBase
     {
         #region Properties
         private IUserPresenter userPresenter;
         private ITestRunPresenter testRunPresenterObject;
         private IRolePresenter rolePresenter;
+        private ITestCasesInTestRunPresenter testCasesInTestRunPresenterObject;
         protected ITestRunPresenter TestRunPresenterObject
         {
             get
@@ -29,6 +31,17 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     testRunPresenterObject = new TestRunPresenter(HttpContext);
                 }
                 return testRunPresenterObject;
+            }
+        }
+        protected ITestCasesInTestRunPresenter TestCasesInTestRunPresenterObject
+        {
+            get
+            {
+                if (testCasesInTestRunPresenterObject == null)
+                {
+                    testCasesInTestRunPresenterObject = new TestCasesInTestRunPresenter(HttpContext);
+                }
+                return testCasesInTestRunPresenterObject;
             }
         }
         protected IRolePresenter RolePresenter
@@ -64,11 +77,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         // GET: Admin/TestRun/Details/5
-        public ActionResult Details(int? id, [ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult Details(int? id)
         {
             try
             {
-                var testRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var testRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Details", testRun);
             }
             catch (TestRunNotFoundException e)
@@ -94,7 +111,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
             if (IsCurrentUserAdmin())
             {
-                model = TestRunPresenterObject.GetTestRunForAdminCreate(user.TeamID);
+                model = TestRunPresenterObject.GetTestRunForAdminCreate(user.TeamID.Value);
                 return PartialView("TestRun/_CreateTestRunByAdminPartial", model);
             }
 
@@ -134,7 +151,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var updatedTestRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var updatedTestRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Edit", updatedTestRun);
             }
             catch (TestRunNotFoundException e)
@@ -204,7 +225,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var deletedTestRun = TestRunPresenterObject.GetTestRunById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var deletedTestRun = TestRunPresenterObject.GetTestRunById(id.Value);
                 return View("Delete", deletedTestRun);
             }
             catch (TestRunNotFoundException e)
@@ -231,7 +256,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 return View("ResultNotFoundError");
             }
-        }
+        } 
         public ActionResult Run(int id)
         {
             var model = new CreateTestRunResultViewModel();

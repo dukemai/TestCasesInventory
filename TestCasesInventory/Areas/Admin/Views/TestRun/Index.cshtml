@@ -74,10 +74,9 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
+                @Html.ActionLink("Details", "Details", new { id = item.ID}) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                 @Html.ActionLink("Run", "Run", new { id = item.ID }, new { @class = "modal-link"}) |
-                <a href="#"> Add Test Cases</a>
             </td>
         </tr>
     }

@@ -28,14 +28,9 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
-        public TeamViewModel GetTeamById(int? teamID)
+        public TeamViewModel GetTeamById(int teamID)
         {
-            if (!teamID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var team = teamRepository.GetTeamByID(teamID.Value);
+            var team = teamRepository.GetTeamByID(teamID);
             if (team == null)
             {
                 logger.Error("Team was not found.");
@@ -84,28 +79,17 @@ namespace TestCasesInventory.Presenter.Business
         }
 
 
-        public IPagedList<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int? teamID, FilterOptions options)
+        public IPagedList<UsersNotBelongTeamViewModel> ListUsersNotBelongTeam(int teamID, FilterOptions options)
         {
-            if (!teamID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-
-            var list = teamRepository.ListUsersNotBelongTeam(teamID.Value, options);
+            var list = teamRepository.ListUsersNotBelongTeam(teamID, options);
             var mappedList = Mapper.Map<IPagedList<UsersNotBelongTeamViewModel>>(list);
             return mappedList;
 
         }
 
-        public IPagedList<UsersBelongTeamViewModel> ListUsersBelongTeam(int? teamID, FilterOptions options)
+        public IPagedList<UsersBelongTeamViewModel> ListUsersBelongTeam(int teamID, FilterOptions options)
         {
-            if (!teamID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var list = teamRepository.ListUsersBelongTeam(teamID.Value, options);
+            var list = teamRepository.ListUsersBelongTeam(teamID, options);
             var mappedList = Mapper.Map<IPagedList<UsersBelongTeamViewModel>>(list);
             return mappedList;
         }

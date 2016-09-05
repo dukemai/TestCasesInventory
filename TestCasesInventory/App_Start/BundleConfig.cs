@@ -1,48 +1,54 @@
 ﻿using System.Web;
 using System.Web.Optimization;
+using TestCasesInventory.Web.Common.Utils;
 
 namespace TestCasesInventory
 {
     public class BundleConfig
     {
+
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            IncludeBaseScripts(bundles);
+
+            bundles.Add(new ScriptBundle("~/bundles/requirejsconfig").Include("App/requirejs-config.js".AppendJSFolder()));
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+           "tinymce/tinymce.min.js".AppendJSLibFolder()));
+            //Style
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                   "~/Content/bootstrap.css",
+                   "~/Content/site.css"));
+
+        }
+
+        private static void IncludeBaseScripts(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                      "jquery-1.9.1.min.js".AppendJSLibFolder()));
+
+            bundles.Add(new ScriptBundle("~/bundles/requirejs").Include(
+                    "require.js".AppendJSLibFolder()));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "jquery.validate.min.js".AppendJSLibFolder(),
+                        "jquery.validate.unobtrusive.min.js".AppendJSLibFolder()));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                      "modernizr-*".AppendJSLibFolder()));
 
-            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
-                        "~/Scripts/tinymce/tinymce.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/list-user-customjs").Include(
-                    "~/Scripts/list-user-customjs.js"));
+            bundles.Add(new ScriptBundle("~/bundles/underscore").Include(
+         "underscore-min.js".AppendJSLibFolder()));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery.cookie").Include(
-                    "~/Scripts/jquery.cookie.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/tab-common-functions").Include(
-                   "~/Scripts/tab-common-functions.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/tinymceInit").Include(
-                        "~/Scripts/TinyMceInit.js"));
+                  "jquery.cookie.js".AppendJSLibFolder()));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
-            bundles.Add(new ScriptBundle("~/bundles/fileControl").Include(
-                        "~/Scripts/file-control-custom.js"));
+                  "bootstrap.min.js".AppendJSLibFolder(),
+                  "respond.min.js".AppendJSLibFolder()));
             bundles.Add(new ScriptBundle("~/bundles/runTestRun").Include(
                        "~/Scripts/run-test-run.js"));
         }

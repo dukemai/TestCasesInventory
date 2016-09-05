@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
-using PagedList;
+﻿using PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.DataModels;
 
@@ -14,6 +18,7 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTestRun(int testRunID);
         void Save();
         IPagedList<TestRunDataModel> GetTestRuns(FilterOptions options, int? teamID, bool getAll);
-        IEnumerable<TestCasesInTestRunDataModel> ListTestCasesForTestRun(int testRunID);
+        IEnumerable<TestCasesInTestRunDataModel> ListTestCasesInTestRun(int testSuiteID);
+
     }
 }
