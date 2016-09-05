@@ -1,10 +1,10 @@
-﻿.modal-lg{
-      width:900px;
-  }
+﻿.modal-lg {
+    width: 900px;
+}
 
-.modal-sm{
-      width:300px;
-  }
+.modal-sm {
+    width: 400px;
+}
 
 .view-test-suites {
     padding: 10px;
@@ -184,4 +184,17 @@ textarea {
     to {
         left: 100%;
     }
+}
+
+.show-message {
+    height: 40px;
+    width: 200px;
+    left: 45%;
+    top: 60px;
+    position: fixed;
+    border-radius: 7px;
+    display: none;
+    background-color: honeydew;
+    color: seagreen;
+    text-align: center;
 }

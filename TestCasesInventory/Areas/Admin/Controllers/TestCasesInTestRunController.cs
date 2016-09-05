@@ -88,7 +88,43 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 return View("ResultNotFoundError");
             }
         }
-        
+
+        [HttpGet]
+        public ActionResult GetTestSuitesPopUp(int id)
+        {
+            try
+            {
+                var testSuitesPopUp = TestCasesInTestRunPresenterObject.GetTestSuitesPopUp(id);
+                return Json(testSuitesPopUp, JsonRequestBehavior.AllowGet);
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID)
+        {
+            try
+            {
+                var testCasesInTestSuitePopUp = TestCasesInTestRunPresenterObject.GetTestCasesInTestSuitePopUp(testSuiteID, testRunID);
+                return Json(testCasesInTestSuitePopUp, JsonRequestBehavior.AllowGet);
+            }
+            catch (TestSuiteNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
         [HttpPost]
         public ActionResult AddTestCasesToTestRun(List<int> testCases, int testRunID)
         {
@@ -111,7 +147,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID.Value);
             var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
-            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID});
+            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID });
         }
         [HttpGet]
         public ActionResult GetUsersPopUp(int id)
@@ -130,30 +166,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AssignToMe(int id)
         {
-            try
-            {
-                TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
-                return Json("Done.");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
+            TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
+            return Json("Done.");
         }
 
         [HttpPost]
         public ActionResult AssignTestCaseToUser(int testCaseInTestRunID, string userID)
         {
-            try
-            {
-                var userBeAssigned = UserPresenter.FindUserByID(userID);
-                TestCasesInTestRunPresenterObject.AssignTestCaseToUser(testCaseInTestRunID, userBeAssigned.Email);
-                return Json("Done");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
+            var userBeAssigned = UserPresenter.FindUserByID(userID);
+            TestCasesInTestRunPresenterObject.AssignTestCaseToUser(testCaseInTestRunID, userBeAssigned.Email);
+            return Json("Done");
         }
 
 

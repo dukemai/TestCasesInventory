@@ -2,7 +2,6 @@
     function testCasesInTestRunModel(id) {
         this.ID = id;
         this.Users = [];
-        this.UserToAssign = [];
     }
 
     testCasesInTestRunModel.prototype.loadUsers = function () {
@@ -13,15 +12,6 @@
             });
         }));
     }
-
-    testCasesInTestRunModel.prototype.getUserToAssign = function () {
-        var self = this;
-        var listTestCasesToAdd = [];
-        for (TestSuite in self.TestSuites) {
-            listTestCasesToAdd = _.union(listTestCasesToAdd, self.TestSuites[TestSuite].TestCasesToAdd);
-        }
-        return listTestCasesToAdd;
-    }
-
+    
     return testCasesInTestRunModel;
 });
