@@ -61,30 +61,63 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 testRunResult.Status = TestRunResultStatus.InProgress;
                 TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
             }
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult GetTestCasesAssignedToMe(int testRunId)
+        public ActionResult GetTestCasesAssignedToMe(int? testRunId)
         {
-            var listTestCasesAssignedToMe = TestRunResultPresenterObject.GetTestCasesAssignedToMe(testRunId);
-            return Json(listTestCasesAssignedToMe, JsonRequestBehavior.AllowGet);
+            try
+            {
+                if (!testRunId.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var listTestCasesAssignedToMe = TestRunResultPresenterObject.GetTestCasesAssignedToMe(testRunId.Value);
+                return Json(listTestCasesAssignedToMe, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
-       
+
 
         [HttpGet]
-        public ActionResult GetAllTestCases(int testRunId)
+        public ActionResult GetAllTestCases(int? testRunId)
         {
-            var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(testRunId);
-            return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                if (!testRunId.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(testRunId.Value);
+                return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         [HttpGet]
-        public ActionResult GetSelectedTestCases(int testRunId, List<int> selectedTestCases)
+        public ActionResult GetSelectedTestCases(int? testRunId, List<int> selectedTestCases)
         {
-            var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(testRunId, selectedTestCases);
-            return Json(listSelectedTestCases, JsonRequestBehavior.AllowGet);
+            try
+            {
+                if (!testRunId.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(testRunId.Value, selectedTestCases);
+                return Json(listSelectedTestCases, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+
         }
-
-
     }
 }
