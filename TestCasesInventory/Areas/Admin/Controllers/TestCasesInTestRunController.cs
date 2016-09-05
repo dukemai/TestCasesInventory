@@ -89,6 +89,31 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
+        // GET: Admin/TestCaseInTestRun/Details/
+        public ActionResult Details(int? id)
+        {
+            int x;
+            try
+            {
+                if (!id.HasValue)
+                {
+                    throw new Exception("TestCaseInTestRun Id was not valid.");
+                }
+                var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(id.Value);
+                
+                return View("Details", testCaseInTestRun);
+            }
+            catch (TestCaseNotFoundException e)
+            {
+                return View("ResultNotFoundError");
+            }
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
+        }
+
+
         [HttpGet]
         public ActionResult GetTestSuitesPopUp(int id)
         {
