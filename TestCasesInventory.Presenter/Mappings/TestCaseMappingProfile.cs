@@ -21,16 +21,16 @@ namespace TestCasesInventory.Presenter.Mappings
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             this.CreateMap<TestCaseDataModel, TestCaseViewModel>()
-                .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => testCaseRepository.ConvertPriorityToText(src.Priority)))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                 .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName));
             this.CreateMap<IPagedList<TestCaseDataModel>, IPagedList<TestCaseViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestCaseDataModel, TestCaseViewModel>>();
-            this.CreateMap<TestCaseDataModel, CreateTestCaseViewModel>();      
-            this.CreateMap<CreateTestCaseViewModel, TestCaseDataModel>();
-            this.CreateMap<TestCaseDataModel, EditTestCaseViewModel>()
-                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => testCaseRepository.ConvertPriorityToText(src.Priority)));
+            this.CreateMap<TestCaseDataModel, CreateTestCaseViewModel>();
+            this.CreateMap<CreateTestCaseViewModel, TestCaseDataModel>()
+                .ForMember(dest => dest.PriorityValue, opt => opt.MapFrom(src => TestCaseRepository.ConvertPriorityToNumber(src.Priority)));
+            this.CreateMap<TestCaseDataModel, EditTestCaseViewModel>();
             this.CreateMap<EditTestCaseViewModel, TestCaseDataModel>()
+                .ForMember(dest => dest.PriorityValue, opt => opt.MapFrom(src => TestCaseRepository.ConvertPriorityToNumber(src.Priority)))
                 .Ignore(m => m.Created)
                 .Ignore(m => m.CreatedDate)
                 .Ignore(m => m.TestSuiteID);
