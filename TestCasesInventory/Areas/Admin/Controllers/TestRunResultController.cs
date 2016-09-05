@@ -10,6 +10,7 @@ using TestCasesInventory.Presenter.Validations;
 using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
 using TestCasesInventory.Presenter.Common;
+using System.Collections.Generic;
 
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
@@ -61,6 +62,27 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
             }
             return RedirectToAction("Index"); 
+        }
+        [HttpGet]
+        public ActionResult GetTestCasesAssignedToMe(int testRunId)
+        {
+            var listTestCasesAssignedToMe = TestRunResultPresenterObject.GetTestCasesAssignedToMe(testRunId);
+            return Json(listTestCasesAssignedToMe, JsonRequestBehavior.AllowGet);
+        }
+       
+
+        [HttpGet]
+        public ActionResult GetAllTestCases(int testRunId)
+        {
+            var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(testRunId);
+            return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetSelectedTestCases(int testRunId, List<int> selectedTestCases)
+        {
+            var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(testRunId, selectedTestCases);
+            return Json(listSelectedTestCases, JsonRequestBehavior.AllowGet);
         }
 
 
