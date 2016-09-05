@@ -16,15 +16,11 @@ namespace TestCasesInventory.Data.DataModels
         public string Status { get; set; }
         public string RunBy { get; set; }
         public string Comment { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         [ForeignKey("TestRunResultID")]
         public virtual TestRunResultDataModel TestRunResult { get; set; }
         [ForeignKey("TestCasesInTestRunID")]
         public virtual TestCasesInTestRunDataModel TestCase { get; set; }
         [ForeignKey("RunBy")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
