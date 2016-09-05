@@ -69,6 +69,8 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.AssignedTo == userId).Where(t => t.TestRunID == testRunID).ToList();
         }
+
+
         public IPagedList<TestCasesInTestRunDataModel> GetPagedListTestCasesByTestRun(int testRunId, FilterOptions filterOptions)
         {
             IQueryable<TestCasesInTestRunDataModel> query = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunId).Select(t => t);

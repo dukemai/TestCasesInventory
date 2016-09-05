@@ -12,12 +12,12 @@ namespace TestCasesInventory.Data.DataModels
         [AllowHtml]
         public string Description { get; set; }
         public int TeamID { get; set; }
+        public string TeamNameDisplayOnly { get; set; }
+        public string CreateDisplayOnly { get; set; }
+        public string LastModifiedDisplayOnly { get; set; }
         [ForeignKey("TeamID")]
         public virtual TeamDataModel Team { get; set; }
         public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
         public virtual ICollection<TestRunResultDataModel> TestRunResults { get; set; }
-		public string TeamNameDisplayOnly { get; set; }
-        public string CreateDisplayOnly { get; set; }
-        public string LastModifiedDisplayOnly { get; set; }
     }
 }

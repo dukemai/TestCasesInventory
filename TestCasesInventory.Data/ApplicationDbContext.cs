@@ -49,7 +49,7 @@ namespace TestCasesInventory.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
-                .HasRequired(t => t.User)
+                .HasRequired(t => t.ApplicationUser)
                 .WithMany(t => t.TestCaseResults)
                 .HasForeignKey(t => t.RunBy)
                 .WillCascadeOnDelete(false);
