@@ -12,7 +12,9 @@ namespace TestCasesInventory.Presenter.Business
         void AddTestCasesToTestRun(List<int> testCasesIDs, int testRunId);
         void RemoveTestCasesFromTestRun(List<int> testCasesIDs, int testRunId);
         List<TestCasesInTestRunViewModel> GetTestCasesInTestRun(int testRunId);
-        TestCasesInTestRunViewModel GetTestCasesInTestRunById(int? testCasesInTestRunID);
+        TestCasesInTestRunViewModel GetTestCasesInTestRunById(int testCasesInTestRunID);
+        List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID);
+        List<TestCaseInTestSuitePopUpViewModel> GetTestCasesInTestSuitePopUp(int testSuiteID, int testRunID);
 
         #endregion
 

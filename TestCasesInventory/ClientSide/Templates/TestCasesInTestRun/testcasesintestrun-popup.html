@@ -1,6 +1,6 @@
-﻿<select id="assign-to-user">
+﻿<select id="assign-to-user" class="form-control valid"> 
     {{#each .}}
-    <option data-id="{{ID}}">{{Email}}</option>
+    <option value="{{DisplayName}}" data-id="{{ID}}">{{DisplayName}}</option>
     {{/each}}
 </select>
  

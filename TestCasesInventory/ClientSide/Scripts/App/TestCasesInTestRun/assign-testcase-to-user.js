@@ -1,6 +1,6 @@
-﻿define(['handlebars', 'templateHelper',
-    'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view'],
-    function (handleBars, templateHelper, testCasesInTestRunPopUpView) {
+﻿define(['handlebars', 'templateHelper', 'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view', 'promise',
+        'App/TestCasesInTestRun/testcasesintestrun-routes'],
+    function (handleBars, templateHelper, testCasesInTestRunPopUpView, promise, routes) {
         var exportModule = {
 
         };
@@ -16,18 +16,40 @@
         }
 
         function bindEvents() {
-            $('.modal-link-assignto').click(function (e) {
+
+            $('.modal-link-assign-to-user').click(function (e) {
                 e.preventDefault();
                 var self = $(this);
-                var id = self.attr('data-test-case-in-test-run');
+                var id = self.attr('data-id');
+                var assignedTo = self.attr('data-assignedto');
                 var view = new testCasesInTestRunPopUpView(id);
-
+                view.assignedTo = assignedTo;
                 $('#modal-container-assign-to-user').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
 
                 view.render();
             });
+
+            $('.modal-link-assign-to-me').click(function (e) {
+                e.preventDefault();
+                var self = $(this);
+                var id = self.attr('data-id');
+                var assignedTo = self.attr('data-assignedto');
+                promise.resolve($.post(routes.assignTestCaseToMe, { id: id }))
+                    .then(function () {
+                        sessionStorage.setItem('showMessage', 'show');
+                        location.reload();
+                    });
+            });
+
+
+            $(document).ready(function () {
+                if (sessionStorage.getItem('showMessage') == 'show') {
+                    $('.show-message').show().delay(700).fadeOut(1000);
+                    sessionStorage.removeItem('showMessage');
+                }
+            })
         }
 
         function setupTheApp() {
