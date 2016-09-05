@@ -108,7 +108,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = sortOptions.Direction == SortDirections.Desc ? query.OrderByDescending(t => t.TestCase.Title) : query.OrderBy(t => t.TestCase.Title);
                         break;
                     case "priority":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.Priority) : query.OrderByDescending(t => t.TestCase.Priority);
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.TestCase.PriorityValue) : query.OrderByDescending(t => t.TestCase.PriorityValue);
                         break;
                     case "assignedby":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.AssignedBy) : query.OrderByDescending(t => t.AssignedBy);

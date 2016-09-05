@@ -15,8 +15,7 @@ namespace TestCasesInventory.Presenter.Mappings
             //     testCasesInTestRunRepository = new TestCasesInTestRunRepository();
             testCaseRepository = new TestCaseRepository();
 
-            this.CreateMap<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>()
-                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => testCaseRepository.ConvertPriorityToText(src.Priority)));
+            this.CreateMap<TestCaseDataModel, TestCaseInTestSuitePopUpViewModel>();
             this.CreateMap<TestSuiteDataModel, TestSuiteInTestRunPopUpViewModel>();
             this.CreateMap<ApplicationUser, UserPopUpViewModel>();
         }

@@ -232,6 +232,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\lib\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\lib\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
@@ -305,6 +307,7 @@
     <Content Include="ClientSide\Scripts\Lib\jquery-1.9.1.min.map" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_AssignToUserPopUpTemplatePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />

@@ -81,7 +81,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Title) : query.OrderByDescending(t => t.Title);
                         break;
                     case "priority":
-                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Priority) : query.OrderByDescending(t => t.Priority);
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.PriorityValue) : query.OrderByDescending(t => t.PriorityValue);
                         break;
                     case "createdby":
                         query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Created) : query.OrderByDescending(t => t.Created);
@@ -109,22 +109,22 @@ namespace TestCasesInventory.Data.Repositories
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
 
-        public string ConvertPriorityToText(string numberPriority)
+        public static int ConvertPriorityToNumber(string Priority)
         {
-            switch (numberPriority)
+            switch (Priority)
             {
-                case "1":
-                    return "Lowest";
-                case "2":
-                    return "Low";
-                case "3":
-                    return "Medium";
-                case "4":
-                    return "High";
-                case "5":
-                    return "Highest";
+                case "Lowest":
+                    return 1;
+                case "Low":
+                    return 2;
+                case "Medium":
+                    return 3;
+                case "High":
+                    return 4;
+                case "Highest":
+                    return 5;
                 default:
-                    return "";
+                    return 3;
             }
         }
     }
