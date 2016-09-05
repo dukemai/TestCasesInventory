@@ -21,7 +21,7 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
         }
-
+        
         public void AddTestCasesToTestRun(List<TestCasesInTestRunDataModel> testCasesInTestRunData)
         {
             foreach (var testCaseInTestRun in testCasesInTestRunData)
@@ -65,6 +65,10 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
         }
 
+        public IList<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToMe(string userId, int testRunID)
+        {
+            return dataContext.TestCasesInTestRuns.Where(t => t.AssignedTo == userId).Where(t => t.TestRunID == testRunID).ToList();
+        }
         public IPagedList<TestCasesInTestRunDataModel> GetPagedListTestCasesByTestRun(int testRunId, FilterOptions filterOptions)
         {
             IQueryable<TestCasesInTestRunDataModel> query = dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunId).Select(t => t);

@@ -440,6 +440,10 @@
       <Project>{FBBC24AC-8CC8-44CE-9A2B-A5DB037B7810}</Project>
       <Name>TestCasesInventory.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Presenter.Common\TestCasesInventory.Presenter.Common.csproj">
+      <Project>{670DE574-BC7B-4640-B5BB-F68660018CF7}</Project>
+      <Name>TestCasesInventory.Presenter.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCasesInventory.Presenter.Synchroniser\TestCasesInventory.Presenter.Synchroniser.csproj">
       <Project>{31f8daec-14fb-4470-b2fa-c134bd0970f6}</Project>
       <Name>TestCasesInventory.Presenter.Synchroniser</Name>
