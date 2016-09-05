@@ -281,7 +281,6 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestSuite\_CreateTestSuiteByTesterPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestSuite\_CreateTestSuiteByAdminPartial.cshtml" />
@@ -292,7 +291,6 @@
     <Content Include="Areas\Admin\Views\TestRun\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRun\_CreateTestRunByAdminPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRun\_CreateTestRunByTesterPartial.cshtml" />
@@ -308,6 +306,7 @@
     <Content Include="ClientSide\Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_AssignToUserPopUpTemplatePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
