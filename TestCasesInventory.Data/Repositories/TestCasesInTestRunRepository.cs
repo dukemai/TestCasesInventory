@@ -17,11 +17,7 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
         }
 
-        public TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID)
-        {
-            return dataContext.TestCasesInTestRuns.Find(testCaseInTestRunID);
-        }
-	public IEnumerable<TestCasesInTestRunDataModel> GetTestCasesInTestRun(int testRunID)
+        public IEnumerable<TestCasesInTestRunDataModel> GetTestCasesInTestRun(int testRunID)
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
         }

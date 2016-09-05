@@ -17,6 +17,5 @@ namespace TestCasesInventory.Data.Repositories
         int TotalTestCasesInTestRun(int testRunID);        
         IPagedList<TestCasesInTestRunDataModel> GetPagedListTestCasesByTestRun(int testRunId, FilterOptions filterOptions);
         IList<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToMe(string userId, int testRunID);
-        TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID);
     }
 }

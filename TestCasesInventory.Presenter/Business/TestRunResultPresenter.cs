@@ -102,8 +102,8 @@ namespace TestCasesInventory.Presenter.Business
 
         public void FinishTestRunResult(int TestRunResultId)
         {
-            var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
-            testRunResult.Status = TestRunResultStatus.Finished;
+            //var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
+            //testRunResult.Status = TestRunResultStatus.Finished;
         }
 
         #endregion
@@ -117,11 +117,11 @@ namespace TestCasesInventory.Presenter.Business
             }
 
             var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
-            var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
-            foreach (var testCase in listTestCasesInTestRunResultDataModel)
-            {
-                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
-            }
+            //var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
+            //foreach (var testCase in listTestCasesInTestRunResultDataModel)
+            //{
+            //    listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
+            //}
             return listTestCasesInTestRunResult;
         }
         public List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunId)
@@ -133,11 +133,11 @@ namespace TestCasesInventory.Presenter.Business
         public List<TestCasesInTestRunResultViewModel> GetAllTestCases(int testRunId)
         {
             var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
-            var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.ListAll(testRunId);
-            foreach (var testCase in listTestCasesInTestRunDataModel)
-            {
-                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
-            }
+            //var listTestCasesInTestRunDataModel = testCasesInTestRunRepository.ListAll(testRunId);
+            //foreach (var testCase in listTestCasesInTestRunDataModel)
+            //{
+            //    listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
+            //}
             return listTestCasesInTestRunResult;
         }
         public List<TestCasesInTestRunResultViewModel> GetSelectedTestCases(int testRunId, List<int> selectedTestCases)

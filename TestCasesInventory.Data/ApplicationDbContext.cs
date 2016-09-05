@@ -58,17 +58,11 @@ namespace TestCasesInventory.Data
                .HasRequired(t => t.TestCase)
                .WithMany(t => t.TestCaseResults)
                .WillCascadeOnDelete(false);
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-        }
-        #endregion
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TestCasesInTestRunDataModel>()
-                .HasRequired(c => c.TestRun)
-                .WithMany(t => t.TestCasesInTestRuns)
-                .WillCascadeOnDelete(false);
+               .HasRequired(c => c.TestRun)
+               .WithMany(t => t.TestCasesInTestRuns)
+               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TestCasesInTestRunDataModel>()
                 .HasRequired(s => s.TestCase)
@@ -87,5 +81,8 @@ namespace TestCasesInventory.Data
                .WillCascadeOnDelete(false);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
+        #endregion
+
+        
     }
 }

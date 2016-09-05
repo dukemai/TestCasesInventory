@@ -1,15 +1,10 @@
-﻿using PagedList;
-using System;
+﻿using System;
 using System.Web.Mvc;
 using TestCasesInventory.Bindings;
 using TestCasesInventory.Common;
-using TestCasesInventory.Data.Common;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
-using TestCasesInventory.Presenter.Validations;
-using TestCasesInventory.Web.Common;
 using Microsoft.AspNet.Identity;
-using TestCasesInventory.Presenter.Common;
 namespace TestCasesInventory.Areas.Admin.Controllers
 {
     public class TestRunResultController : Web.Common.Base.ControllerBase
@@ -56,7 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
                 testRunResult.CreatedDate = testRunResult.LastModifiedDate = DateTime.Now;
                 testRunResult.Created = testRunResult.LastModified = user.Email;
-                testRunResult.Status = TestRunResultStatus.InProgress;
+                //testRunResult.Status = TestRunResultStatus.InProgress;
                 TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
             }
             return RedirectToAction("Index"); 
