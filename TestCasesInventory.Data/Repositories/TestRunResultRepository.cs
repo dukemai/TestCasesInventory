@@ -49,9 +49,9 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).ToList();
         }
 
-        public IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options)
+        public IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options, int testRunID)
         {
-            IQueryable<TestRunResultDataModel> query = dataContext.TestRunResults.Select(t => t);
+            IQueryable<TestRunResultDataModel> query = dataContext.TestRunResults.Where(t => t.TestRunID == testRunID).Select(t => t);
 
             if (options == null)
             {

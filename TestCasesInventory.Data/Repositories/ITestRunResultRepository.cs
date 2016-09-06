@@ -18,6 +18,6 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTestRunResult(int testRunResultID);
         void Save();
         IEnumerable<TestCaseResultDataModel> ListTestCaseResultsForTestRunResult(int testRunResultID);
-        IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options);
+        IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options, int testRunID);
     }
 }

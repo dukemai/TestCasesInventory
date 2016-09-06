@@ -40,11 +40,7 @@ namespace TestCasesInventory.Presenter.Business
         public TestRunResultViewModel GetTestRunResultById(int testRunResultID)
         {
             var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID);
-            if (testRunResult == null)
-            {
-                logger.Error("Test Run Result was not found.");
-                throw new TestRunResultNotFoundException("Test Run Result was not found");
-            }
+            CheckExceptionTestRunResult(testRunResult);
             var testRunResultViewModel = testRunResult.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
             return testRunResultViewModel;
         }
@@ -54,56 +50,30 @@ namespace TestCasesInventory.Presenter.Business
             var testRunResultDataModel = testRunResult.MapTo<CreateTestRunResultViewModel, TestRunResultDataModel>();
             testRunResultRepository.InsertTestRunResult(testRunResultDataModel);
             testRunResultRepository.Save();
-            FeedObservers(testRunResultDataModel);
-        }
-        public void UpdateTestRunResult(int testRunResultID, EditTestRunResultViewModel testRunResult)
-        {
-            var testRunResultDataModel = testRunResultRepository.GetTestRunResultByID(testRunResultID);
-            if (testRunResultDataModel == null)
-            {
-                logger.Error("Test Run Result was not found.");
-                throw new TestRunNotFoundException("Test Run Result was not found.");
-            }
-            else
-            {
-                testRunResultDataModel = testRunResult.MapTo(testRunResultDataModel);
-                testRunResultRepository.UpdateTestRunResult(testRunResultDataModel);
-                testRunResultRepository.Save();
-            }
         }
 
         public void DeleteTestRunResult(int testRunResultID)
         {
             var testRunResultDataModel = testRunResultRepository.GetTestRunResultByID(testRunResultID);
-            if (testRunResultDataModel == null)
-            {
-                logger.Error("Test Run Result was not found.");
-                throw new TestRunResultNotFoundException("Test Run Result was not found.");
-            }
-            else
-            {
-                //var testCaseResultsForTestRunResult = testCaseResultRepository.ListAll(testRunResultID);
-                //foreach (var testCaseResult in testCaseResultsForTestRunResult)
-                //{
-                //    testCaseResultRepository.DeleteTestCaseResult(testCaseResult.ID);
-                //    testCaseResultRepository.Save();
-                //}
-                testRunResultRepository.DeleteTestRunResult(testRunResultID);
-                testRunResultRepository.Save();
-            }
+            CheckExceptionTestRunResult(testRunResultDataModel);
+            testRunResultRepository.DeleteTestRunResult(testRunResultID);
+            testRunResultRepository.Save();
         }
 
-        public IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options)
+        public IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID)
         {
-            var list = testRunResultRepository.GetTestRunResults(options);
+            var list = testRunResultRepository.GetTestRunResults(options, testRunID);
             var mappedList = list.MapTo<IPagedList<TestRunResultDataModel>, IPagedList<TestRunResultViewModel>>();
             return mappedList;
         }
 
-        public void FinishTestRunResult(int TestRunResultId)
+        public void FinishTestRunResult(int testRunResultId)
         {
-            var testRunResult = testRunResultRepository.GetTestRunResultByID(TestRunResultId);
+            var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultId);
+            CheckExceptionTestRunResult(testRunResult);
             testRunResult.Status = TestRunResultStatus.Finished;
+            testRunResultRepository.UpdateTestRunResult(testRunResult);
+            testRunResultRepository.Save();
         }
 
         #endregion
@@ -150,5 +120,21 @@ namespace TestCasesInventory.Presenter.Business
             }
             return listTestCasesInTestRunResult;
         }
+
+        private void CheckExceptionTestRunResult(TestRunResultDataModel testRunResult)
+        {
+            if (testRunResult == null)
+            {
+                logger.Error("Test Run Result was not found.");
+                throw new TestRunResultNotFoundException("Test Run Result was not found");
+            }
+            var testRun = testRunRepository.GetTestRunByID(testRunResult.TestRunID);
+            if (testRun == null)
+            {
+                logger.Error("Test Run was not found.");
+                throw new TestRunResultNotFoundException("Test Run was not found");
+            }
+        }
+
     }
 }
