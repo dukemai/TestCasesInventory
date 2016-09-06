@@ -19,7 +19,7 @@ namespace TestCasesInventory.Presenter.Business
 {
     public class TestRunResultPresenter : ObservablePresenterBase<TestRunResultDataModel>, ITestRunResultPresenter
     {
-
+        #region Properties
         protected HttpContextBase HttpContext;
         protected ITestRunResultRepository testRunResultRepository;
         protected ITestCasesInTestRunRepository testCasesInTestRunRepository;
@@ -36,6 +36,8 @@ namespace TestCasesInventory.Presenter.Business
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
             testRunRepository = new TestRunRepository();
         }
+        #endregion
+
         #region TestRunResult
         public TestRunResultViewModel GetTestRunResultById(int testRunResultID)
         {
@@ -45,11 +47,35 @@ namespace TestCasesInventory.Presenter.Business
             return testRunResultViewModel;
         }
 
-        public void InsertTestRunResult(CreateTestRunResultViewModel testRunResult)
+        public int CreateTestRunResult(int testRunID)
         {
-            var testRunResultDataModel = testRunResult.MapTo<CreateTestRunResultViewModel, TestRunResultDataModel>();
+            var user = UserManager.FindById(HttpContext.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+                throw new TestRunNotFoundException("User was not found.");
+            }
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
+            if (testRun == null)
+            {
+                logger.Error("Test Run was not found.");
+                throw new TestRunResultNotFoundException("Test Run was not found");
+            }
+            var testRunResultViewModel = new CreateTestRunResultViewModel
+            {
+                TestRunID = testRunID,
+                Status = TestRunResultStatus.InProgress,
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now,
+                Created = user.Email,
+                LastModified = user.Email,
+            };
+            var testRunResultDataModel = testRunResultViewModel.MapTo<CreateTestRunResultViewModel, TestRunResultDataModel>();
             testRunResultRepository.InsertTestRunResult(testRunResultDataModel);
             testRunResultRepository.Save();
+
+            var testRunResultID = testRunResultDataModel.ID;
+            return testRunResultID;
         }
 
         public void DeleteTestRunResult(int testRunResultID)
@@ -77,7 +103,9 @@ namespace TestCasesInventory.Presenter.Business
         }
 
         #endregion
-        public List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunId, string userName)
+
+        #region Test Cases
+        public List<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunID, string userName)
         {
             var user = UserManager.FindByEmail(userName);
             if (user == null)
@@ -87,10 +115,10 @@ namespace TestCasesInventory.Presenter.Business
             }
 
             var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
-            var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToMe(user.Id, testRunId);
-            foreach (var testCase in listTestCasesInTestRunResultDataModel)
+            var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToUser(testRunID, user.Id);
+            foreach (var testCaseInTestRun in listTestCasesInTestRunResultDataModel)
             {
-                listTestCasesInTestRunResult.Add(testCase.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
+                listTestCasesInTestRunResult.Add(testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
             }
             return listTestCasesInTestRunResult;
         }
@@ -135,6 +163,6 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestRunResultNotFoundException("Test Run was not found");
             }
         }
-
+        #endregion
     }
 }

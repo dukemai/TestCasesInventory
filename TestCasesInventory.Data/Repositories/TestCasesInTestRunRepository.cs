@@ -65,9 +65,9 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).Count();
         }
 
-        public IList<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToMe(string userId, int testRunID)
+        public IEnumerable<TestCasesInTestRunDataModel> GetTestCasesInTestRunAssignedToUser(int testRunID, string userID)
         {
-            return dataContext.TestCasesInTestRuns.Where(t => t.AssignedTo == userId).Where(t => t.TestRunID == testRunID).ToList();
+            return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID && t.AssignedTo == userID).ToList();
         }
 
 

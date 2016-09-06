@@ -43,26 +43,25 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
         #endregion
         // GET: Admin/TestRunResult
-        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions)
+        public ActionResult Index([ModelBinder(typeof(FilterOptionsBinding))] FilterOptions filterOptions, int testRunID)
         {
-            var testRunResults = TestRunResultPresenterObject.GetTestRunResults(filterOptions);
+            var testRunResults = TestRunResultPresenterObject.GetTestRunResults(filterOptions, testRunID);
             return View("Index", testRunResults);
         }
 
 
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "TestRunID, TestRunOption")] CreateTestRunResultViewModel testRunResult)
+        [HttpGet]
+        public ActionResult Create(int? testRunID)
         {
-            if (ModelState.IsValid)
+            if (!testRunID.HasValue)
             {
-                var user = UserPresenter.FindUserByID(User.Identity.GetUserId());
-                testRunResult.CreatedDate = testRunResult.LastModifiedDate = DateTime.Now;
-                testRunResult.Created = testRunResult.LastModified = user.Email;
-                testRunResult.Status = TestRunResultStatus.InProgress;
-                TestRunResultPresenterObject.InsertTestRunResult(testRunResult);
+                throw new Exception("Id was not valid");
             }
-            return RedirectToAction("Index");
+            
+            var testRunResultID = TestRunResultPresenterObject.CreateTestRunResult(testRunID.Value); ;
+            return Json(testRunResultID, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public ActionResult GetTestCasesAssignedToMe(int? testRunId)
         {

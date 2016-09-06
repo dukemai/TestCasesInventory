@@ -13,7 +13,7 @@ namespace TestCasesInventory.Presenter.Business
 
 
         TestRunResultViewModel GetTestRunResultById(int testRunResultID);
-        void InsertTestRunResult(CreateTestRunResultViewModel testRunResult);
+        int CreateTestRunResult(int testRunID);
         void DeleteTestRunResult(int testRunResultID);
         IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID);
         void FinishTestRunResult(int testRunResultID);

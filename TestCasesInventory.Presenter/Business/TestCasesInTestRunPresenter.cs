@@ -68,7 +68,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public List<TestSuiteInTestRunPopUpViewModel> GetTestSuitesPopUp(int testRunID)
         {
-            var user = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var user = UserManager.FindById(HttpContext.User.Identity.GetUserId());
             if (user == null)
             {
                 logger.Error("User was not found.");
