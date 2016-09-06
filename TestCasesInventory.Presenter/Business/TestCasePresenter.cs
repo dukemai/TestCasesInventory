@@ -33,14 +33,10 @@ namespace TestCasesInventory.Presenter.Business
             UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
 
-        public TestCaseViewModel GetTestCaseById(int? id)
+        public TestCaseViewModel GetTestCaseById(int id)
         {
-            if (!id.HasValue)
-            {
-                logger.Error("TestCase Id was not valid.");
-                throw new Exception("TestCase Id was not valid.");
-            }
-            var testCase = testCaseRepository.GetTestCaseByID(id.Value);
+           
+            var testCase = testCaseRepository.GetTestCaseByID(id);
             if (testCase == null)
             {
                 logger.Error("TestCase was not found.");

@@ -37,14 +37,9 @@ namespace TestCasesInventory.Presenter.Business
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
         }
 
-        public TestSuiteViewModel GetTestSuiteById(int? testSuiteID)
+        public TestSuiteViewModel GetTestSuiteById(int testSuiteID)
         {
-            if (!testSuiteID.HasValue)
-            {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
-            }
-            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID.Value);
+            var testSuite = testSuiteRepository.GetTestSuiteByID(testSuiteID);
             if (testSuite == null)
             {
                 logger.Error("Test Suite was not found.");
@@ -141,7 +136,7 @@ namespace TestCasesInventory.Presenter.Business
             return testSuiteViewModel;
         }
 
-        public CreateTestSuiteViewModel GetTestSuiteForAdminCreate(int? teamID)
+        public CreateTestSuiteViewModel GetTestSuiteForAdminCreate(int teamID)
         {
             var model = GetTestSuiteForCreate();
             model.TeamID = teamID;

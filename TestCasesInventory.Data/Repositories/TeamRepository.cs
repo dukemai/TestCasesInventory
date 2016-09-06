@@ -57,6 +57,12 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.Teams.Where(t => t.Name.StartsWith(teamName)).ToList();
         }
 
+        public IEnumerable<ApplicationUser> GetUsersByTeamID(int teamID)
+        {
+            return dataContext.Users.Where(t => t.TeamID == teamID).ToList();
+        }
+
+
         public IPagedList<ApplicationUser> ListUsersNotBelongTeam(int teamID, FilterOptions options)
         {
             IQueryable<ApplicationUser> query = dataContext.Users.Where(t => t.TeamID != teamID);
@@ -250,6 +256,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = query.OrderByDescending(d => d.CreatedDate);
                         break;
                 }
+                query = OrderByID(query);
             }
 
             if (options.PagingOptions != null)
@@ -258,6 +265,7 @@ namespace TestCasesInventory.Data.Repositories
                 return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
             }
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
-        }
+        }      
+
     }
 }

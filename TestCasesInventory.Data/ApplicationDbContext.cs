@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace TestCasesInventory.Data
 {
@@ -32,5 +33,31 @@ namespace TestCasesInventory.Data
         public DbSet<TestRunDataModel> TestRuns { get; set; }
         public DbSet<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
         #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
+                .HasRequired(c => c.TestRun)
+                .WithMany(t => t.TestCasesInTestRuns)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
+                .HasRequired(s => s.TestCase)
+                .WithMany(t => t.TestCasesInTestRuns)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestCasesInTestRunDataModel>()
+                .HasRequired(u => u.ApplicationUser)
+                .WithMany(u => u.TestCasesInTestRuns)
+                .HasForeignKey(t => t.AssignedTo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestRunDataModel>()
+               .HasRequired(t => t.Team)
+               .WithMany(t => t.TestRuns)
+               .WillCascadeOnDelete(false);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
     }
 }

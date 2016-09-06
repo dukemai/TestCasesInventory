@@ -1,4 +1,16 @@
-﻿th h4 {
+﻿.modal-lg {
+    width: 900px;
+}
+
+.modal-sm {
+    width: 400px;
+}
+
+.view-test-suites {
+    padding: 10px;
+}
+
+th h4 {
     font-size: 14px;
     font-weight: bold;
 }
@@ -110,4 +122,76 @@ textarea {
 
 .attachment-item {
     display: block;
+}
+
+.test-case-item .text-muted {
+    color: #999999;
+}
+
+.test-case-item .label-priority {
+    margin-top: 3px;
+}
+/*
+    loading animation
+*/
+.loader {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    background-color: #ddd;
+    top: 76px;
+    left: 0;
+    display: none;
+}
+
+    .loader:before {
+        display: block;
+        position: absolute;
+        content: "";
+        left: -200px;
+        width: 200px;
+        height: 4px;
+        background-color: #2980b9;
+        animation: loading 2s linear infinite;
+    }
+
+@keyframes loading {
+    from {
+        left: -200px;
+        width: 30%;
+    }
+
+    50% {
+        width: 30%;
+    }
+
+    70% {
+        width: 70%;
+    }
+
+    80% {
+        left: 50%;
+    }
+
+    95% {
+        left: 120%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+.show-message {
+    height: 40px;
+    width: 200px;
+    left: 45%;
+    top: 60px;
+    position: fixed;
+    border-radius: 7px;
+    display: none;
+    background-color: honeydew;
+    color: seagreen;
+    text-align: center;
 }

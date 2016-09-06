@@ -1,0 +1,110 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
+@model TestCasesInTestRunViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDetailLayout.cshtml";
+}
+<h3>Details</h3>
+
+<div>
+    <hr />
+    <div class="bg-gray information-test-case-area">
+        <dl class="dl-horizontal">
+            <dt>
+                Title
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestCaseTitle)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Priority
+            </dt>
+            <dd>
+                <span class="label @Model.PriorityStyleClass">@Html.DisplayFor(model => model.TestCasePriority)</span>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Description
+            </dt>
+            <dd>
+                @Html.Raw(@Model.TestCaseDescription)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                TestRun
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestRunTitle)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                TestSuite
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestSuiteTitle)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Assign to
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AssignedTo)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Assign by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AssignedBy)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Created by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModified)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Created
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModifiedDate)
+            </dd>
+        </dl>
+    </div>
+</div>
+<br>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Details", "TestRun", new { id = Model.TestRunID }, "")
+</p>

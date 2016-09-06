@@ -19,12 +19,9 @@ namespace TestCasesInventory.Presenter.Models
         public int TestCasesNumber { get; set; }
         [AllowHtml]
         public string Description { get; set; }
-        public string Created { get; set; }
         public string CreateDisplayOnly { get; set; }
-        public string LastModified { get; set; }
         public string LastModifiedDisplayOnly { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }        
+          
     }
 
     public class CreateTestSuiteViewModel : ViewModelBase
@@ -36,10 +33,6 @@ namespace TestCasesInventory.Presenter.Models
         public int? TeamID { get; set; }        
         [AllowHtml]
         public string Description { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public List<SelectListItem> Teams { get; set; }
     }
 
@@ -50,8 +43,6 @@ namespace TestCasesInventory.Presenter.Models
         public string Title { get; set; }
         [AllowHtml]
         public string Description { get; set; }
-        public string LastModified { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public List<SelectListItem> Teams { get; set; }
         [Display(Name = "Team")]
         public int? TeamID { get; set; }

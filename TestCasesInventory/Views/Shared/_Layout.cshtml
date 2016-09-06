@@ -6,8 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/tinymce")
-    @Scripts.Render("~/bundles/tinymceInit")
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,11 +34,13 @@
     </div>
     
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery.cookie")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/list-user-customjs")
-    @Scripts.Render("~/bundles/tab-common-functions")
-    @RenderSection("scripts", required: false)
-    @Scripts.Render("~/bundles/fileControl")
+    @Scripts.Render("~/bundles/underscore")
+    @Scripts.Render("~/bundles/bootstrap")    
+    <script type="text/javascript" data-main="main" src="~/ClientSide/Scripts/Lib/require.js"></script>
+    @Scripts.Render("~/bundles/requirejsconfig")
+    @RenderSection("scripts", required: false)    
+    
 </body>
 </html>

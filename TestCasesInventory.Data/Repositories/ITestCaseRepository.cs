@@ -16,5 +16,7 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         int TotalTestCasesForTestSuite(int testSuiteID);
         IPagedList<TestCaseDataModel> GetTestCasesForTestSuite(int testSuiteId, FilterOptions filterOptions);
+
+        
     }
 }

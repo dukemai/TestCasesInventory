@@ -47,11 +47,15 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public IEnumerable<TestCasesInTestRunDataModel> ListTestCasesForTestRun(int testRunID)
+        public IEnumerable<TestCasesInTestRunDataModel> ListTestCasesInTestRun(int testRunID)
         {
             return dataContext.TestCasesInTestRuns.Where(t => t.TestRunID == testRunID).ToList();
         }
 
+        public IEnumerable<TestCaseDataModel> ListTestCasesForTestSuite(int testSuiteID)
+        {
+            return dataContext.TestCases.Where(t => t.TestSuiteID == testSuiteID).ToList();
+        }
 
         private bool disposed = false;
 
@@ -119,6 +123,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = query.OrderByDescending(d => d.CreatedDate);
                         break;
                 }
+                query = OrderByID(query);
             }
 
             if (options.PagingOptions != null)
