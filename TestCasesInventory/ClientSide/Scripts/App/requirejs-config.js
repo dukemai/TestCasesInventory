@@ -8,6 +8,7 @@
         'deleteTestCasesInTestRunConfirmation': 'App/TestRun/delete-testcase-in-testrun-confirmation',
         'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
         'assignTestCaseToUser': 'App/TestCasesInTestRun/assign-testcase-to-user',
+        'runTestRun': 'App/TestRunResult/run-testrun',
         'handlebars': 'Lib/handlebars.min',
         'templateHelper': 'App/template-helper',
         'backbone': 'Lib/backbone-min',

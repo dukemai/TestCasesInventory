@@ -88,7 +88,7 @@
         <p>
             <b>TestCases for @Model.Title</b>
             <a href="#" id="show-testrun-popup" data-test-run="@Model.ID" class="modal-link btn btn-default">Select TestCases</a>
-
+            <a href="#" id="run-testrun-popup" data-test-run="@Model.ID" class="modal-link-run-testrun btn btn-default">Run</a>
         </p>
     </div>
     @Html.Action("Index", "TestCasesInTestRun", new { testRunID = Model.ID, page = ViewBag.Page, sortBy = ViewBag.SortBy, searchByTitle = ViewBag.SearchByTitle })
@@ -102,6 +102,7 @@
 @* The place where the dialog will be loaded.*@
 @{  Html.RenderPartial("TestRun/_AddTestCaseToTestRunPopUpTemplatePartial"); }
 @{  Html.RenderPartial("TestCaseInTestRun/_AssignToUserPopUpTemplatePartial"); }
+@{  Html.RenderPartial("TestRunResult/_RunTestRunPopUpPartial"); }
 
 <div class="show-message">
    <h5><b> Assigned successfully! </b></h5>

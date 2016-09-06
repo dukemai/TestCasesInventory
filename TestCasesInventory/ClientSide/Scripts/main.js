@@ -3,4 +3,5 @@
     app.initAddTestCasesToTestRun();
     app.initDeleteTestCasesInTestRunConfirmation();
     app.initAssignTestCaseToUser();
+    app.initRunTestRun();
 });

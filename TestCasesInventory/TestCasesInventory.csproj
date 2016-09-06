@@ -182,6 +182,11 @@
     <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Models\usermodel.js" />
     <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\testcasesintestrun-routes.js" />
     <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Views\testcasesintestrun-pop-up-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testcasesintestrunresultmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunresultmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\run-testrun.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\testrunresult-routes.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testrunresult-pop-up-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\add-testcases-to-testrun.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\delete-testcase-in-testrun-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasemodel.js" />
@@ -221,6 +226,7 @@
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -307,6 +313,7 @@
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_AssignToUserPopUpTemplatePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
