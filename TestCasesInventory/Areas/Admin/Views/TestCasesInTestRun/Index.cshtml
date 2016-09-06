@@ -75,5 +75,5 @@
         </tr>
     }
 </table>
-@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())));
+@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 @{  Html.RenderPartial("TestCaseInTestRun/_DeleteConfirmationPartial"); }
