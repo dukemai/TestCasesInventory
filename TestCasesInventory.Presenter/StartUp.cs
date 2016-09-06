@@ -21,6 +21,7 @@ namespace TestCasesInventory.Presenter
                 cfg.AddProfile(new TestCasesInTestRunMappingProfile("TestCasesInTestRunMapping"));
                 cfg.AddProfile(new TestCaseInTestSuitePopUpMappingProfile("TestCaseInTestSuitePopUpMapping"));
                 cfg.AddProfile(new TestRunResultMappingProfile("TestRunResultMapping"));
+                cfg.AddProfile(new TestCasesInTestRunResultMappingProfile("TestCasesInTestRunResultMapping"));
             });
         }
     }

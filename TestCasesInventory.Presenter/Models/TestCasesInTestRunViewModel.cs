@@ -8,6 +8,8 @@ namespace TestCasesInventory.Presenter.Models
         public int TestCaseID { get; set; }
         public string TestCaseTitle { get; set; }
         public string TestCaseDescription { get; set; }
+        public string TestCasePrecondition { get; set; }
+        public string TestCaseExpect { get; set; }
         public string TestCasePriority { get; set; }
         public string PriorityStyleClass
         {

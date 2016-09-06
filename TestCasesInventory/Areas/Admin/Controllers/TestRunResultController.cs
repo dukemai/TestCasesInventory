@@ -50,16 +50,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Create(int? testRunID)
         {
             if (!testRunID.HasValue)
             {
                 throw new Exception("Id was not valid");
             }
-            
             var testRunResultID = TestRunResultPresenterObject.CreateTestRunResult(testRunID.Value); ;
-            return Json(testRunResultID, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, testRunResultID = testRunResultID });
         }
 
         [HttpGet]
@@ -84,20 +83,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult GetAllTestCases(int? testRunId)
         {
-
-            try
-            {
                 if (!testRunId.HasValue)
                 {
                     throw new Exception("Id was not valid.");
                 }
                 var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(testRunId.Value);
                 return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
         }
 
         [HttpGet]

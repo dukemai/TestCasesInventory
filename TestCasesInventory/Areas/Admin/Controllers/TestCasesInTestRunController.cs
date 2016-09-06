@@ -100,7 +100,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     throw new Exception("TestCaseInTestRun Id was not valid.");
                 }
                 var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(id.Value);
-                
+
                 return View("Details", testCaseInTestRun);
             }
             catch (TestCaseNotFoundException e)
@@ -174,24 +174,26 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
             return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID });
         }
+
         [HttpGet]
-        public ActionResult GetUsersPopUp(int id)
+        public ActionResult GetUsersPopUp(int? id)
         {
-            try
+            if (!id.HasValue)
             {
-                var usersPopUp = TestCasesInTestRunPresenterObject.GetUsersPopUp(id);
-                return Json(usersPopUp, JsonRequestBehavior.AllowGet);
+                throw new Exception("Id was not valid.");
             }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
+            var usersPopUp = TestCasesInTestRunPresenterObject.GetUsersPopUp(id.Value);
+            return Json(usersPopUp, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult AssignToMe(int id)
+        public ActionResult AssignToMe(int? id)
         {
-            TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id);
+            if (!id.HasValue)
+            {
+                throw new Exception("Id was not valid.");
+            }
+            TestCasesInTestRunPresenterObject.AssignTestCaseToMe(id.Value);
             return Json("Done.");
         }
 
