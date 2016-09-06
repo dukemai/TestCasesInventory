@@ -3,7 +3,6 @@
     function (testCasesInTestRunModel, templateHelper, promise, _, routes) {
         function testCasesInTestRunView(id) {
             this.model = new testCasesInTestRunModel(id);
-            this.assignedTo = '';
             this.template = '';
         }
 
@@ -22,6 +21,7 @@
                 promise.resolve(assignTestCaseToUser(self.model.ID, userID))
                     .then(function () {
                         sessionStorage.setItem('showMessage', 'show');
+                        $.cookie('assignedTo', userSelected.val(), { expires: 365 });
                         location.reload();
                     });
             });
@@ -36,7 +36,10 @@
                     self.model.loadUsers().then(function () {
                         $('#modalContent-assign-to-user').append(self.template(self.model.Users));
 
-                        $('#assign-to-user').val(self.assignedTo);
+                        var cookieForAssignedTo = $.cookie('assignedTo');
+                        if (cookieForAssignedTo != undefined) {
+                            $('#assign-to-user').val(cookieForAssignedTo);
+                        }
                         registerEvents(self);
                     });
 
@@ -45,8 +48,7 @@
         }
 
         function unRegisterEvents() {
-            //$('#submit-button').off('click.submit');
-            //$('.test-suite-container').off('show.bs.collapse');
+            $('#submit-assign-to').off('click.submit');
         }
 
         testCasesInTestRunView.prototype.dispose = function () {

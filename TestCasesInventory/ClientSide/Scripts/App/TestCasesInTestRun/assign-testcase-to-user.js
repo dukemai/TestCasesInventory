@@ -21,9 +21,7 @@
                 e.preventDefault();
                 var self = $(this);
                 var id = self.attr('data-id');
-                var assignedTo = self.attr('data-assignedto');
                 var view = new testCasesInTestRunPopUpView(id);
-                view.assignedTo = assignedTo;
                 $('#modal-container-assign-to-user').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
