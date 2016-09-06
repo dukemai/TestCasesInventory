@@ -62,15 +62,15 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTestCasesAssignedToMe(int? testRunId)
+        public ActionResult GetTestCasesAssignedToMe(int? id)
         {
             try
             {
-                if (!testRunId.HasValue)
+                if (!id.HasValue)
                 {
                     throw new Exception("Id was not valid.");
                 }
-                var listTestCasesAssignedToMe = TestRunResultPresenterObject.GetTestCasesAssignedToMe(testRunId.Value);
+                var listTestCasesAssignedToMe = TestRunResultPresenterObject.GetTestCasesAssignedToMe(id.Value);
                 return Json(listTestCasesAssignedToMe, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -81,26 +81,26 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAllTestCases(int? testRunId)
+        public ActionResult GetAllTestCases(int? id)
         {
-                if (!testRunId.HasValue)
+                if (!id.HasValue)
                 {
                     throw new Exception("Id was not valid.");
                 }
-                var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(testRunId.Value);
+                var listAllTestCases = TestRunResultPresenterObject.GetAllTestCases(id.Value);
                 return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetSelectedTestCases(int? testRunId, List<int> selectedTestCases)
+        public ActionResult GetSelectedTestCases(int? id, List<int> selectedTestCases)
         {
             try
             {
-                if (!testRunId.HasValue)
+                if (!id.HasValue)
                 {
                     throw new Exception("Id was not valid.");
                 }
-                var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(testRunId.Value, selectedTestCases);
+                var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(id.Value, selectedTestCases);
                 return Json(listSelectedTestCases, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

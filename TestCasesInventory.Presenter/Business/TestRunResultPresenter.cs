@@ -39,6 +39,7 @@ namespace TestCasesInventory.Presenter.Business
             testRunRepository = new TestRunRepository();
             testSuiteRepository = new TestSuiteRepository();
             testCaseRepository = new TestCaseRepository();
+            testCasesInTestRunRepository = new TestCasesInTestRunRepository();
         }
         #endregion
 
@@ -154,7 +155,8 @@ namespace TestCasesInventory.Presenter.Business
             foreach (var testCaseInTestRun in listTestCasesInTestRunDataModel)
             {
                 CheckExceptionTestCaseInTestRun(testCaseInTestRun);
-                listTestCasesInTestRunResult.Add(testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>());
+                var testCaseInTestRunResult = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>();
+                listTestCasesInTestRunResult.Add(testCaseInTestRunResult);
             }
             return listTestCasesInTestRunResult;
         }
