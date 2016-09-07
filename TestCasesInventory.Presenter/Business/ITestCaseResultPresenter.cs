@@ -15,7 +15,6 @@ namespace TestCasesInventory.Presenter.Business
         void DeleteTestCaseResult(int testCaseResultID);
         IPagedList<TestCaseResultViewModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions filterOptions);
 
-        void CreateTestCaseResultFromTestCaseInTestRun(int? testRunResultID);
         
     }
 }
