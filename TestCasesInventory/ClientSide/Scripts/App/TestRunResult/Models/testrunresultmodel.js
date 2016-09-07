@@ -8,7 +8,7 @@
         var self = this;
         return promise.resolve($.get(routes.getTestCasesInTestRunResults + self.ID, function (data) {
             self.TestCasesInTestRunResults = _.map(data, function (testCaseData) {
-                return new testCasesInTestRunResultModel(testCaseData.ID, testCaseData.Title, testCaseData.Priority, testCaseData.Expect, testCaseData.Precondition, testCaseData.PriorityStyleClass)
+                return new testCasesInTestRunResultModel(testCaseData.ID, testCaseData.TestCaseTitle, testCaseData.TestCasePriority, testCaseData.TestCaseDescription, testCaseData.TestCasePrecondition, testCaseData.TestCaseExpect, testCaseData.PriorityStyleClass);
             });
         }));
     }

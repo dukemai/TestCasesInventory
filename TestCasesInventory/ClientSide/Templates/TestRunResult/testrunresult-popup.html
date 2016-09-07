@@ -9,56 +9,50 @@
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
+        {{#each .}}
+        {{#if @first}}
         <div class="item active">
-            Slide 1
-            Slide 1
+            {{else}}
+            <div class="item">
+                {{/if}}
+                <div class="information-test-suite-area bg-gray">
+                    <dl class="dl-horizontal">
+                        <dt> Title </dt>
+                        <dd> {{TestCaseTitle}} </dd>
+                    </dl>
 
-            Slide 1
+                    <dl class="dl-horizontal">
+                        <dt> Priority </dt>
+                        <dd> {{TestCasePriority}} </dd>
+                    </dl>
 
-            Slide 1
+                    <dl class="dl-horizontal">
+                        <dt> Description </dt>
+                        <dd> {{TestCaseDescription}} </dd>
+                    </dl>
 
-            Slide 1
+                    <dl class="dl-horizontal">
+                        <dt> Precondition </dt>
+                        <dd> {{TestCasePrecondition}} </dd>
+                    </dl>
 
+                    <dl class="dl-horizontal">
+                        <dt> Expect </dt>
+                        <dd> {{TestCaseExpect}} </dd>
+                    </dl>
+                </div>
+            </div>
+            {{/each}}
         </div>
 
-        <div class="item">
-            Slide 1
-            Slide 1
-
-            Slide 1
-
-            Slide 1
-
-            Slide 1        </div>
-
-        <div class="item">
-            Slide 1
-            Slide 1
-
-            Slide 1
-
-            Slide 1
-
-            Slide 1        </div>
-
-        <div class="item">
-            Slide 1
-            Slide 1
-
-            Slide 1
-
-            Slide 1
-
-            Slide 1        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
