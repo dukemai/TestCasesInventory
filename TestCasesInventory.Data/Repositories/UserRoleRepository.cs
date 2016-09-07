@@ -55,6 +55,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = query.OrderBy(t => t.Id);
                         break;
                 }
+                query = OrderByID(query);
             }
 
             if (options.PagingOptions != null)

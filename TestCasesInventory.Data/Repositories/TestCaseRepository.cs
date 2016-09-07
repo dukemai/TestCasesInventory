@@ -99,6 +99,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = query.OrderByDescending(d => d.CreatedDate);
                         break;
                 }
+                query = OrderByID(query);
             }
 
             if (filterOptions.PagingOptions != null)

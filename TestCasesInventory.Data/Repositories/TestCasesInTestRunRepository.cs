@@ -122,6 +122,7 @@ namespace TestCasesInventory.Data.Repositories
                         query = query.OrderBy(d => d.TestCase.Title);
                         break;
                 }
+                query = OrderByID(query);
             }
 
             if (filterOptions.PagingOptions != null)
