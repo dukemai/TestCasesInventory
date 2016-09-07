@@ -23,6 +23,11 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCaseResults.Find(testCaseResultID);
         }
 
+        public TestCaseResultDataModel GetTestCaseResult(int testCaseInTestRunID, int testRunResultID)
+        {
+            return dataContext.TestCaseResults.Where(t => t.TestCasesInTestRunID == testCaseInTestRunID && t.TestRunResultID == testRunResultID).FirstOrDefault();
+        }
+
         public void InsertTestCaseResult(TestCaseResultDataModel testCaseResult)
         {
             dataContext.TestCaseResults.Add(testCaseResult);
@@ -92,6 +97,8 @@ namespace TestCasesInventory.Data.Repositories
             }
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
+
+       
     }
     
 }

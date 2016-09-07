@@ -13,6 +13,7 @@ namespace TestCasesInventory.Data.Repositories
     {
         IEnumerable<TestCaseResultDataModel> ListAll(int testRunResultID);
         TestCaseResultDataModel GetTestCaseResultByID(int testCaseResultID);
+        TestCaseResultDataModel GetTestCaseResult(int testCaseInTestRunID, int testRunResultID);
         void InsertTestCaseResult(TestCaseResultDataModel testCaseResult);
         void DeleteTestCaseResult(int testCaseResultID);
         void UpdateTestCaseResult(TestCaseResultDataModel testCaseResult);

@@ -16,6 +16,7 @@ using TestCasesInventory.Common;
 using System.Linq;
 using TestCasesInventory.Presenter.Business;
 using System.Security.Principal;
+using Microsoft.AspNet.Identity;
 
 namespace TestCasesInventory.Presenter.Business 
 {
@@ -49,17 +50,17 @@ namespace TestCasesInventory.Presenter.Business
             TestRunRepository = new TestRunRepository();
         }
 
-        public void DeleteTestCaseResult(int testCaseResultID)
-        {
-            throw new NotImplementedException();
-        }
+        //public void DeleteTestCaseResult(int testCaseResultID)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public TestCaseResultViewModel GetTestCaseResultById(int? testCaseResultID)
         {
             if (!testCaseResultID.HasValue)
             {
-                logger.Error("Id was not valid.");
-                throw new Exception("Id was not valid.");
+                logger.Error("TestCaseResultID was not valid.");
+                throw new Exception("TestCaseResultID was not valid.");
             }
             var testCaseResult = TestCaseResultRepository.GetTestCaseResultByID(testCaseResultID.Value);
             if (testCaseResult == null)
@@ -71,6 +72,21 @@ namespace TestCasesInventory.Presenter.Business
             return testCaseResultViewModel;
         }
 
+        //public TestCaseResultViewModel GetTestCaseResult(int testCaseInTestRunID, int testRunResultID)
+        //{
+        //    var testCaseResult = TestCaseResultRepository.GetTestCaseResult(testCaseInTestRunID, testRunResultID);
+
+        //    if(testCaseResult == null)
+        //    {
+        //        logger.Error("Test Case was not found.");
+        //        throw new TestCaseNotFoundException("Test Case was not found.");
+        //    }
+
+        //    var testCaseResultViewModel = testCaseResult.MapTo<TestCaseResultDataModel, TestCaseResultViewModel>();
+        //    return testCaseResultViewModel;
+        //}
+
+
         public IPagedList<TestCaseResultViewModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions filterOptions)
         {
             var list = TestCaseResultRepository.GetTestCasesForTestSuite(testRunResultId, filterOptions);
@@ -80,44 +96,59 @@ namespace TestCasesInventory.Presenter.Business
 
         public void InsertTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
         {
-            if (!testCaseResult.TestRunResultID.HasValue)
+            testCaseResult.RunBy = User.Identity.GetUserId();
+            var testCasesInTestRun = TestCaseInTestRunRepository.GetTestCaseInTestRunByID(testCaseResult.TestCasesInTestRunID);
+            if (testCasesInTestRun == null)
             {
-                logger.Error("Test Run was not found");
-                throw new TestRunNotFoundException();
+                logger.Error("TestCasesInTestRunID was not valid");
+                throw new Exception("TestCasesInTestRunID was not valid");
             }
-            if (!testCaseResult.TestCasesInTestRunID.HasValue)
+            var testRunResult = TestRunResultRepository.GetTestRunResultByID(testCaseResult.TestRunResultID);
+            if (testRunResult == null)
             {
-                logger.Error("Test Case was not found");
-                throw new TestCaseNotFoundException();
+                logger.Error("TestRunResultID was not valid");
+                throw new Exception("TestRunResultID was not valid");
             }
-            var testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
 
-            TestCaseResultRepository.InsertTestCaseResult(testCaseResultDataModel);
-            TestCaseResultRepository.Save();
-            //FeedObservers(testCaseResultDataModel);
-        }
-
-        public void UpdateTestCaseResult(int testCaseResultID, EditTestCaseResultViewModel testCaseResult)
-        {
-            var testCaseResultDataModel = TestCaseResultRepository.GetTestCaseResultByID(testCaseResultID);
-            if (testCaseResultDataModel == null)
+            var testCaseResultDataModel = TestCaseResultRepository.GetTestCaseResult(testCaseResult.TestCasesInTestRunID, testCaseResult.TestRunResultID);
+            if(testCaseResultDataModel == null)
             {
-                logger.Error("Test Case was not found.");
-                throw new TestCaseNotFoundException("Test Case was not found.");
+                testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
+                TestCaseResultRepository.InsertTestCaseResult(testCaseResultDataModel);
+                TestCaseResultRepository.Save();
             }
             else
             {
-                testCaseResultDataModel = testCaseResult.MapTo<EditTestCaseResultViewModel, TestCaseResultDataModel>(testCaseResultDataModel);
+                testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
                 TestCaseResultRepository.UpdateTestCaseResult(testCaseResultDataModel);
                 TestCaseResultRepository.Save();
             }
+            
+            //FeedObservers(testCaseResultDataModel);
         }
+
+        //public void UpdateTestCaseResult(int testCaseResultID, EditTestCaseResultViewModel testCaseResult)
+        //{
+        //    var testCaseResultDataModel = TestCaseResultRepository.GetTestCaseResultByID(testCaseResultID);
+        //    if (testCaseResultDataModel == null)
+        //    {
+        //        logger.Error("Test Case was not found.");
+        //        throw new TestCaseNotFoundException("Test Case was not found.");
+        //    }
+        //    else
+        //    {
+        //        testCaseResultDataModel = testCaseResult.MapTo<EditTestCaseResultViewModel, TestCaseResultDataModel>(testCaseResultDataModel);
+        //        TestCaseResultRepository.UpdateTestCaseResult(testCaseResultDataModel);
+        //        TestCaseResultRepository.Save();
+        //    }
+        //}
 
         public IDisposable Subscribe(IObserver<TestCaseResultDataModel> observer)
         {
             throw new NotImplementedException();
         }
 
+        
 
 
 

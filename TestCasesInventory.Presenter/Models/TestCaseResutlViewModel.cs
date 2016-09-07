@@ -19,26 +19,18 @@ namespace TestCasesInventory.Presenter.Models
         public string Status { get; set; }
         public string RunBy { get; set; }
         public string Comment { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public int TestCaseResultNumber { get; set; }
     }
 
     public class CreateTestCaseResultViewModel : ViewModelBase
     {
         [Display(Name = "TestRunResult")]
-        public int? TestRunResultID { get; set; }
+        public int TestRunResultID { get; set; }
         [Display(Name = "TestCase In TestRun")]
-        public int? TestCasesInTestRunID { get; set; }
+        public int TestCasesInTestRunID { get; set; }
         public string Status { get; set; }
         public string RunBy { get; set; }
         public string Comment { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 
     public class EditTestCaseResultViewModel : ViewModelBase
@@ -51,10 +43,6 @@ namespace TestCasesInventory.Presenter.Models
         public string Status { get; set; }
         public string RunBy { get; set; }
         public string Comment { get; set; }
-        public string Created { get; set; }
-        public string LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
     }
 
 }
