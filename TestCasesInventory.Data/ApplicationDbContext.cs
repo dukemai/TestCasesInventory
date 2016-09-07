@@ -55,7 +55,7 @@ namespace TestCasesInventory.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
-               .HasRequired(t => t.TestCasesInTestRun)
+               .HasRequired(t => t.TestCase)
                .WithMany(t => t.TestCaseResults)
                .WillCascadeOnDelete(false);
 

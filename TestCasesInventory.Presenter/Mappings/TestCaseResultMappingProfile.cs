@@ -15,10 +15,12 @@ namespace TestCasesInventory.Presenter.Mappings
     {
         TestCaseResultRepository TestCaseResultRepository;
         UserManager<ApplicationUser> UserManager;
+        TestCaseRepository TestCaseRepository;
         TestRunRepository TestRunRepository;
 
         public TestCaseResultMappingProfile(string profileName) : base(profileName)
         {
+            TestCaseRepository = new TestCaseRepository();
             TestRunRepository = new TestRunRepository();
             TestCaseResultRepository = new TestCaseResultRepository();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
@@ -26,7 +28,8 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<TestCaseResultDataModel, TestCaseResultViewModel>()
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName))
-                 .ForMember(dest => dest.TestRunTitle, opt => opt.MapFrom(src => TestRunRepository.GetTestRunByID(src.TestRunResultID).Title));
+                 .ForMember(dest => dest.TestRunTitle, opt => opt.MapFrom(src => TestRunRepository.GetTestRunByID(src.TestRunResultID).Title))
+                 .ForMember(dest => dest.TestCaseTitle, opt => opt.MapFrom(src => TestCaseRepository.GetTestCaseByID(src.TestCasesInTestRunID).Title));
             this.CreateMap<IPagedList<TestCaseResultDataModel>, IPagedList<TestCaseResultViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestCaseResultDataModel, TestCaseResultViewModel>>();
             this.CreateMap<EditTestCaseResultViewModel, TestCaseResultDataModel>()

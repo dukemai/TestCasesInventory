@@ -23,6 +23,11 @@ namespace TestCasesInventory.Data.Repositories
             return dataContext.TestCaseResults.Find(testCaseResultID);
         }
 
+        public TestCaseResultDataModel GetTestCaseResult(int testCaseInTestRunID, int testRunResultID)
+        {
+            return dataContext.TestCaseResults.Where(t => t.TestCasesInTestRunID == testCaseInTestRunID && t.TestRunResultID == testRunResultID).FirstOrDefault();
+        }
+
         public void InsertTestCaseResult(TestCaseResultDataModel testCaseResult)
         {
             dataContext.TestCaseResults.Add(testCaseResult);
@@ -48,5 +53,52 @@ namespace TestCasesInventory.Data.Repositories
         {
             return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).Count();
         }
+
+        public IPagedList<TestCaseResultDataModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions options)
+        {
+            IQueryable<TestCaseResultDataModel> query = dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultId).Select(t => t);
+            if (options == null)
+            {
+                return query.ToCustomPagedList<TestCaseResultDataModel>(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+            }
+            if (!string.IsNullOrEmpty(options.Keyword))
+            {
+                foreach (var field in options.FilterFields)
+                {
+                    switch (field.ToLowerInvariant())
+                    {
+                        case "status":
+                            query = query.Where(t => t.Status.Contains(options.Keyword));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (options.SortOptions != null)
+            {
+                var sortOptions = options.SortOptions;
+                switch (sortOptions.Field.ToLowerInvariant())
+                {
+                    case "status":
+                        query = sortOptions.Direction == SortDirections.Asc ? query.OrderBy(t => t.Status) : query.OrderByDescending(t => t.Status);
+                        break;
+                    default:
+                        query = query.OrderByDescending(d => d.CreatedDate);
+                        break;
+                }
+            }
+
+            if (options.PagingOptions != null)
+            {
+                var pagingOption = options.PagingOptions;
+                return query.ToCustomPagedList(pagingOption.CurrentPage, pagingOption.PageSize);
+            }
+            return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
+        }
+
+       
     }
+    
 }

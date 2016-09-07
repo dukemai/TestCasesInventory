@@ -21,10 +21,10 @@ namespace TestCasesInventory.Data.DataModels
         //add Display Name property
         public string DisplayName { get; set; }
         public int? TeamID { get; set; }
-        public DateTime LastModifiedDate { get; set; }
         public virtual TeamDataModel Team { get; set; }
-        public virtual ICollection<TestCaseResultDataModel> TestCaseResults { get; set; }
+        public DateTime LastModifiedDate { get; set; }
         public virtual ICollection<TestCasesInTestRunDataModel> TestCasesInTestRuns { get; set; }
+        public virtual ICollection<TestCaseResultDataModel> TestCaseResults { get; set; }
 
     }
 }
