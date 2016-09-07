@@ -28,7 +28,6 @@
                 view.render();
             });
 
-            $('#myCarousel').carousel({ interval: false });
         }
 
         function setupTheApp() {

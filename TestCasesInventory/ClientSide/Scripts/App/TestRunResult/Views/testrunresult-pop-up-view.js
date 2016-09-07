@@ -8,15 +8,32 @@
 
         function registerEvents(testRunResultView) {
             var self = testRunResultView;
-            runTestCase($('#submit-pass'));
-            runTestCase($('#submit-fail'));
-            runTestCase($('#submit-skip'));
+            $('#myCarousel').carousel({ interval: false });
+            setTestCaseResult($('#submit-pass'));
+            setTestCaseResult($('#submit-fail'));
+            setTestCaseResult($('#submit-skip'));
         }
 
-        function runTestCase(resultSubmit) {
+        function runTestCase(testCasesInTestRunID, testRunResultID, status) {
+            var testCaseResult = {
+                TestCasesInTestRunID: testCasesInTestRunID,
+                Status: status,
+                TestRunResultID: testRunResultID
+            };
+            console.log(testCaseResult);
+            return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }));
+        }
+
+        function setTestCaseResult(resultSubmit) {
             resultSubmit.on('click.submit', function () {
-                $('#myCarousel').carousel("next");
-                console.log(resultSubmit.val());
+                var myCarousel = $('#myCarousel');
+                var testCasesInTestRunID = $('.item.active').attr('data-id');
+                var testRunResult = 1;
+          
+                promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, resultSubmit.val()))
+                    .then(function () {
+                        myCarousel.carousel("next");
+                    });
             });
         }
 
@@ -28,7 +45,6 @@
                     self.template = templateHelper.templates['testrunresult-popup'];
                     self.model.loadTestCasesInTestRunResults().then(function () {
                         $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));
-
                         registerEvents(self);
                     });
 

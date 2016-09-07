@@ -153,6 +153,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestCaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TestCaseResultController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestCasesInTestRunController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestRunController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestRunResultController.cs" />
@@ -419,6 +420,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
+    <Folder Include="Areas\Admin\Views\TestCaseResult\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Menu\" />
