@@ -172,9 +172,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientSide\HighCharts\HighChartsForTestRunResult.html" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Chartist\Chartist.html" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\HighCharts\high-chart.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\HighCharts\HighChartsForTestRunResult.html" />
     <Content Include="ClientSide\Scripts\App\app.js" />
-    <Content Include="ClientSide\Scripts\App\file-control-custom.js" />
+    <Content Include="ClientSide\Scripts\App\file-delete-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
@@ -198,7 +200,9 @@
     <Content Include="ClientSide\Scripts\App\TestRun\Views\testrun-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\exporting.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\highcharts.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\autolink\plugin.min.js" />
@@ -239,6 +243,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Areas\Admin\Views\TestRunResult\Details.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\lib\ai.0.15.0-build58334.js" />
@@ -315,8 +321,9 @@
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestRunResult\_HighChartPartial.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\app\file-control-custom.js" />
+    <Content Include="Scripts\app\file-delete-confirmation.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.js" />
     <Content Include="Scripts\lib\jquery-1.10.2.min.js" />

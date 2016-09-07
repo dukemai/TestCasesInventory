@@ -1,15 +1,21 @@
-﻿requirejs.config({
+﻿/// <reference path="../Lib/highcharts.js" />
+/// <reference path="../Lib/highcharts.js" />
+/// <reference path="../Lib/highcharts.js" />
+requirejs.config({
     'baseUrl': '/ClientSide/Scripts',
     'paths': {
         'tinyMCE': 'Lib/tinymce/tinymce.min',
         'tinyMCEInit': 'App/tinymce-init',
         'tabCommonFunctions': 'App/tab-common-functions',
-        'fileControl': 'App/file-control-custom',
+        'fileDeleteConfirmation': 'App/file-delete-confirmation',
         'deleteTestCasesInTestRunConfirmation': 'App/TestRun/delete-testcase-in-testrun-confirmation',
         'addTestCasesToTestRun': 'App/TestRun/add-testcases-to-testrun',
         'assignTestCaseToUser': 'App/TestRun/assign-testcase-to-user',
         'runTestRun': 'App/TestRunResult/run-testrun',
         'handlebars': 'Lib/handlebars.min',
+        'highCharts': 'Lib/highcharts',
+        'exporting': 'Lib/exporting',
+        'showChart': 'App/TestRunResult/HighCharts/high-chart',
         'templateHelper': 'App/template-helper',
         'backbone': 'Lib/backbone-min',
         'underscore': 'Lib/underscore-min',        

@@ -196,3 +196,9 @@ textarea {
     color: seagreen;
     text-align: center;
 }
+
+#high-chart-container {
+    width: 550px;
+    height: 400px;
+    margin: auto;
+}

@@ -1,13 +1,13 @@
-﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileControl', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation',
-    'assignTestCaseToUser', 'runTestRun'], function () {
+﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileDeleteConfirmation', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation',
+    'assignTestCaseToUser', 'runTestRun', 'showChart'], function () {
 
     var app = {};
     app.init = function () {
         initEditors();
         initTabFunctions();
-        initFileControl();
+        initFileDeleteConfirmation();
     };
-
+  
     app.initAddTestCasesToTestRun = function () {
         var addTestCasesToTestRun = require('addTestCasesToTestRun');
         addTestCasesToTestRun.init();
@@ -28,6 +28,11 @@
         runTestRun.init();
     }
 
+    app.initShowChart = function () {
+        var showChart = require('showChart');
+        showChart.init();
+    };
+
     function initEditors() {
         $('.tinymce-editor').each(function (index) {
             var tinyMCEInit = require('tinyMCEInit');
@@ -40,9 +45,9 @@
         tabCommonFunctions.init();
     }
 
-    function initFileControl() {
-        var fileControl = require('fileControl');
-        fileControl.init();
+    function initFileDeleteConfirmation() {
+        var fileDeleteConfirmation = require('fileDeleteConfirmation');
+        fileDeleteConfirmation.init();
     }
    
     return app;
