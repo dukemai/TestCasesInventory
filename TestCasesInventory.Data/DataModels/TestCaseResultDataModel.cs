@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestCasesInventory.Data.DataModels
 {
@@ -19,7 +12,7 @@ namespace TestCasesInventory.Data.DataModels
         [ForeignKey("TestRunResultID")]
         public virtual TestRunResultDataModel TestRunResult { get; set; }
         [ForeignKey("TestCasesInTestRunID")]
-        public virtual TestCasesInTestRunDataModel TestCase { get; set; }
+        public virtual TestCasesInTestRunDataModel TestCasesInTestRun { get; set; }
         [ForeignKey("RunBy")]
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

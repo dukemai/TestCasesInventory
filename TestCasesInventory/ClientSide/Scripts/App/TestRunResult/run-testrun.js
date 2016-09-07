@@ -25,9 +25,10 @@
                 $('#modal-container-run-testrun').modal('show').on('hide.bs.modal', function () {
                     view.dispose();
                 });
-
                 view.render();
             });
+
+            $('#myCarousel').carousel({ interval: false });
         }
 
         function setupTheApp() {

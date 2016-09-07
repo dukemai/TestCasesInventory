@@ -8,8 +8,15 @@
 
         function registerEvents(testRunResultView) {
             var self = testRunResultView;
-            $('#submit-run-testrun').on('click.submit', function () {
-                console.log("ok");
+            runTestCase($('#submit-pass'));
+            runTestCase($('#submit-fail'));
+            runTestCase($('#submit-skip'));
+        }
+
+        function runTestCase(resultSubmit) {
+            resultSubmit.on('click.submit', function () {
+                $('#myCarousel').carousel("next");
+                console.log(resultSubmit.val());
             });
         }
 
@@ -30,7 +37,9 @@
         }
 
         function unRegisterEvents() {
-            $('#submit-run-testrun').off('click.submit');
+            $('#submit-pass').off('click.submit');
+            $('#submit-fail').off('click.submit');
+            $('#submit-skip').off('click.submit');
         }
 
         testRunResultView.prototype.dispose = function () {
