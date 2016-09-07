@@ -1,5 +1,5 @@
-﻿define(['handlebars', 'templateHelper', 'App/TestCasesInTestRun/Views/testcasesintestrun-pop-up-view', 'promise',
-        'App/TestCasesInTestRun/testcasesintestrun-routes'],
+﻿define(['handlebars', 'templateHelper', 'App/TestRun/Views/testcasesintestrun-pop-up-view', 'promise',
+        'App/TestRun/testcasesintestrun-routes'],
     function (handleBars, templateHelper, testCasesInTestRunPopUpView, promise, routes) {
         var exportModule = {
 

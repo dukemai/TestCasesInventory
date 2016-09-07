@@ -177,11 +177,11 @@
     <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
-    <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\assign-testcase-to-user.js" />
-    <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Models\testcasesintestrunmodel.js" />
-    <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Models\usermodel.js" />
-    <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\testcasesintestrun-routes.js" />
-    <Content Include="ClientSide\Scripts\App\TestCasesInTestRun\Views\testcasesintestrun-pop-up-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\assign-testcase-to-user.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasesintestrunmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Models\usermodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\testcasesintestrun-routes.js" />
+    <Content Include="ClientSide\Scripts\App\TestRun\Views\testcasesintestrun-pop-up-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testcasesintestrunresultmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunresultmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\run-testrun.js" />

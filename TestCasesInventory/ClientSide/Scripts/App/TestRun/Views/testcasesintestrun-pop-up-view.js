@@ -1,5 +1,5 @@
-﻿define(['App/TestCasesInTestRun/Models/testcasesintestrunmodel', 'templateHelper', 'promise', 'underscore',
-    'App/TestCasesInTestRun/testcasesintestrun-routes'],
+﻿define(['App/TestRun/Models/testcasesintestrunmodel', 'templateHelper', 'promise', 'underscore',
+    'App/TestRun/testcasesintestrun-routes'],
     function (testCasesInTestRunModel, templateHelper, promise, _, routes) {
         function testCasesInTestRunView(id) {
             this.model = new testCasesInTestRunModel(id);
@@ -37,7 +37,7 @@
                         $('#modalContent-assign-to-user').append(self.template(self.model.Users));
 
                         var cookieForAssignedTo = $.cookie('assignedTo');
-                        if (cookieForAssignedTo != undefined) {
+                        if (cookieForAssignedTo) {
                             $('#assign-to-user').val(cookieForAssignedTo);
                         }
                         registerEvents(self);

@@ -1,4 +1,4 @@
-﻿define(['App/TestCasesInTestRun/Models/usermodel', 'App/TestCasesInTestRun/testcasesintestrun-routes', 'promise'], function (userModel, routes, promise) {
+﻿define(['App/TestRun/Models/usermodel', 'App/TestRun/testcasesintestrun-routes', 'promise'], function (userModel, routes, promise) {
     function testCasesInTestRunModel(id) {
         this.ID = id;
         this.Users = [];
