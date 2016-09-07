@@ -172,6 +172,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientSide\HighCharts\HighChartsForTestRunResult.html" />
     <Content Include="ClientSide\Scripts\App\app.js" />
     <Content Include="ClientSide\Scripts\App\file-control-custom.js" />
     <Content Include="ClientSide\Scripts\App\routes.js" />
