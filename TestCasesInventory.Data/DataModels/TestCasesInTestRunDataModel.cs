@@ -22,7 +22,6 @@ namespace TestCasesInventory.Data.DataModels
         public virtual TestCaseDataModel TestCase { get; set; }
         [ForeignKey("AssignedTo")]
         public virtual ApplicationUser ApplicationUser { get; set; }
-        public virtual ICollection<TestCaseResultDataModel> TestCaseResults { get; set; }
 
     }
 }

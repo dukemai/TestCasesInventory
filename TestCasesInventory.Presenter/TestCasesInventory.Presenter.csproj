@@ -142,7 +142,6 @@
     <Compile Include="Business\UserPresenter.cs" />
     <Compile Include="Mappings\PagedListConverter.cs" />
     <Compile Include="Mappings\RoleMappingProfile.cs" />
-    <Compile Include="Mappings\TestCaseResultMappingProfile.cs" />
     <Compile Include="Mappings\TeamMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseInTestSuitePopUpMappingProfile.cs" />
     <Compile Include="Mappings\TestCaseMappingProfile.cs" />
@@ -161,13 +160,12 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
-    <Compile Include="Models\TestCaseResultViewModel.cs" />
     <Compile Include="Models\TestCasesInTestRunResultViewModel.cs" />
     <Compile Include="Models\TestCaseInTestSuitePopUpViewModel.cs" />
     <Compile Include="Models\TestCasesInTestRunViewModel.cs" />
     <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Models\TestRunResultViewModel.cs" />
-    <Compile Include="Models\TestCaseResutlViewModel.cs" />
+    <Compile Include="Models\TestCaseResultViewModel.cs" />
     <Compile Include="Models\TestRunViewModel.cs" />
     <Compile Include="Models\TestSuiteViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
