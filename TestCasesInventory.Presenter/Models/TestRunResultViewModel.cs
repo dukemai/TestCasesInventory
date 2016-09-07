@@ -10,6 +10,10 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         public int TestRunID { get; set; }
         public string Status { get; set; }
+        public string TestRunTitle { get; set; }
+        public int NumberOfPassedTestCases { get; set; }
+        public int NumberOfFailedTestCases { get; set; }
+        public int NumberOfSkippedTestCases { get; set; }
         public string StatusStyleClass
         {
             get
