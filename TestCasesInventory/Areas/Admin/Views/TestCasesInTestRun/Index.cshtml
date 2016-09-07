@@ -8,17 +8,27 @@
     ViewBag.Title = "TestCases in the TestRun Home Page";
 }
 
-@Html.Action("FilterForTestCase", "Filter", new { area = "" })
+@Html.Action("FilterForTestCaseInTestRun", "Filter", new { area = "" })
 
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>Title</h4>
+            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
         </th>
-        
+        <th>
+            <h4>@Html.SortableLink(Request, "Priority", "Priority")</h4>
+        </th>
         <th>
             <h4>TestSuite</h4>
         </th>
+
+        <th>
+            <h4>Assigned To</h4>
+        </th>
+        <th>
+            <h4>Assigned By</h4>
+        </th>
+
         @*<th>
             <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
         </th>
@@ -28,6 +38,9 @@
         <th>
             <h4>Actions</h4>
         </th>
+        <th>
+            <h4>Assign</h4>
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -36,25 +49,31 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TestCaseTitle)
             </td>
-            
+
             <td>
-                @Html.DisplayFor(modelItem => item.TestRunTitle)
+                <span class="label @item.PriorityStyleClass">@Html.DisplayFor(modelItem => item.TestCasePriority)</span>
             </td>
-            @*<td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestSuiteTitle)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedTo)
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.AssignedBy)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>*@
+                @Html.ActionLink("Details", "Details", "TestCasesInTestRun", new { id = item.ID }, new { @class = "link-detail" }) |
+                <a href="#" class="delete-testcase" data-target="#basic" data-toggle="modal" data-testcase-id="@item.ID"> Delete</a>
+            </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                @Html.ActionLink("Assign To Me", "AssignToMe", new { id = item.ID }, new { @class= "btn btn-default" })
-                @Html.ActionLink("Assign To User", "GetUsersToAssign", new { id = item.ID }, new { @class = "btn btn-default" })
+                <a href="#" data-id="@item.ID" class="modal-link-assign-to-me btn btn-default">Assign To Me</a>
+                <a href="#" data-id="@item.ID" class="modal-link-assign-to-user btn btn-default">Assign To User</a>
             </td>
         </tr>
     }
 </table>
 @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
-
+@{  Html.RenderPartial("TestCaseInTestRun/_DeleteConfirmationPartial"); }

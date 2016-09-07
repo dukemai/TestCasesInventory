@@ -23,6 +23,7 @@ $('.modal-link').on("click", function (e) {
 })
 
 
+
 $("#modalContent").on("click", "a", function () {
     var testSuiteID = $(this).attr("data-test-suite-id");
     var testRunID = $(this).attr("data-test-run-id");
@@ -58,8 +59,10 @@ $("#submit-button").on("click", function () {
         type: "POST",
         dataType: "json",
         contentType: "application/json",
-        url: "TestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
+        url: "TestCasesInTestRun/AddTestCasesToTestRun?testRunID=" + testRunID,
         data: JSON.stringify({ testCases: objArray })
     });
+    $('#modal-container').modal('hide');
+    location.reload();
 })
 

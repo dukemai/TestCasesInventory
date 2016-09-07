@@ -74,9 +74,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })  |
-                @Html.ActionLink("Add TestCases", "GetTestSuitesPopUp", new { id = item.ID }, new { @class = "modal-link" })
+                @Html.ActionLink("Details", "Details", new { id = item.ID}) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }
@@ -84,9 +83,6 @@
 </table>
 @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
 
-
-@* The place where the dialog will be loaded.*@
-@{  Html.RenderPartial("TestRun/_AddTestCaseToTestRunPopUpTemplatePartial"); }
         @*<div class="modal-content" id="modal-content">
             @*<div class="modal-header">
                 @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>*@

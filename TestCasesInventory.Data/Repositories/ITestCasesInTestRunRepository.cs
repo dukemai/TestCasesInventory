@@ -7,14 +7,14 @@ namespace TestCasesInventory.Data.Repositories
 {
     public interface ITestCasesInTestRunRepository
     {
-        IEnumerable<TestCasesInTestRunDataModel> ListAll(int testRunID);
         TestCasesInTestRunDataModel GetTestCaseInTestRunByID(int testCaseInTestRunID);
-        void InsertTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun);
-        void DeleteTestCaseInTestRun(int testCaseInTestRunID);
-        void UpdateTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun);
+        IEnumerable<TestCasesInTestRunDataModel> GetTestCasesInTestRun(int testRunID);
+        void AddTestCasesToTestRun(List<TestCasesInTestRunDataModel> testCasesInTestRunData);
+        void RemoveTestCasesFromTestRun(List<int> testCasesIDs, int testRunID);
+        void AssignTestCaseToUser(TestCasesInTestRunDataModel testCaseInTestRun);
+        TestCasesInTestRunDataModel GetTestCaseInTestRun(int testCaseID, int testRunID);
         void Save();
-        int TotalTestCasesInTestRun(int testRunID);
-        IEnumerable<TestCasesInTestRunDataModel> TestCaseAlreadyInTestRun(int testRunID, int testCaseID);
-        IPagedList<TestCasesInTestRunDataModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions);
+        int TotalTestCasesInTestRun(int testRunID);        
+        IPagedList<TestCasesInTestRunDataModel> GetPagedListTestCasesByTestRun(int testRunId, FilterOptions filterOptions);
     }
 }

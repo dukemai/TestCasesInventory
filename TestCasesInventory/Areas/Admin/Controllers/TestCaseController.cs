@@ -88,8 +88,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var testCase = TestCasePresenterObject.GetTestCaseById(id);
-                testCase.AttachmentUrlList = TestCasePresenterObject.GetTestCaseAttachments(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("TestCase Id was not valid.");
+                }
+                var testCase = TestCasePresenterObject.GetTestCaseById(id.Value);
+                testCase.AttachmentUrlList = TestCasePresenterObject.GetTestCaseAttachments(id.Value);
 
                 return View("Details", testCase);
             }
@@ -158,8 +162,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var updatedTestCase = TestCasePresenterObject.GetTestCaseById(id);
-                updatedTestCase.AttachmentUrlList = TestCasePresenterObject.GetTestCaseAttachments(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("TestCase Id was not valid.");
+                }
+                var updatedTestCase = TestCasePresenterObject.GetTestCaseById(id.Value);
+                updatedTestCase.AttachmentUrlList = TestCasePresenterObject.GetTestCaseAttachments(id.Value);
                 return View("Edit", updatedTestCase);
             }
             catch (TestCaseNotFoundException e)
@@ -204,7 +212,11 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             try
             {
-                var deletedTestCase = TestCasePresenterObject.GetTestCaseById(id);
+                if (!id.HasValue)
+                {
+                    throw new Exception("TestCase Id was not valid.");
+                }
+                var deletedTestCase = TestCasePresenterObject.GetTestCaseById(id.Value);
                 return View("Delete", deletedTestCase);
             }
             catch (TestCaseNotFoundException e)

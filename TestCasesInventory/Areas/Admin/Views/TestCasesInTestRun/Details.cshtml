@@ -35,7 +35,14 @@
                 @Html.Raw(@Model.TestCaseDescription)
             </dd>
         </dl>
-
+        <dl class="dl-horizontal">
+            <dt>
+                TestRun
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestRunTitle)
+            </dd>
+        </dl>
         <dl class="dl-horizontal">
             <dt>
                 TestSuite

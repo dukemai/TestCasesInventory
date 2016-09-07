@@ -13,11 +13,13 @@ namespace TestCasesInventory.Presenter.Mappings
     public class TestCasesInTestRunMappingProfile : Profile
     {
         private UserManager<ApplicationUser> UserManager;
+        private TestCaseRepository testCaseRepository;
         private ITestSuiteRepository testSuiteRepository;
         public TestCasesInTestRunMappingProfile(string profileName) : base(profileName)
         {
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             testSuiteRepository = new TestSuiteRepository();
+            testCaseRepository = new TestCaseRepository();
 
             this.CreateMap<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>()
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
@@ -25,7 +27,6 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ForMember(dest => dest.AssignedTo, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedTo).DisplayName))
                 .ForMember(dest => dest.AssignedBy, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedBy).DisplayName))
                 .ForMember(dest => dest.TestSuiteTitle, opt => opt.MapFrom(src => testSuiteRepository.GetTestSuiteByID(src.TestSuiteID).Title));
-
 
             this.CreateMap<IPagedList<TestCasesInTestRunDataModel>, IPagedList<TestCasesInTestRunViewModel>>()
                 .ConvertUsing<Mappings.PagedListConverter<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>>();

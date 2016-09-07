@@ -10,6 +10,16 @@ namespace TestCasesInventory.Presenter.Models
         public string TestSuiteTitle { get; set; }
         public bool Checked { get; set; }
         public int? TestRunID { get; set; }
+        public string Priority { get; set; }
+        public string PriorityStyleClass
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Priority) ? "default" : Priority.ToLowerInvariant();
+            }
+        }
+        public string CreatedDate { get; set; }
+        public string CreatedDisplayOnly { get; set; }
     }
 
     public class TestSuiteInTestRunPopUpViewModel : TestSuiteViewModel
@@ -17,5 +27,8 @@ namespace TestCasesInventory.Presenter.Models
         public int TestRunID { get; set; }
     }
 
-
+    public class UserPopUpViewModel : UsersBelongTeamViewModel
+    {
+        public int TestCaseInTestRunID { get; set; }
+    }
 }
