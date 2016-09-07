@@ -6,11 +6,7 @@
 @model PagedList.IPagedList<TestRunResultViewModel>
 @{
     ViewBag.Title = "TestRun Result Home Page";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminListingLayout.cshtml";
 }
-
-<h3>TestRun Results </h3>
-
 
 @Html.Action("FilterForTestRunResult", "Filter", new { area = "" })
 
@@ -46,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.TestRunID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                <span class="label label-@item.StatusStyleClass ">@Html.DisplayFor(modelItem => item.Status) </span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDisplayOnly)
@@ -61,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.LastModifiedDate)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" }) 
+                @*@Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" })*@
             </td>
         </tr>
     }

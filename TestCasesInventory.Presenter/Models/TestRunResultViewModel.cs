@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TestCasesInventory.Presenter.Common;
 
 namespace TestCasesInventory.Presenter.Models
 {
@@ -9,9 +10,27 @@ namespace TestCasesInventory.Presenter.Models
         [Required]
         public int TestRunID { get; set; }
         public string Status { get; set; }
+        public string StatusStyleClass
+        {
+            get
+            {
+                if (Status == TestRunResultStatus.InProgress)
+                {
+                    return "warning";
+                }
+                else if (Status == TestRunResultStatus.Finished)
+                {
+                    return "success";
+                }
+                else
+                {
+                    return "default";
+                }
+            }
+        }
         public string CreateDisplayOnly { get; set; }
         public string LastModifiedDisplayOnly { get; set; }
-    
+
     }
     public class CreateTestRunResultViewModel : ViewModelBase
     {
