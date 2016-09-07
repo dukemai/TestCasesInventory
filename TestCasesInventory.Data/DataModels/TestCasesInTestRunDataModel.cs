@@ -14,7 +14,7 @@ namespace TestCasesInventory.Data.DataModels
         public int TestSuiteID { get; set; }
         public string AssignedTo { get; set; }
         public string AssignedBy { get; set; }
-        public DateTime LastRunDate { get; set; }
+        public DateTime? LastRunDate { get; set; }
         [ForeignKey("TestRunID")]
         public virtual TestRunDataModel TestRun { get; set; }
         public virtual ICollection<TestCaseResultDataModel> TestCaseResults { get; set; }
