@@ -25,9 +25,9 @@ namespace TestCasesInventory.Presenter.Models
     public class CreateTestCaseResultViewModel : ViewModelBase
     {
         [Display(Name = "TestRunResult")]
-        public int? TestRunResultID { get; set; }
+        public int TestRunResultID { get; set; }
         [Display(Name = "TestCase In TestRun")]
-        public int? TestCasesInTestRunID { get; set; }
+        public int TestCasesInTestRunID { get; set; }
         public string Status { get; set; }
         public string RunBy { get; set; }
         public string Comment { get; set; }

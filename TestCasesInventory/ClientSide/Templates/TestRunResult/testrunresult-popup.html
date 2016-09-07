@@ -11,9 +11,9 @@
     <div class="carousel-inner" role="listbox">
         {{#each .}}
         {{#if @first}}
-        <div class="item active">
+        <div class="item active" data-id="{{ID}}">
             {{else}}
-            <div class="item">
+            <div class="item" data-id="{{ID}}">
                 {{/if}}
                 <div class="information-test-suite-area bg-gray">
                     <dl class="dl-horizontal">
@@ -28,17 +28,17 @@
 
                     <dl class="dl-horizontal">
                         <dt> Description </dt>
-                        <dd> {{TestCaseDescription}} </dd>
+                        <dd> {{{TestCaseDescription}}} </dd>
                     </dl>
 
                     <dl class="dl-horizontal">
                         <dt> Precondition </dt>
-                        <dd> {{TestCasePrecondition}} </dd>
+                        <dd> {{{TestCasePrecondition}}} </dd>
                     </dl>
 
                     <dl class="dl-horizontal">
                         <dt> Expect </dt>
-                        <dd> {{TestCaseExpect}} </dd>
+                        <dd> {{{TestCaseExpect}}} </dd>
                     </dl>
                 </div>
             </div>
