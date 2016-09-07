@@ -22,7 +22,7 @@
                 var self = $(this);
                 var id = self.attr('data-test-run');
                 var view = new testRunResultPopUpView(id);
-                $('#modal-container-run-testrun').modal('show').on('hide.bs.modal', function () {
+                $('#modal-container-run-testrun').modal({ backdrop: "static" }).on('hide.bs.modal', function () {
                     view.dispose();
                 });
                 view.render();

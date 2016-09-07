@@ -51,8 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             //check testcaserusult object: ton tai => update status
             // chua ton tai => create new
-
-            testCaseResultPresenterObject.InsertTestCaseResult(testCaseResult);
+            //testCaseResultPresenterObject.InsertTestCaseResult(testCaseResult);
 
             return Json("Done");
 
