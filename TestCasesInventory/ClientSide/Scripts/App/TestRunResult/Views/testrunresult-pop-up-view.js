@@ -23,25 +23,28 @@
         function registerEvents(testRunResultView) {
             var self = testRunResultView;
             $('#myCarousel').carousel({ interval: false });
-            setTestCaseResult($('#submit-pass'));
-            setTestCaseResult($('#submit-fail'));
-            setTestCaseResult($('#submit-skip'));
-            doneTestRunResult($('#submit-done'));
+            setTestCaseResult($('#submit-pass'), self);
+            setTestCaseResult($('#submit-fail'), self);
+            setTestCaseResult($('#submit-skip'), self);
+            doneTestRunResult($('#submit-done'), self);
         }
 
         
 
-        function setTestCaseResult(resultSubmit) {
+        function setTestCaseResult(resultSubmit, testRunResultView) {
+            self = testRunResultView;
             resultSubmit.on('click.submit', function () {
                 var myCarousel = $('#myCarousel');
-                var testCasesInTestRunID = $('.item.active').attr('data-id');
+                var itemsNumber = $('.item').length;
+                var activeItem = $('.item.active');
+                var testCasesInTestRunID = activeItem.attr('data-id');
                 var testRunResultID = 2;
                 var comment = $('#comment-' + testCasesInTestRunID);
                 var newStatus = resultSubmit.attr('data-status');
                 var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
 
-                if (currentStatus.html() == "Skipped" && currentStatus.html() == newStatus) {
-                    currentStatus.html(newStatus);
+                if (currentStatus.html() != "" && currentStatus.html() != "Skipped" && newStatus == "Skipped") {
+                    showFinishDialog(activeItem, itemsNumber, self);
                     myCarousel.carousel("next");
                 }
                 else {
@@ -49,14 +52,32 @@
                     .then(function () {
                         currentStatus.html(newStatus);
                         comment.html(comment.val());
+                        showFinishDialog(activeItem, itemsNumber, self);
                         myCarousel.carousel("next");
                     });
                 }
-                
             });
         }
 
-        function doneTestRunResult(doneSubmit) {
+        function showFinishDialog(activeItem, itemsNumber, testRunResultView) {
+            var finishModal = $('#modal-container-finish-testrunresult');
+            if (activeItem.index() + 1 == itemsNumber) {
+                finishModal.modal('show');
+
+                $('#cancel-finish').on('click.cancel.finish', function () {
+                    finishModal.modal('hide');
+                })
+                $('#submit-finish').on('click.submit.finish', function () {
+                    var testRunResultID = 1;
+                    promise.resolve(finishTestRunResult(testRunResultID))
+                        .then(function () {
+                            location.reload();
+                        });
+                })
+            }
+        }
+
+        function doneTestRunResult(doneSubmit, testRunResultView) {
             doneSubmit.on('click.submit.done', function () {
                 var testRunResultID = 1;
                 promise.resolve(finishTestRunResult(testRunResultID))

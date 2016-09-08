@@ -316,6 +316,7 @@
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestRunResult\_FinishTestRunResultPopUpPartial.cshtml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\file-control-custom.js" />
     <Content Include="Scripts\lib\handlebars.min.js" />
