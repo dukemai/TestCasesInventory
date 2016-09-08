@@ -208,7 +208,7 @@ textarea {
 
 
 .carousel-indicators {
-    top: 600px;
+    top: 550px;
     position:fixed;
     height:10px;
 }
@@ -222,6 +222,6 @@ textarea {
         }
 
 #modal-container-run-testrun .modal-body {
-    height: 500px;
+    height: 450px;
     overflow: auto;
 }
