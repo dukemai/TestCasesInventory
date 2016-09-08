@@ -210,6 +210,7 @@ textarea {
 .carousel-indicators {
     top: 600px;
     position:fixed;
+    height:10px;
 }
 
     .carousel-indicators > li {
