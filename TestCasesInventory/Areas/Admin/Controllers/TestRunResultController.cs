@@ -128,5 +128,10 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
             
         }
+
+        public ActionResult FinishTestRunResult(int testRunResultID)
+        {
+            return Json("Done");
+        }
     }
 }

@@ -1,15 +1,15 @@
 ﻿<div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="false">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        {{#each .}}
-        {{#if @first}}
-        <li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
-        {{else}}
-        <li data-target="#myCarousel" data-slide-to="{{@index}}"></li>
-        {{/if}}
-        {{/each}}
-    </ol>
-
+    <div id="indicators-container">
+        <ol class="carousel-indicators">
+            {{#each .}}
+            {{#if @first}}
+            <li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
+            {{else}}
+            <li data-target="#myCarousel" data-slide-to="{{@index}}"></li>
+            {{/if}}
+            {{/each}}
+        </ol>
+    </div>
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         {{#each .}}
@@ -64,8 +64,13 @@
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon"></span>
         </a>
+
         <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
             <span class="glyphicon"></span>
         </a>
     </div>
+
+
 </div>
+
+<!-- Indicators -->

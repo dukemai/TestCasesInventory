@@ -197,16 +197,19 @@ textarea {
     text-align: center;
 }
 
+
 .carousel-control.left {
-    background-image: linear-gradient(to right, #f5f5f5 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: linear-gradient(to right, #ffffff 0, rgba(0, 0, 0, 0.0001) 100%);
 }
 
 .carousel-control.right {
-    background-image: linear-gradient(to left, #f5f5f5 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: linear-gradient(to left, #ffffff 0, rgba(0, 0, 0, 0.0001) 100%);
 }
 
+
 .carousel-indicators {
-    bottom: -45px;
+    top: 600px;
+    position:fixed;
 }
 
     .carousel-indicators > li {
@@ -216,3 +219,8 @@ textarea {
         .carousel-indicators > li.active {
             background-color: cadetblue;
         }
+
+#modal-container-run-testrun .modal-body {
+    height: 500px;
+    overflow: auto;
+}

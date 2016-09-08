@@ -6,14 +6,6 @@
             this.template = '';
         }
 
-        function registerEvents(testRunResultView) {
-            var self = testRunResultView;
-            $('#myCarousel').carousel({ interval: false });
-            setTestCaseResult($('#submit-pass'));
-            setTestCaseResult($('#submit-fail'));
-            setTestCaseResult($('#submit-skip'));
-        }
-
         function runTestCase(testCasesInTestRunID, testRunResultID, status, comment) {
             var testCaseResult = {
                 TestCasesInTestRunID: testCasesInTestRunID,
@@ -21,9 +13,23 @@
                 TestRunResultID: testRunResultID,
                 Comment: comment
             };
-            console.log(testCaseResult);
             return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }));
         }
+
+        function finishTestRunResult(testRunResultID) {
+            return promise.resolve($.post(routes.finishTestRunResult, { testRunResultID }));
+        }
+
+        function registerEvents(testRunResultView) {
+            var self = testRunResultView;
+            $('#myCarousel').carousel({ interval: false });
+            setTestCaseResult($('#submit-pass'));
+            setTestCaseResult($('#submit-fail'));
+            setTestCaseResult($('#submit-skip'));
+            doneTestRunResult($('#submit-done'));
+        }
+
+        
 
         function setTestCaseResult(resultSubmit) {
             resultSubmit.on('click.submit', function () {
@@ -32,16 +38,32 @@
                 var testRunResult = 1;
                 var comment = $('#comment-' + testCasesInTestRunID);
                 var status = resultSubmit.val() + "ed";
-          
+
                 promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, status, comment.val()))
                     .then(function () {
                         $('#currentStatus-' + testCasesInTestRunID).html(status);
                         comment.html(comment.val());
-
+                    })
+                    .then(function () {
                         myCarousel.carousel("next");
                     });
             });
         }
+
+        function doneTestRunResult(doneSubmit) {
+            doneSubmit.on('click.submit.done', function () {
+                var testRunResultID = 1;
+                promise.resolve(finishTestRunResult(testRunResultID))
+                    .then(function () {
+                        location.reload();
+                    });
+
+            });
+        }
+
+        
+
+        
 
         testRunResultView.prototype.render = function () {
             var self = this;
@@ -62,6 +84,7 @@
             $('#submit-pass').off('click.submit');
             $('#submit-fail').off('click.submit');
             $('#submit-skip').off('click.submit');
+            $('#submit-done').off('click.submit.done');
         }
 
         testRunResultView.prototype.dispose = function () {
