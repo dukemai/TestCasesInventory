@@ -51,9 +51,11 @@ namespace TestCasesInventory.Presenter.Business
             var testCasesInTestRunViews = new List<TestCasesInTestRunViewModel>();
             foreach (var testCaseInTestRun in testCasesInTestRunDatas)
             {
-                CheckExceptionTestCaseInTestRun(testCaseInTestRun);
-                var testCaseInTestRunView = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
-                testCasesInTestRunViews.Add(testCaseInTestRunView);
+                if (IsValidTestCaseInTestRun(testCaseInTestRun))
+                {
+                    var testCaseInTestRunView = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
+                    testCasesInTestRunViews.Add(testCaseInTestRunView);
+                }
             }
             return testCasesInTestRunViews;
         }
@@ -61,7 +63,10 @@ namespace TestCasesInventory.Presenter.Business
         public TestCasesInTestRunViewModel GetTestCasesInTestRunById(int testCasesInTestRunID)
         {
             var testCasesInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCasesInTestRunID);
-            CheckExceptionTestCaseInTestRun(testCasesInTestRun);
+            if (!IsValidTestCaseInTestRun(testCasesInTestRun))
+            {
+                throw new Exception("Data was not found");
+            }
             var testCasesInTestRunViewModel = testCasesInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunViewModel>();
             return testCasesInTestRunViewModel;
         }
@@ -173,15 +178,17 @@ namespace TestCasesInventory.Presenter.Business
         public IList<UserPopUpViewModel> GetUsersPopUp(int testCaseInTestRunID)
         {
             var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRun);
             var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
             var usersBelongTeam = teamRepository.GetUsersByTeamID(testRun.TeamID);
             var usersPopUpViewModel = new List<UserPopUpViewModel>();
             foreach (var user in usersBelongTeam)
             {
-                var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
-                userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
-                usersPopUpViewModel.Add(userViewModel);
+                if (IsValidTestCaseInTestRun(testCaseInTestRun))
+                {
+                    var userViewModel = user.MapTo<ApplicationUser, UserPopUpViewModel>();
+                    userViewModel.TestCaseInTestRunID = testCaseInTestRun.ID;
+                    usersPopUpViewModel.Add(userViewModel);
+                }             
             }
             return usersPopUpViewModel;
         }
@@ -201,17 +208,20 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestCaseNotFoundException("User was not found.");
             }
             var testCaseInTestRunData = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseInTestRunID);
-            CheckExceptionTestCaseInTestRun(testCaseInTestRunData);
-            var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+            if (IsValidTestCaseInTestRun(testCaseInTestRunData))
             {
-                AssignedBy = currentUser.Id,
-                AssignedTo = assignee.Id,
-                LastModified = currentUser.Email,
-                LastModifiedDate = DateTime.Now
-            };
-            testCaseInTestRunData = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunData);
-            testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunData);
-            testCasesInTestRunRepository.Save();
+                var assignedTestCaseInTestRun = new EditTestCasesInTestRunViewModel
+                {
+                    AssignedBy = currentUser.Id,
+                    AssignedTo = assignee.Id,
+                    LastModified = currentUser.Email,
+                    LastModifiedDate = DateTime.Now
+                };
+                testCaseInTestRunData = assignedTestCaseInTestRun.MapTo<EditTestCasesInTestRunViewModel, TestCasesInTestRunDataModel>(testCaseInTestRunData);
+                testCasesInTestRunRepository.AssignTestCaseToUser(testCaseInTestRunData);
+                testCasesInTestRunRepository.Save();
+            }
+            
         }
 
         public void AssignTestCaseToMe(int testCaseInTestRunID)
@@ -225,26 +235,27 @@ namespace TestCasesInventory.Presenter.Business
             AssignTestCaseToUser(testCaseInTestRunID, currentUser.Email);
         }
 
-        private void CheckExceptionTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
+        private bool IsValidTestCaseInTestRun(TestCasesInTestRunDataModel testCaseInTestRun)
         {
             if (testCaseInTestRun == null)
             {
                 logger.Error("The test case in the current test run was not found.");
-                throw new TestCaseInTestRunNotFoundException("The test case in the current test run was not found.");
+                return false;
             }
             var testSuite = testSuiteRepository.GetTestSuiteByID(testCaseInTestRun.TestSuiteID);
             var testCase = testCaseRepository.GetTestCaseByID(testCaseInTestRun.TestCaseID);
             if (testCase == null)
             {
                 logger.Error("Test case was not found.");
-                throw new TestCaseNotFoundException("Test case was not found.");
+                return false;
             }
             var testRun = testRunRepository.GetTestRunByID(testCaseInTestRun.TestRunID);
             if (testRun == null)
             {
                 logger.Error("Test run was not found.");
-                throw new TestRunNotFoundException("Test run was not found.");
+                return false;
             }
+            return true;
         }
 
         public IPagedList<TestCasesInTestRunViewModel> GetTestCasesByTestRunID(int testRunId, FilterOptions filterOptions)

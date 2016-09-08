@@ -89,31 +89,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/TestCaseInTestRun/Details/
-        public ActionResult Details(int? id)
-        {
-            int x;
-            try
-            {
-                if (!id.HasValue)
-                {
-                    throw new Exception("TestCaseInTestRun Id was not valid.");
-                }
-                var testCaseInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(id.Value);
-
-                return View("Details", testCaseInTestRun);
-            }
-            catch (TestCaseNotFoundException e)
-            {
-                return View("ResultNotFoundError");
-            }
-            catch (Exception e)
-            {
-                return View("ResultNotFoundError");
-            }
-        }
-
-
         [HttpGet]
         public ActionResult GetTestSuitesPopUp(int id)
         {
@@ -165,14 +140,21 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
         public ActionResult RemoveASingleTestCaseFromTestRun(int? testCasesInTestRunID)
         {
-            if (!testCasesInTestRunID.HasValue)
+            try
             {
-                throw new Exception("Id was not valid.");
+                if (!testCasesInTestRunID.HasValue)
+                {
+                    throw new Exception("Id was not valid.");
+                }
+                var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID.Value);
+                var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
+                TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
+                return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID });
             }
-            var testCasesInTestRun = TestCasesInTestRunPresenterObject.GetTestCasesInTestRunById(testCasesInTestRunID.Value);
-            var listTestCasesInTestRun = new List<int> { testCasesInTestRun.TestCaseID };
-            TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(listTestCasesInTestRun, testCasesInTestRun.TestRunID);
-            return RedirectToAction("Details", "TestRun", new { id = testCasesInTestRun.TestRunID });
+            catch (Exception e)
+            {
+                return View("ResultNotFoundError");
+            }
         }
 
         [HttpGet]
