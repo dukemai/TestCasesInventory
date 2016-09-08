@@ -10,7 +10,7 @@
             var testCaseResult = {
                 TestCasesInTestRunID: testCasesInTestRunID,
                 Status: status,
-                TestRunResultID: testRunResultID,
+                testRunResultID: testRunResultID,
                 Comment: comment
             };
             return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }));
@@ -35,23 +35,20 @@
             resultSubmit.on('click.submit', function () {
                 var myCarousel = $('#myCarousel');
                 var testCasesInTestRunID = $('.item.active').attr('data-id');
-                var testRunResult = 1;
+                var testRunResultID = 2;
                 var comment = $('#comment-' + testCasesInTestRunID);
                 var newStatus = resultSubmit.attr('data-status');
                 var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
 
                 if (currentStatus.html() == "Skipped" && currentStatus.html() == newStatus) {
-                    console.log("done");
                     currentStatus.html(newStatus);
                     myCarousel.carousel("next");
                 }
                 else {
-                    promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, newStatus, comment.val()))
+                    promise.resolve(runTestCase(testCasesInTestRunID, testRunResultID, newStatus, comment.val()))
                     .then(function () {
                         currentStatus.html(newStatus);
                         comment.html(comment.val());
-                    })
-                    .then(function () {
                         myCarousel.carousel("next");
                     });
                 }
