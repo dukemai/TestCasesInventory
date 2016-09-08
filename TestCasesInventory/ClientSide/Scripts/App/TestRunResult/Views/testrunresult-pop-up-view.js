@@ -37,16 +37,25 @@
                 var testCasesInTestRunID = $('.item.active').attr('data-id');
                 var testRunResult = 1;
                 var comment = $('#comment-' + testCasesInTestRunID);
-                var status = resultSubmit.val() + "ed";
+                var newStatus = resultSubmit.attr('data-status');
+                var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
 
-                promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, status, comment.val()))
+                if (currentStatus.html() == "Skipped" && currentStatus.html() == newStatus) {
+                    console.log("done");
+                    currentStatus.html(newStatus);
+                    myCarousel.carousel("next");
+                }
+                else {
+                    promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, newStatus, comment.val()))
                     .then(function () {
-                        $('#currentStatus-' + testCasesInTestRunID).html(status);
+                        currentStatus.html(newStatus);
                         comment.html(comment.val());
                     })
                     .then(function () {
                         myCarousel.carousel("next");
                     });
+                }
+                
             });
         }
 
@@ -61,10 +70,6 @@
             });
         }
 
-        
-
-        
-
         testRunResultView.prototype.render = function () {
             var self = this;
             var promisedResult = templateHelper.loadAndCache('testrunresult-popup', '/ClientSide/Templates/TestRunResult/testrunresult-popup.html');
@@ -75,7 +80,6 @@
                         $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));
                         registerEvents(self);
                     });
-
                 })
             }
         }
