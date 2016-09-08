@@ -30,12 +30,13 @@
                 var myCarousel = $('#myCarousel');
                 var testCasesInTestRunID = $('.item.active').attr('data-id');
                 var testRunResult = 1;
-                var comment = $('#comment').val();
+                var comment = $('#comment-' + testCasesInTestRunID);
+                var status = resultSubmit.val() + "ed";
           
-                promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, resultSubmit.val(), comment))
+                promise.resolve(runTestCase(testCasesInTestRunID, testRunResult, status, comment.val()))
                     .then(function () {
-                        $('#currentStatus-' + testCasesInTestRunID).html(resultSubmit.val());
-                        $('#comment').html(comment);
+                        $('#currentStatus-' + testCasesInTestRunID).html(status);
+                        comment.html(comment.val());
 
                         myCarousel.carousel("next");
                     });
