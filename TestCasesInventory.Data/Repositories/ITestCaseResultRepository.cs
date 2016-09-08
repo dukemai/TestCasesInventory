@@ -17,6 +17,6 @@ namespace TestCasesInventory.Data.Repositories
         void DeleteTestCaseResult(int testCaseResultID);
         void UpdateTestCaseResult(TestCaseResultDataModel testCaseResult);
         void Save();
-        int TotalTestCaseResultsForTestRunResult(int testRunResultID);
+        List<TestCaseResultDataModel> TotalTestCaseResultsForTestRunResult(int testRunResultID);
     }
 }
