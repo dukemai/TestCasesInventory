@@ -44,9 +44,9 @@ namespace TestCasesInventory.Data.Repositories
             dataContext.SaveChanges();
         }
 
-        public int TotalTestCaseResultsForTestRunResult(int testRunResultID)
+        public List<TestCaseResultDataModel> TotalTestCaseResultsForTestRunResult(int testRunResultID)
         {
-            return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).Count();
+            return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).ToList();
         }
     }
 }
