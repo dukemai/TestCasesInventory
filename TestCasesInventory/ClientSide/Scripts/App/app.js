@@ -1,5 +1,5 @@
 ﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileDeleteConfirmation', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation',
-    'assignTestCaseToUser', 'runTestRun', 'showChart'], function () {
+    'assignTestCaseToUser', 'runTestRun', 'testRunResultByStatusShowChart', 'testRunResultByTesterShowChart'], function () {
 
     var app = {};
     app.init = function () {
@@ -28,9 +28,13 @@
         runTestRun.init();
     }
 
-    app.initShowChart = function () {
-        var showChart = require('showChart');
-        showChart.init();
+    app.initTestRunResultByTesterChart = function () {
+        var testRunResultByTesterShowChart = require('testRunResultByTesterShowChart');
+        testRunResultByTesterShowChart.init();
+    };
+    app.initTestRunResultByStatusChart = function () {
+        var testRunResultByStatusShowChart = require('testRunResultByStatusShowChart');
+        testRunResultByStatusShowChart.init();
     };
 
     function initEditors() {

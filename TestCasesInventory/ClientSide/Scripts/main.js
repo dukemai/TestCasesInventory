@@ -4,5 +4,6 @@
     app.initDeleteTestCasesInTestRunConfirmation();
     app.initAssignTestCaseToUser();
     app.initRunTestRun();
-    app.initShowChart();
+    app.initTestRunResultByTesterChart();
+    app.initTestRunResultByStatusChart();
 });
