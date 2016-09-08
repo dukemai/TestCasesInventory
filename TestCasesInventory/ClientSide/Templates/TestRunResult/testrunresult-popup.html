@@ -1,4 +1,4 @@
-﻿<div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="false">
+﻿<div id="myCarousel" class="carousel slide" data-ride="carousel" data-simplebar-direction="vertical" data-wrap="false">
     <div id="indicators-container">
         <ol class="carousel-indicators">
             {{#each .}}
@@ -52,7 +52,7 @@
                     <dl class="dl-horizontal">
                         <dt> Comment </dt>
                         <dd>
-                            <textarea class="form-control" rows="2" id="comment-{{ID}}"></textarea>
+                            <textarea class="form-control" rows="5" id="comment-{{ID}}"></textarea>
                         </dd>
                     </dl>
                 </div>
@@ -60,14 +60,7 @@
             {{/each}}
         </div>
 
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon"></span>
-        </a>
 
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon"></span>
-        </a>
     </div>
 
 

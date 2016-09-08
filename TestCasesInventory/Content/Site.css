@@ -183,7 +183,9 @@ textarea {
         left: 100%;
     }
 }
-
+/*
+    TestRun Result
+*/
 .show-message {
     height: 40px;
     width: 200px;
@@ -199,18 +201,16 @@ textarea {
 
 
 .carousel-control.left {
-    background-image: linear-gradient(to right, #ffffff 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: none;
 }
 
 .carousel-control.right {
-    background-image: linear-gradient(to left, #ffffff 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: none;
 }
 
 
 .carousel-indicators {
-    top: 550px;
-    position:fixed;
-    height:10px;
+    bottom:0;
 }
 
     .carousel-indicators > li {
@@ -221,7 +221,10 @@ textarea {
             background-color: cadetblue;
         }
 
-#modal-container-run-testrun .modal-body {
+.run-test-run .carousel {
     height: 450px;
-    overflow: auto;
+    
+}
+.modal-body{
+    overflow:hidden;
 }

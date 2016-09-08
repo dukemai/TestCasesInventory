@@ -96,9 +96,7 @@
                 promisedResult.then(function () {
                     self.template = templateHelper.templates['testrunresult-popup'];
                     self.model.loadTestCasesInTestRunResults().then(function () {
-                        $('#modalContent-run-testrun')
-                            
-                            .append(self.template(self.model.TestCasesInTestRunResults));
+                        $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));
                         $('#myCarousel').simplebar();
                         registerEvents(self);
                     });
