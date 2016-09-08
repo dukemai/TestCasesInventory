@@ -43,6 +43,13 @@ namespace TestCasesInventory.Presenter.Models
         public string LastModifiedDisplayOnly { get; set; }
 
     }
+
+    public class TestRunResultDetailViewModel : ViewModelBase
+    {
+        public int ID { get; set; }
+        public int TestRunID { get; set; }
+    }
+
     public class CreateTestRunResultViewModel : ViewModelBase
     {
         [Required]

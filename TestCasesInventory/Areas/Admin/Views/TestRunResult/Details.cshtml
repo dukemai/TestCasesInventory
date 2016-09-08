@@ -1,107 +1,30 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model TestRunResultViewModel
+@model TestRunResultDetailViewModel
 @{
-    ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminDetailLayout.cshtml";
 }
-<h3> Details </h3>
-@{  Html.RenderPartial("TestRunResult/_TestRunResultHighChartPartial"); }
-@{  Html.RenderPartial("TestRunResult/_TestRunResultRunByHighChartPartial"); }
-<div>
-    <h4>TestRun Result ID: @Model.ID </h4>
-    <hr />
-    <div class="information-test-suite-area bg-gray">
-        <dl class="dl-horizontal">
-            <dt>
-                ID
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ID)
-            </dd>
-        </dl>
 
-        @*<dl class="dl-horizontal">
-                <dt>
-                    Description
-                </dt>
-                <dd>
-                    @Html.Raw(@Model.Description)
-                </dd>
-            </dl>*@
-
-        <dl class="dl-horizontal">
-            <dt>
-                Number of Test Cases
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfTestCases)
-            </dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt>
-                Number of Passes Test Cases
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfPassedTestCases)
-            </dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt>
-                Number of Failed Test Cases
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfFailedTestCases)
-            </dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt>
-                Number of Skipped Test Cases
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfSkippedTestCases)
-            </dd>
-        </dl>
-
-        <dl class="dl-horizontal">
-            <dt>
-                Created by
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-        </dl>
-
-        <dl class="dl-horizontal">
-            <dt>
-                Last Modified by
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LastModified)
-            </dd>
-        </dl>
-
-        <dl class="dl-horizontal">
-            <dt>
-                Created
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CreatedDate)
-            </dd>
-        </dl>
-
-        <dl class="dl-horizontal">
-            <dt>
-                Last Modified
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LastModifiedDate)
-            </dd>
-        </dl>
+<div id="test-run-result-detail" test-run-result-id=@Model.ID>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="detail-info">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div id="status-chart">
+                </div>
+            </div>
+            <div class="row">
+                <div id="tester-chart">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br />
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = @Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

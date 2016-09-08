@@ -172,15 +172,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientSide\Scripts\App\TestRunResult\Chartist\Chartist.html" />
-    <Content Include="ClientSide\Scripts\App\TestRunResult\HighCharts\test-run-result-high-chart.js" />
-    <Content Include="ClientSide\Scripts\App\TestRunResult\HighCharts\HighChartsForTestRunResult.html" />
     <Content Include="ClientSide\Scripts\App\app.js" />
     <Content Include="ClientSide\Scripts\App\file-delete-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
-    <Content Include="ClientSide\Scripts\App\TestRunResult\HighCharts\test-run-result-run-by-high-chart.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\detaildatamodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunresultdetailmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\testrun-result-detail.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\detail-info-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\status-chart-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\tester-chart-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testrun-result-detail-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\assign-testcase-to-user.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasesintestrunmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\usermodel.js" />
@@ -232,6 +235,9 @@
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\tesrun-result-status-chart.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\testrun-result-detail-info.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\testrun-result-tester-chart.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
