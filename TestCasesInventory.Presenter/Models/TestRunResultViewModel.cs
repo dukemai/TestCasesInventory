@@ -14,6 +14,7 @@ namespace TestCasesInventory.Presenter.Models
         public int NumberOfPassedTestCases { get; set; }
         public int NumberOfFailedTestCases { get; set; }
         public int NumberOfSkippedTestCases { get; set; }
+        public int NumberOfTestCases { get; set; }
         public string StatusStyleClass
         {
             get
