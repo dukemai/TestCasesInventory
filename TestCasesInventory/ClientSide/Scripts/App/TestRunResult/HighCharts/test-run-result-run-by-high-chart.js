@@ -16,7 +16,7 @@ define(['highCharts', 'exporting'], function () {
 
             };
             var title = {
-                text: 'Test Run Results Overview'
+                text: 'Test Run Results By Tester Overview'
             };
             var subtitle = {
                 text: 'Test Run number 2 [hard code]'
@@ -48,10 +48,10 @@ define(['highCharts', 'exporting'], function () {
                 type: 'pie',
                 name: 'Test Cases',
                 data: [
-                   ['Skipped Test Cases', 9],
-                   ['Failed Test Cases', 7],
+                   ['User1', 9],
+                   ['Admin', 7],
                    {
-                       name: 'Passed Test Cases',
+                       name: 'user 2',
                        y: 25,
                        sliced: true,
                        selected: true
@@ -67,7 +67,7 @@ define(['highCharts', 'exporting'], function () {
             json.tooltip = tooltip;
             json.series = series;
             json.plotOptions = plotOptions;
-            $('#high-chart-container').highcharts(json);
+            $('#test-run-result-run-by-high-chart-container').highcharts(json);
 
 
         });
