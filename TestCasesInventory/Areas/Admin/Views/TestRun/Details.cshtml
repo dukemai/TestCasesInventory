@@ -108,7 +108,7 @@
 @* The place where the dialog will be loaded.*@
 @{  Html.RenderPartial("TestRun/_AddTestCaseToTestRunPopUpTemplatePartial"); }
 @{  Html.RenderPartial("TestCaseInTestRun/_AssignToUserPopUpTemplatePartial"); }
-@{  Html.RenderPartial("TestRunResult/_RunTestRunPopUpPartial"); }
+@{  Html.RenderPartial("TestRunResult/_RunTestRunPopUpPartial", Model); }
 
 <div class="show-message">
    <h5><b> Assigned successfully! </b></h5>
