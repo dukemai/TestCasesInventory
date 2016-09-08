@@ -17,6 +17,7 @@ namespace TestCasesInventory.Presenter.Business
         void DeleteTestRunResult(int testRunResultID);
         IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID);
         void FinishTestRunResult(int testRunResultID);
+        IList<TestRunResultViewModel> GetTestRunResultInProgress(int testRunID);
 
         #endregion
 

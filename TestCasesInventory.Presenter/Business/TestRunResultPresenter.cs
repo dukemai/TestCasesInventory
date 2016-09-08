@@ -193,6 +193,25 @@ namespace TestCasesInventory.Presenter.Business
                 throw new TestRunNotFoundException("Test run was not found.");
             }
         }
+
+        public IList<TestRunResultViewModel> GetTestRunResultInProgress(int testRunID)
+        {
+            var testRun = testRunRepository.GetTestRunByID(testRunID);
+            if(testRun == null)
+            {
+                logger.Error("Test run was not found.");
+                throw new TestRunNotFoundException("Test run was not found.");
+            }
+            var listTestRunResultInProgressViewModel = new List<TestRunResultViewModel>();
+            var listTestRunResultInProgressDataMode = testRunResultRepository.GetTestRunResultsInProgress(testRunID);
+            foreach (var item in listTestRunResultInProgressDataMode)
+            {
+                var testRunResultInProgress = item.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
+                listTestRunResultInProgressViewModel.Add(testRunResultInProgress);
+            }
+            return listTestRunResultInProgressViewModel;
+
+        }
         #endregion
     }
 }

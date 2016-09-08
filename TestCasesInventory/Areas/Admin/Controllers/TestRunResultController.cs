@@ -109,5 +109,24 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             }
 
         }
+
+        [HttpGet]
+        public ActionResult GetTestRunResultInProgress(int? testRunResultId)
+        {
+            try
+            {
+                if (!testRunResultId.HasValue)
+                {
+                    throw new Exception("TestRunResultId was not valid");
+                }
+                var listTestRunResultInProgressViewModel = TestRunResultPresenterObject.GetTestRunResultInProgress(testRunResultId.Value);
+                return Json(listTestRunResultInProgressViewModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                 return View("ResultNotFoundError");
+            }
+            
+        }
     }
 }
