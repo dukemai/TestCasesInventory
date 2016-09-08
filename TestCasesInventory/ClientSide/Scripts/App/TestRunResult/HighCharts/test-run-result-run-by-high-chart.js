@@ -7,12 +7,13 @@ define(['highCharts', 'exporting'], function () {
         $(document).ready(function () {
 
             var chart = {
+                backgroundColor: "#f3f3f3",
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                borderColor: "grey",
-                borderRadius: 2,
-                borderWidth: 2
+                borderColor: "gray",
+                borderRadius: 1,
+                borderWidth: 4
 
             };
             var title = {
