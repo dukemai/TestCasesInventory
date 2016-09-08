@@ -15,6 +15,7 @@
         'underscore': 'Lib/underscore-min',        
         'bootstrap': 'Lib/bootstrap.min',
         'promise': 'Lib/bluebird.core.min',
+        'simplebar': 'Lib/simplebar',
         'app': 'App/app'
     },
     'shim': {

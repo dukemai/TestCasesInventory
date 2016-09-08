@@ -1,6 +1,6 @@
-﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore',
+﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar',
     'App/TestRunResult/testrunresult-routes'],
-    function (testRunResultModel, templateHelper, promise, _, routes) {
+    function (testRunResultModel, templateHelper, promise, _, routes, simplebar) {
         function testRunResultView(id) {
             this.model = new testRunResultModel(id);
             this.template = '';
@@ -29,7 +29,7 @@
             doneTestRunResult($('#submit-done'));
         }
 
-        
+
 
         function setTestCaseResult(resultSubmit) {
             resultSubmit.on('click.submit', function () {
@@ -52,7 +52,7 @@
                         myCarousel.carousel("next");
                     });
                 }
-                
+
             });
         }
 
@@ -74,7 +74,10 @@
                 promisedResult.then(function () {
                     self.template = templateHelper.templates['testrunresult-popup'];
                     self.model.loadTestCasesInTestRunResults().then(function () {
-                        $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));
+                        $('#modalContent-run-testrun')
+                            
+                            .append(self.template(self.model.TestCasesInTestRunResults));
+                        $('#myCarousel').simplebar();
                         registerEvents(self);
                     });
                 })
