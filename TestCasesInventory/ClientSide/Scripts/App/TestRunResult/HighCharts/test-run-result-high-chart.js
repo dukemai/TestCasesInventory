@@ -1,5 +1,4 @@
-﻿
-define(['highCharts', 'exporting'], function () {
+﻿define(['highCharts', 'exporting'], function () {
 
     var exportModule = {};
 
@@ -8,6 +7,7 @@ define(['highCharts', 'exporting'], function () {
             var chartArea = $('#test-run-result-high-chart-container');
             if (chartArea.length) {
                 var chart = {
+                    backgroundColor: "#e3e99e",
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -46,32 +46,30 @@ define(['highCharts', 'exporting'], function () {
                         }
                     }
                 };
+
+                var resultInfo =
+                     [
+                    { "name": "Skipped", "y": 9 },
+                    { "name": "Failed", "y": 7 },
+                    { "name": "Passed", "y": 25 }
+                     ]
+
+
                 var series = [{
                     type: 'pie',
                     name: 'Test Cases',
-                    data: [
-                       ['Skipped', 9],
-                       ['Failed', 7],
-                       ['Failed', 25]
-                    ]
-                       //{
-                       //    name: 'Passed Test Cases',
-                       //    y: 25,
-                       //    sliced: true,
-                       //    selected: true
-                       //},
-                    
+                    data: resultInfo
                 }];
 
-                var json = {};
-                json.chart = chart;
-                json.title = title;
-                json.subtitle = subtitle;
-                json.credits = credits;
-                json.tooltip = tooltip;
-                json.series = series;
-                json.plotOptions = plotOptions;
-                chartArea.highcharts(json);
+                var chartInfo = {};
+                chartInfo.chart = chart;
+                chartInfo.title = title;
+                chartInfo.subtitle = subtitle;
+                chartInfo.credits = credits;
+                chartInfo.tooltip = tooltip;
+                chartInfo.series = series;
+                chartInfo.plotOptions = plotOptions;
+                chartArea.highcharts(chartInfo);
             }
 
         });

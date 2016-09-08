@@ -7,6 +7,7 @@ define(['highCharts', 'exporting'], function () {
         $(document).ready(function () {
 
             var chart = {
+                backgroundColor: "#f3f3f3",
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
