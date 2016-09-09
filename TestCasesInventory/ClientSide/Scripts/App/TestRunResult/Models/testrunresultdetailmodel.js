@@ -7,7 +7,7 @@
     testRunResultModel.prototype.getTestRunResultData = function () {
         var self = this;
         return promise.resolve($.get(routes.getTestRunDetailData + self.ID, function (data) {
-            self.data = new detailDataModel(data.ID, data.TestRunID, data.Status, data.TestRunTitle, data.NumberOfPassedTestCases, data.NumberOfFailedTestCases,data.NumberOfTestCases , data.NumberOfSkippedTestCases);
+            self.data = new detailDataModel(data.ID, data.TestRunID, data.Status, data.TestRunTitle, data.NumberOfPassedTestCases, data.NumberOfFailedTestCases, data.NumberOfTestCases, data.NumberOfSkippedTestCases, data.Created, data.LastModified, data.CreatedDate, data.LastModifiedDate);
         }));
     }
 
