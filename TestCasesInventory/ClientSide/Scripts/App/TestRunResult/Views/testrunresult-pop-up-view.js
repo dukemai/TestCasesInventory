@@ -1,6 +1,6 @@
 ﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar',
     'App/TestRunResult/testrunresult-routes'],
-    function (testRunResultModel, templateHelper, promise, _, routes, simplebar) {
+    function (testRunResultModel, templateHelper, promise, _, simplebar, routes) {
         function testRunResultView(id) {
             this.model = new testRunResultModel(id);
             this.template = '';
@@ -44,7 +44,7 @@
                 var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
 
                 if (currentStatus.html() != "" && currentStatus.html() != "Skipped" && newStatus == "Skipped") {
-                    showFinishDialog(activeItem, itemsNumber, self);
+                    checkToFinish(activeItem, itemsNumber, self);
                     myCarousel.carousel("next");
                 }
                 else {
@@ -52,38 +52,48 @@
                     .then(function () {
                         currentStatus.html(newStatus);
                         comment.html(comment.val());
-                        showFinishDialog(activeItem, itemsNumber, self);
+                        checkToFinish(activeItem, itemsNumber, self);
                         myCarousel.carousel("next");
                     });
                 }
-                
+
             });
         }
 
-        function showFinishDialog(activeItem, itemsNumber, testRunResultView) {
-            var finishModal = $('#modal-container-finish-testrunresult');
+        function checkToFinish(activeItem, itemsNumber, testRunResultView) {
+            var self = testRunResultView;
             if (activeItem.index() + 1 == itemsNumber) {
-                finishModal.modal('show');
-
-                $('#cancel-finish').on('click.cancel.finish', function () {
-                    finishModal.modal('hide');
-                })
-                $('#submit-finish').on('click.submit.finish', function () {
-                    var testRunResultID = 1;
-                    promise.resolve(finishTestRunResult(testRunResultID))
-                        .then(function () {
-                            location.reload();
-                        });
-                })
+                showFinishDialog(self);
             }
         }
 
-        function doneTestRunResult(doneSubmit, testRunResultView) {
-            doneSubmit.on('click.submit.done', function () {
+        function showFinishDialog(testRunResultView) {
+            var finishModal = $('#modal-container-finish-testrunresult');
+            finishModal.modal({ backdrop: "static" });
+
+            $('#cancel-finish').on('click.cancel.finish', function () {
+                promise.resolve(finishModal.modal('hide'))
+                    .then($('#cancel-finish').off('click.cancel.finish'));
+            });
+            $('#submit-finish').on('click.submit.finish', function () {
                 var testRunResultID = 1;
                 promise.resolve(finishTestRunResult(testRunResultID))
                     .then(function () {
                         location.reload();
+                    });
+            })
+
+
+
+        }
+
+        function doneTestRunResult(doneSubmit, testRunResultView) {
+            var self = testRunResultView;
+            doneSubmit.on('click.submit.done', function () {
+                var testRunResultID = 1;
+                promise.resolve(finishTestRunResult(testRunResultID))
+                    .then(function () {
+                        showFinishDialog(self);
                     });
 
             });
