@@ -155,6 +155,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         public ActionResult FinishTestRunResult(int testRunResultID)
         {
+            TestRunResultPresenterObject.FinishTestRunResult(testRunResultID);
             return Json("Done");
         }
     }

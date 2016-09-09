@@ -207,7 +207,6 @@
     <Content Include="ClientSide\Scripts\App\TestRun\Views\testrun-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
-    <Content Include="ClientSide\Scripts\Lib\exporting.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\simplebar.js" />
     <Content Include="ClientSide\Scripts\Lib\highcharts.js" />
@@ -328,7 +327,6 @@
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultHighChartPartial.cshtml" />
-   
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_FinishTestRunResultPopUpPartial.cshtml" />
     <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
     <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />

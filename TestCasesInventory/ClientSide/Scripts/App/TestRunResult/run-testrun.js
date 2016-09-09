@@ -20,8 +20,8 @@
             $('.modal-link-run-testrun').click(function (e) {
                 e.preventDefault();
                 var self = $(this);
-                var id = self.attr('data-test-run');
-                var view = new testRunResultOptionView(id);
+                var testRunID = self.attr('data-test-run');
+                var view = new testRunResultOptionView(testRunID);
                 $('#modal-container-run-testrun').modal({ backdrop: "static" }).on('hide.bs.modal', function () {
                     view.dispose();
                 });

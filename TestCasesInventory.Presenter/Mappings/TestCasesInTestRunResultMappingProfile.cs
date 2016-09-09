@@ -25,6 +25,8 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ForMember(dest => dest.AssignedTo, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedTo).DisplayName))
                 .ForMember(dest => dest.AssignedBy, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedBy).DisplayName))
                 .ForMember(dest => dest.TestSuiteTitle, opt => opt.MapFrom(src => testSuiteRepository.GetTestSuiteByID(src.TestSuiteID).Title));
+            this.CreateMap<TestCaseResultDataModel, TestCasesInTestRunResultViewModel>();
+
         }
 
     }
