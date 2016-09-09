@@ -15,7 +15,6 @@ requirejs.config({
         'testRunResultDetail': 'App/TestRunResult/testrun-result-detail',
         'handlebars': 'Lib/handlebars.min',
         'highCharts': 'Lib/highcharts',
-        'exporting': 'Lib/exporting',
         'templateHelper': 'App/template-helper',
         'backbone': 'Lib/backbone-min',
         'underscore': 'Lib/underscore-min',        

@@ -1,4 +1,4 @@
-﻿define(['promise', 'underscore', 'highCharts', 'exporting'],
+﻿define(['promise', 'underscore', 'highCharts'],
     function (promise, _) {
         function testerChartView(data) {
             this.model = data;
