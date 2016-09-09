@@ -30,6 +30,11 @@
                     </dl>
 
                     <dl class="dl-horizontal">
+                        <dt> Status </dt>
+                        <dd> <span id="currentStatus-{{ID}}" class="{{StatusStyleClass}}">{{Status}}</span> </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal">
                         <dt> Description </dt>
                         <dd> {{{TestCaseDescription}}} </dd>
                     </dl>
@@ -45,14 +50,9 @@
                     </dl>
 
                     <dl class="dl-horizontal">
-                        <dt> Current Status </dt>
-                        <dd> <span id="currentStatus-{{ID}}"></span> </dd>
-                    </dl>
-
-                    <dl class="dl-horizontal">
                         <dt> Comment </dt>
                         <dd>
-                            <textarea class="form-control" rows="5" id="comment-{{ID}}"></textarea>
+                            <textarea class="form-control" rows="5" id="comment-{{ID}}">{{Comment}}</textarea>
                         </dd>
                     </dl>
                 </div>
