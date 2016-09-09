@@ -4,8 +4,8 @@
         getTestCasesInTestRunResults: '/Admin/TestRunResult/GetAllTestCases/',
         createTestCaseResult: '/Admin/TestCaseResult/CreateTestCaseResult/',
         finishTestRunResult: '/Admin/TestRunResult/FinishTestRunResult/',
-        getTestRunResult: '/Admin/TestRunResult/GetTestRunResult'
-	getTestRunDetailData: '/Admin/TestRunResult/TestRunResultData/'
+        getTestRunResult: '/Admin/TestRunResult/GetTestRunResult',
+        getTestRunDetailData: '/Admin/TestRunResult/TestRunResultData/'
     };
 
     _.extend(testRunResultRoutes, routes);
