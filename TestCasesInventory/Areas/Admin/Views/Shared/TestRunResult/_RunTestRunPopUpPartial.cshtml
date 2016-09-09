@@ -1,7 +1,7 @@
 ﻿@using TestCasesInventory.Presenter.Models
 @model TestRunViewModel
 
-<div id="modal-container-run-testrun" class="modal fade" tabindex="-1" role="dialog">
+<div id="modal-container-run-testrun" class="modal run-test-run fade"  tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content view-test-suites">
             <div class="modal-header">
@@ -11,10 +11,10 @@
             <div class="modal-body" id="modalContent-run-testrun">
             </div>
             <div class="modal-footer">
-                <input id="submit-pass" class="btn btn-success" type="button" value="Pass" data-status="Passed"/>
+                <input id="submit-pass" class="btn btn-primary" type="button" value="Pass" data-status="Passed"/>
                 <input id="submit-fail" class="btn btn-danger" type="button" value="Fail" data-status="Failed"/>
                 <input id="submit-skip" class="btn btn-default" type="button" value="Skip" data-status="Skipped"/>
-                <input id="submit-done" class="btn btn-primary" type="button" value="Done" data-status="Done"/>
+                <input id="submit-done" class="btn btn-success" type="button" value="Done" data-status="Done"/>
             </div>
         </div>
     </div>
