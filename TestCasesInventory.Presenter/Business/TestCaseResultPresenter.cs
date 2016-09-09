@@ -18,7 +18,7 @@ using TestCasesInventory.Presenter.Business;
 using System.Security.Principal;
 using Microsoft.AspNet.Identity;
 
-namespace TestCasesInventory.Presenter.Business 
+namespace TestCasesInventory.Presenter.Business
 {
     public class TestCaseResultPresenter : PresenterBase, ITestCaseResultPresenter
     {
@@ -109,6 +109,8 @@ namespace TestCasesInventory.Presenter.Business
         public void InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
         {
             testCaseResult.RunBy = User.Identity.GetUserId();
+            testCaseResult.Created = testCaseResult.LastModified = User.Identity.GetUserName();
+            testCaseResult.CreatedDate = testCaseResult.LastModifiedDate = DateTime.Now;
             var testCasesInTestRun = TestCaseInTestRunRepository.GetTestCaseInTestRunByID(testCaseResult.TestCasesInTestRunID);
             if (testCasesInTestRun == null)
             {
@@ -123,23 +125,20 @@ namespace TestCasesInventory.Presenter.Business
             }
 
             var testCaseResultDataModel = TestCaseResultRepository.GetTestCaseResult(testCaseResult.TestCasesInTestRunID, testCaseResult.TestRunResultID);
-            if(testCaseResultDataModel == null)
+            if (testCaseResultDataModel == null)
             {
                 testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
-                testCaseResultDataModel.CreatedDate = testCaseResultDataModel.LastModifiedDate = DateTime.Now;
-                testCaseResultDataModel.Created = testCaseResultDataModel.LastModified = User.Identity.GetUserName();
                 TestCaseResultRepository.InsertTestCaseResult(testCaseResultDataModel);
                 TestCaseResultRepository.Save();
             }
             else
             {
-                testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
-                testCaseResultDataModel.LastModifiedDate = DateTime.Now;
-                testCaseResultDataModel.LastModified = User.Identity.GetUserName();
+                var editTestCaseResult = testCaseResult.MapTo<CreateTestCaseResultViewModel, EditTestCaseResultViewModel>();
+                testCaseResultDataModel = editTestCaseResult.MapTo<EditTestCaseResultViewModel, TestCaseResultDataModel>(testCaseResultDataModel);
                 TestCaseResultRepository.UpdateTestCaseResult(testCaseResultDataModel);
                 TestCaseResultRepository.Save();
             }
-            
+
             //FeedObservers(testCaseResultDataModel);
         }
 
@@ -164,7 +163,7 @@ namespace TestCasesInventory.Presenter.Business
             throw new NotImplementedException();
         }
 
-        
+
 
 
 

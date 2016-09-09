@@ -35,7 +35,6 @@ namespace TestCasesInventory.Presenter.Models
 
     public class EditTestCaseResultViewModel : ViewModelBase
     {
-        public int ID { get; set; }
         [Display(Name = "TestRunResult")]
         public int TestRunResultID { get; set; }
         [Display(Name = "TestCase In TestRun")]
