@@ -120,13 +120,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                     throw new Exception("TestRunResultId was not valid");
                 }
                 var testRunResultViewModel = TestRunResultPresenterObject.GetTestRunResultInProgress(testRunId.Value);
-                return Json(new { success = true, testRunResultID = testRunResultViewModel.ID});
+                return Json(new { success = true, testRunResultID = testRunResultViewModel.ID}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
                  return View("ResultNotFoundError");
             }
-            
         }
 
         public ActionResult FinishTestRunResult(int testRunResultID)

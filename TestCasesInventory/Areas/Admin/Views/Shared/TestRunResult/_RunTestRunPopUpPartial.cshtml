@@ -8,9 +8,10 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
                 <h4>@Model.Title</h4>
             </div>
+            <div class="loader"></div>
             <div class="modal-body" id="modalContent-run-testrun">
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer btn-group-set-status">
                 <input id="submit-pass" class="btn btn-primary" type="button" value="Pass" data-status="Passed"/>
                 <input id="submit-fail" class="btn btn-danger" type="button" value="Fail" data-status="Failed"/>
                 <input id="submit-skip" class="btn btn-default" type="button" value="Skip" data-status="Skipped"/>

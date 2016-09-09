@@ -1,6 +1,6 @@
-﻿define(['handlebars', 'templateHelper', 'App/TestRunResult/Views/testrunresult-pop-up-view', 'promise',
+﻿define(['handlebars', 'templateHelper', 'App/TestRunResult/Views/testrunresult-option-view', 'promise',
         'App/TestRunResult/testrunresult-routes'],
-    function (handleBars, templateHelper, testRunResultPopUpView, promise, routes) {
+    function (handleBars, templateHelper, testRunResultOptionView, promise, routes) {
         var exportModule = {
 
         };
@@ -21,7 +21,7 @@
                 e.preventDefault();
                 var self = $(this);
                 var id = self.attr('data-test-run');
-                var view = new testRunResultPopUpView(id);
+                var view = new testRunResultOptionView(id);
                 $('#modal-container-run-testrun').modal({ backdrop: "static" }).on('hide.bs.modal', function () {
                     view.dispose();
                 });

@@ -1,4 +1,8 @@
-﻿.modal-lg {
+﻿.btn-group-set-status {
+    display:none;
+}
+
+.modal-lg {
     width: 900px;
 }
 
