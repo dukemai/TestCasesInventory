@@ -57,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.LastModifiedDate)
             </td>
             <td>
-                @*@Html.ActionLink("Details", "Details", new { id = item.ID, sortBy = "", searchByTitle = "" })*@
+                @Html.ActionLink("Details", "Details", new { id = item.ID @*, sortBy = "", searchByTitle = ""*@ })
             </td>
         </tr>
     }

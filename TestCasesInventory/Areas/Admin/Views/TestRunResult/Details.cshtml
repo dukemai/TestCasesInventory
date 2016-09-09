@@ -1,0 +1,33 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model TestRunResultDetailViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDetailLayout.cshtml";
+}
+<h3> Details </h3>
+<hr />
+
+
+<div id="test-run-result-detail" test-run-result-id=@Model.ID>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="detail-info">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div id="status-chart">
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div id="tester-chart">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<p>
+    @Html.ActionLink("Back to List", "Details", "TestRun", new { id = Model.TestRunID }, "")
+</p>
