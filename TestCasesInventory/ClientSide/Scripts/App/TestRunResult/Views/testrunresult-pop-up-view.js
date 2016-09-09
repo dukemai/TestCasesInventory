@@ -50,7 +50,7 @@
                 else {
                     promise.resolve(runTestCase(testCasesInTestRunID, testRunResultID, newStatus, comment.val()))
                     .then(function () {
-                        currentStatus.html(newStatus);
+                        currentStatus.html(newStatus).prop('class', newStatus.toLowerCase());
                         comment.html(comment.val());
                         checkToFinish(activeItem, itemsNumber, self);
                         myCarousel.carousel("next");
@@ -82,9 +82,6 @@
                         location.reload();
                     });
             })
-
-
-
         }
 
         function doneTestRunResult(doneSubmit, testRunResultView) {

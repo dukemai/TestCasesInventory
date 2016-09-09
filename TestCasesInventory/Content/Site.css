@@ -210,7 +210,7 @@ textarea {
 
 
 .carousel-indicators {
-    bottom:0;
+    bottom: 0;
 }
 
     .carousel-indicators > li {
@@ -223,8 +223,20 @@ textarea {
 
 .run-test-run .carousel {
     height: 450px;
-    
 }
-.modal-body{
-    overflow:hidden;
+
+.modal-body {
+    overflow: hidden;
+}
+
+.passed {
+    color: #4caf50;
+}
+
+.failed {
+    color: #d9534f;
+}
+
+.skipped {
+    color: #8a6d3b;
 }
