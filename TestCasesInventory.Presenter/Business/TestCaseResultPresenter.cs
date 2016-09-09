@@ -72,19 +72,31 @@ namespace TestCasesInventory.Presenter.Business
             return testCaseResultViewModel;
         }
 
-        //public TestCaseResultViewModel GetTestCaseResult(int testCaseInTestRunID, int testRunResultID)
-        //{
-        //    var testCaseResult = TestCaseResultRepository.GetTestCaseResult(testCaseInTestRunID, testRunResultID);
+        public TestCaseResultViewModel GetTestCaseResult(int testCasesInTestRunID, int testRunResultID)
+        {
+            var testCasesInTestRun = TestCaseInTestRunRepository.GetTestCaseInTestRunByID(testCasesInTestRunID);
+            if (testCasesInTestRun == null)
+            {
+                logger.Error("TestCasesInTestRunID was not valid");
+                throw new Exception("TestCasesInTestRunID was not valid");
+            }
+            var testRunResult = TestRunResultRepository.GetTestRunResultByID(testRunResultID);
+            if (testRunResult == null)
+            {
+                logger.Error("TestRunResultID was not valid");
+                throw new Exception("TestRunResultID was not valid");
+            }
+            var testCaseResult = TestCaseResultRepository.GetTestCaseResult(testCasesInTestRunID, testRunResultID);
 
-        //    if(testCaseResult == null)
-        //    {
-        //        logger.Error("Test Case was not found.");
-        //        throw new TestCaseNotFoundException("Test Case was not found.");
-        //    }
+            if (testCaseResult == null)
+            {
+                logger.Error("Test Case was not found.");
+                throw new TestCaseNotFoundException("Test Case was not found.");
+            }
 
-        //    var testCaseResultViewModel = testCaseResult.MapTo<TestCaseResultDataModel, TestCaseResultViewModel>();
-        //    return testCaseResultViewModel;
-        //}
+            var testCaseResultViewModel = testCaseResult.MapTo<TestCaseResultDataModel, TestCaseResultViewModel>();
+            return testCaseResultViewModel;
+        }
 
 
         public IPagedList<TestCaseResultViewModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions filterOptions)
@@ -94,7 +106,7 @@ namespace TestCasesInventory.Presenter.Business
             return mappedList;
         }
 
-        public void InsertTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
+        public void InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
         {
             testCaseResult.RunBy = User.Identity.GetUserId();
             var testCasesInTestRun = TestCaseInTestRunRepository.GetTestCaseInTestRunByID(testCaseResult.TestCasesInTestRunID);
@@ -114,12 +126,16 @@ namespace TestCasesInventory.Presenter.Business
             if(testCaseResultDataModel == null)
             {
                 testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
+                testCaseResultDataModel.CreatedDate = testCaseResultDataModel.LastModifiedDate = DateTime.Now;
+                testCaseResultDataModel.Created = testCaseResultDataModel.LastModified = User.Identity.GetUserName();
                 TestCaseResultRepository.InsertTestCaseResult(testCaseResultDataModel);
                 TestCaseResultRepository.Save();
             }
             else
             {
                 testCaseResultDataModel = testCaseResult.MapTo<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
+                testCaseResultDataModel.LastModifiedDate = DateTime.Now;
+                testCaseResultDataModel.LastModified = User.Identity.GetUserName();
                 TestCaseResultRepository.UpdateTestCaseResult(testCaseResultDataModel);
                 TestCaseResultRepository.Save();
             }

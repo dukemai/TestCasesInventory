@@ -35,7 +35,10 @@ namespace TestCasesInventory.Presenter.Mappings
             this.CreateMap<EditTestCaseResultViewModel, TestCaseResultDataModel>()
                 .Ignore(m => m.Created)
                 .Ignore(m => m.CreatedDate);
-            this.CreateMap<CreateTestCaseResultViewModel, TestCaseResultDataModel>();
+            this.CreateMap<CreateTestCaseResultViewModel, TestCaseResultDataModel>()
+                .Ignore(m => m.Created)
+                .Ignore(m => m.CreatedDate);
+
         }
     }
 }

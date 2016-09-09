@@ -51,7 +51,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         {
             //check testcaserusult object: ton tai => update status
             // chua ton tai => create new
-            //testCaseResultPresenterObject.InsertTestCaseResult(testCaseResult);
+            TestCaseResultPresenterObject.InsertOrUpdateTestCaseResult(testCaseResult);
 
             return Json("Done");
 
@@ -59,6 +59,12 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
 
+       [HttpGet]
+       public ActionResult GetTestCaseResult(int testCasesInTestRun, int testRunResult)
+        {
+            var testCaseResult = TestCaseResultPresenterObject.GetTestCaseResult(testCasesInTestRun, testRunResult);
+            return Json(testCaseResult, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }
