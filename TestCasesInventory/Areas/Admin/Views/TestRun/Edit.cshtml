@@ -1,5 +1,5 @@
 ﻿@using TestCasesInventory.Presenter.Models
-@model TestSuiteViewModel
+@model TestRunViewModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminEditLayout.cshtml";
@@ -12,12 +12,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>TestSuite: @Model.Title</h4>
+        <h4>TestRun: @Model.Title</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
-        @Html.Action("EditTestSuitePartial", "TestSuite")
+        @Html.Action("EditTestRunPartial", "TestRun")
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
