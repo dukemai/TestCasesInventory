@@ -235,9 +235,7 @@
     <Content Include="ClientSide\Scripts\Lib\respond.min.js" />
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
-    <Content Include="ClientSide\Templates\TestRunResult\tesrun-result-status-chart.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrun-result-detail-info.html" />
-    <Content Include="ClientSide\Templates\TestRunResult\testrun-result-tester-chart.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
