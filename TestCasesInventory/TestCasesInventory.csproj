@@ -174,10 +174,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientSide\Scripts\App\app.js" />
-    <Content Include="ClientSide\Scripts\App\file-control-custom.js" />
+    <Content Include="ClientSide\Scripts\App\file-delete-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\detaildatamodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunresultdetailmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\testrun-result-detail.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\detail-info-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\status-chart-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\tester-chart-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testrun-result-detail-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\assign-testcase-to-user.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\testcasesintestrunmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRun\Models\usermodel.js" />
@@ -198,8 +205,10 @@
     <Content Include="ClientSide\Scripts\App\TestRun\Views\testrun-popup-view.js" />
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\exporting.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\simplebar.js" />
+    <Content Include="ClientSide\Scripts\Lib\highcharts.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\plugins\autolink\plugin.min.js" />
@@ -229,6 +238,7 @@
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
     <Content Include="ClientSide\Templates\TestRunResult\options-run-popup.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\testrun-result-detail-info.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testrun-popup.html" />
@@ -242,6 +252,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Areas\Admin\Views\TestRunResult\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultRunByHighChartPartial.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -312,6 +325,8 @@
     <Content Include="Areas\Admin\Views\Shared\TestCaseInTestRun\_DeleteConfirmationPartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultHighChartPartial.cshtml" />
+   
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_FinishTestRunResultPopUpPartial.cshtml" />
     <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
     <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />
