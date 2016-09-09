@@ -194,7 +194,7 @@ namespace TestCasesInventory.Presenter.Business
             }
         }
 
-        public IList<TestRunResultViewModel> GetTestRunResultInProgress(int testRunID)
+        public TestRunResultViewModel GetTestRunResultInProgress(int testRunID)
         {
             var testRun = testRunRepository.GetTestRunByID(testRunID);
             if(testRun == null)
@@ -202,14 +202,15 @@ namespace TestCasesInventory.Presenter.Business
                 logger.Error("Test run was not found.");
                 throw new TestRunNotFoundException("Test run was not found.");
             }
-            var listTestRunResultInProgressViewModel = new List<TestRunResultViewModel>();
-            var listTestRunResultInProgressDataMode = testRunResultRepository.GetTestRunResultsInProgress(testRunID);
-            foreach (var item in listTestRunResultInProgressDataMode)
+            var testRunResultInProgressDataMode = testRunResultRepository.GetTestRunResultsInProgress(testRunID);
+            if(testRunResultInProgressDataMode == null)
             {
-                var testRunResultInProgress = item.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
-                listTestRunResultInProgressViewModel.Add(testRunResultInProgress);
+                var testRunResultID = CreateTestRunResult(testRunID);
+                testRunResultInProgressDataMode = testRunResultRepository.GetTestRunResultsInProgress(testRunID);
             }
-            return listTestRunResultInProgressViewModel;
+            
+            var testRunResultInProgressViewModel = testRunResultInProgressDataMode.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
+            return testRunResultInProgressViewModel;
 
         }
         #endregion

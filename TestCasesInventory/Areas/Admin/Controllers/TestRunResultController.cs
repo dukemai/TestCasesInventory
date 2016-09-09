@@ -57,7 +57,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 throw new Exception("Id was not valid");
             }
-            var testRunResultID = TestRunResultPresenterObject.CreateTestRunResult(testRunID.Value); ;
+            var testRunResultID = TestRunResultPresenterObject.CreateTestRunResult(testRunID.Value);
             return Json(new { success = true, testRunResultID = testRunResultID });
         }
 
@@ -111,16 +111,16 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTestRunResultInProgress(int? testRunResultId)
+        public ActionResult GetTestRunResult(int? testRunId)
         {
             try
             {
-                if (!testRunResultId.HasValue)
+                if (!testRunId.HasValue)
                 {
                     throw new Exception("TestRunResultId was not valid");
                 }
-                var listTestRunResultInProgressViewModel = TestRunResultPresenterObject.GetTestRunResultInProgress(testRunResultId.Value);
-                return Json(listTestRunResultInProgressViewModel, JsonRequestBehavior.AllowGet);
+                var testRunResultViewModel = TestRunResultPresenterObject.GetTestRunResultInProgress(testRunId.Value);
+                return Json(new { success = true, testRunResultID = testRunResultViewModel.ID});
             }
             catch (Exception e)
             {

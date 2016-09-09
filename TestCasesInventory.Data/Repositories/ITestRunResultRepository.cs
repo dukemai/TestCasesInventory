@@ -19,6 +19,6 @@ namespace TestCasesInventory.Data.Repositories
         void Save();
         IEnumerable<TestCaseResultDataModel> ListTestCaseResultsForTestRunResult(int testRunResultID);
         IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options, int testRunID);
-        IEnumerable<TestRunResultDataModel> GetTestRunResultsInProgress(int testRunID);
+        TestRunResultDataModel GetTestRunResultsInProgress(int testRunID);
     }
 }

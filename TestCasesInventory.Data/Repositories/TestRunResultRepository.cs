@@ -95,9 +95,9 @@ namespace TestCasesInventory.Data.Repositories
             return query.ToCustomPagedList(DefaultPagingConfig.DefaultPageNumber, DefaultPagingConfig.DefaultPageSize);
         }
 
-        public IEnumerable<TestRunResultDataModel> GetTestRunResultsInProgress(int testRunID)
+        public TestRunResultDataModel GetTestRunResultsInProgress(int testRunID)
         {
-            return dataContext.TestRunResults.Where(t => t.Status == "In Progress").ToList();
+            return dataContext.TestRunResults.Where(t => t.Status == "In Progress" && t.TestRunID == testRunID).FirstOrDefault();
         }
     }
 }
