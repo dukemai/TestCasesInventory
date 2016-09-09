@@ -27,6 +27,9 @@
             setTestCaseResult($('#submit-fail'), self);
             setTestCaseResult($('#submit-skip'), self);
             doneTestRunResult($('#submit-done'), self);
+            $('#close-runtestrun').on('click.close', function () {
+                location.reload();
+            });
         }
 
 
@@ -117,6 +120,7 @@
             $('#submit-fail').off('click.submit');
             $('#submit-skip').off('click.submit');
             $('#submit-done').off('click.submit.done');
+            $('#close-runtestrun').off('click.close');
         }
 
         testRunResultView.prototype.dispose = function () {

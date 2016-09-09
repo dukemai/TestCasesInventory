@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TestCasesInventory.Data;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Data.Repositories;
+using TestCasesInventory.Presenter.Common;
 using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Mappings
@@ -25,7 +26,8 @@ namespace TestCasesInventory.Presenter.Mappings
                 .ForMember(dest => dest.AssignedTo, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedTo).DisplayName))
                 .ForMember(dest => dest.AssignedBy, opt => opt.MapFrom(src => UserManager.FindById(src.AssignedBy).DisplayName))
                 .ForMember(dest => dest.TestSuiteTitle, opt => opt.MapFrom(src => testSuiteRepository.GetTestSuiteByID(src.TestSuiteID).Title));
-            this.CreateMap<TestCaseResultDataModel, TestCasesInTestRunResultViewModel>();
+            this.CreateMap<TestCaseResultDataModel, TestCasesInTestRunResultViewModel>()
+                .Ignore(m => m.ID);
 
         }
 
