@@ -9,6 +9,7 @@
             }).on('loadingCompleted.view', function () {
                 setTimeout(function () {
                     $('.loader').hide();
+                    $(".btn-group-set-status").show();
                 }, 500);
             });
         }
@@ -23,7 +24,6 @@
             $(document).trigger('loading.view');
             self.model.getTestRunResult().then(function () {
                 $(document).trigger('loadingCompleted.view');
-                $(".btn-group-set-status").show();
                 var testCaseView = new testCasesSlide(self.model.TestRunResult.ID);
                 testCaseView.render();
                 registerEvents(self);
@@ -32,6 +32,7 @@
 
         testRunResultOption.prototype.dispose = function () {
             unRegisterEvents();
+            $(".btn-group-set-status").hide();
             $('#modalContent-run-testrun').empty();
         }
         return testRunResultOption;
