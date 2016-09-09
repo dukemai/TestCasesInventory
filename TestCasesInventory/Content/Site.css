@@ -1,5 +1,5 @@
 ﻿.btn-group-set-status {
-    display:none;
+    display: none;
 }
 
 .modal-lg {
@@ -208,11 +208,13 @@ textarea {
     background-image: none;
 }
 
+.carousel-control.right {
     background-image: none;
 }
 
 
 .carousel-indicators {
+    bottom: 0;
 }
 
     .carousel-indicators > li {
@@ -224,11 +226,14 @@ textarea {
         }
 
 .run-test-run .carousel {
+    height: 450px;
+}
 
 .modal-body {
     overflow: hidden;
+}
 
-.passed {
+.passed{
     color: #4caf50;
 }
 
