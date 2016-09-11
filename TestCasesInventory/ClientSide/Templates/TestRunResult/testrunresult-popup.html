@@ -1,15 +1,4 @@
 ﻿<div id="myCarousel" class="carousel slide" data-ride="carousel" data-simplebar-direction="vertical" data-wrap="false">
-    <div id="indicators-container">
-        <ol class="carousel-indicators">
-            {{#each .}}
-            {{#if @first}}
-            <li data-target="#myCarousel" data-slide-to="{{@index}}" class="active"></li>
-            {{else}}
-            <li data-target="#myCarousel" data-slide-to="{{@index}}"></li>
-            {{/if}}
-            {{/each}}
-        </ol>
-    </div>
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         {{#each .}}
@@ -62,8 +51,22 @@
 
 
     </div>
-
-
 </div>
-
 <!-- Indicators -->
+<div class="pagination-container" id="run-test-pagination">
+    <ul class="pagination pagination-sm">
+        <li data-target="#myCarousel" data-slide="prev"><a href="#">&laquo;</a></li>
+        {{#each .}}
+        {{#if @first}}
+        <li data-target="#myCarousel" data-slide-to="{{@index}}" class="paging-li active" >
+            <a href="#">{{@index}}</a>
+        </li>
+        {{else}}
+        <li data-target="#myCarousel" class="paging-li" data-slide-to="{{@index}}">
+            <a href="#">{{@index}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+        <li data-target="#myCarousel" data-slide="next"><a href="#">&raquo;</a></li>
+    </ul>
+</div>

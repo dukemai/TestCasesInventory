@@ -22,7 +22,15 @@
 
         function registerEvents(testRunResultView) {
             var self = testRunResultView;
-            $('#myCarousel').carousel({ interval: false });
+            $('#myCarousel')
+                .carousel({ interval: false })
+                .on('slid.bs.carousel', function (e) {
+                    var pagination = $('#run-test-pagination');
+                    var index= $(this).find('.active').index();
+
+                    $('.active.paging-li').removeClass('active');                    
+                    $('[data-slide-to="'+index+'"]',pagination).addClass('active');
+                });
             setTestCaseResult($('#submit-pass'), self);
             setTestCaseResult($('#submit-fail'), self);
             setTestCaseResult($('#submit-skip'), self);
