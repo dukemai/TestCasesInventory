@@ -1,0 +1,16 @@
+﻿<table class="table table-striped">
+    <tr>
+        <th><h4>Title</h4></th>
+        <th><h4>Priority</h4></th>
+        <th><h4>Status</h4></th>
+        <th><h4>Run By</h4></th>
+    </tr>
+    {{#each .}}
+    <tr>
+        <td>{{TestCaseTitle}}</td>
+        <td><span class="label {{PriorityStyleClass}}"> {{TestCasePriority}} </span></td>
+        <td><span class="{{StatusStyleClass}}">{{Status}}</span></td>
+        <td>{{RunBy}}</td>
+    </tr>
+    {{/each}}
+</table>

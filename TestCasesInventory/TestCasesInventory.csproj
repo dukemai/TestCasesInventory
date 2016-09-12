@@ -178,7 +178,10 @@
     <Content Include="ClientSide\Scripts\App\routes.js" />
     <Content Include="ClientSide\Scripts\App\tab-common-functions.js" />
     <Content Include="ClientSide\Scripts\App\template-helper.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testerchartmodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunmodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testcases-info-view.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testcasesresult-table-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testrunresult-option-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\detaildatamodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testrunresultdetailmodel.js" />
@@ -239,6 +242,7 @@
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
     <Content Include="ClientSide\Templates\TestRunResult\options-run-popup.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\TestCasesResult\testcases-result-table.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrun-result-detail-info.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
     <Content Include="ClientSide\Templates\TestRun\testsuites-in-popup.html" />

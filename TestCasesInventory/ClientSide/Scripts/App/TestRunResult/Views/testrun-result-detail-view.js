@@ -1,20 +1,23 @@
-﻿define(['App/TestRunResult/Models/testrunresultdetailmodel', 'App/TestRunResult/Views/detail-info-view', 'App/TestRunResult/Views/status-chart-view', 'App/TestRunResult/Views/tester-chart-view', 'promise', 'underscore'],
-    function (testRunResultDetailModel, DetailInfoView, ChartStatusView, ChartTesterView, promise, _) {
+﻿define(['App/TestRunResult/Models/testrunresultdetailmodel', 'App/TestRunResult/Views/detail-info-view', 'App/TestRunResult/Views/status-chart-view', 'App/TestRunResult/Views/testcases-info-view', 'promise', 'underscore'],
+    function (testRunResultDetailModel, DetailInfoView, ChartStatusView, TestCasesInfo, promise, _) {
         function testRunResultDetailView(id) {
             this.model = new testRunResultDetailModel(id);
+            this.detailInfoView = {};
+            this.chartStatusView = {};
+            this.testCasesInfo = {};
         }
 
         testRunResultDetailView.prototype.render = function () {
             var self = this;
             self.model.getTestRunResultData().then(
                 function () {
-                    var detailInfoView = new DetailInfoView(self.model.data);
-                    var chartStatusView = new ChartStatusView(self.model.data);
-                    var chartTesterView = new ChartTesterView(self.model.data);
+                    self.detailInfoView = new DetailInfoView(self.model.data);
+                    self.chartStatusView = new ChartStatusView(self.model.data);
+                    self.testCasesInfo = new TestCasesInfo(self.model.ID);
 
-                    detailInfoView.render();
-                    chartStatusView.render();
-                    chartTesterView.render();
+                    self.detailInfoView.render();
+                    self.chartStatusView.render();
+                    self.testCasesInfo.render();
 
                 });
         }
