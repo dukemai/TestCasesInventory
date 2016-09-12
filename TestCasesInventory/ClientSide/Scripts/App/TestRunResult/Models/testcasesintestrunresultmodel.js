@@ -10,8 +10,8 @@
         this.Comment = comment;
         this.PriorityStyleClass = priorityStyleClass;
         this.StatusStyleClass = statusStyleClass;
-        this.RunBy = RunBy;
-        this.LastRunDate = RunBy == null ?  "":new Date(parseInt(LastRunDate.substr(6)));
+        this.RunBy = status == "Skipped" ? null : RunBy;
+        this.LastRunDate = this.RunBy == null ?  "":new Date(parseInt(LastRunDate.substr(6)));
     }
     return testCasesInTestRunResultModel;
 });
