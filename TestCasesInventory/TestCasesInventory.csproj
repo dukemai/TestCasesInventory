@@ -209,7 +209,6 @@
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
     <Content Include="ClientSide\Scripts\Lib\drilldown.js" />
-    <Content Include="ClientSide\Scripts\Lib\exporting.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\simplebar.js" />
     <Content Include="ClientSide\Scripts\Lib\highcharts.js" />

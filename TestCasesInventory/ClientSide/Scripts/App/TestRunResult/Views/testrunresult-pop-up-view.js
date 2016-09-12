@@ -22,23 +22,34 @@
 
         function registerEvents(testRunResultView) {
             var self = testRunResultView;
-            $('#myCarousel').carousel({ interval: false });
+            $('#myCarousel')
+                .carousel({ interval: false })
+                .on('slid.bs.carousel', function (e) {
+                    var pagination = $('#run-test-pagination');
+                    var index= $(this).find('.active').index();
+
+                    $('.active.paging-li').removeClass('active');                    
+                    $('[data-slide-to="'+index+'"]',pagination).addClass('active');
+                });
             setTestCaseResult($('#submit-pass'), self);
             setTestCaseResult($('#submit-fail'), self);
             setTestCaseResult($('#submit-skip'), self);
             doneTestRunResult($('#submit-done'), self);
+            $('#close-runtestrun').on('click.close', function () {
+                location.reload();
+            });
         }
 
 
 
         function setTestCaseResult(resultSubmit, testRunResultView) {
-            self = testRunResultView;
+            var self = testRunResultView;
+            var testRunResultID = self.model.ID;
             resultSubmit.on('click.submit', function () {
                 var myCarousel = $('#myCarousel');
                 var itemsNumber = $('.item').length;
                 var activeItem = $('.item.active');
                 var testCasesInTestRunID = activeItem.attr('data-id');
-                var testRunResultID = 2;
                 var comment = $('#comment-' + testCasesInTestRunID);
                 var newStatus = resultSubmit.attr('data-status');
                 var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
@@ -68,6 +79,8 @@
         }
 
         function showFinishDialog(testRunResultView) {
+            var self = testRunResultView;
+            var testRunResultID = self.model.ID;
             var finishModal = $('#modal-container-finish-testrunresult');
             finishModal.modal({ backdrop: "static" });
 
@@ -76,7 +89,6 @@
                     .then($('#cancel-finish').off('click.cancel.finish'));
             });
             $('#submit-finish').on('click.submit.finish', function () {
-                var testRunResultID = 1;
                 promise.resolve(finishTestRunResult(testRunResultID))
                     .then(function () {
                         location.reload();
@@ -86,8 +98,8 @@
 
         function doneTestRunResult(doneSubmit, testRunResultView) {
             var self = testRunResultView;
+            var testRunResultID = self.model.ID;
             doneSubmit.on('click.submit.done', function () {
-                var testRunResultID = 1;
                 promise.resolve(finishTestRunResult(testRunResultID))
                     .then(function () {
                         showFinishDialog(self);
@@ -116,6 +128,7 @@
             $('#submit-fail').off('click.submit');
             $('#submit-skip').off('click.submit');
             $('#submit-done').off('click.submit.done');
+            $('#close-runtestrun').off('click.close');
         }
 
         testRunResultView.prototype.dispose = function () {

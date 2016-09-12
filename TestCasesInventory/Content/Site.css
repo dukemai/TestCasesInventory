@@ -1,5 +1,5 @@
 ﻿.btn-group-set-status {
-    display:none;
+    display: none;
 }
 
 .modal-lg {
@@ -203,30 +203,21 @@ textarea {
     text-align: center;
 }
 
-
-.carousel-control.left {
-    background-image: none;
+.pagination-container {
+    text-align: center;
 }
 
-    background-image: none;
-}
-
-
-.carousel-indicators {
-}
-
-    .carousel-indicators > li {
-        background-color: aquamarine;
+    .modal-body .pagination {
+        margin-bottom: 0;
     }
 
-        .carousel-indicators > li.active {
-            background-color: cadetblue;
-        }
-
 .run-test-run .carousel {
+    height: 450px;
+}
 
 .modal-body {
     overflow: hidden;
+}
 
 .passed {
     color: #4caf50;

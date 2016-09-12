@@ -1,5 +1,5 @@
 ﻿define([], function () {
-    function testCasesInTestRunResultModel(id, title, priority, decription, precondition, expect, status, comment, priorityStyleClass) {
+    function testCasesInTestRunResultModel(id, title, priority, decription, precondition, expect, status, comment, priorityStyleClass, statusStyleClass) {
         this.ID = id;
         this.TestCaseTitle = title;
         this.TestCasePriority = priority;
@@ -9,6 +9,7 @@
         this.Status = status;
         this.Comment = comment;
         this.PriorityStyleClass = priorityStyleClass;
+        this.StatusStyleClass = statusStyleClass;
     }
     return testCasesInTestRunResultModel;
 });
