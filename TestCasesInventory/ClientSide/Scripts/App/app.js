@@ -1,8 +1,9 @@
 ﻿define(['tinyMCEInit', 'tabCommonFunctions', 'fileDeleteConfirmation', 'addTestCasesToTestRun', 'deleteTestCasesInTestRunConfirmation',
-    'assignTestCaseToUser', 'runTestRun', 'testRunResultDetail'], function () {
+    'assignTestCaseToUser', 'runTestRun', 'testRunResultDetail', 'handlebarsHelper'], function () {
 
     var app = {};
     app.init = function () {
+        initHandlebarsHelper();
         initEditors();
         initTabFunctions();
         initFileDeleteConfirmation();
@@ -11,12 +12,12 @@
     app.initAddTestCasesToTestRun = function () {
         var addTestCasesToTestRun = require('addTestCasesToTestRun');
         addTestCasesToTestRun.init();
-    };
+    }
     
     app.initDeleteTestCasesInTestRunConfirmation = function () {
         var deleteTestCasesInTestRunConfirmation = require('deleteTestCasesInTestRunConfirmation');
         deleteTestCasesInTestRunConfirmation.init();
-    };
+    }
 
     app.initAssignTestCaseToUser = function () {
         var assignTestCaseToUser = require('assignTestCaseToUser');
@@ -50,5 +51,10 @@
         fileDeleteConfirmation.init();
     }
    
+    function initHandlebarsHelper() {
+        var handlebarsHelper = require('handlebarsHelper');
+        handlebarsHelper.init();
+    }
+
     return app;
 });

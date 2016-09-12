@@ -113,9 +113,6 @@
             var promisedResult = templateHelper.loadAndCache('testrunresult-popup', '/ClientSide/Templates/TestRunResult/testrunresult-popup.html');
             if (promisedResult) {
                 promisedResult.then(function () {
-                    handlebars.registerHelper("inc", function (value) {
-                        return parseInt(value) + 1;
-                    })
                     self.template = templateHelper.templates['testrunresult-popup'];
                     self.model.loadTestCasesInTestRunResults().then(function () {
                         $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));

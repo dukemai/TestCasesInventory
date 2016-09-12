@@ -32,7 +32,7 @@
                 }
                 var tooltip = {
                     //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    pointFormat: ' Number of {series.name}: <b>{point.y}</b>',
+                    pointFormat: '<b>{point.y}</b>',
                     hideDelay: 300
                 };
                 var plotOptions = {
