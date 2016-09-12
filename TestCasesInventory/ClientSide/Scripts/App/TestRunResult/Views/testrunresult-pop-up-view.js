@@ -1,6 +1,6 @@
-﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar',
+﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar', 'handlebars',
     'App/TestRunResult/testrunresult-routes'],
-    function (testRunResultModel, templateHelper, promise, _, simplebar, routes) {
+    function (testRunResultModel, templateHelper, promise, _, simplebar, handlebars, routes) {
         function testRunResultView(id) {
             this.model = new testRunResultModel(id);
             this.template = '';
@@ -113,6 +113,9 @@
             var promisedResult = templateHelper.loadAndCache('testrunresult-popup', '/ClientSide/Templates/TestRunResult/testrunresult-popup.html');
             if (promisedResult) {
                 promisedResult.then(function () {
+                    handlebars.registerHelper("inc", function (value) {
+                        return parseInt(value) + 1;
+                    })
                     self.template = templateHelper.templates['testrunresult-popup'];
                     self.model.loadTestCasesInTestRunResults().then(function () {
                         $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));

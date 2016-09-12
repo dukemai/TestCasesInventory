@@ -58,12 +58,12 @@
         <li data-target="#myCarousel" data-slide="prev"><a href="#">&laquo;</a></li>
         {{#each .}}
         {{#if @first}}
-        <li data-target="#myCarousel" data-slide-to="{{@index}}" class="paging-li active" >
-            <a href="#">{{@index}}</a>
+        <li data-target="#myCarousel" data-slide-to="{{@index}}" class="paging-li active">
+            <a href="#">{{inc @index}}</a>
         </li>
         {{else}}
         <li data-target="#myCarousel" class="paging-li" data-slide-to="{{@index}}">
-            <a href="#">{{@index}}</a>
+            <a href="#">{{inc @index}}</a>
         </li>
         {{/if}}
         {{/each}}
