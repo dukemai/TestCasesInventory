@@ -46,12 +46,20 @@
                         }
                     }
                 };
+               
                 var resultInfo =
                      [
-                    { "name": "User1", "y": 9 },
-                    { "name": "User2", "y": 7 },
-                    { "name": "Admin", "y": 25 }
+                    //{ "name": self.model.testersData[0].Name, "y": self.model.testersData[0].TotalTestCases },
+                    //{ "name": self.model.testersData[1].Name, "y": self.model.testersData[1].TotalTestCases },
+                    //{ "name": "Admin", "y": 25 }
                      ]
+
+                for (i = 0; i < self.model.testersData.length; i++)
+                {
+                    resultInfo.push(
+                        { "name": self.model.testersData[i].Name, "y": self.model.testersData[i].TotalTestCases }
+                        )
+                }
                 var series = [{
                     type: 'pie',
                     name: 'Test Cases',
@@ -74,6 +82,7 @@
             var self = this;
             self.model.statistic();
             console.log(self.model.testersData);
+            self.initChart();
         }
 
         return testerChartView;
