@@ -230,3 +230,6 @@ textarea {
 .skipped {
     color: #8a6d3b;
 }
+.testcases-result-table {
+margin-top: 20px;
+}
