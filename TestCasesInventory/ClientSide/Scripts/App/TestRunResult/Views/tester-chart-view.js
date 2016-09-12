@@ -1,7 +1,7 @@
-﻿define(['promise', 'underscore', 'highCharts'],
-    function (promise, _) {
-        function testerChartView(data) {
-            this.model = data;
+﻿define(['App/TestRunResult/Models/testerchartmodel', 'promise', 'underscore', 'highCharts'],
+    function (testerChartModel,promise, _) {
+        function testerChartView(TestCasesData) {
+            this.model = new testerChartModel(TestCasesData);
         }
         testerChartView.prototype.initChart = function () {
             var self = this;
