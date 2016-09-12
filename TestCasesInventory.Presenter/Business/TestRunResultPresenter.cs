@@ -93,11 +93,17 @@ namespace TestCasesInventory.Presenter.Business
             testRunResultRepository.Save();
         }
 
-        public IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID)
+        public List<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID)
         {
-            var list = testRunResultRepository.GetTestRunResults(options, testRunID);
-            var mappedList = list.MapTo<IPagedList<TestRunResultDataModel>, IPagedList<TestRunResultViewModel>>();
-            return mappedList;
+            var listTestRunResutlDataModel = testRunResultRepository.ListAll(options, testRunID);
+            var listTestRunResutlViewModel = new List<TestRunResultViewModel>();
+            
+            foreach(var testRunResultDataModel in listTestRunResutlDataModel)
+            {
+                var testRunResultViewModel = testRunResultDataModel.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
+                listTestRunResutlViewModel.Add(testRunResultViewModel);
+            }
+            return listTestRunResutlViewModel;
         }
 
         public void FinishTestRunResult(int testRunResultId)
