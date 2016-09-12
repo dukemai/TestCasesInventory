@@ -6,7 +6,7 @@
         this.TestCaseDescription = decription;
         this.TestCasePrecondition = precondition;
         this.TestCaseExpect = expect;
-        this.Status = status;
+        this.Status = status == null ? "Skipped" : status;
         this.Comment = comment;
         this.PriorityStyleClass = priorityStyleClass;
         this.StatusStyleClass = statusStyleClass;

@@ -15,7 +15,7 @@ namespace TestCasesInventory.Presenter.Business
         TestRunResultViewModel GetTestRunResultById(int testRunResultID);
         int CreateTestRunResult(int testRunID);
         void DeleteTestRunResult(int testRunResultID);
-        IPagedList<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID);
+        List<TestRunResultViewModel> GetTestRunResults(FilterOptions options, int testRunID);
         void FinishTestRunResult(int testRunResultID);
         TestRunResultViewModel GetTestRunResultInProgress(int testRunID);
 

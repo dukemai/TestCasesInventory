@@ -11,14 +11,14 @@ namespace TestCasesInventory.Data.Repositories
 {
     public interface ITestRunResultRepository
     {
-        IEnumerable<TestRunResultDataModel> ListAll();
+        IEnumerable<TestRunResultDataModel> ListAll(FilterOptions options, int testRunID);
         TestRunResultDataModel GetTestRunResultByID(int testRunResultID);
         void InsertTestRunResult(TestRunResultDataModel testRunResult);
         void UpdateTestRunResult(TestRunResultDataModel testRunResult);
         void DeleteTestRunResult(int testRunResultID);
         void Save();
         IEnumerable<TestCaseResultDataModel> ListTestCaseResultsForTestRunResult(int testRunResultID);
-        IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options, int testRunID);
+        //IPagedList<TestRunResultDataModel> GetTestRunResults(FilterOptions options, int testRunID);
         TestRunResultDataModel GetTestRunResultsInProgress(int testRunID);
     }
 }
