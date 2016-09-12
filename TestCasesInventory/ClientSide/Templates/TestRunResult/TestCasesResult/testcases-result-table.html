@@ -10,6 +10,8 @@
         <th><h4>Priority</h4></th>
         <th><h4>Status</h4></th>
         <th><h4>Run By</h4></th>
+        <th><h4>Last run date</h4></th>
+        <th><h4>Detail</h4></th>
     </tr>
     {{#each .}}
     <tr>
@@ -17,6 +19,8 @@
         <td><span class="label {{PriorityStyleClass}}"> {{TestCasePriority}} </span></td>
         <td><span class="{{StatusStyleClass}}">{{Status}}</span></td>
         <td>{{RunBy}}</td>
+        <td>{{LastRunDate}}</td>
+        <td></td>
     </tr>
     {{/each}}
 </table>
