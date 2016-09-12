@@ -8,7 +8,6 @@
             var chartArea = $('#tester-chart');
             if (chartArea.length) {
                 var chart = {
-                    backgroundColor: "#f3f3f3",
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -21,7 +20,7 @@
                     text: 'Test Run Results By Tester Overview'
                 };
                 var subtitle = {
-                    text: self.model.TestRunTitle 
+                    text: self.model.TestRunTitle ,
                 };
                 var credits = {
                     href: "#",
@@ -29,7 +28,7 @@
                 }
                 var tooltip = {
                     //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    pointFormat: ' Number of {series.name}: <b>{point.y}</b>',
+                    pointFormat: '<b>{point.y}</b>',
                     hideDelay: 300
                 };
                 var plotOptions = {
