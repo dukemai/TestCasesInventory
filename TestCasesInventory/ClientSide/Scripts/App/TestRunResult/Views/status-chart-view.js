@@ -19,7 +19,7 @@
                     borderWidth: 4
 
                 };
-                var colors = ['#bec50d', '#ee5353', '#5be049'];
+                var colors = ['#53a6ff', '#ff5853', '#5be049'];
                 var title = {
                     text: 'Test Run Results By Status Overview'
                 };
@@ -53,7 +53,7 @@
                      [
                     { "name": "Skipped", "y": self.model.NumberOfSkippedTestCases },
                     { "name": "Failed", "y": self.model.NumberOfFailedTestCases },
-                    { "name": "Passed", "y": self.model.NumberOfPassedTestCases }
+                    { "name": "Passed", "y": self.model.NumberOfPassedTestCases },
                      ]
                 var series = [{
                     type: 'pie',
