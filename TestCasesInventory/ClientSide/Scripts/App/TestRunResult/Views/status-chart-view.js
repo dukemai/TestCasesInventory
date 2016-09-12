@@ -19,6 +19,7 @@
                     borderWidth: 4
 
                 };
+                var colors = ['#bec50d', '#ee5353', '#5be049'];
                 var title = {
                     text: 'Test Run Results By Status Overview'
                 };
@@ -62,6 +63,7 @@
 
                 var chartInfo = {};
                 chartInfo.chart = chart;
+                chartInfo.colors = colors
                 chartInfo.title = title;
                 chartInfo.subtitle = subtitle;
                 chartInfo.credits = credits;
