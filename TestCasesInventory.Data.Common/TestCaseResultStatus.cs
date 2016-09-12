@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Linq.Expressions;
-using System.Linq;
-
-
-namespace TestCasesInventory.Presenter.Common
+﻿namespace TestCasesInventory.Data.Common
 {
     public class TestCaseResultStatus
     {

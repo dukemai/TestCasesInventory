@@ -15,8 +15,8 @@ namespace TestCasesInventory.Presenter.Mappings
     public class TestRunResultMappingProfile : Profile
     {
         UserManager<ApplicationUser> UserManager;
-        TestCaseResultRepository testCaseResultRepository;
-        TestCasesInTestRunRepository testCasesInTestRunRepository;
+        ITestCaseResultRepository testCaseResultRepository;
+        ITestCasesInTestRunRepository testCasesInTestRunRepository;
 
         public TestRunResultMappingProfile(string profileName) : base(profileName)
         {
@@ -26,8 +26,8 @@ namespace TestCasesInventory.Presenter.Mappings
 
             this.CreateMap<TestRunResultDataModel, TestRunResultViewModel>()
                  .ForMember(dest => dest.NumberOfTestCases, opt => opt.MapFrom(src => testCasesInTestRunRepository.TotalTestCasesInTestRun(src.TestRunID)))
-                 .ForMember(dest => dest.NumberOfPassedTestCases, opt => opt.MapFrom(src => testCaseResultRepository.ListAll(src.ID).Where(testcase => testcase.Status == TestCaseResultStatus.Passed).Count()))
-                 .ForMember(dest => dest.NumberOfFailedTestCases, opt => opt.MapFrom(src => testCaseResultRepository.ListAll(src.ID).Where(testcase => testcase.Status == TestCaseResultStatus.Failed).Count()))
+                 .ForMember(dest => dest.NumberOfPassedTestCases, opt => opt.MapFrom(src => testCaseResultRepository.TotalPassedTestCaseResults(src.ID)))
+                 .ForMember(dest => dest.NumberOfFailedTestCases, opt => opt.MapFrom(src => testCaseResultRepository.TotalFailedTestCaseResults(src.ID)))
                  .ForMember(dest => dest.Created, opt => opt.MapFrom(src => UserManager.FindByEmail(src.Created).DisplayName))
                  .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => UserManager.FindByEmail(src.LastModified).DisplayName))
                  .ForMember(dest => dest.CreateDisplayOnly, opt =>
