@@ -3,17 +3,17 @@
 @using PagedList.Mvc;
 @using TestCasesInventory.Web.Common.Utils;
 
-@model PagedList.IPagedList<TestRunResultViewModel>
+@model List<TestRunResultViewModel>
 @{
     ViewBag.Title = "TestRun Result Home Page";
 }
 
-@Html.Action("FilterForTestRunResult", "Filter", new { area = "" })
+@*@Html.Action("FilterForTestRunResult", "Filter", new { area = "" })*@
 
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>@Html.SortableLink(Request, "TestRun Result ID", "TestRun Result ID")</h4>
+            <h4>@Html.SortableLink(Request, "ID", "TestRun Result ID")</h4>
         </th>
         <th>
             <h4>@Html.SortableLink(Request, "Status", "Status")</h4>
@@ -28,16 +28,16 @@
             <h4>@Html.SortableLink(Request, "Skipped", "Skipped Test Cases")</h4>
         </th>
         <th>
-            <h4>@Html.SortableLink(Request, "CreatedBy", "Created By")</h4>
+            <h4>@Html.SortableLink(Request, "CreatedBy", "Started By")</h4>
         </th>
-        <th>
+        @*<th>
             <h4>@Html.SortableLink(Request, "LastModifiedBy", "Last Modified By")</h4>
+        </th>*@
+        <th>
+            <h4>@Html.SortableLink(Request, "Created", "Started Date")</h4>
         </th>
         <th>
-            <h4>@Html.SortableLink(Request, "Created", "Created")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "LastModified", "Last Modified")</h4>
+            <h4>@Html.SortableLink(Request, "LastModified", "Finished Date")</h4>
         </th>
         <th>
             <h4>Actions</h4>
@@ -65,9 +65,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDisplayOnly)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.LastModifiedDisplayOnly)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
@@ -81,5 +81,5 @@
     }
 
 </table>
-@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
+@*@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))*@
 
