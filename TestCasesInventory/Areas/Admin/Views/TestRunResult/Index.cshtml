@@ -13,10 +13,19 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>@Html.SortableLink(Request, "TestRunID", "TestRunID")</h4>
+            <h4>@Html.SortableLink(Request, "TestRun Result ID", "TestRun Result ID")</h4>
         </th>
         <th>
             <h4>@Html.SortableLink(Request, "Status", "Status")</h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "Passed", "Passed Test Cases")</h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "Failed", "Failed Test Cases")</h4>
+        </th>
+        <th>
+            <h4>@Html.SortableLink(Request, "Skipped", "Skipped Test Cases")</h4>
         </th>
         <th>
             <h4>@Html.SortableLink(Request, "CreatedBy", "Created By")</h4>
@@ -39,10 +48,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TestRunID)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
                 <span class="label label-@item.StatusStyleClass ">@Html.DisplayFor(modelItem => item.Status) </span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPassedTestCases)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfFailedTestCases)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfSkippedTestCases)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDisplayOnly)
@@ -57,7 +75,7 @@
                 @Html.DisplayFor(modelItem => item.LastModifiedDate)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ID @*, sortBy = "", searchByTitle = ""*@ })
+                @Html.ActionLink("Details", "Details", new{id = item.ID @*, sortBy = "", searchByTitle = ""*@ })
             </td>
         </tr>
     }
