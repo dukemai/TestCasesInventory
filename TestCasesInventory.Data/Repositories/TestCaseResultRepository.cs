@@ -6,6 +6,7 @@ using PagedList;
 using TestCasesInventory.Data.DataModels;
 using TestCasesInventory.Common;
 using TestCasesInventory.Data.Config;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Data.Repositories
 {
@@ -52,6 +53,21 @@ namespace TestCasesInventory.Data.Repositories
         public int TotalTestCaseResultsForTestRunResult(int testRunResultID)
         {
             return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID).Count();
+        }
+
+        public int TotalPassedTestCaseResults(int testRunResultID)
+        {
+            return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID && t.Status == TestCaseResultStatus.Passed).Count();
+        }
+
+        public int TotalFailedTestCaseResults(int testRunResultID)
+        {
+            return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID && t.Status == TestCaseResultStatus.Failed).Count();
+        }
+
+        public int TotalSkippedTestCaseResults(int testRunResultID)
+        {
+            return dataContext.TestCaseResults.Where(t => t.TestRunResultID == testRunResultID && t.Status == TestCaseResultStatus.Skipped).Count();
         }
 
         public IPagedList<TestCaseResultDataModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions options)

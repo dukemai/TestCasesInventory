@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using TestCasesInventory.Presenter.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using TestCasesInventory.Data.Common;
 
 namespace TestCasesInventory.Presenter.Models
 {

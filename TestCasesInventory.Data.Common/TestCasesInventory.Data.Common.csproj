@@ -47,8 +47,10 @@
     <Compile Include="TeamNotFoundException.cs" />
     <Compile Include="TestCaseInTestRunNotFoundException.cs" />
     <Compile Include="TestCaseNotFoundException.cs" />
+    <Compile Include="TestCaseResultStatus.cs" />
     <Compile Include="TestRunNotFoundException.cs" />
     <Compile Include="TestRunResultNotFoundException.cs" />
+    <Compile Include="TestRunResultStatus.cs" />
     <Compile Include="TestSuiteNotFoundException.cs" />
     <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

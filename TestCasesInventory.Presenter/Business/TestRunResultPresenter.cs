@@ -181,36 +181,6 @@ namespace TestCasesInventory.Presenter.Business
             return listTestCases;
         }
 
-        //private List<TestCasesInTestRunResultViewModel> GetAllTestCaseResults(int testRunResultID)
-        //{
-        //    var listTestCases = new List<TestCasesInTestRunResultViewModel>();
-        //    var testCaseResultsModel = testCaseResultRepository.ListAll(testRunResultID);
-        //    foreach (var testCaseResult in testCaseResultsModel)
-        //    {
-        //        var testCaseInTestRun = testCasesInTestRunRepository.GetTestCaseInTestRunByID(testCaseResult.TestCasesInTestRunID);
-        //        var testCaseResultView = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>();
-        //        testCaseResultView = testCaseResult.MapTo<TestCaseResultDataModel, TestCasesInTestRunResultViewModel>(testCaseResultView);
-        //        listTestCases.Add(testCaseResultView);
-        //    }
-        //    return listTestCases;
-        //}
-
-        //private List<TestCasesInTestRunResultViewModel> GetAllTestCasesInTestRun(int testRunResultID)
-        //{
-        //    var listTestCases = new List<TestCasesInTestRunResultViewModel>();
-        //    var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID);
-        //    var testCasesInTestRunModel = testCasesInTestRunRepository.GetTestCasesInTestRun(testRunResult.TestRunID);
-        //    foreach (var testCaseInTestRun in testCasesInTestRunModel)
-        //    {
-        //        if (IsValidTestCaseInTestRun(testCaseInTestRun))
-        //        {
-        //            var testCaseInTestRunView = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>();
-        //            listTestCases.Add(testCaseInTestRunView);
-        //        }
-        //    }
-        //    return listTestCases;
-        //}
-
         public IList<TestCasesInTestRunResultViewModel> GetSelectedTestCases(int testRunId, List<int> selectedTestCases)
         {
             var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
