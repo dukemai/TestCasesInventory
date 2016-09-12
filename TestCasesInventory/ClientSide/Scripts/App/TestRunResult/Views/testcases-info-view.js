@@ -12,6 +12,7 @@
             self.testCasesResultTable = new TestCasesResultTable(self.model.TestCasesInTestRunResults);
 
             self.testCasesResultTable.render();
+            self.testerChartView.render();
         });
     }
 
