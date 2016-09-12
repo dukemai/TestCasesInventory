@@ -11,12 +11,16 @@
             if (tester) {
                 tester.TotalTestCases++;
             }
-            else
-            {
+            else {
                 tester = new TesterModel(testCase.RunBy);
                 self.testersData.push(tester);
             }
         });
+
+        //for Unassigned TestCases.
+        var UnAssigned = _.findWhere(self.testersData, { Name: null });
+        if (UnAssigned)
+            UnAssigned.Name = "UnAssigned";
     }
 
     return testerChartModel;
