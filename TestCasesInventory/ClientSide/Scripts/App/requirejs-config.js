@@ -16,6 +16,7 @@ requirejs.config({
         'handlebars': 'Lib/handlebars.min',
         'highCharts': 'Lib/highcharts',
         'templateHelper': 'App/template-helper',
+        'handlebarsHelper': 'App/handlebars-helper',
         'backbone': 'Lib/backbone-min',
         'underscore': 'Lib/underscore-min',        
         'bootstrap': 'Lib/bootstrap.min',
