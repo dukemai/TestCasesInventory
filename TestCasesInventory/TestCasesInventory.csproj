@@ -175,6 +175,7 @@
   <ItemGroup>
     <Content Include="ClientSide\Scripts\App\app.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testermodel.js" />
+    <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testcaseresult-detail-view.js" />
     <Content Include="ClientSide\Scripts\Lib\data.js" />
     <Content Include="ClientSide\Scripts\App\file-delete-confirmation.js" />
     <Content Include="ClientSide\Scripts\App\routes.js" />
@@ -245,6 +246,7 @@
     <Content Include="ClientSide\Scripts\Lib\underscore-min.js" />
     <Content Include="ClientSide\Templates\TestCasesInTestRun\testcasesintestrun-popup.html" />
     <Content Include="ClientSide\Templates\TestRunResult\options-run-popup.html" />
+    <Content Include="ClientSide\Templates\TestRunResult\TestCasesResult\testcase-result-detail.html" />
     <Content Include="ClientSide\Templates\TestRunResult\TestCasesResult\testcases-result-table.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrun-result-detail-info.html" />
     <Content Include="ClientSide\Templates\TestRunResult\testrunresult-popup.html" />
@@ -262,6 +264,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Areas\Admin\Views\TestRunResult\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultRunByHighChartPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\TestCaseResult\_TestCaseResultDetailPopUpPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -335,6 +338,8 @@
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultHighChartPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_FinishTestRunResultPopUpPartial.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
     <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />
     <Content Include="Web.config">
@@ -392,6 +397,7 @@
     <Content Include="Views\Shared\_DetailLayout.cshtml" />
     <Content Include="Views\Shared\_EditLayout.cshtml" />
     <Content Include="Views\Shared\_ListingLayout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

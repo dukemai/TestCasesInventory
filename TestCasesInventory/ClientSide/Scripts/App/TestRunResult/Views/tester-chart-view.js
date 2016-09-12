@@ -81,7 +81,6 @@
         testerChartView.prototype.render = function () {
             var self = this;
             self.model.statistic();
-            console.log(self.model.testersData);
             self.initChart();
         }
 

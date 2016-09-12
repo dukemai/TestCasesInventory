@@ -34,6 +34,8 @@
 </div>
 <br />
 
+@{  Html.RenderPartial("TestCaseResult/_TestCaseResultDetailPopUpPartial"); }
+
 <p>
     @Html.ActionLink("Back to List", "Details", "TestRun", new { id = Model.TestRunID }, "")
 </p>
