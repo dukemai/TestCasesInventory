@@ -7,11 +7,11 @@ using TestCasesInventory.Presenter.Models;
 
 namespace TestCasesInventory.Presenter.Business
 {
-    public interface ITestCaseResultPresenter : IPresenter<TestCaseResultPresenter>, IObservable<TestCaseResultDataModel>
+    public interface ITestCaseResultPresenter : IPresenter<TestCaseResultPresenter>
     {
         TestCaseResultViewModel GetTestCaseResult(int testCasesInTestRunID, int testRunResultID);
         TestCaseResultViewModel GetTestCaseResultById(int? testCaseResultID);      
-        void InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult);     
+        int InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult);     
         IPagedList<TestCaseResultViewModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions filterOptions);
 
         

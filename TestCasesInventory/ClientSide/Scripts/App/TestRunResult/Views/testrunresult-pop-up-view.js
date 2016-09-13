@@ -5,16 +5,22 @@
             this.model = new testRunResultModel(id);
             this.template = '';
             this.selected = selected;
+            this.testAll = false;
         }
 
-        function runTestCase(testCasesInTestRunID, testRunResultID, status, comment) {
+        function runTestCase(testRunResultView, testCasesInTestRunID, testRunResultID, status, comment) {
+            var self = testRunResultView;
             var testCaseResult = {
                 TestCasesInTestRunID: testCasesInTestRunID,
                 Status: status,
                 testRunResultID: testRunResultID,
                 Comment: comment
             };
-            return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }));
+            return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }, function (data) {
+                if(data.totalTested == self.model.TestCasesInTestRunResults.length){
+                    self.testAll = true;
+                }
+            }));
         }
 
         function finishTestRunResult(testRunResultID) {
@@ -60,7 +66,7 @@
                     myCarousel.carousel("next");
                 }
                 else {
-                    promise.resolve(runTestCase(testCasesInTestRunID, testRunResultID, newStatus, comment.val()))
+                    promise.resolve(runTestCase(self, testCasesInTestRunID, testRunResultID, newStatus, comment.val()))
                     .then(function () {
                         currentStatus.html(newStatus).prop('class', newStatus.toLowerCase());
                         comment.html(comment.val());
@@ -74,7 +80,7 @@
 
         function checkToFinish(activeItem, itemsNumber, testRunResultView) {
             var self = testRunResultView;
-            if (activeItem.index() + 1 == itemsNumber) {
+            if (activeItem.index() + 1 == itemsNumber && self.testAll == true) {
                 showFinishDialog(self);
             }
         }

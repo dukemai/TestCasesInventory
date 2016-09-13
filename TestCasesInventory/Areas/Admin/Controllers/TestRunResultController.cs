@@ -116,24 +116,6 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             return Json(listAllTestCases, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public ActionResult GetSelectedTestCases(int? id, List<int> selectedTestCases)
-        //{
-        //    try
-        //    {
-        //        if (!id.HasValue)
-        //        {
-        //            throw new Exception("Id was not valid.");
-        //        }
-        //        var listSelectedTestCases = TestRunResultPresenterObject.GetSelectedTestCases(id.Value, selectedTestCases);
-        //        return Json(listSelectedTestCases, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return View("ResultNotFoundError");
-        //    }
-
-        //}
 
         [HttpGet]
         public ActionResult GetTestRunResult(int? testRunId)

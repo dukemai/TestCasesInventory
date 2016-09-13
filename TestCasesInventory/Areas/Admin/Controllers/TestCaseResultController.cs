@@ -47,19 +47,13 @@ namespace TestCasesInventory.Areas.Admin.Controllers
 
         [HttpPost]
         public ActionResult CreateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
-        //object json () CreateTestCaseResultViewModel
-        {
-            //check testcaserusult object: ton tai => update status
-            // chua ton tai => create new
-            TestCaseResultPresenterObject.InsertOrUpdateTestCaseResult(testCaseResult);
-
-            return Json("Done");
-
-
+        {           
+            var totalTested = TestCaseResultPresenterObject.InsertOrUpdateTestCaseResult(testCaseResult);
+            return Json(new { success = true, totalTested = totalTested });
         }
 
 
-       [HttpGet]
+        [HttpGet]
        public ActionResult GetTestCaseResult(int testCasesInTestRun, int testRunResult)
         {
             var testCaseResult = TestCaseResultPresenterObject.GetTestCaseResult(testCasesInTestRun, testRunResult);

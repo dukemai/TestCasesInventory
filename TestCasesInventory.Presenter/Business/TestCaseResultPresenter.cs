@@ -50,10 +50,6 @@ namespace TestCasesInventory.Presenter.Business
             TestRunRepository = new TestRunRepository();
         }
 
-        //public void DeleteTestCaseResult(int testCaseResultID)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public TestCaseResultViewModel GetTestCaseResultById(int? testCaseResultID)
         {
@@ -106,7 +102,7 @@ namespace TestCasesInventory.Presenter.Business
             return mappedList;
         }
 
-        public void InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
+        public int InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
         {
             testCaseResult.RunBy = User.Identity.GetUserId();
             testCaseResult.Created = testCaseResult.LastModified = User.Identity.GetUserName();
@@ -139,33 +135,17 @@ namespace TestCasesInventory.Presenter.Business
                 TestCaseResultRepository.Save();
             }
 
-            //FeedObservers(testCaseResultDataModel);
+            var totalTested = TotalTestCasesBeTested(testCaseResult.TestRunResultID);
+            return totalTested;
         }
 
-        //public void UpdateTestCaseResult(int testCaseResultID, EditTestCaseResultViewModel testCaseResult)
-        //{
-        //    var testCaseResultDataModel = TestCaseResultRepository.GetTestCaseResultByID(testCaseResultID);
-        //    if (testCaseResultDataModel == null)
-        //    {
-        //        logger.Error("Test Case was not found.");
-        //        throw new TestCaseNotFoundException("Test Case was not found.");
-        //    }
-        //    else
-        //    {
-        //        testCaseResultDataModel = testCaseResult.MapTo<EditTestCaseResultViewModel, TestCaseResultDataModel>(testCaseResultDataModel);
-        //        TestCaseResultRepository.UpdateTestCaseResult(testCaseResultDataModel);
-        //        TestCaseResultRepository.Save();
-        //    }
-        //}
-
-        public IDisposable Subscribe(IObserver<TestCaseResultDataModel> observer)
+        private int TotalTestCasesBeTested(int testRunResultID)
         {
-            throw new NotImplementedException();
+            var totalFailed = TestCaseResultRepository.TotalFailedTestCaseResults(testRunResultID);
+            var totalPassed = TestCaseResultRepository.TotalPassedTestCaseResults(testRunResultID);
+            var totalTested = totalFailed + totalPassed;
+            return totalTested;
         }
-
-
-
-
 
         #endregion
     }
