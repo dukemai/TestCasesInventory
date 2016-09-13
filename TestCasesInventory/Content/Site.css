@@ -233,3 +233,6 @@ textarea {
 .testcases-result-table {
 margin-top: 20px;
 }
+#status-chart, #tester-chart {
+padding-right: 15px;
+}
