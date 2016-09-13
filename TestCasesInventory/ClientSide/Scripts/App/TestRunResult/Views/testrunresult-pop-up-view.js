@@ -5,7 +5,7 @@
             this.model = new testRunResultModel(id);
             this.template = '';
             this.selected = selected;
-            this.testAll = false;
+            this.testedAll = false;
         }
 
         function runTestCase(testRunResultView, testCasesInTestRunID, testRunResultID, status, comment) {
@@ -17,9 +17,7 @@
                 Comment: comment
             };
             return promise.resolve($.post(routes.createTestCaseResult, { testCaseResult: testCaseResult }, function (data) {
-                if(data.totalTested == self.model.TestCasesInTestRunResults.length){
-                    self.testAll = true;
-                }
+                self.testedAll = data.testedAll;
             }));
         }
 
@@ -80,7 +78,7 @@
 
         function checkToFinish(activeItem, itemsNumber, testRunResultView) {
             var self = testRunResultView;
-            if (activeItem.index() + 1 == itemsNumber && self.testAll == true) {
+            if (activeItem.index() + 1 == itemsNumber && self.testedAll == true) {
                 showFinishDialog(self);
             }
         }

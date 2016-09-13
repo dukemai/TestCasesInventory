@@ -11,7 +11,7 @@ namespace TestCasesInventory.Presenter.Business
     {
         TestCaseResultViewModel GetTestCaseResult(int testCasesInTestRunID, int testRunResultID);
         TestCaseResultViewModel GetTestCaseResultById(int? testCaseResultID);      
-        int InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult);     
+        bool InsertOrUpdateTestCaseResult(CreateTestCaseResultViewModel testCaseResult);     
         IPagedList<TestCaseResultViewModel> GetTestCasesForTestSuite(int testRunResultId, FilterOptions filterOptions);
 
         

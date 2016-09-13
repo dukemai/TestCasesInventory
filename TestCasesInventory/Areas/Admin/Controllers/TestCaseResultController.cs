@@ -48,8 +48,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult CreateTestCaseResult(CreateTestCaseResultViewModel testCaseResult)
         {           
-            var totalTested = TestCaseResultPresenterObject.InsertOrUpdateTestCaseResult(testCaseResult);
-            return Json(new { success = true, totalTested = totalTested });
+            var testedAll = TestCaseResultPresenterObject.InsertOrUpdateTestCaseResult(testCaseResult);
+            return Json(new { success = true, testedAll = testedAll });
         }
 
 
