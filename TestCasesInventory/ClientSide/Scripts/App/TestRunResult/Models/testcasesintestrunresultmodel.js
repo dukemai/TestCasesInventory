@@ -11,7 +11,7 @@
         this.PriorityStyleClass = priorityStyleClass;
         this.StatusStyleClass = statusStyleClass;
         this.RunBy = status == "Skipped" ? null : RunBy;
-        this.LastRunDate = this.RunBy == null ? "" : moment(new Date(parseInt(LastRunDate.substr(6)))).format('MM/DD/YYYY, h:mm:ss a');
+        this.LastRunDate = this.RunBy == null ? "" : moment(new Date(parseInt(LastRunDate.substr(6)))).format('MM/DD/YYYY h:mm:ss A');
         this.TestRunTitle = TestRunTitle;
     }
     return testCasesInTestRunResultModel;
