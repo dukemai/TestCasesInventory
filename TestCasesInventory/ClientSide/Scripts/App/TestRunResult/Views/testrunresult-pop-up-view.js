@@ -1,6 +1,6 @@
 ﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar', 'handlebars',
-    'App/TestRunResult/testrunresult-routes', 'App/TestRunResult/Common/options-run-common'],
-    function (testRunResultModel, templateHelper, promise, _, simplebar, handlebars, routes, common) {
+    'App/TestRunResult/testrunresult-routes'],
+    function (testRunResultModel, templateHelper, promise, _, simplebar, handlebars, routes) {
         function testRunResultView(id, selected) {
             this.model = new testRunResultModel(id);
             this.template = '';
@@ -115,7 +115,7 @@
             if (promisedResult) {
                 promisedResult.then(function () {
                     self.template = templateHelper.templates['testrunresult-popup'];
-                    self.model.loadTestCasesInTestRunResults().then(function () {
+                    self.model.loadTestCasesInTestRunResults(self.selected).then(function () {
                         $('#modalContent-run-testrun').append(self.template(self.model.TestCasesInTestRunResults));
                         $('#myCarousel').simplebar();
                         registerEvents(self);
