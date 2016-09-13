@@ -17,7 +17,7 @@
         }
         else
         {
-            return promise.resolve($.get(routes.GetTestCasesAssignedToMe + self.ID, function (data) {
+            return promise.resolve($.get(routes.getTestCasesAssignedToMe + self.ID, function (data) {
                 self.TestCasesInTestRunResults = _.map(data, function (testCaseData) {
                     return new testCasesInTestRunResultModel(testCaseData.ID, testCaseData.TestCaseTitle, testCaseData.TestCasePriority, testCaseData.TestCaseDescription, testCaseData.TestCasePrecondition, testCaseData.TestCaseExpect, testCaseData.Status, testCaseData.Comment, testCaseData.PriorityStyleClass, testCaseData.StatusStyleClass, testCaseData.RunBy, testCaseData.LastModifiedDate, testCaseData.TestRunTitle);
                 });

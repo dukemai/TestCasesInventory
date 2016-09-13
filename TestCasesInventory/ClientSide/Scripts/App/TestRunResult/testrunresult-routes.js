@@ -1,7 +1,7 @@
 ﻿define(['App/routes'], function (routes) {
     var testRunResultRoutes = {
         createTestRunResult: '/Admin/TestRunResulte/Create',
-        GetTestCasesAssignedToMe: '/Admin/TestRunResult/GetTestCasesAssignedToMe/',
+        getTestCasesAssignedToMe: '/Admin/TestRunResult/GetTestCasesAssignedToMe/',
         getTestCasesInTestRunResults: '/Admin/TestRunResult/GetAllTestCases/',
         createTestCaseResult: '/Admin/TestCaseResult/CreateTestCaseResult/',
         finishTestRunResult: '/Admin/TestRunResult/FinishTestRunResult/',
