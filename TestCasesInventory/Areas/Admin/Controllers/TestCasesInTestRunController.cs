@@ -138,7 +138,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             TestCasesInTestRunPresenterObject.RemoveTestCasesFromTestRun(testCases, testRunID);
             return Json("Done");
         }
-        public ActionResult RemoveASingleTestCaseFromTestRun(int? testCasesInTestRunID)
+        public ActionResult Delete(int? testCasesInTestRunID)
         {
             try
             {

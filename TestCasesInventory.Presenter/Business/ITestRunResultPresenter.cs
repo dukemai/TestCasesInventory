@@ -23,8 +23,8 @@ namespace TestCasesInventory.Presenter.Business
 
         #region Test Cases
 
-        IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunId);
-        IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunId, string userName);
+        IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunResultID);
+        IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunResultID, string userName);
         IList<TestCasesInTestRunResultViewModel> GetAllTestCases(int testRunId);
         IList<TestCasesInTestRunResultViewModel> GetSelectedTestCases(int testRunId, List<int> selectedTestCases);        
 

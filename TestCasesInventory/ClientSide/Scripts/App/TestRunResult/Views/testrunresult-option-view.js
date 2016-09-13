@@ -5,9 +5,9 @@
             this.template = '';
             this.selected = '';
 
-            $(document).on('loading.view', function () {
+            $(document).on('loading.test', function () {
                 $('.loader').show();
-            }).on('loadingCompleted.view', function () {
+            }).on('loadingCompleted.test', function () {
                 setTimeout(function () {
                     $('.loader').hide();
                     $(".btn-group-set-status").show();
@@ -22,11 +22,11 @@
                 optionView.selected = $("input[name=radio-box]:checked", radioGroup).val();
 
                 $('#modalContent-run-testrun').empty();
-                $(document).trigger('loading.view');
+                $(document).trigger('loading.test');
 
                 var testCaseView = new testCasesSlide(optionView.model.TestRunResult.ID, optionView.selected);
                 testCaseView.render();
-                $(document).trigger('loadingCompleted.view');
+                $(document).trigger('loadingCompleted.test');
             });
         }
         function unRegisterEvents() {
