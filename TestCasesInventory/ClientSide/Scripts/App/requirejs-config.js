@@ -18,13 +18,17 @@ requirejs.config({
         'templateHelper': 'App/template-helper',
         'handlebarsHelper': 'App/handlebars-helper',
         'backbone': 'Lib/backbone-min',
-        'underscore': 'Lib/underscore-min',        
+        'underscore': 'Lib/underscore-min',
+        'moment' : "Lib/moment.min",
         'bootstrap': 'Lib/bootstrap.min',
         'promise': 'Lib/bluebird.core.min',
         'simplebar': 'Lib/simplebar',
         'app': 'App/app'
     },
     'shim': {
+        moment: {
+            exports: 'moment'
+        },
         underscore: {
             exports: '_'
         },

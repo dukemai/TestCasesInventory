@@ -216,6 +216,7 @@
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
     <Content Include="ClientSide\Scripts\Lib\drilldown.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\moment.min.js" />
     <Content Include="ClientSide\Scripts\Lib\simplebar.js" />
     <Content Include="ClientSide\Scripts\Lib\highcharts.js" />
     <Content Include="ClientSide\Scripts\Lib\tinymce\jquery.tinymce.min.js" />
