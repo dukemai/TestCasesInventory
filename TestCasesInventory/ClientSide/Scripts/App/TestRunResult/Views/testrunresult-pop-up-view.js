@@ -1,9 +1,10 @@
 ﻿define(['App/TestRunResult/Models/testrunresultmodel', 'templateHelper', 'promise', 'underscore', 'simplebar', 'handlebars',
-    'App/TestRunResult/testrunresult-routes'],
-    function (testRunResultModel, templateHelper, promise, _, simplebar, handlebars, routes) {
-        function testRunResultView(id) {
+    'App/TestRunResult/testrunresult-routes', 'App/TestRunResult/Common/options-run-common'],
+    function (testRunResultModel, templateHelper, promise, _, simplebar, handlebars, routes, common) {
+        function testRunResultView(id, selected) {
             this.model = new testRunResultModel(id);
             this.template = '';
+            this.selected = selected;
         }
 
         function runTestCase(testCasesInTestRunID, testRunResultID, status, comment) {
