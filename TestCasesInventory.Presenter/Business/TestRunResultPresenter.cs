@@ -135,7 +135,7 @@ namespace TestCasesInventory.Presenter.Business
         #endregion
 
         #region Test Cases
-        public IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunID, string userName)
+        public IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToUser(int testRunResultID, string userName)
         {
             var user = UserManager.FindByEmail(userName);
             if (user == null)
@@ -144,22 +144,34 @@ namespace TestCasesInventory.Presenter.Business
                 throw new UserNotFoundException("User was not found.");
             }
 
-            var listTestCasesInTestRunResult = new List<TestCasesInTestRunResultViewModel>();
-            var listTestCasesInTestRunResultDataModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToUser(testRunID, user.Id);
-            foreach (var testCaseInTestRun in listTestCasesInTestRunResultDataModel)
+            var listTestCases = new List<TestCasesInTestRunResultViewModel>();
+            var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultID);
+            if (testRunResult == null)
             {
+                logger.Error("TestRun Result with id" + testRunResultID + "was not found.");
+            }
+
+            var testCasesInTestRunModel = testCasesInTestRunRepository.GetTestCasesInTestRunAssignedToUser(testRunResult.TestRunID, user.Id);
+            foreach (var testCaseInTestRun in testCasesInTestRunModel)
+            {
+                var testCaseResultModel = testCaseResultRepository.GetTestCaseResult(testCaseInTestRun.ID, testRunResultID);
                 if (IsValidTestCaseInTestRun(testCaseInTestRun))
                 {
                     var testCaseInTestRunView = testCaseInTestRun.MapTo<TestCasesInTestRunDataModel, TestCasesInTestRunResultViewModel>();
-                    listTestCasesInTestRunResult.Add(testCaseInTestRunView);
+                    if (testCaseResultModel != null)
+                    {
+                        testCaseInTestRunView = testCaseResultModel.MapTo<TestCaseResultDataModel, TestCasesInTestRunResultViewModel>(testCaseInTestRunView);
+                    }
+                    listTestCases.Add(testCaseInTestRunView);
                 }
             }
-            return listTestCasesInTestRunResult;
+            return listTestCases;
         }
-        public IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunId)
+        public IList<TestCasesInTestRunResultViewModel> GetTestCasesAssignedToMe(int testRunResultID)
         {
             var userName = UserManager.FindById(HttpContext.User.Identity.GetUserId()).Email;
-            return GetTestCasesAssignedToUser(testRunId, userName);
+            var listTestCasesAssignedToMe = GetTestCasesAssignedToUser(testRunResultID, userName);
+            return listTestCasesAssignedToMe;
         }
 
         public IList<TestCasesInTestRunResultViewModel> GetAllTestCases(int testRunResultID)
