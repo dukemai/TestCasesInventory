@@ -46,28 +46,28 @@ namespace TestCasesInventory.Data
             modelBuilder.Entity<TestCaseResultDataModel>()
                 .HasRequired(t => t.TestRunResult)
                 .WithMany(t => t.TestCaseResults)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
                 .HasRequired(t => t.ApplicationUser)
                 .WithMany(t => t.TestCaseResults)
                 .HasForeignKey(t => t.RunBy)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
                .HasRequired(t => t.TestCasesInTestRun)
                .WithMany(t => t.TestCaseResults)
-               .WillCascadeOnDelete(false);
+               .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCasesInTestRunDataModel>()
                .HasRequired(c => c.TestRun)
                .WithMany(t => t.TestCasesInTestRuns)
-               .WillCascadeOnDelete(false);
+               .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCasesInTestRunDataModel>()
                 .HasRequired(s => s.TestCase)
                 .WithMany(t => t.TestCasesInTestRuns)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCasesInTestRunDataModel>()
                 .HasRequired(u => u.ApplicationUser)
