@@ -20,7 +20,7 @@
                     text: 'Test Run Results By Tester Overview'
                 };
                 var subtitle = {
-                    text: self.model.TestRunTitle ,
+                    text: self.model.TestCasesData[0].TestRunTitle,
                 };
                 var credits = {
                     href: "#",
