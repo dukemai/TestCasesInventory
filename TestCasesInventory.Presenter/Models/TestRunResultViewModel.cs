@@ -48,6 +48,7 @@ namespace TestCasesInventory.Presenter.Models
     {
         public int ID { get; set; }
         public int TestRunID { get; set; }
+        public string TestRunTitle { get; set; }
     }
 
     public class CreateTestRunResultViewModel : ViewModelBase
