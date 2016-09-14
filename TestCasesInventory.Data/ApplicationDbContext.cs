@@ -46,7 +46,7 @@ namespace TestCasesInventory.Data
             modelBuilder.Entity<TestCaseResultDataModel>()
                 .HasRequired(t => t.TestRunResult)
                 .WithMany(t => t.TestCaseResults)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
                 .HasRequired(t => t.ApplicationUser)
@@ -79,7 +79,6 @@ namespace TestCasesInventory.Data
                .HasRequired(t => t.Team)
                .WithMany(t => t.TestRuns)
                .WillCascadeOnDelete(false);
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
         #endregion
 
