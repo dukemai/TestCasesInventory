@@ -5,6 +5,7 @@ namespace TestCasesInventory.Presenter.Models
 {
     public class TestRunResultViewModel : ViewModelBase
     {
+        public int Index { get; set; }
         public int ID { get; set; }
         [Required]
         public int TestRunID { get; set; }

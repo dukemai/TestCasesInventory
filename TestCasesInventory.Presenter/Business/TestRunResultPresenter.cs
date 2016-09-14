@@ -97,12 +97,28 @@ namespace TestCasesInventory.Presenter.Business
         {
             var listTestRunResutlDataModel = testRunResultRepository.ListAll(options, testRunID);
             var listTestRunResutlViewModel = new List<TestRunResultViewModel>();
-            
-            foreach(var testRunResultDataModel in listTestRunResutlDataModel)
+            var index = 0;
+            if (options.SortOptions.Direction == SortDirections.Asc)
             {
-                var testRunResultViewModel = testRunResultDataModel.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
-                listTestRunResutlViewModel.Add(testRunResultViewModel);
+                foreach (var testRunResultDataModel in listTestRunResutlDataModel)
+                {
+                    index++;
+                    var testRunResultViewModel = testRunResultDataModel.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
+                    testRunResultViewModel.Index = index;
+                    listTestRunResutlViewModel.Add(testRunResultViewModel);
+                }
             }
+            else
+            {
+                index = listTestRunResutlDataModel.Count();
+                foreach (var testRunResultDataModel in listTestRunResutlDataModel)
+                {
+                    var testRunResultViewModel = testRunResultDataModel.MapTo<TestRunResultDataModel, TestRunResultViewModel>();
+                    testRunResultViewModel.Index = index--;
+                    listTestRunResutlViewModel.Add(testRunResultViewModel);
+                }
+            }
+
             return listTestRunResutlViewModel;
         }
 

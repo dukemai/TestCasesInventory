@@ -13,7 +13,7 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            <h4>@Html.SortableLink(Request, "ID", "ID")</h4>
+            <h4>@Html.SortableLink(Request, "ID", "Index")</h4>
         </th>
         <th>
             <h4>@Html.SortableLink(Request, "Status", "Status")</h4>
@@ -48,7 +48,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
+                @Html.DisplayFor(modelItem => item.Index)
             </td>
             <td>
                 <span class="label label-@item.StatusStyleClass ">@Html.DisplayFor(modelItem => item.Status) </span>
