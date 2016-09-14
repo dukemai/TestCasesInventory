@@ -41,7 +41,7 @@ namespace TestCasesInventory.Data
             modelBuilder.Entity<TestRunResultDataModel>()
                 .HasRequired(t => t.TestRun)
                 .WithMany(t => t.TestRunResults)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TestCaseResultDataModel>()
                 .HasRequired(t => t.TestRunResult)

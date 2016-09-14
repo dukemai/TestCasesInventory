@@ -60,7 +60,7 @@
                 var currentStatus = $('#currentStatus-' + testCasesInTestRunID);
 
                 if (currentStatus.html() != "" && currentStatus.html() != "Skipped" && newStatus == "Skipped") {
-                    checkToFinish(activeItem, itemsNumber, self);
+                    checkToFinish(self);
                     myCarousel.carousel("next");
                 }
                 else {
@@ -68,19 +68,22 @@
                     .then(function () {
                         currentStatus.html(newStatus).prop('class', newStatus.toLowerCase());
                         comment.html(comment.val());
-                        checkToFinish(activeItem, itemsNumber, self);
-                        myCarousel.carousel("next");
+                        if (!checkToFinish(self)) {
+                            myCarousel.carousel("next");
+                        }
                     });
                 }
 
             });
         }
 
-        function checkToFinish(activeItem, itemsNumber, testRunResultView) {
+        function checkToFinish(testRunResultView) {
             var self = testRunResultView;
-            if (activeItem.index() + 1 == itemsNumber && self.testedAll == true) {
+            if (self.testedAll == true) {
                 showFinishDialog(self);
+                return true;
             }
+            return false;
         }
 
         function showFinishDialog(testRunResultView) {
