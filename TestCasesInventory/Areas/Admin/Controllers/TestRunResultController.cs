@@ -71,7 +71,8 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             var testRunResultDetail = new TestRunResultDetailViewModel
             {
                 ID = testRunResult.ID,
-                TestRunID = testRunResult.TestRunID
+                TestRunID = testRunResult.TestRunID,
+                TestRunTitle = testRunResult.TestRunTitle
             };
             return View(testRunResultDetail);
         }
