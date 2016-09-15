@@ -124,10 +124,17 @@ namespace TestCasesInventory.Presenter.Business
 
         public void FinishTestRunResult(int testRunResultId)
         {
+            var user = UserManager.FindById(HttpContext.User.Identity.GetUserId());
+            if (user == null)
+            {
+                logger.Error("User was not found.");
+            }
             var testRunResult = testRunResultRepository.GetTestRunResultByID(testRunResultId);
             if (IsValidTestRunResult(testRunResult))
             {
                 testRunResult.Status = TestRunResultStatus.Finished;
+                testRunResult.LastModifiedDate = DateTime.Now;
+                testRunResult.LastModified = user.Email;
                 testRunResultRepository.UpdateTestRunResult(testRunResult);
                 testRunResultRepository.Save();
             }
