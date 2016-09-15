@@ -15,8 +15,6 @@ namespace TestCasesInventory.Presenter.Models
         [TeamUniqueValidation]
         public string Name { get; set; }
         public int MembersNumber { get; set; }
-        public string CreatedUser { get; set; }
-        public string LastModifiedUser { get; set; }
     }
 
     public class CreateTeamViewModel : ViewModelBase
