@@ -309,8 +309,6 @@
     <Content Include="Areas\Admin\Views\Shared\_AdminListingLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ListUsersInRolePartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestSuite\_CreateTestSuiteByTesterPartial.cshtml" />
@@ -329,7 +327,6 @@
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByAdminPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRun\_EditTestRunByTesterPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_TabPartialView.cshtml" />
-    <Content Include="Areas\Admin\Views\TestRun\RunTestRunPartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestRunResult\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Delete.cshtml" />
