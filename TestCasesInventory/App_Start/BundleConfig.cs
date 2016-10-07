@@ -18,10 +18,11 @@ namespace TestCasesInventory
            "tinymce/tinymce.min.js".AppendJSLibFolder()));
             //Style
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                   "~/Content/bootstrap.css",
-                   "~/Content/site.css",
+                   "~/Content/bootstrap.min.css",
+                   "~/Content/AdminLTE.min.css",
+                   "~/Content/skin-blue.min.css",
+                   "~/Content/Plugins/iCheck/square/blue.css",
                    "~/Content/simplebar.css"));
-
         }
 
         private static void IncludeBaseScripts(BundleCollection bundles)
@@ -40,6 +41,12 @@ namespace TestCasesInventory
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                       "modernizr-*".AppendJSLibFolder()));
+
+            bundles.Add(new ScriptBundle("~/bundles/AdminLTE-theme").Include(
+                      "app.min.js".AppendJSLibFolder()));
+
+            bundles.Add(new ScriptBundle("~/bundles/icheck").Include(
+                     "icheck.min.js".AppendJSLibFolder()));
 
             bundles.Add(new ScriptBundle("~/bundles/underscore").Include(
          "underscore-min.js".AppendJSLibFolder()));
