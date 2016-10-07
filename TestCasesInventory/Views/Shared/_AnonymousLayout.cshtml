@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+@Html.Partial("require_file/_header")
+<body class="skin-blue layout-top-nav">
+    <div class="wrapper">
+        @Html.Partial("AnonymousContent/topnav")
+        <div class="content-wrapper">
+            <div class="container">
+                <section class="content">
+                    @RenderBody()
+                </section>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("require_file/js_bundles");
+   @Html.Partial("AnonymousContent/_Init-Icheck")
+</body>
+</html>

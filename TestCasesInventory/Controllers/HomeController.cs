@@ -24,13 +24,18 @@ namespace TestCasesInventory.Controllers
 
         public ActionResult Index(HomeMessageId? message)
         {
-            ViewBag.StatusMessage =
-            message == HomeMessageId.LoginSuccess ? "Congratulations! You has been loged in successful."
-            : message == HomeMessageId.LogoutSucess ? "Your accout has been loged off."
-            : message == HomeMessageId.ResigterSuccess ? "Congratulations! Register Successfully !You are logging in with email: " + User.Identity.Name
-            : "";
+            //ViewBag.StatusMessage =
+            //message == HomeMessageId.LoginSuccess ? "Congratulations! You has been loged in successful."
+            //: message == HomeMessageId.LogoutSucess ? "Your accout has been loged off."
+            //: message == HomeMessageId.ResigterSuccess ? "Congratulations! Register Successfully !You are logging in with email: " + User.Identity.Name
+            //: "";
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if(IsAuthenticated)
+            {
+                return View("Authenticated/Index");
+            }
 
-            return View();
+            return View("Anonymous/Index");
         }
 
         public ActionResult About()
