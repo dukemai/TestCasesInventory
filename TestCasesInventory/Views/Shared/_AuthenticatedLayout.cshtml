@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+@Html.Partial("require_file/_header")
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        <!--Top navbar-->
+        @Html.Partial("AuthenticatedContent/topnav")
+        @Html.Partial("AuthenticatedContent/main-sidebar")
+        <div class="content-wrapper">
+            <section class="content-header"></section>
+            <section class="content">@RenderBody()</section>
+        </div>
+        <footer class="main-footer"></footer>
+    </div>
+    @Html.Partial("require_file/js_bundles")
+</body>
+</html>

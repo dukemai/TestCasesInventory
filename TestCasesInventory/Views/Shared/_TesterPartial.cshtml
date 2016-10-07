@@ -1,10 +1,12 @@
-﻿<ul class="nav navbar-nav">
-    <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Tests <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
+﻿    <li class="treeview">
+        <a href="#">
+            <span>Tests</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
             <li>@Html.ActionLink("Manage Test Suites", "Index", "TestSuite", new { area = "Admin" }, null)</li>
             <li>@Html.ActionLink("Manage Test Runs", "Index", "TestRun", new { area = "Admin" }, null)</li>
         </ul>
     </li>
-    
-</ul>

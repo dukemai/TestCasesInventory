@@ -44,7 +44,7 @@ namespace TestCasesInventory.Controllers
                 }
                 else
                 {
-                    return PartialView("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
+                    return View("~/Views/Shared/_UnAuthenticatedPartial.cshtml");
                 }
             }
             catch (UserNotFoundException ex)
@@ -55,7 +55,6 @@ namespace TestCasesInventory.Controllers
             {
                 throw ex;
             }
-
         }
     }
 }

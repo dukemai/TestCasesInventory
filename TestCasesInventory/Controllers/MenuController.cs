@@ -27,7 +27,6 @@ namespace TestCasesInventory.Controllers
             {
                 return PartialView("~/Views/Shared/_TesterPartial.cshtml");
             }
-
             return PartialView("~/Views/Shared/_UnprivilegedPartial.cshtml");
         }
     }

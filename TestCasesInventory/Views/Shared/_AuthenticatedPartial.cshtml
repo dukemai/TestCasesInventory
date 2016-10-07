@@ -1,26 +1,43 @@
 ﻿@using TestCasesInventory.Config
 @model TestCasesInventory.Presenter.Models.LoginStatusViewModel
-@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
 {
     @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-
-        </li>
-        <li>
-            @Html.ActionLink("Hello " + Model.DisplayName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "display-name" })
-        </li>
-        @{
-            if (Model.IsProfilePictureExisted)
-            {
-                <li  style="height: 32px;    line-height: 32px; text-align:center; ">
-                    <a href="@Url.Action("Index", "Manage")" class="display-pic">
-                        <img class="image" src="@Url.Content(Model.ProfilePictureURL)" alt="IMAGES" align="middle" />
-                    </a>
-                </li>
-            }
-        }
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-            }
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    @{
+                        if (Model.IsProfilePictureExisted)
+                        {
+                            <img class="user-image" src="@Url.Content(Model.ProfilePictureURL)" alt="User Image" />
+                        }
+                    }
+                    <span class="hidden-xs"> @Model.DisplayName</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="user-header">
+                        @{
+                            if (Model.IsProfilePictureExisted)
+                            {
+                                <img class="img-circle" src="@Url.Content(Model.ProfilePictureURL)" alt="User Image" />
+                            }
+                        }
+                        <p>@Model.DisplayName
+                            <small>@Model.Role</small>
+                        </p>
+                      
+                    </li>
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-default btn-flat" })
+                        </div>
+                        <div class="pull-right">
+                            <a class="btn btn-default btn-flat" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+}

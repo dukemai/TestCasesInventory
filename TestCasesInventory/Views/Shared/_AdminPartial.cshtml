@@ -1,12 +1,13 @@
-﻿
-<ul class="nav navbar-nav">
-    @Html.Partial("_TesterPartial")
-
-    <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Admin <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
+﻿    @Html.Partial("_TesterPartial")
+    <li class="treeview">
+        <a href="#">
+            <span>Admin</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
             <li>@Html.ActionLink("Manager Teams", "Index", "Team", new { area = "Admin" }, null)</li>
             <li>@Html.ActionLink("Manage Roles", "Index", "Role", new { area = "Admin" }, null)</li>
         </ul>
     </li>
-</ul>

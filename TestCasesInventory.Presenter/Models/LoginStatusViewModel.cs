@@ -14,5 +14,6 @@ namespace TestCasesInventory.Presenter.Models
         public DateTime LastModifiedDate { get; set; }
         public string ProfilePictureURL { get; set; }
         public bool IsProfilePictureExisted { get; set; }
+        public string Role { get; set; }
     }
 }
