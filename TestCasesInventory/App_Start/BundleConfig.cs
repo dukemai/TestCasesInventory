@@ -19,6 +19,7 @@ namespace TestCasesInventory
             //Style
             bundles.Add(new StyleBundle("~/Content/css").Include(
                    "~/Content/bootstrap.min.css",
+                   "~/Content/font-awesome.min.css",
                    "~/Content/AdminLTE.min.css",
                    "~/Content/skin-blue.min.css",
                    "~/Content/Plugins/iCheck/square/blue.css",

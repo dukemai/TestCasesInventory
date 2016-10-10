@@ -262,6 +262,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Plugins\iCheck\all.css" />
     <Content Include="Content\Plugins\iCheck\flat\aero%402x.png" />
@@ -517,6 +518,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
     <Content Include="Views\Shared\require_file\js_bundles.cshtml" />
