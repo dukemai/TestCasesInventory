@@ -14,7 +14,7 @@ namespace TestCasesInventory.Data
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            //if(!Database.Exists())
+            if(!Database.Exists())
             Database.SetInitializer(new DataSeed());
         }
 
