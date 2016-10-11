@@ -23,7 +23,8 @@ namespace TestCasesInventory
                    "~/Content/AdminLTE.min.css",
                    "~/Content/skin-blue.min.css",
                    "~/Content/Plugins/iCheck/square/blue.css",
-                   "~/Content/simplebar.css"));
+                   "~/Content/simplebar.css",
+                   "~/Content/site.css"));
         }
 
         private static void IncludeBaseScripts(BundleCollection bundles)

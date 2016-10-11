@@ -2,7 +2,7 @@
     display: none;
 }
 
-.modal-lg {
+/*.modal-lg {
     width: 900px;
 }
 
@@ -32,7 +32,7 @@ th h4 {
 
 td {
     font-size: 14px;
-}
+}*/
 
 /*Color for Priority*/
 .highest {
@@ -55,7 +55,7 @@ td {
     background-color: #337ab7;
 }
 
-.table tr:first-child th {
+/*.table tr:first-child th {
     border-top: none;
 }
 
@@ -84,20 +84,20 @@ body {
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
+/*.body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
+}*/
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
+/*.dl-horizontal dt {
     white-space: normal;
-}
+}*/
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
@@ -134,11 +134,11 @@ textarea {
 
 .test-case-item .label-priority {
     margin-top: 3px;
-}
+}*/
 /*
     loading animation
 */
-.loader {
+/*.loader {
     height: 4px;
     width: 100%;
     position: absolute;
@@ -185,11 +185,11 @@ textarea {
     to {
         left: 100%;
     }
-}
+}*/
 /*
     TestRun Result
 */
-.show-message {
+/*.show-message {
     height: 40px;
     width: 200px;
     left: 45%;
@@ -216,11 +216,11 @@ textarea {
 
 .modal-body {
     overflow: hidden;
-}
+}*/
 
 .passed {
     color: #4caf50;
-}
+}*/
 
 .failed {
     color: #d9534f;
@@ -229,9 +229,9 @@ textarea {
 .skipped {
     color: #8a6d3b;
 }
-.testcases-result-table {
+/*.testcases-result-table {
 margin-top: 20px;
 }
 #status-chart, #tester-chart {
 padding-right: 15px;
-}
+}*/

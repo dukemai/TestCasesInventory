@@ -380,6 +380,7 @@
     <Content Include="Content\Plugins\iCheck\square\yellow.png" />
     <Content Include="Content\Plugins\iCheck\square\_all.css" />
     <Content Include="Content\simplebar.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\skin-blue.css" />
     <Content Include="Content\skin-blue.min.css" />
     <Content Include="favicon.ico" />
@@ -407,10 +408,10 @@
     <Content Include="Areas\Admin\Views\Role\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Role\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_RemoveUsersFromRolePartialView.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_AddUsersToRolePartialView.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\RemoveUsersFromTeam.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\AddUsersToTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Role\_RemoveUsersFromRolePartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Role\_AddUsersToRolePartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Team\RemoveUsersFromTeam.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Team\AddUsersToTeam.cshtml" />
     <Content Include="Areas\Admin\Views\Role\AssignUsersToRole.cshtml" />
     <Content Include="Areas\Admin\Views\TestSuite\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TestSuite\Create.cshtml" />
@@ -422,11 +423,11 @@
     <Content Include="Areas\Admin\Views\TestCase\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestCase\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\ListMembersInTeamPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Team\ListMembersInTeamPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminDetailLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminEditLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminListingLayout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_ListUsersInRolePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Role\_ListUsersInRolePartial.cshtml" />
     <Content Include="Areas\Admin\Views\TestCasesInTestRun\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TestRun\Delete.cshtml" />
@@ -457,8 +458,6 @@
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_RunTestRunPopUpPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_TestRunResultHighChartPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\TestRunResult\_FinishTestRunResultPopUpPartial.cshtml" />
-    <Content Include="Templates\handlebars_template_list_test_cases_popup.htm" />
-    <Content Include="Templates\handlebars_template_list_test_suite_popup.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -508,7 +507,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
     <Folder Include="Areas\Admin\Views\TestCaseResult\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Menu\" />
