@@ -208,7 +208,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.RoleId = id;
                 var Role = RolePresenter.GetRoleById(id);
                 var listUsersNotBelongRole = RolePresenter.ListUsersNotBelongRole(id, options);
-                return View("_AddUsersToRolePartialView", listUsersNotBelongRole);
+                return View("Role/_AddUsersToRolePartialView", listUsersNotBelongRole);
             }
             catch (RoleNotFoundException e)
             {
@@ -252,7 +252,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.RoleId = id;
                 var Role = RolePresenter.GetRoleById(id);
                 var listUsersBelongRole = RolePresenter.ListUsersBelongRole(id, options);
-                return View("_RemoveUsersFromRolePartialView", listUsersBelongRole);
+                return View("Role/_RemoveUsersFromRolePartialView", listUsersBelongRole);
             }
             catch (RoleNotFoundException e)
             {
@@ -294,7 +294,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
             {
                 var Role = RolePresenter.GetRoleById(RoleID);
                 var listUsersInRole = RolePresenter.ListUsersBelongRole(RoleID, options);
-                return PartialView("_ListUsersInRolePartial", listUsersInRole);
+                return PartialView("Role/_ListUsersInRolePartial", listUsersInRole);
             }
             catch (RoleNotFoundException e)
             {

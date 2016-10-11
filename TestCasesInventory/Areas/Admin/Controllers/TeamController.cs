@@ -221,7 +221,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.TeamID = id;
                 ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
 
-                return View("AddUsersToTeam", listUsersNotBelongTeam);
+                return View("Team/AddUsersToTeam", listUsersNotBelongTeam);
             }
             catch (TeamNotFoundException e)
             {
@@ -266,7 +266,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 ViewBag.TeamID = id;
                 ViewBag.CurrentTabIndex = tabOptions.CurrentTabIndex;
 
-                return View("RemoveUsersFromTeam", listUsersBelongTeam);
+                return View("Team/RemoveUsersFromTeam", listUsersBelongTeam);
             }
             catch (TeamNotFoundException e)
             {
@@ -306,7 +306,7 @@ namespace TestCasesInventory.Areas.Admin.Controllers
                 }
                 var team = TeamPresenterObject.GetTeamById(teamID.Value);
                 var listMembersInTeam = TeamPresenterObject.ListUsersBelongTeam(teamID.Value, options);
-                return PartialView("ListMembersInTeamPartial", listMembersInTeam);
+                return PartialView("Team/ListMembersInTeamPartial", listMembersInTeam);
             }
             catch (TeamNotFoundException e)
             {
