@@ -1,0 +1,26 @@
+﻿@model TestCasesInventory.Presenter.Models.IndexViewModel
+
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        @if (Model.IsProfilePictureExisted)
+        {
+            <img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.ProfilePictureURL)" alt="User profile picture" />
+        }
+        <h3 class="profile-username text-center">
+            @Html.DisplayFor(model => model.DisplayName)
+        </h3>
+        <p class="text-muted text-center">
+            @Html.DisplayFor(model => model.UserRoles)
+        </p>
+        @if (Model.IsProfilePictureExisted)
+        {
+            @Html.ActionLink("Change Profile Picture", "ChangeProfilePicture", new { }, new { @class = "btn btn-primary btn-block" })
+        }
+        else
+        {
+            @Html.ActionLink("Add Profile Picture", "ChangeProfilePicture", new { }, new { @class = "btn btn-primary btn-block" })
+        }
+        @Html.ActionLink(" Change your display name", "EditDisplayName", new { }, new { @class = "btn btn-primary btn-block" })
+        @Html.ActionLink("Change your password", "ChangePassword", new { }, new { @class = "btn btn-primary btn-block" })
+    </div>
+</div>

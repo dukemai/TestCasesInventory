@@ -531,6 +531,8 @@
     <Content Include="Views\Shared\AuthenticatedContent\topnav.cshtml" />
     <Content Include="Views\Shared\AuthenticatedContent\top-bar-user-area.cshtml" />
     <Content Include="Views\Shared\AuthenticatedContent\main-sidebar.cshtml" />
+    <Content Include="Views\Shared\Manager\_ProfileBox.cshtml" />
+    <Content Include="Views\Shared\Manager\_AboutMeBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
