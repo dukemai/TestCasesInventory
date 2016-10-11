@@ -8,78 +8,95 @@
     ViewBag.Title = "TestRun Result Home Page";
 }
 
-@*@Html.Action("FilterForTestRunResult", "Filter", new { area = "" })*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="pull-left">
+                    @*@Html.Action("FilterForTestRunResult", "Filter", new { area = "" })*@
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "ID", "Index")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Status", "Status")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Passed", "Passed Test Cases")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Failed", "Failed Test Cases")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Skipped", "Skipped Test Cases")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "CreatedBy", "Started By")</h4>
+                            </th>
+                            @*<th>
+                                    <h4>@Html.SortableLink(Request, "LastModifiedBy", "Last Modified By")</h4>
+                                </th>*@
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Created", "Started Date")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "LastModified", "Finished Date")</h4>
+                            </th>
+                            <th>
+                                <h4>Actions</h4>
+                            </th>
+                        </tr>
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            <h4>@Html.SortableLink(Request, "ID", "Index")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "Status", "Status")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "Passed", "Passed Test Cases")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "Failed", "Failed Test Cases")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "Skipped", "Skipped Test Cases")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "CreatedBy", "Started By")</h4>
-        </th>
-        @*<th>
-            <h4>@Html.SortableLink(Request, "LastModifiedBy", "Last Modified By")</h4>
-        </th>*@
-        <th>
-            <h4>@Html.SortableLink(Request, "Created", "Started Date")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "LastModified", "Finished Date")</h4>
-        </th>
-        <th>
-            <h4>Actions</h4>
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Index)
-            </td>
-            <td>
-                <span class="label label-@item.StatusStyleClass ">@Html.DisplayFor(modelItem => item.Status) </span>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfPassedTestCases)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfFailedTestCases)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfSkippedTestCases)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDisplayOnly)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.LastModifiedDisplayOnly)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedDate)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new{id = item.ID @*, sortBy = "", searchByTitle = ""*@ })
-            </td>
-        </tr>
-    }
-
-</table>
-@*@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))*@
-
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Index)
+                                </td>
+                                <td>
+                                    <span class="label label-@item.StatusStyleClass ">@Html.DisplayFor(modelItem => item.Status) </span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumberOfPassedTestCases)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumberOfFailedTestCases)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumberOfSkippedTestCases)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDisplayOnly)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.LastModifiedDisplayOnly)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastModifiedDate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", new
+                               {
+                                   id = item.ID @*, sortBy = "", searchByTitle = ""*@ })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer clearfix">
+                <div class="pull-right">
+                    @*@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

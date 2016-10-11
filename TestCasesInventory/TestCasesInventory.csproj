@@ -505,7 +505,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
-    <Folder Include="Areas\Admin\Views\TestCaseResult\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Menu\" />

@@ -8,72 +8,83 @@
     ViewBag.Title = "TestCases in the TestRun Home Page";
 }
 
-@Html.Action("FilterForTestCaseInTestRun", "Filter", new { area = "" })
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="pull-left">
+                    @Html.Action("FilterForTestCaseInTestRun", "Filter", new { area = "" })
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
+                            </th>
+                            <th>
+                                <h4>@Html.SortableLink(Request, "Priority", "Priority")</h4>
+                            </th>
+                            <th>
+                                <h4>TestSuite</h4>
+                            </th>
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            <h4>@Html.SortableLink(Request, "Title", "Title")</h4>
-        </th>
-        <th>
-            <h4>@Html.SortableLink(Request, "Priority", "Priority")</h4>
-        </th>
-        <th>
-            <h4>TestSuite</h4>
-        </th>
+                            <th>
+                                <h4>Assigned To</h4>
+                            </th>
+                            <th>
+                                <h4>Assigned By</h4>
+                            </th>
+                            <th>
+                                <h4>Actions</h4>
+                            </th>
+                            <th>
+                                <h4>Assign</h4>
+                            </th>
+                        </tr>
 
-        <th>
-            <h4>Assigned To</h4>
-        </th>
-        <th>
-            <h4>Assigned By</h4>
-        </th>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestCaseTitle)
+                                </td>
 
-        @*<th>
-                <h4>@Html.SortableLink(Request, "AssignedBy", "Assigned By")</h4>
-            </th>
-            <th>
-                <h4>@Html.SortableLink(Request, "AssignedTo", "Assigned To")</h4>
-            </th>*@
-        <th>
-            <h4>Actions</h4>
-        </th>
-        <th>
-            <h4>Assign</h4>
-        </th>
-    </tr>
+                                <td>
+                                    <span class="label @item.PriorityStyleClass">@Html.DisplayFor(modelItem => item.TestCasePriority)</span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestSuiteTitle)
+                                </td>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestCaseTitle)
-            </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedTo)
+                                </td>
 
-            <td>
-                <span class="label @item.PriorityStyleClass">@Html.DisplayFor(modelItem => item.TestCasePriority)</span>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestSuiteTitle)
-            </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedBy)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", "TestCase", new { id = item.TestCaseID }, new { @class = "link-detail" }) |
+                                    <a href="#" class="delete-testcase" data-target="#basic" data-toggle="modal" data-testcase-id="@item.ID"> Delete</a>
+                                </td>
+                                <td>
+                                    <a href="#" data-id="@item.ID" class="modal-link-assign-to-me btn btn-default">Assign To Me</a>
+                                    <a href="#" data-id="@item.ID" class="modal-link-assign-to-user btn btn-default">Assign To User</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer clearfix">
+                <div class="pull-right">
+                    @Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedBy)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "TestCase", new { id = item.TestCaseID }, new { @class = "link-detail" }) |
-                <a href="#" class="delete-testcase" data-target="#basic" data-toggle="modal" data-testcase-id="@item.ID"> Delete</a>
-            </td>
-            <td>
-                <a href="#" data-id="@item.ID" class="modal-link-assign-to-me btn btn-default">Assign To Me</a>
-                <a href="#" data-id="@item.ID" class="modal-link-assign-to-user btn btn-default">Assign To User</a>
-            </td>
-        </tr>
-    }
-</table>
-@Html.PagedListPager(Model, page => Request.AddQueryString(new KeyValuePair<string, string>("p", page.ToString())))
-@{  Html.RenderPartial("TestCaseInTestRun/_DeleteConfirmationPartial"); }
+@*@{  Html.RenderPartial("TestCaseInTestRun/_DeleteConfirmationPartial"); }*@
