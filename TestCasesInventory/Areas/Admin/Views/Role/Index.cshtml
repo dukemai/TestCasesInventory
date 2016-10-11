@@ -7,39 +7,48 @@
 
 <h3>Roles</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
-</p>
-<table class="table table-bordered">
-    <tr>
-        <th>
-            <h4>Name</h4>
-        </th>
-        <th>
-            <h4>Number of accounts</h4>
-        </th>
-        <th>
-            <h4>Actions</h4>
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.numberOfAccount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  |
-                @Html.ActionLink("Add Users", "AssignUsersToRole", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
-
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="pull-left">
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <h4>Name</h4>
+                            </th>
+                            <th>
+                                <h4>Number of accounts</h4>
+                            </th>
+                            <th>
+                                <h4>Actions</h4>
+                            </th>
+                        </tr>
+                      @foreach (var item in Model)
+                      {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.numberOfAccount)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  |
+                                @Html.ActionLink("Add Users", "AssignUsersToRole", new { id = item.Id })
+                            </td>
+                        </tr>
+                      }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
