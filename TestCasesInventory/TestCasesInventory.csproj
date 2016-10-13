@@ -518,15 +518,15 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
-    <Content Include="Views\Shared\require_file\js_bundles.cshtml" />
-    <Content Include="Views\Shared\require_file\_header.cshtml" />
+    <Content Include="Views\Shared\require_file\_JsBundle.cshtml" />
+    <Content Include="Views\Shared\require_file\_Header.cshtml" />
     <Content Include="Views\Home\Anonymous\Index.cshtml" />
-    <Content Include="Views\Shared\AnonymousContent\topnav.cshtml" />
+    <Content Include="Views\Shared\AnonymousContent\_TopNav.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedLayout.cshtml" />
     <Content Include="Views\Shared\AnonymousContent\_Init-Icheck.cshtml" />
-    <Content Include="Views\Shared\AuthenticatedContent\topnav.cshtml" />
-    <Content Include="Views\Shared\AuthenticatedContent\top-bar-user-area.cshtml" />
-    <Content Include="Views\Shared\AuthenticatedContent\main-sidebar.cshtml" />
+    <Content Include="Views\Shared\AuthenticatedContent\_TopNav.cshtml" />
+    <Content Include="Views\Shared\AuthenticatedContent\_TopBarUserArea.cshtml" />
+    <Content Include="Views\Shared\AuthenticatedContent\_MainSidebar.cshtml" />
     <Content Include="Views\Shared\Manager\_ProfileBox.cshtml" />
     <Content Include="Views\Shared\Manager\_AboutMeBox.cshtml" />
   </ItemGroup>

@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
-@Html.Partial("require_file/_header")
+@Html.Partial("require_file/_Header")
 <body class="skin-blue sidebar-mini">
     <div class="wrapper">
         <!--Top navbar-->
-        @Html.Partial("AuthenticatedContent/topnav")
-        @Html.Partial("AuthenticatedContent/main-sidebar")
+        @Html.Partial("AuthenticatedContent/_TopNav")
+        @Html.Partial("AuthenticatedContent/_MainSidebar")
         <div class="content-wrapper">
             <section class="content-header"></section>
             <section class="content">@RenderBody()</section>
         </div>
         <footer class="main-footer"></footer>
     </div>
-    @Html.Partial("require_file/js_bundles")
+    @Html.Partial("require_file/_JsBundle")
 </body>
 </html>
