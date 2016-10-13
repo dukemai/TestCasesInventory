@@ -1,0 +1,41 @@
+﻿@using TestCasesInventory.Presenter.Models
+@model TestRunResultDetailViewModel
+@{
+    Layout = "~/Areas/Tests/Views/Shared/_TestsDetailLayout.cshtml";
+}
+<h3> Details </h3>
+<h4> @Model.TestRunTitle Result</h4>
+<hr />
+<div id="test-run-result-detail" test-run-result-id=@Model.ID>
+   
+    <div class="row">
+        <div class="col-md-6">
+            <div id="detail-info">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div id="status-chart">
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div id="tester-chart">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="testcases-result-table" id="testcases-result-table">
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+@{  Html.RenderPartial("TestCaseResult/_TestCaseResultDetailPopUpPartial"); }
+
+<p>
+    @Html.ActionLink("Back to List", "Details", "TestRun", new { id = Model.TestRunID }, "")
+</p>

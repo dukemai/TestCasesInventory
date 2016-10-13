@@ -1,0 +1,126 @@
+﻿@using TestCasesInventory.Presenter.Models
+@using TestCasesInventory.Common
+@model TestCaseViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Tests/Views/Shared/_TestsDetailLayout.cshtml";
+}
+<h3>Details</h3>
+
+<div>
+    <h4>TestCase</h4>
+    <hr />
+    <div class="bg-gray information-test-case-area">
+        <dl class="dl-horizontal">
+            <dt>
+                Title
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Priority
+            </dt>
+            <dd>
+                <span class="label @Model.PriorityStyleClass">@Html.DisplayFor(model => model.Priority)</span>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Description
+            </dt>
+            <dd>
+                @Html.Raw(@Model.Description)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                TestSuite
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestSuiteTitle)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Precondition
+            </dt>
+            <dd>
+                @Html.Raw(@Model.Precondition)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Expect
+            </dt>
+            <dd>
+                @Html.Raw(@Model.Expect)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Attachment
+            </dt>
+                @if (Model.HasAttachment)
+                {
+                    foreach (var file in Model.AttachmentUrlList)
+                    {
+                         <dd>
+                            <a href="@Url.Content(file)" download> [@file.GetFileNameFromRelativeUrl()] </a>
+                        </dd> 
+                    }
+                }
+                else
+                {
+                    <dd>
+                        There is no attachment
+                    </dd>
+                }
+
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Created by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified by
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModified)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Created
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                LastModified
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastModifiedDate)
+            </dd>
+        </dl>
+    </div>
+</div>
+<br>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Details", "TestSuite", new { id = Model.TestSuiteID }, "")
+</p>
