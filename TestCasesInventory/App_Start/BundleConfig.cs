@@ -50,6 +50,9 @@ namespace TestCasesInventory
             bundles.Add(new ScriptBundle("~/bundles/icheck").Include(
                      "icheck.min.js".AppendJSLibFolder()));
 
+            bundles.Add(new ScriptBundle("~/bundles/init-icheck").Include(
+        "init-icheck.js".AppendJSLibFolder()));
+
             bundles.Add(new ScriptBundle("~/bundles/underscore").Include(
          "underscore-min.js".AppendJSLibFolder()));
 

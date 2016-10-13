@@ -219,6 +219,7 @@
     <Content Include="ClientSide\Scripts\Lib\drilldown.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\icheck.min.js" />
+    <Content Include="ClientSide\Scripts\Lib\init-icheck.js" />
     <Content Include="ClientSide\Scripts\Lib\moment.min.js" />
     <Content Include="ClientSide\Scripts\Lib\simplebar.js" />
     <Content Include="ClientSide\Scripts\Lib\highcharts.js" />
@@ -523,7 +524,6 @@
     <Content Include="Views\Home\Anonymous\Index.cshtml" />
     <Content Include="Views\Shared\AnonymousContent\_TopNav.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedLayout.cshtml" />
-    <Content Include="Views\Shared\AnonymousContent\_Init-Icheck.cshtml" />
     <Content Include="Views\Shared\AuthenticatedContent\_TopNav.cshtml" />
     <Content Include="Views\Shared\AuthenticatedContent\_TopBarUserArea.cshtml" />
     <Content Include="Views\Shared\AuthenticatedContent\_MainSidebar.cshtml" />
