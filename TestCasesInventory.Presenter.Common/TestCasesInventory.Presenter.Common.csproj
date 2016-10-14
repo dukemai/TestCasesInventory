@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapperExtensions.cs" />
+    <Compile Include="StringRemove.cs" />
     <Compile Include="ValidationMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -56,6 +57,10 @@
     <ProjectReference Include="..\TestCasesInventory.Common\TestCasesInventory.Common.csproj">
       <Project>{12fced86-0b66-4ca5-ac88-bb71b0eba666}</Project>
       <Name>TestCasesInventory.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestCasesInventory.Presenter.Config\TestCasesInventory.Presenter.Config.csproj">
+      <Project>{62e0b8e6-ecd1-4696-9254-c4ceae8bab9b}</Project>
+      <Name>TestCasesInventory.Presenter.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -128,57 +128,6 @@ namespace TestCasesInventory.Controllers
             return base.View();
         }
 
-        // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
-        {
-            return base.View();
-        }
-
-        // POST: /Manage/ChangePassword
-        [HttpPost]
-        [ValidateInput(false)]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                var userId = User.Identity.GetUserId();
-                var result = await UserPresenter.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
-                UserPresenter.UpdateLastModifiedDateInDB(userId, DateTime.Now);
-                if (result.Succeeded)
-                {
-                    var user = await UserPresenter.FindByIdAsync(userId);
-                    if (user != null)
-                    {
-                        await UserPresenter.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    }
-
-                    return RedirectToAction("Index", new { Message = ActionConfirmMessages.ChangePasswordSuccess });
-                }
-
-
-                AddErrors(result);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return View("UserNotFoundError");
-            }
-
-            catch (Exception ex)
-            {
-                return View("Error");
-
-            }
-
-            return View(model);
-        }
-
         [HttpGet]
         public ActionResult ChangeProfilePicture()
         {

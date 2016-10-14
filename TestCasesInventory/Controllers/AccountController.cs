@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System;
+using System.Web.Security;
 using TestCasesInventory.Presenter.Business;
 using TestCasesInventory.Presenter.Models;
 using TestCasesInventory.Presenter.Synchroniser;
@@ -71,6 +72,8 @@ namespace TestCasesInventory.Controllers
                 return View(model);
             }
 
+            var IsValid  = Membership.ValidateUser(model.userName, model.Password);
+            UserPresenter.CheckAndRegister(IsValid, model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await UserPresenter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -87,45 +90,6 @@ namespace TestCasesInventory.Controllers
                     return RedirectToAction("Index", "Home");
             }
         }
-
-        //
-        // GET: /Account/Register
-        //[AllowAnonymous]
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
-
-        //
-        // POST: /Account/Register
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        model.LastModifiedDate = DateTime.Now;
-        //        var result = await UserPresenter.CreateAsync(model);
-        //        if (result.Succeeded)
-        //        {
-        //            await UserPresenter.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-        //            // Send an email with this link
-        //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-        //            return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.ResigterSuccess });
-        //        }
-        //        AddErrors(result);
-        //    }
-
-            // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-
 
         private void AddErrors(IdentityResult result)
         {

@@ -53,8 +53,16 @@ namespace TestCasesInventory.Presenter.Models
     {
         [Required]
         [Display(Name = "Email")]
-        //[EmailAddress]
+        [EmailAddress]
         public string Email { get; set; }
+
+        public string userName
+        {
+            get
+            {
+                return StringRemove.getName(Email);
+            }
+        }
 
         [Required]
         [DataType(DataType.Password)]

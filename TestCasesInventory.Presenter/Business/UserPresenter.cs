@@ -50,7 +50,7 @@ namespace TestCasesInventory.Presenter.Business
             User = HttpContext.User;
             RoleManager = HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
             TeamRepository = new TeamRepository();
-            observers = new List<IObserver<ApplicationUser>>();            
+            observers = new List<IObserver<ApplicationUser>>();
         }
 
         public UserViewModel Register(RegisterViewModel model)
@@ -142,17 +142,17 @@ namespace TestCasesInventory.Presenter.Business
                 throw new UserNotFoundException();
             }
             string teamName = null;
-            if(currentUser.TeamID != null)
+            if (currentUser.TeamID != null)
             {
                 var team = TeamRepository.GetTeamByID(currentUser.TeamID.Value);
-                if(team == null)
+                if (team == null)
                 {
                     logger.Error("User was not found");
                     throw new TeamNotFoundException("Team was not found");
                 }
                 teamName = TeamRepository.GetTeamByID(currentUser.TeamID.Value).Name;
             }
-            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName,TeamName = teamName,TeamID = currentUser.TeamID, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
+            IndexViewModel model = new IndexViewModel { Email = currentUser.Email, DisplayName = currentUser.DisplayName, TeamName = teamName, TeamID = currentUser.TeamID, HasPassword = HasPassword(), UserRoles = String.Join(", ", UserManager.GetRoles(UserId)), LastModifiedDate = currentUser.LastModifiedDate };
             return model;
         }
 
@@ -177,6 +177,12 @@ namespace TestCasesInventory.Presenter.Business
             }
             var viewModel = new IndexViewModel { Email = currentUser.Email.Trim(), LastModifiedDate = currentUser.LastModifiedDate };
             return viewModel;
+        }
+
+        public bool IsAccountExist(string email)
+        {
+            var IsExist = UserManager.Users.Any(user => user.Email == email);
+            return IsExist;
         }
 
         public void UpdateDisplayNameInDB(string UserId, string NewDisplayName)
@@ -224,7 +230,7 @@ namespace TestCasesInventory.Presenter.Business
 
         public string[] GetRolesForUser(string userID)
         {
-            var rolesList = UserManager.GetRoles(userID) ;
+            var rolesList = UserManager.GetRoles(userID);
             var roles = rolesList.ToArray();
             return roles;
         }
@@ -233,7 +239,7 @@ namespace TestCasesInventory.Presenter.Business
         {
             if (!observers.Contains(observer))
             {
-                observers.Add(observer);                             
+                observers.Add(observer);
             }
             return new Unsubscriber<ApplicationUser>(observers, observer);
         }
@@ -242,6 +248,19 @@ namespace TestCasesInventory.Presenter.Business
         {
             foreach (var observer in observers)
                 observer.OnNext(user);
+        }
+
+        public void CheckAndRegister(bool IsUserValid, LoginViewModel model)
+        {
+            if (IsUserValid)
+            {
+                var Registed = IsAccountExist(model.Email);
+                if (!Registed)
+                {
+                    var RegisterModel = new RegisterViewModel { Email = model.Email, Password = model.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
+                    CreateAsync(RegisterModel);
+                }
+            }
         }
 
         #endregion

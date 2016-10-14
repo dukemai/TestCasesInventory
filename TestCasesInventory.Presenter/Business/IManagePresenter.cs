@@ -12,6 +12,7 @@ namespace TestCasesInventory.Presenter.Business
 {
     public interface IManagePresenter
     {
+        bool IsAccountExist(string email);
         bool HasPassword();
         Task<string> GetPhoneNumberAsync(string userId);
         Task<bool> GetTwoFactorEnabledAsync(string userId);
@@ -19,6 +20,7 @@ namespace TestCasesInventory.Presenter.Business
         Task<bool> TwoFactorBrowserRememberedAsync(string userId);
         //Return a model
         IndexViewModel FindUserByID(string UserId);
+        void CheckAndRegister(bool IsUserValid, LoginViewModel model);
         //UpdateRolesViewModel FindUserById(string UserId);
         //List<SelectListItem> AddRoleToList();
         //bool IsRoleExist(string role);
