@@ -250,7 +250,7 @@ namespace TestCasesInventory.Presenter.Business
                 observer.OnNext(user);
         }
 
-        public void CheckAndRegister(bool IsUserValid, LoginViewModel model)
+        public async Task CheckAndRegister(bool IsUserValid, LoginViewModel model)
         {
             if (IsUserValid)
             {
@@ -258,7 +258,7 @@ namespace TestCasesInventory.Presenter.Business
                 if (!Registed)
                 {
                     var RegisterModel = new RegisterViewModel { Email = model.Email, Password = model.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
-                    CreateAsync(RegisterModel);
+                    await CreateAsync(RegisterModel);
                 }
             }
         }

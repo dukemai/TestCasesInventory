@@ -73,7 +73,7 @@ namespace TestCasesInventory.Controllers
             }
 
             var IsValid  = Membership.ValidateUser(model.userName, model.Password);
-            UserPresenter.CheckAndRegister(IsValid, model);
+            await UserPresenter.CheckAndRegister(IsValid, model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await UserPresenter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
