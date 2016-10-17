@@ -16,6 +16,6 @@ namespace TestCasesInventory.Data.Common
         public const bool LockoutEnabled = true;
         public const int AccessFailedCount = 0;
         public const bool TwoFactorEnabled = false;
-        public const string Password = "Niteco@2016";
+        public const string Password = DefaultPassword.Password;
     }
 }

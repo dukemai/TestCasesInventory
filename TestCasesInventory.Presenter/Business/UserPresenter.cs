@@ -257,7 +257,7 @@ namespace TestCasesInventory.Presenter.Business
                 var Registed = IsAccountExist(model.Email);
                 if (!Registed)
                 {
-                    var RegisterModel = new RegisterViewModel { Email = model.Email, Password = model.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
+                    var RegisterModel = new RegisterViewModel { Email = model.Email, Password = DefaultPassword.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
                     await CreateAsync(RegisterModel);
                 }
             }

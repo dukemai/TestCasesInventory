@@ -76,19 +76,31 @@ namespace TestCasesInventory.Controllers
             await UserPresenter.CheckAndRegister(IsValid, model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await UserPresenter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            switch (result)
+            if(IsValid)
             {
-                case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LoginSuccess });
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    return RedirectToAction("Index", "Home");
+                var result = await UserPresenter.PasswordSignInAsync(model.Email, TestCasesInventory.Data.Common.DefaultPassword.Password, model.RememberMe, false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LoginSuccess });
+                    case SignInStatus.Failure:
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
             }
+            else if(model.Email == TestCasesInventory.Data.Common.FirstAdminUserDefault.Email)
+            {
+                var result = await UserPresenter.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LoginSuccess });
+                    case SignInStatus.Failure:
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         private void AddErrors(IdentityResult result)
