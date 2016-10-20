@@ -60,7 +60,7 @@ namespace TestCasesInventory.Presenter.Models
         {
             get
             {
-                return StringRemove.getName(Email);
+                return StringRemove.GetNameFromEmail(Email);
             }
         }
 

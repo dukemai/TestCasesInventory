@@ -4,7 +4,7 @@ namespace TestCasesInventory.Presenter.Common
 {
     public class StringRemove
     {
-        public static string getName(string Email)
+        public static string GetNameFromEmail(string Email)
         {
             string name = Email.Replace(EmailExtension.NitecoMail, "");
             return name;
