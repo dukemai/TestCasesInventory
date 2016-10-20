@@ -20,7 +20,8 @@ namespace TestCasesInventory.Presenter.Business
         Task<bool> TwoFactorBrowserRememberedAsync(string userId);
         //Return a model
         IndexViewModel FindUserByID(string UserId);
-        Task CheckAndRegister(bool IsUserValid, LoginViewModel model);
+        Task<Data.DataModels.ApplicationUser> GetUser(LoginViewModel model);
+
         //UpdateRolesViewModel FindUserById(string UserId);
         //List<SelectListItem> AddRoleToList();
         //bool IsRoleExist(string role);

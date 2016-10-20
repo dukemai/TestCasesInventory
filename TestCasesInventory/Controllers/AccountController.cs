@@ -73,20 +73,13 @@ namespace TestCasesInventory.Controllers
             }
 
             var IsValid  = Membership.ValidateUser(model.userName, model.Password);
-            await UserPresenter.CheckAndRegister(IsValid, model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             if(IsValid)
             {
-                var result = await UserPresenter.PasswordSignInAsync(model.Email, TestCasesInventory.Data.Common.DefaultPassword.Password, model.RememberMe, false);
-                switch (result)
-                {
-                    case SignInStatus.Success:
-                        return RedirectToAction("Index", "Home", new { Message = HomeController.HomeMessageId.LoginSuccess });
-                    case SignInStatus.Failure:
-                    default:
-                        return RedirectToAction("Index", "Home");
-                }
+                var User = await UserPresenter.GetUser(model);
+                await UserPresenter.SignInAsync(User,  false,  false);
+                return RedirectToAction("Index", "Home");
             }
             else if(model.Email == TestCasesInventory.Data.Common.FirstAdminUserDefault.Email)
             {

@@ -250,21 +250,17 @@ namespace TestCasesInventory.Presenter.Business
                 observer.OnNext(user);
         }
 
-        public async Task CheckAndRegister(bool IsUserValid, LoginViewModel model)
+        public async Task<ApplicationUser> GetUser(LoginViewModel model)
         {
-            if (IsUserValid)
+            var Registed = IsAccountExist(model.Email);
+            if (!Registed)
             {
-                var Registed = IsAccountExist(model.Email);
-                if (!Registed)
-                {
-                    var RegisterModel = new RegisterViewModel { Email = model.Email, Password = DefaultPassword.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
-                    await CreateAsync(RegisterModel);
-                }
+                var RegisterModel = new RegisterViewModel { Email = model.Email, Password = DefaultPassword.Password, DisplayName = model.userName, ConfirmPassword = model.Password, LastModifiedDate = DateTime.Now };
+                await CreateAsync(RegisterModel);
             }
+                return UserManager.FindByEmail(model.Email);
         }
-
         #endregion
-
     }
 
 }
