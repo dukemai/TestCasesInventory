@@ -6,7 +6,7 @@ namespace TestCasesInventory.Presenter.Common
     {
         public static string GetNameFromEmail(string Email)
         {
-            string name = Email.Replace(EmailExtension.NitecoMail, "");
+            string name = Email.Replace(EmailConstant.NitecoMail, "");
             return name;
         }
     }
