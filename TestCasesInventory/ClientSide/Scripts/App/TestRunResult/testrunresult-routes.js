@@ -1,12 +1,12 @@
 ﻿define(['App/routes'], function (routes) {
     var testRunResultRoutes = {
-        createTestRunResult: '/Admin/TestRunResulte/Create',
-        getTestCasesAssignedToMe: '/Admin/TestRunResult/GetTestCasesAssignedToMe/',
-        getTestCasesInTestRunResults: '/Admin/TestRunResult/GetAllTestCases/',
-        createTestCaseResult: '/Admin/TestCaseResult/CreateTestCaseResult/',
-        finishTestRunResult: '/Admin/TestRunResult/FinishTestRunResult/',
-        getTestRunResult: '/Admin/TestRunResult/GetTestRunResult',
-        getTestRunDetailData: '/Admin/TestRunResult/TestRunResultData/'
+        createTestRunResult: '/Tests/TestRunResulte/Create',
+        getTestCasesAssignedToMe: '/Tests/TestRunResult/GetTestCasesAssignedToMe/',
+        getTestCasesInTestRunResults: '/Tests/TestRunResult/GetAllTestCases/',
+        createTestCaseResult: '/Tests/TestCaseResult/CreateTestCaseResult/',
+        finishTestRunResult: '/Tests/TestRunResult/FinishTestRunResult/',
+        getTestRunResult: '/Tests/TestRunResult/GetTestRunResult',
+        getTestRunDetailData: '/Tests/TestRunResult/TestRunResultData/'
     };
 
     _.extend(testRunResultRoutes, routes);

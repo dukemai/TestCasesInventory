@@ -1,8 +1,8 @@
 ﻿define(['App/routes'], function (routes) {
     var testCasesInTestRunRoutes = {
-        getUser: '/Admin/TestCasesInTestRun/GetUsersPopUp/',
-        assignTestCaseToUser: '/Admin/TestCasesInTestRun/AssignTestCaseToUser/',
-        assignTestCaseToMe: '/Admin/TestCasesInTestRun/AssignToMe/'
+        getUser: '/Tests/TestCasesInTestRun/GetUsersPopUp/',
+        assignTestCaseToUser: '/Tests/TestCasesInTestRun/AssignTestCaseToUser/',
+        assignTestCaseToMe: '/Tests/TestCasesInTestRun/AssignToMe/'
     };
 
     _.extend(testCasesInTestRunRoutes, routes);
