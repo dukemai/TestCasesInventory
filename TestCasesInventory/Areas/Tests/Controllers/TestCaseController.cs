@@ -94,8 +94,7 @@ namespace TestCasesInventory.Areas.Tests.Controllers
                 }
                 var testCase = TestCasePresenterObject.GetTestCaseById(id.Value);
                 testCase.AttachmentUrlList = TestCasePresenterObject.GetTestCaseAttachments(id.Value);
-
-                return View("Details", testCase);
+                return Json(testCase, JsonRequestBehavior.AllowGet);
             }
             catch (TestCaseNotFoundException e)
             {

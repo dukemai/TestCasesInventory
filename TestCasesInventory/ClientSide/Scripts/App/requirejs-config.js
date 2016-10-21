@@ -13,13 +13,15 @@ requirejs.config({
         'assignTestCaseToUser': 'App/TestRun/assign-testcase-to-user',
         'runTestRun': 'App/TestRunResult/run-testrun',
         'testRunResultDetail': 'App/TestRunResult/testrun-result-detail',
+        'testCaseDetail': 'App/TestCases/view-detail',
         'handlebars': 'Lib/handlebars.min',
         'highCharts': 'Lib/highcharts',
         'templateHelper': 'App/template-helper',
         'handlebarsHelper': 'App/handlebars-helper',
         'backbone': 'Lib/backbone-min',
         'underscore': 'Lib/underscore-min',
-        'moment' : "Lib/moment.min",
+        'moment': "Lib/moment.min",
+        'flight': 'Lib/flight.min',
         'bootstrap': 'Lib/bootstrap.min',
         'promise': 'Lib/bluebird.core.min',
         'simplebar': 'Lib/simplebar',
@@ -28,6 +30,9 @@ requirejs.config({
     'shim': {
         moment: {
             exports: 'moment'
+        },
+        flight: {
+            exports: 'flight'
         },
         underscore: {
             exports: '_'

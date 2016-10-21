@@ -5,4 +5,5 @@
     app.initAssignTestCaseToUser();
     app.initRunTestRun();
     app.initTestRunResultDetail();
+    app.initShowTestCaseDetail();
 });

@@ -65,7 +65,7 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                    <a href="#" test-case-id="@item.ID" class="testcases-detail btn btn-default">Detail</a> |
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                 </td>
                             </tr>

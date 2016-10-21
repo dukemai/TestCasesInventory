@@ -176,6 +176,9 @@
   <ItemGroup>
     <Content Include="ClientSide\Scripts\App\app.js" />
     <Content Include="ClientSide\Scripts\App\handlebars-helper.js" />
+    <Content Include="ClientSide\Scripts\App\TestCases\test-cases-routes.js" />
+    <Content Include="ClientSide\Scripts\App\TestCases\view-detail.js" />
+    <Content Include="ClientSide\Scripts\App\TestCases\Views\testcases-detail-view.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Common\options-run-common.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Models\testermodel.js" />
     <Content Include="ClientSide\Scripts\App\TestRunResult\Views\testcaseresult-detail-view.js" />
@@ -218,6 +221,7 @@
     <Content Include="ClientSide\Scripts\App\tinymce-init.js" />
     <Content Include="ClientSide\Scripts\Lib\bluebird.core.min.js" />
     <Content Include="ClientSide\Scripts\Lib\drilldown.js" />
+    <Content Include="ClientSide\Scripts\Lib\flight.min.js" />
     <Content Include="ClientSide\Scripts\Lib\handlebars.min.js" />
     <Content Include="ClientSide\Scripts\Lib\icheck.min.js" />
     <Content Include="ClientSide\Scripts\Lib\init-icheck.js" />
@@ -507,6 +511,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Errors\" />
     <Folder Include="Areas\Tests\Models\" />
+    <Folder Include="ClientSide\Scripts\App\TestCases\Models\" />
     <Folder Include="Views\Errors\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\Menu\" />
@@ -523,6 +528,7 @@
     <Content Include="Areas\Tests\Views\Shared\_TestsLayout.cshtml" />
     <Content Include="Areas\Tests\Views\Shared\_TestsEditLayout.cshtml" />
     <Content Include="Areas\Tests\Views\Shared\_TestsDetailLayout.cshtml" />
+    <Content Include="Areas\Tests\Views\Shared\TestCase\_TestCaseDetailPopUpPartial.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
     <Content Include="Views\Shared\require_file\_JsBundle.cshtml" />
